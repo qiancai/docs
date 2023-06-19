@@ -3,7 +3,7 @@ title: Placement Rules in SQL
 summary: Learn how to schedule placement of tables and partitions using SQL statements.
 ---
 
-# Placement Rules in SQL
+# Placement Rules in SQL 
 
 Placement Rules in SQL is a feature that enables you to specify where data is stored in a TiKV cluster using SQL interfaces. Using this feature, tables and partitions are scheduled to specific regions, data centers, racks, or hosts. This is useful for scenarios including optimizing a high availability strategy with lower cost, ensuring that local replicas of data are available for local stale reads, and adhering to data locality requirements.
 
