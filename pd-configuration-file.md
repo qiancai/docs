@@ -487,7 +487,7 @@ The following are the configuration items about the [Request Unit (RU)](/tidb-re
 #### `read-base-cost`
 
 + Basis factor for conversion from a read request to RU
-+ Default value: 0.25
++ Default value: 0.125
 
 #### `write-base-cost`
 
@@ -500,11 +500,19 @@ The following are the configuration items about the [Request Unit (RU)](/tidb-re
 + Default value: 1/(64 * 1024)
 + 1 RU = 64 KiB read bytes
 
+#### `read-per-batch-base-cost`
+
++ Default value: 0.5
+
 #### `write-cost-per-byte`
 
 + Basis factor for conversion from write flow to RU
 + Default value: 1/1024
 + 1 RU = 1 KiB write bytes
+
+#### `write-per-batch-base-cost`
+
++ Default value: 1
 
 #### `read-cpu-ms-cost`
 
