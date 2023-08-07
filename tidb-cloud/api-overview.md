@@ -1,5 +1,5 @@
 ---
-title: TiDB Cloud API Overview
+title: TiDB Cloud API Overview 
 summary: Learn about what is TiDB Cloud API, its features, and how to use API to manage your TiDB Cloud clusters.
 ---
 
