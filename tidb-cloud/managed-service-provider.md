@@ -9,7 +9,9 @@ A managed service provider (MSP) is a partner who resells TiDB Cloud and provide
 
 ## Become an MSP of PingCAP
 
-If you are interested in the MSP program and would like to join as a partner, [contact sales](https://www.pingcap.com/partners/become-a-partner/) to enroll. We will carefully evaluate your request and get back to you soon.
+If you are interested in the MSP program and would like to join as a partner, [contact sales](https://www.pingcap.com/partners/become-a-partner/) to enroll. We will carefully evaluate your request and get back to you soon. 
+
+erererv
 
 ## Manage daily tasks for MSP customers
 
