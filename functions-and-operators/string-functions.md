@@ -218,10 +218,10 @@ SELECT CHAR_LENGTH("TiDB") AS LengthOfString;
 ```
 
 ```sql
-SELECT CustomerName, CHAR_LENGTH(CustomerName) AS LengthOfName FROM Customers;
+SELECT CustomerName, CHAR_LENGTH(CustomerName) AS LenghtOfName FROM Customers;
 
 +--------------------+--------------+
-| CustomerName       | LengthOfName |
+| CustomerName       | LenghtOfName |
 +--------------------+--------------+
 | Albert Einstein    |           15 |
 | Robert Oppenheimer |           18 |
