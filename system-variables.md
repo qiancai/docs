@@ -1149,7 +1149,7 @@ MPP is a distributed computing framework provided by the TiFlash engine, which a
 - Scope: SESSION | GLOBAL
 - Persists to cluster: Yes
 - Applies to hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): No
-- Default value: "json,blob,mediumblob,longblob"
+- Default value: "json,blob,mediumblob,longblob,mediumtext,longtext". Before v8.2.0, the default value is "json,blob,mediumblob,longblob".
 - Possible values: "json,blob,mediumblob,longblob,text,mediumtext,longtext"
 - This variable controls which types of columns are skipped for statistics collection when executing the `ANALYZE` command to collect statistics. The variable is only applicable for `tidb_analyze_version = 2`. Even if you specify a column using `ANALYZE TABLE t COLUMNS c1, ... , cn`, no statistics will be collected for the specified column if its type is in `tidb_analyze_skip_column_types`.
 
@@ -2178,8 +2178,8 @@ mysql> SELECT job_info FROM mysql.analyze_jobs ORDER BY end_time DESC LIMIT 1;
 - Persists to cluster: Yes
 - Applies to hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): No
 - Type: Boolean
-- Default value: `ON`
-- This variable controls whether to enable historical statistics. The default value changes from `OFF` to `ON`, which means that historical statistics are enabled by default.
+- Default value: `OFF`. Before v8.2.0, the default value is `ON`.
+- This variable controls whether to enable historical statistics. The default value is `OFF`, which means that historical statistics are disabled by default.
 
 ### tidb_enable_historical_stats_for_capture
 
@@ -2396,16 +2396,12 @@ mysql> SELECT job_info FROM mysql.analyze_jobs ORDER BY end_time DESC LIMIT 1;
 
 ### tidb_enable_parallel_hashagg_spill <span class="version-mark">New in v8.0.0</span>
 
-> **Warning:**
->
-> Currently, the feature controlled by this variable is experimental. It is not recommended that you use it in production environments. If you find a bug, you can report an [issue](https://github.com/pingcap/tidb/issues) on GitHub.
-
 - Scope: SESSION | GLOBAL
 - Persists to cluster: Yes
 - Applies to hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): No
 - Type: Boolean
 - Default value: `ON`
-- This variable controls whether TiDB supports disk spill for the parallel HashAgg algorithm. When it is `ON`, disk spill can be triggered for the parallel HashAgg algorithm. This variable will be deprecated after this feature is generally available in a future release.
+- This variable controls whether TiDB supports disk spill for the parallel HashAgg algorithm. When it is `ON`, the HashAgg operator can automatically trigger data spill based on memory usage under any parallel conditions, thus balancing performance and data throughput. It is not recommended to set this variable to `OFF`. Starting from v8.2.0, setting it to `OFF` will report an error. This variable will be deprecated in a future release.
 
 ### tidb_enable_pipelined_window_function
 
@@ -2852,6 +2848,7 @@ This variable is used to set the concurrency of the following SQL operators (to 
 - `hash aggregation` (the `partial` and `final` phases)
 - `window`
 - `projection`
+- `sort`
 
 `tidb_executor_concurrency` incorporates the following existing system variables as a whole for easier management:
 
@@ -4933,7 +4930,7 @@ SHOW WARNINGS;
 - This variable controls whether to hide the user information in the SQL statement being recorded into the TiDB log and slow log.
 - The default value is `OFF`, which means that the user information is not processed in any way.
 - When you set the variable to `ON`, the user information is hidden. For example, if the executed SQL statement is `INSERT INTO t VALUES (1,2)`, the statement is recorded as `INSERT INTO t VALUES (?,?)` in the log.
-- When you set the variable to `MARKER`, the user information is wrapped in `‹ ›`. For example, if the executed SQL statement is `INSERT INTO t VALUES (1,2)`, the statement is recorded as `INSERT INTO t VALUES (‹1›,‹2›)` in the log. If the input has `‹`, it is escaped as `‹‹`, and `›` is escaped as `››`. Based on the marked logs, you can decide whether to desensitize the marked information when the logs are displayed.
+- When you set the variable to `MARKER`, the user information is wrapped in `‹ ›`. For example, if the executed SQL statement is `INSERT INTO t VALUES (1,2)`, the statement is recorded as `INSERT INTO t VALUES (‹1›,‹2›)` in the log. If user data contains `‹` or `›`, `‹` is escaped as `‹‹`, and `›` is escaped as `››`. Based on the marked logs, you can decide whether to desensitize the marked information when the logs are displayed.
 
 ### tidb_regard_null_as_point <span class="version-mark">New in v5.4.0</span>
 

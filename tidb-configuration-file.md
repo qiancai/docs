@@ -41,8 +41,7 @@ The TiDB configuration file supports more options than command-line parameters. 
 + Type: Integer
 + Default value: `1000`
 + Minimum value: `1`
-+ Maximum Value (64-bit platforms): `18446744073709551615`
-+ Maximum Value (32-bit platforms): `4294967295`
++ Maximum value: `1048576`
 
 ### `temp-dir` <span class="version-mark">New in v6.3.0</span>
 
@@ -592,8 +591,8 @@ Configuration items related to performance.
 ### `stats-load-concurrency` <span class="version-mark">New in v5.4.0</span>
 
 + The maximum number of columns that the TiDB synchronously loading statistics feature can process concurrently.
-+ Default value: `5`
-+ Currently, the valid value range is `[1, 128]`.
++ Default value: `0`. Before v8.2.0, the default value is `5`.
++ Currently, the valid value range is `[0, 128]`. The value `0` means the automatic mode, which automatically adjusts concurrency based on the configuration of the server. Before v8.2.0, the minimum value is `1`.
 
 ### `stats-load-queue-size` <span class="version-mark">New in v5.4.0</span>
 
