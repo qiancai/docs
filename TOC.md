@@ -1073,9 +1073,12 @@
   - [Release Timeline](/releases/release-timeline.md)
   - [TiDB Versioning](/releases/versioning.md)
   - [TiDB Installation Packages](/binary-package.md)
+  - v8.3
+    - [8.3.0-DMR](/releases/release-8.3.0.md)
   - v8.2
     - [8.2.0-DMR](/releases/release-8.2.0.md)
   - v8.1
+    - [8.1.1](/releases/release-8.1.1.md)
     - [8.1.0](/releases/release-8.1.0.md)
   - v8.0
     - [8.0.0-DMR](/releases/release-8.0.0.md)
