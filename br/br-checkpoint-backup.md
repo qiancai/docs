@@ -1,6 +1,10 @@
 ---
 title: Checkpoint Backup
 summary: TiDB v6.5.0 introduces checkpoint backup feature to continue interrupted backups, reducing the need to start from scratch. It records backed up shards to resume backup progress, but relies on GC mechanism and may require some data to be backed up again. The `br` tool periodically updates `gc-safepoint` to avoid data being garbage collected, and can extend retention period if needed.
+<<<<<<< HEAD
+=======
+aliases: ["/tidb/dev/br-checkpoint"]
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # Checkpoint Backup
@@ -34,7 +38,7 @@ To avoid this situation, `br` keeps the `gc-safepoint` for about one hour by def
 The following example sets `gcttl` to 15 hours (54000 seconds) to extend the retention period of `gc-safepoint`:
 
 ```shell
-br backup full \
+tiup br backup full \
 --storage local:///br_data/ --pd "${PD_IP}:2379" \
 --gcttl 54000
 ```

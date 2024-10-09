@@ -14,7 +14,11 @@ tiup dm upgrade <cluster-name> <version> [flags]
 ```
 
 - `<cluster-name>` is the name of the cluster to be operated on. If you forget the cluster name, you can check it using the [`tiup dm list`](/tiup/tiup-component-dm-list.md) command.
+<<<<<<< HEAD
 - `<version>` is the target version to be upgraded to, such as `v7.5.3`. Currently, only upgrading to a later version is allowed, and upgrading to an earlier version is not allowed, which means the downgrade is not allowed. Upgrading to a nightly version is not allowed either.
+=======
+- `<version>` is the target version to be upgraded to, such as `v8.3.0`. Currently, only upgrading to a later version is allowed, and upgrading to an earlier version is not allowed, which means the downgrade is not allowed. Upgrading to a nightly version is not allowed either.
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ## Options
 

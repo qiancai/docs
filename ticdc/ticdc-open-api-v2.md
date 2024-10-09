@@ -92,7 +92,11 @@ curl -X GET http://127.0.0.1:8300/api/v2/status
 
 ```json
 {
+<<<<<<< HEAD
   "version": "v7.5.3",
+=======
+  "version": "v8.3.0",
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
   "git_hash": "10413bded1bdb2850aa6d7b94eb375102e9c44dc",
   "id": "d2912e63-3349-447c-90ba-72a4e04b5e9e",
   "pid": 1447,
@@ -158,15 +162,6 @@ This interface is used to submit a replication task to TiCDC. If the request is 
     "enable_old_value": true,
     "enable_sync_point": true,
     "filter": {
-      "do_dbs": [
-        "string"
-      ],
-      "do_tables": [
-        {
-          "database_name": "string",
-          "table_name": "string"
-        }
-      ],
       "event_filters": [
         {
           "ignore_delete_value_expr": "string",
@@ -182,15 +177,6 @@ This interface is used to submit a replication task to TiCDC. If the request is 
           "matcher": [
             "string"
           ]
-        }
-      ],
-      "ignore_dbs": [
-        "string"
-      ],
-      "ignore_tables": [
-        {
-          "database_name": "string",
-          "table_name": "string"
         }
       ],
       "ignore_txn_start_ts": [
@@ -263,6 +249,7 @@ The meaning and format of `changefeed_id`, `start_ts`, `target_ts`, and `sink_ur
 
 The descriptions of the `replica_config` parameters are as follows.
 
+<<<<<<< HEAD
 | Parameter name | Description |
 | :------------------------ | :----------------------------------------------------- |
 | `bdr_mode`                | `BOOLEAN` type. Determines whether to enable [bidirectional replication](/ticdc/ticdc-bidirectional-replication.md). The default value is `false`. (Optional)               |
@@ -277,6 +264,22 @@ The descriptions of the `replica_config` parameters are as follows.
 | `mounter`                 | The  configuration parameters of `mounter`. (Optional)               |
 | `sink`                    | The configuration parameters of `sink`. (Optional)                         |
 | `sync_point_interval`     | `STRING` type. Note that the returned value is a time in nanosecond of the `UINT64` type. When the `sync point` feature is enabled, this parameter specifies the interval at which Syncpoint aligns the upstream and downstream snapshots. The default value is `10m` and the minimum value is `30s`. (Optional) |
+=======
+| Parameter name | Description                                                                                                                                                                                                                                                                                                                     |
+| :------------------------ |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `bdr_mode`                | `BOOLEAN` type. Determines whether to enable [bidirectional replication](/ticdc/ticdc-bidirectional-replication.md). The default value is `false`. (Optional)                                                                                                                                                                   |
+| `case_sensitive`          | `BOOLEAN` type. Determines whether to be case-sensitive when filtering table names. Starting from v6.5.6, v7.1.3, and v7.5.0, the default value changes from `true` to `false`. (Optional)                                                                                                                                       |
+| `check_gc_safe_point`     | `BOOLEAN` type. Determines whether to check that the start time of the replication task is earlier than the GC time. The default value is `true`. (Optional)                                                                                                                                                                    |
+| `consistent`              | The configuration parameters of redo log. (Optional)                                                                                                                                                                                                                                                                            |
+| `enable_sync_point`       | `BOOLEAN` type. Determines whether to enable `sync point`. (Optional)                                                                                                                                                                                                                                                           |
+| `filter`                  | The configuration parameters of `filter`. (Optional)                                                                                                                                                                                                                                                                            |
+| `force_replicate`         | `BOOLEAN` type. The default value is `false`. When you set it to `true`, the replication task forcibly replicates the tables without unique indexes. (Optional)                                                                                                                                                                 |
+| `ignore_ineligible_table` | `BOOLEAN` type. The default value is `false`. When you set it to `true`, the replication task ignores the tables that cannot be replicated. (Optional)                                                                                                                                                                          |
+| `memory_quota`            | `UINT64` type. The memory quota for the replication task. (Optional)                                                                                                                                                                                                                                                            |
+| `mounter`                 | The  configuration parameters of `mounter`. (Optional)                                                                                                                                                                                                                                                                          |
+| `sink`                    | The configuration parameters of `sink`. (Optional)                                                                                                                                                                                                                                                                              |
+| `sync_point_interval`     | `STRING` type. Note that the returned value is a time in nanosecond of the `UINT64` type. When the `sync point` feature is enabled, this parameter specifies the interval at which Syncpoint aligns the upstream and downstream snapshots. The default value is `10m` and the minimum value is `30s`. (Optional)                |
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 | `sync_point_retention`    | `STRING` type. Note that the returned value is a time in nanosecond of the `UINT64` type. When the `sync point` feature is enabled, this parameter specifies how long the data is retained by Syncpoint in the downstream table. When this duration is exceeded, the data is cleaned up. The default value is `24h`. (Optional) |
 
 The `consistent` parameters are described as follows:
@@ -291,16 +294,16 @@ The `consistent` parameters are described as follows:
 | `encoding_worker_num` | `INT` type. The number of encoding and decoding workers in the redo module. (Optional)             |
 | `flush_worker_num`    | `INT` type. The number of flushing workers in the redo module. (Optional)             |
 | `compression`         | `STRING` type. The behavior to compress redo log files. Available options are `""` and `"lz4"`. The default value is `""`, which means no compression. (Optional) |
+<<<<<<< HEAD
 | `flush_concurrency`   | `INT` type. The concurrency for uploading a single file. The default value is `1`, which means concurrency is disabled. (Optional)    
+=======
+| `flush_concurrency`   | `INT` type. The concurrency for uploading a single file. The default value is `1`, which means concurrency is disabled. (Optional)                                     |
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 The `filter` parameters are described as follows:
 
 | Parameter name | Description |
 |:-----------------|:---------------------------------------|
-| `do_dbs`              | `STRING ARRAY` type. The databases to be replicated. (Optional)                                       |
-| `do_tables`           | The tables to be replicated. (Optional)                                                     |
-| `ignore_dbs`          | `STRING ARRAY` type. The databases to be ignored. (Optional)            |
-| `ignore_tables`       | The tables to be ignored. (Optional)        |
 | `event_filters`       | The configuration to filter events. (Optional)  |
 | `ignore_txn_start_ts` | `UINT64 ARRAY` type. Specifying this will ignore transactions that specify `start_ts`, such as `[1, 2]`. (Optional)   |
 | `rules`               | `STRING ARRAY` type. The rules for table schema filtering, such as `['foo*.*', 'bar*.*']`. For more information, see [Table Filter](/table-filter.md). (Optional)  |
@@ -332,13 +335,22 @@ The `sink` parameters are described as follows:
 | `date_separator`        | `STRING` type. Indicates the date separator type of the file directory. Value options are `none`, `year`, `month`, and `day`. `none` is the default value and means that the date is not separated. (Optional) |
 | `dispatchers`           | An configuration array for event dispatching. (Optional)                                                                                                                                                       |
 | `encoder_concurrency`   | `INT` type. The number of encoder threads in the MQ sink. The default value is `16`. (Optional)                                                                                                                |
+<<<<<<< HEAD
 | `protocol`              | `STRING` type. For MQ sinks, you can specify the protocol format of the message. The following protocols are currently supported: `canal-json`, `open-protocol`, and `avro`.               |
+=======
+| `protocol`              | `STRING` type. For MQ sinks, you can specify the protocol format of the message. The following protocols are currently supported: `canal-json`, `open-protocol`, `avro`, `debezium`, and `simple`.               |
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 | `schema_registry`       | `STRING` type. The schema registry address. (Optional)                                                                                                                                                         |
 | `terminator`            | `STRING` type. The terminator is used to separate two data change events. The default value is null, which means `"\r\n"` is used as the terminator. (Optional)                                                |
 | `transaction_atomicity` | `STRING` type. The atomicity level of the transaction. (Optional)                                                                                                                                              |
 | `only_output_updated_columns` | `BOOLEAN` type. For MQ sinks using the `canal-json` or `open-protocol` protocol, you can specify whether only output the modified columns. The default value is `false`. (Optional) |
 | `cloud_storage_config` | The storage sink configuration. (Optional) |
+<<<<<<< HEAD
 | `open`                        | The Open Protocol configuration. (Optional, introduced in v7.5.2)                                                                             |
+=======
+| `open`                        | The Open Protocol configuration. (Optional)                                                                             |
+| `debezium`                    | The Debezium Protocol configuration. (Optional)                                                                             |
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 `sink.column_selectors` is an array. The parameters are described as follows:
 
@@ -390,6 +402,15 @@ The `sink.csv` parameters are described as follows:
 |:-------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `output_old_value` | `BOOLEAN` type. It controls whether to output the value before the row data changes. The default value is `true`. When it is disabled, the UPDATE event does not output the "p" field. |
 
+<<<<<<< HEAD
+=======
+`sink.debezium` parameters are described as follows:
+
+| Parameter name     | Description                                                                                                                                                                   |
+|:-------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `output_old_value` | `BOOLEAN` type. It controls whether to output the value before the row data changes. The default value is true. When it is disabled, the UPDATE event does not output the "before" field. |
+
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ### Example
 
 The following request creates a replication task with an ID of `test5` and `sink_uri` of `blackhome://`.
@@ -420,15 +441,6 @@ If the request is successful, `200 OK` is returned. If the request fails, an err
     "enable_old_value": true,
     "enable_sync_point": true,
     "filter": {
-      "do_dbs": [
-        "string"
-      ],
-      "do_tables": [
-        {
-          "database_name": "string",
-          "table_name": "string"
-        }
-      ],
       "event_filters": [
         {
           "ignore_delete_value_expr": "string",
@@ -444,15 +456,6 @@ If the request is successful, `200 OK` is returned. If the request fails, an err
           "matcher": [
             "string"
           ]
-        }
-      ],
-      "ignore_dbs": [
-        "string"
-      ],
-      "ignore_tables": [
-        {
-          "database_name": "string",
-          "table_name": "string"
         }
       ],
       "ignore_txn_start_ts": [
@@ -624,15 +627,6 @@ To modify the changefeed configuration, follow the steps of `pause the replicati
     "enable_old_value": true,
     "enable_sync_point": true,
     "filter": {
-      "do_dbs": [
-        "string"
-      ],
-      "do_tables": [
-        {
-          "database_name": "string",
-          "table_name": "string"
-        }
-      ],
       "event_filters": [
         {
           "ignore_delete_value_expr": "string",
@@ -648,15 +642,6 @@ To modify the changefeed configuration, follow the steps of `pause the replicati
           "matcher": [
             "string"
           ]
-        }
-      ],
-      "ignore_dbs": [
-        "string"
-      ],
-      "ignore_tables": [
-        {
-          "database_name": "string",
-          "table_name": "string"
         }
       ],
       "ignore_txn_start_ts": [

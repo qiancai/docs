@@ -13,6 +13,27 @@ Additionally, the [FLUSH STATUS](/sql-statements/sql-statement-flush-status.md) 
 
 ## Variable reference
 
+<<<<<<< HEAD
+=======
+### Compression
+
+- Scope: SESSION
+- Type: Boolean
+- Indicates if the MySQL Protocol uses compression or not.
+
+### Compression_algorithm
+
+- Scope: SESSION
+- Type: String
+- Indicates the compression algorithm that is used for the MySQL Protocol.
+
+### Compression_level
+
+- Scope: SESSION
+- Type: Integer
+- The compression level that is used for the MySQL Protocol.
+
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ### Ssl_cipher
 
 - Scope: SESSION | GLOBAL

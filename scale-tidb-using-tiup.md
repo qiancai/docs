@@ -297,7 +297,11 @@ This section exemplifies how to remove a TiKV node from the `10.0.1.5` host.
     ```
     Starting /root/.tiup/components/cluster/v1.12.3/cluster display <cluster-name>
     TiDB Cluster: <cluster-name>
+<<<<<<< HEAD
     TiDB Version: v7.5.3
+=======
+    TiDB Version: v8.3.0
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
     ID              Role         Host        Ports                            Status  Data Dir                Deploy Dir
     --              ----         ----        -----                            ------  --------                ----------
     10.0.1.3:8300   cdc          10.0.1.3    8300                             Up      data/cdc-8300           deploy/cdc-8300

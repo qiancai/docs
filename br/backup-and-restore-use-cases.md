@@ -1,6 +1,11 @@
 ---
 title: TiDB Backup and Restore Use Cases
+<<<<<<< HEAD
 summary: TiDB provides snapshot and log backup solutions for specific use cases, such as timely data recovery and business audits. To use point-in-time recovery (PITR), deploy a TiDB cluster >= v6.2.0 and update BR to v7.6.0. Configure backup storage on Amazon S3 and set a backup policy to meet data loss and recovery requirements. Run log and snapshot backups, and use PITR to restore data to a specific time point. Clean up outdated data regularly. For detailed steps, refer to TiDB documentation.
+=======
+summary: TiDB provides snapshot and log backup solutions for specific use cases, such as timely data recovery and business audits. To use point-in-time recovery (PITR), deploy a TiDB cluster >= v6.2.0 and update BR to the same version as the TiDB cluster. Configure backup storage on Amazon S3 and set a backup policy to meet data loss and recovery requirements. Run log and snapshot backups, and use PITR to restore data to a specific time point. Clean up outdated data regularly. For detailed steps, refer to TiDB documentation.
+aliases: ['/docs/dev/br/backup-and-restore-use-cases/','/docs/dev/reference/tools/br/use-cases/','/tidb/dev/backup-and-restore-use-cases-for-maintain/']
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # TiDB Backup and Restore Use Cases
@@ -16,7 +21,11 @@ With PITR, you can satisfy the preceding requirements.
 
 ## Deploy the TiDB cluster and BR
 
+<<<<<<< HEAD
 To use PITR, you need to deploy a TiDB cluster >= v6.2.0 and update BR to the same version as the TiDB cluster. This document uses v7.5.3 as an example.
+=======
+To use PITR, you need to deploy a TiDB cluster >= v6.2.0 and update BR to the same version as the TiDB cluster. This document uses v8.3.0 as an example.
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 The following table shows the recommended hardware resources for using PITR in a TiDB cluster.
 
@@ -43,13 +52,21 @@ Install or upgrade BR using TiUP:
 - Install:
 
     ```shell
+<<<<<<< HEAD
     tiup install br:v7.5.3
+=======
+    tiup install br:v8.3.0
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
     ```
 
 - Upgrade:
 
     ```shell
+<<<<<<< HEAD
     tiup update br:v7.5.3
+=======
+    tiup update br:v8.3.0
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
     ```
 
 ## Configure backup storage (Amazon S3)

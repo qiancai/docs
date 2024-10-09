@@ -8,6 +8,7 @@ aliases: ['/tidbcloud/supported-tidb-versions','/tidbcloud/release-notes']
 
 This page lists the release notes of [TiDB Cloud](https://www.pingcap.com/tidb-cloud/) in 2024.
 
+<<<<<<< HEAD
 ## September 24, 2024
 
 **General changes**
@@ -50,6 +51,18 @@ This page lists the release notes of [TiDB Cloud](https://www.pingcap.com/tidb-c
 
     For more information, see [TiDB Cloud Partner Web Console](/tidb-cloud/tidb-cloud-partners.md).
 
+=======
+## September 10, 2024
+
+**General changes**
+
+- Launch the TiDB Cloud Partner Web Console and Open API to enhance resource and billing management for TiDB Cloud partners.
+
+    Managed Service Providers (MSPs) and resellers through AWS Marketplace Channel Partner Private Offer (CPPO) can now leverage the [TiDB Cloud Partner Web Console](https://partner-console.tidbcloud.com/) and Open API to streamline their daily operations.
+
+    For more information, see [TiDB Cloud Partner Web Console](/tidb-cloud/tidb-cloud-partners.md).
+
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ## September 3, 2024
 
 **Console changes**

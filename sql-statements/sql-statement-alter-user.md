@@ -20,8 +20,13 @@ UserSpec ::=
     Username AuthOption
 
 RequireClauseOpt ::=
+<<<<<<< HEAD
     ( 'REQUIRE' 'NONE' | 'REQUIRE' 'SSL' | 'REQUIRE' 'X509' | 'REQUIRE' RequireList )?  
     
+=======
+    ( 'REQUIRE' 'NONE' | 'REQUIRE' 'SSL' | 'REQUIRE' 'X509' | 'REQUIRE' RequireList )?
+
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 RequireList ::=
     ( "ISSUER" stringLit | "SUBJECT" stringLit | "CIPHER" stringLit | "SAN" stringLit | "TOKEN_ISSUER" stringLit )*
 
@@ -201,6 +206,7 @@ SELECT USER, JSON_EXTRACT(User_attributes, "$.resource_group") FROM mysql.user W
 
 <CustomContent platform="tidb">
 
+* [TiDB User Account Management](/user-account-management.md)
 * [Security Compatibility with MySQL](/security-compatibility-with-mysql.md)
 
 </CustomContent>

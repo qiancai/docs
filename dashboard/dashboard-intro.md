@@ -1,6 +1,10 @@
 ---
 title: TiDB Dashboard Introduction
 summary: TiDB Dashboard is a Web UI for monitoring, diagnosing, and managing the TiDB cluster. It shows overall running status, component and host status, traffic distribution, SQL statement execution information, slow queries, cluster diagnostics, log search, resource control, and profiling data collection.
+<<<<<<< HEAD
+=======
+aliases: ['/docs/dev/dashboard/dashboard-intro/']
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # TiDB Dashboard Introduction

@@ -22,7 +22,11 @@ ticloud serverless create
 Create a TiDB Cloud Serverless cluster in non-interactive mode:
 
 ```shell
+<<<<<<< HEAD
 ticloud serverless create --display-name <display-name> --region <region>
+=======
+ticloud serverless create --project-id <project-id> --display-name <display-name> --region <region>
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ```
 
 Create a TiDB Cloud Serverless cluster with a spending limit in non-interactive mode:
@@ -35,6 +39,7 @@ ticloud serverless create --display-name <display-name> --region <region> --spen
 
 In non-interactive mode, you need to manually enter the required flags. In interactive mode, you can just follow CLI prompts to fill them in.
 
+<<<<<<< HEAD
 | Flag                         | Description                                                                                                    | Required | Note                                                |
 |------------------------------|----------------------------------------------------------------------------------------------------------------|----------|-----------------------------------------------------|
 | -n --display-name string     | Specifies the name of the cluster to be created.                                                               | Yes      | Only works in non-interactive mode.                 |
@@ -44,6 +49,15 @@ In non-interactive mode, you need to manually enter the required flags. In inter
 | --disable-public-endpoint    | Disables the public endpoint.                                                                       | No       | Only works in non-interactive mode.                 |
 | --encryption                 | Enables enhanced encryption at rest.                                                                | No       | Only works in non-interactive mode.                 |
 | -h, --help                   | Shows help information for this command.                                                                       | No       | Works in both non-interactive and interactive modes |
+=======
+| Flag                         | Description                                                                                | Required  | Note                                                |
+|------------------------------|--------------------------------------------------------------------------------------------|-----------|-----------------------------------------------------|
+| -n --display-name string     | Specifies the name of the cluster to be created.                                                   | Yes       | Only works in non-interactive mode.                 |
+| --spending-limit-monthly int | Specifies the maximum monthly spending limit in USD cents.                                                | No        | Only works in non-interactive mode.                 |
+| -p, --project-id string      | Specifies the ID of the project, in which the cluster will be created. The default value is `default project`. | No        | Only works in non-interactive mode.                 |
+| -r, --region string          | Specifies the Cloud region.                                                                               | Yes       | Only works in non-interactive mode.                 |
+| -h, --help                   | Shows help information for this command.                                                     | No        | Works in both non-interactive and interactive modes |
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ## Inherited flags
 

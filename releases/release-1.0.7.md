@@ -1,5 +1,9 @@
 ---
 title: TiDB 1.0.7 Release Notes
+<<<<<<< HEAD
+=======
+aliases: ['/docs/dev/releases/release-1.0.7/','/docs/dev/releases/107/']
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 summary: TiDB 1.0.7 is released with various updates including optimization of commands, fixing data race and resource leak issues, adding session variable for log query control, and improving stability of test results. PD and TiKV also have updates to fix scheduling loss issues, compatibility issues, and add support for table scan and remote mode in tikv-ctl. To upgrade from 1.0.6 to 1.0.7, follow the rolling upgrade order of PD, TiKV, and TiDB.
 ---
 

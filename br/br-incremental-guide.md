@@ -1,6 +1,10 @@
 ---
 title: TiDB Incremental Backup and Restore Guide
+<<<<<<< HEAD
 summary: Incremental data is the differentiated data between starting and end snapshots, along with DDLs. It reduces backup volume and requires setting `tidb_gc_life_time` for incremental backup. Use `br backup` with `--lastbackupts` for incremental backup and ensure all previous data is restored before restoring incremental data.
+=======
+summary: Incremental data is the differentiated data between starting and end snapshots, along with DDLs. It reduces backup volume and requires setting `tidb_gc_life_time` for incremental backup. Use `tiup br backup` with `--lastbackupts` for incremental backup and ensure all previous data is restored before restoring incremental data.
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # TiDB Incremental Backup and Restore Guide
@@ -17,9 +21,18 @@ Because restoring the incremental backup relies on the snapshot of the database 
 
 The incremental backup does not support batch renaming of tables. If batch renaming of tables occurs during the incremental backup process, the data restore might fail. It is recommended to perform a full backup after batch renaming tables, and use the latest full backup to replace the incremental data during restore.
 
+<<<<<<< HEAD
+=======
+Starting from v8.3.0, the `--allow-pitr-from-incremental` configuration parameter is introduced to control whether incremental backups and subsequent log backups are compatible. The default value is `true`, which means that incremental backups are compatible with subsequent log backups.
+
+- When you keep the default value `true`, the DDLs that need to be replayed are strictly checked before the incremental restore begins. This mode does not yet support `ADD INDEX`, `MODIFY COLUMN`, or `REORG PARTITION`. If you  want to use incremental backups together with log backups, make sure that none of the preceding DDLs exist during the incremental backup process. Otherwise, these three DDLs cannot be replayed correctly.
+
+- If you want to use incremental restores without log backups during the whole recovery process, you can set `--allow-pitr-from-incremental` to `false` to skip the checks in the incremental recovery phase.
+
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ## Back up incremental data
 
-To back up incremental data, run the `br backup` command with **the last backup timestamp** `--lastbackupts` specified. In this way, br command-line tool automatically backs up incremental data generated between `lastbackupts` and the current time. To get `--lastbackupts`, run the `validate` command. The following is an example:
+To back up incremental data, run the `tiup br backup` command with **the last backup timestamp** `--lastbackupts` specified. In this way, br command-line tool automatically backs up incremental data generated between `lastbackupts` and the current time. To get `--lastbackupts`, run the `validate` command. The following is an example:
 
 ```shell
 LAST_BACKUP_TS=`tiup br validate decode --field="end-version" --storage "s3://backup-101/snapshot-202209081330?access-key=${access-key}&secret-access-key=${secret-access-key}"| tail -n1`

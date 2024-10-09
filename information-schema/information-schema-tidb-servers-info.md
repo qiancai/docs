@@ -50,7 +50,11 @@ The output is as follows:
          PORT: 4000
   STATUS_PORT: 10080
         LEASE: 45s
+<<<<<<< HEAD
       VERSION: 8.0.11-TiDB-v7.5.3
+=======
+      VERSION: 8.0.11-TiDB-v8.3.0
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
      GIT_HASH: 827d8ff2d22ac4c93ae1b841b79d468211e1d393
 BINLOG_STATUS: Off
        LABELS:

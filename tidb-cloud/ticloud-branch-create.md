@@ -23,18 +23,22 @@ Create a branch for a TiDB Cloud Serverless cluster in non-interactive mode:
 
 ```shell
 ticloud serverless branch create --cluster-id <cluster-id> --display-name <branch-name>
+<<<<<<< HEAD
 ```
 
 Create a branch from another branch with a specified timestamp in non-interactive mode:
 
 ```shell
 ticloud serverless branch create --cluster-id <cluster-id> --display-name <branch-name> --parent-id <parent-branch-id> --parent-timestamp <parent-timestamp>
+=======
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ```
 
 ## Flags
 
 In non-interactive mode, you need to manually enter the required flags. In interactive mode, you can just follow CLI prompts to fill them in.
 
+<<<<<<< HEAD
 | Flag                      | Description                                                                                               | Required | Note                                                |
 |---------------------------|-----------------------------------------------------------------------------------------------------------|----------|-----------------------------------------------------|
 | -c, --cluster-id string   | Specifies the ID of the cluster, in which the branch will be created.                                     | Yes      | Only works in non-interactive mode.                 |
@@ -42,6 +46,13 @@ In non-interactive mode, you need to manually enter the required flags. In inter
 | --parent-id string        | Specifies the ID of the branch parent. The default value is the cluster ID.                                                       | No       | Only works in non-interactive mode.                 |
 | --parent-timestamp string | Specifies the timestamp of the parent branch in RFC3339 format, such as `2024-01-01T00:00:00Z`. The default value is the current time.  | No       | Only works in non-interactive mode.                 |
 | -h, --help                | Shows help information for this command.                                                                  | No       | Works in both non-interactive and interactive modes |
+=======
+| Flag                      | Description                                                | Required | Note                                                |
+|---------------------------|------------------------------------------------------------|----------|-----------------------------------------------------|
+| -c, --cluster-id string   | Specifies the ID of the cluster, in which the branch will be created. | Yes      | Only works in non-interactive mode.                 |
+| -n, --display-name string | Specifies the name of the branch to be created.               | Yes      | Only works in non-interactive mode.                 |
+| -h, --help                | Shows help information for this command.                     | No       | Works in both non-interactive and interactive modes |
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ## Inherited flags
 

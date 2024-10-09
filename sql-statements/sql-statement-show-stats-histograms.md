@@ -1,32 +1,52 @@
 ---
 title: SHOW STATS_HISTOGRAMS
+<<<<<<< HEAD:sql-statements/sql-statement-show-histograms.md
 summary: An overview of the usage of SHOW HISTOGRAMS for TiDB database.
+=======
+summary: An overview of the usage of SHOW STATS_HISTOGRAMS for TiDB database.
+aliases: ['/docs/dev/sql-statements/sql-statement-show-histograms/','/tidb/dev/sql-statement-show-histograms']
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c:sql-statements/sql-statement-show-stats-histograms.md
 ---
 
 # SHOW STATS_HISTOGRAMS
 
-This statement shows the histogram information collected by the `ANALYZE` statement.
+This statement shows the histogram information collected by the [`ANALYZE` statement](/sql-statements/sql-statement-analyze-table.md) as part of database [statistics](/statistics.md).
+
+Currently, the `SHOW STATS_HISTOGRAMS` statement returns the following columns:
+
+| Column name | Description            |
+| -------- | ------------- |
+| `Db_name` | Database name |
+| `Table_name` | The table name |
+| `Partition_name` | The partition name |
+| `Column_name` | The column name (when `is_index` is `0`) or the index name (when `is_index` is `1`) |
+| `Is_index` | Whether it is an index column or not |
+| `Update_time` | The update time |
+| `Distinct_count` | The distinct count |
+| `Null_count` | NULL count |
+| `Avg_col_size` | The average col size |
+| `Correlation` | Pearson correlation coefficient between this column and the integer primary key column, indicating the degree of association between the two columns |
+| `Load_status` | Load status, such as `allEvicted` and `allLoaded` |
+| `Total_mem_usage` | The total memory usage |
+| `Hist_mem_usage` | The historical memory usage |
+| `Topn_mem_usage` | The TopN memory usage |
+| `Cms_mem_usage` | The CMS memory usage |
 
 ## Synopsis
 
-**ShowStmt**
+```ebnf+diagram
+ShowStatsHistogramsStmt ::=
+    "SHOW" "STATS_HISTOGRAMS" ShowLikeOrWhere?
 
-![ShowStmt](/media/sqlgram/ShowStmt.png)
-
-**ShowTargetFiltertable**
-
-![ShowTargetFilterable](/media/sqlgram/ShowTargetFilterable.png)
-
-**ShowLikeOrWhereOpt**
-
-![ShowLikeOrWhereOpt](/media/sqlgram/ShowLikeOrWhereOpt.png)
+ShowLikeOrWhere ::=
+    "LIKE" SimpleExpr
+|   "WHERE" Expression
+```
 
 ## Examples
 
-{{< copyable "sql" >}}
-
 ```sql
-show stats_histograms;
+SHOW STATS_HISTOGRAMS;
 ```
 
 ```sql
@@ -40,10 +60,8 @@ show stats_histograms;
 3 rows in set (0.00 sec)
 ```
 
-{{< copyable "sql" >}}
-
 ```sql
-show stats_histograms where table_name = 't2';
+SHOW STATS_HISTOGRAMS WHERE table_name = 't2';
 ```
 
 ```sql

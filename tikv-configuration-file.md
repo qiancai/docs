@@ -138,7 +138,7 @@ This document only describes the parameters that are not included in command-lin
 
 ### `grpc-compression-type`
 
-+ The compression algorithm for gRPC messages
++ The compression algorithm for gRPC messages, which affects gRPC messages between TiKV nodes and gRPC response messages sent from TiKV to TiDB
 + Optional values: `"none"`, `"deflate"`, `"gzip"`
 + Default value: `"none"`
 
@@ -737,6 +737,16 @@ Configuration items related to Raftstore.
 + Default value: `"30s"`
 + Minimum value: `0`
 
+### `max-apply-unpersisted-log-limit` <span class="version-mark">New in v8.1.0</span>
+
++ The maximum number of committed but not persisted Raft logs that can be applied.
+
+    + Setting this configuration item to a value greater than `0` enables the TiKV node to apply committed but not persisted Raft logs in advance, effectively reducing long-tail latency caused by IO jitter on that node. However, it might also increase the memory usage of TiKV and the disk space occupied by Raft logs.
+    + Setting this configuration item to `0` disables this feature, meaning that TiKV must wait until Raft logs are both committed and persisted before applying them. This behavior is consistent with the behavior before v8.2.0.
+
++ Default value: `1024`
++ Minimum value: `0`
+
 ### `hibernate-regions`
 
 + Enables or disables Hibernate Region. When this option is enabled, a Region idle for a long time is automatically set as hibernated. This reduces the extra overhead caused by heartbeat messages between the Raft leader and the followers for idle Regions. You can use `peer-stale-state-check-interval` to modify the heartbeat interval between the leader and the followers of hibernated Regions.
@@ -989,7 +999,7 @@ Configuration items related to Raftstore.
 ### `store-io-pool-size` <span class="version-mark">New in v5.3.0</span>
 
 + The allowable number of threads that process Raft I/O tasks, which is the size of the StoreWriter thread pool. When you modify the size of this thread pool, refer to [Performance tuning for TiKV thread pools](/tune-tikv-thread-performance.md#performance-tuning-for-tikv-thread-pools).
-+ Default value: `0`
++ Default value: `1` (Before v8.0.0, the default value is `0`)
 + Minimum value: `0`
 
 ### `future-poll-size`
@@ -1030,6 +1040,26 @@ Configuration items related to Raftstore.
 + Default value: `0.1`
 + Minimum value: `0`
 
+<<<<<<< HEAD
+=======
+### `periodic-full-compact-start-times` <span class="version-mark">New in v7.6.0</span>
+
+> **Warning:**
+>
+> Periodic full compaction is experimental. It is not recommended that you use it in the production environment. This feature might be changed or removed without prior notice. If you find a bug, you can report an [issue](https://github.com/pingcap/tidb/issues) on GitHub.
+
++ Set the specific times that TiKV initiates periodic full compaction. You can specify multiple time schedules in an array. For example:
+    + `periodic-full-compact-start-times = ["03:00", "23:00"]` indicates that TiKV performs full compaction daily at 03:00 AM and 11:00 PM, based on the local time zone of the TiKV node.
+    + `periodic-full-compact-start-times = ["03:00 +0000", "23:00 +0000"]` indicates that TiKV performs full compaction daily at 03:00 AM and 11:00 PM in UTC timezone.
+    + `periodic-full-compact-start-times = ["03:00 +0800", "23:00 +0800"]` indicates that TiKV performs full compaction daily at 03:00 AM and 11:00 PM in UTC+08:00 timezone.
++ Default value: `[]`, which means periodic full compaction is disabled by default.
+
+### `periodic-full-compact-start-max-cpu` <span class="version-mark">New in v7.6.0</span>
+
++ Limits the maximum CPU usage rate for TiKV periodic full compaction.
++ Default value: `0.1`, which means that the maximum CPU usage for periodic compaction processes is 10%.
+
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ## coprocessor
 
 Configuration items related to Coprocessor.
@@ -1213,7 +1243,11 @@ Configuration items related to RocksDB
 
 ### `rate-bytes-per-sec`
 
+<<<<<<< HEAD
 + The maximum rate permitted by RocksDB's compaction rate limiter
+=======
++ When Titan is disabled, this configuration item limits the I/O rate of RocksDB compaction to reduce the impact of RocksDB compaction on the foreground read and write performance during traffic peaks. When Titan is enabled, this configuration item limits the summed I/O rates of RocksDB compaction and Titan GC. If you find that the I/O or CPU consumption of RocksDB compaction and Titan GC is too large, set this configuration item to an appropriate value according the disk I/O bandwidth and the actual write traffic.
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 + Default value: `10GiB`
 + Minimum value: `0`
 + Unit: B|KiB|MiB|GiB
@@ -1324,10 +1358,17 @@ Configuration items related to RocksDB
 
 + Unit: KiB|MiB|GiB
 
+<<<<<<< HEAD
 ### `track-and-verify-wals-in-manifest` <span class="version-mark">New in v6.5.9, v7.1.5, and v7.5.2</span>
 
 + Controls whether to record information about Write Ahead Log (WAL) files in the RocksDB MANIFEST file and whether to verify the integrity of WAL files during startup. For more information, see RocksDB [Track WAL in MANIFEST](https://github.com/facebook/rocksdb/wiki/Track-WAL-in-MANIFEST).
 + Default value: `false`
+=======
+### `track-and-verify-wals-in-manifest` <span class="version-mark">New in v6.5.9, v7.1.5, v7.5.2, and v8.0.0</span>
+
++ Controls whether to record information about Write Ahead Log (WAL) files in the RocksDB MANIFEST file and whether to verify the integrity of WAL files during startup. For more information, see RocksDB [Track WAL in MANIFEST](https://github.com/facebook/rocksdb/wiki/Track-WAL-in-MANIFEST).
++ Default value: `true`
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 + Value options:
     + `true`: records information about WAL files in the MANIFEST file and verifies the integrity of WAL files during startup.
     + `false`: does not record information about WAL files in the MANIFEST file and does not verify the integrity of WAL files during startup.
@@ -1338,8 +1379,14 @@ Configuration items related to Titan.
 
 ### `enabled`
 
-+ Enables or disables Titan
-+ Default value: `false`
+> **Note:**
+>
+> - To enhance the performance of wide table and JSON data writing and point query, starting from TiDB v7.6.0, the default value changes from `false` to `true`, which means that Titan is enabled by default.
+> - Existing clusters upgraded to v7.6.0 or later versions retain the original configuration, which means that if Titan is not explicitly enabled, it still uses RocksDB.
+> - If the cluster has enabled Titan before upgrading to TiDB v7.6.0 or later versions, Titan will be retained after the upgrade, and the [`min-blob-size`](/tikv-configuration-file.md#min-blob-size) configuration before the upgrade will be retained. If you do not explicitly configure the value before the upgrade, the default value of the previous version `1KiB` will be retained to ensure the stability of the cluster configuration after the upgrade.
+
++ Enables or disables Titan.
++ Default value: `true`
 
 ### `dirname`
 
@@ -1353,7 +1400,7 @@ Configuration items related to Titan.
 
 ### `max-background-gc`
 
-+ The maximum number of GC threads in Titan
++ The maximum number of GC threads in Titan. From the **TiKV Details** > **Thread CPU** > **RocksDB CPU** panel, if you observe that the Titan GC threads are at full capacity for a long time, consider increasing the size of the Titan GC thread pool.
 + Default value: `4`
 + Minimum value: `1`
 
@@ -1618,31 +1665,62 @@ Configuration items related to `rocksdb.defaultcf`, `rocksdb.writecf`, and `rock
 
 ## rocksdb.defaultcf.titan
 
+> **Note:**
+>
+> Titan can only be enabled in `rocksdb.defaultcf`. It is not supported to enable Titan in `rocksdb.writecf`.
+
 Configuration items related to `rocksdb.defaultcf.titan`.
 
 ### `min-blob-size`
 
+> **Note:**
+>
+> - Starting from TiDB v7.6.0, Titan is enabled by default to enhance the performance of wide table and JSON data writing and point query. The default value of `min-blob-size` changes from `1KiB` to `32KiB`. This means that values exceeding `32KiB` is stored in Titan, while other data continues to be stored in RocksDB.
+> - To ensure configuration consistency, for existing clusters upgrading to TiDB v7.6.0 or later versions, if you do not explicitly set `min-blob-size` before the upgrade, TiDB retains the previous default value of `1KiB`.
+> - A value smaller than `32KiB` might affect the performance of range scans. However, if the workload primarily involves heavy writes and point queries, you can consider decreasing the value of `min-blob-size` for better performance.
+
 + The smallest value stored in a Blob file. Values smaller than the specified size are stored in the LSM-Tree.
+<<<<<<< HEAD
 + Default value: `"1KiB"`
+=======
++ Default value: `"32KiB"`
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 + Minimum value: `0`
 + Unit: KiB|MiB|GiB
 
 ### `blob-file-compression`
 
-+ The compression algorithm used in a Blob file
-+ Optional values: `"no"`, `"snappy"`, `"zlib"`, `"bzip2"`, `"lz4"`, `"lz4hc"`, `"zstd"`
-+ Default value: `"lz4"`
-
 > **Note:**
 >
-> The Snappy compressed file must be in the [official Snappy format](https://github.com/google/snappy). Other variants of Snappy compression are not supported.
+> - Snappy compressed files must be in the [official Snappy format](https://github.com/google/snappy). Other variants of Snappy compression are not supported.
+> - Starting from TiDB v7.6.0, the default value of `blob-file-compression` changes from `"lz4"` to `"zstd"`.
+
++ The compression algorithm used in a Blob file
++ Optional values: `"no"`, `"snappy"`, `"zlib"`, `"bzip2"`, `"lz4"`, `"lz4hc"`, `"zstd"`
++ Default value: `"zstd"`
+
+### `zstd-dict-size`
+
++ The zstd dictionary compression size. The default value is `"0KiB"`, which means to disable the zstd dictionary compression. In this case, Titan compresses data based on single values, whereas RocksDB compresses data based on blocks (`32KiB` by default). When the average size of Titan values is less than `32KiB`, Titan's compression ratio is lower than that of RocksDB. Taking JSON as an example, the store size in Titan can be 30% to 50% larger than that of RocksDB. The actual compression ratio depends on whether the value content is suitable for compression and the similarity among different values. You can enable the zstd dictionary compression to increase the compression ratio by configuring `zstd-dict-size` (for example, set it to `16KiB`). The actual store size can be lower than that of RocksDB. But the zstd dictionary compression might lead to about 10% performance regression in specific workloads.
++ Default value: `"0KiB"`
++ Unit: KiB|MiB|GiB
 
 ### `blob-cache-size`
 
 + The cache size of a Blob file
 + Default value: `"0GiB"`
 + Minimum value: `0`
+<<<<<<< HEAD
 + Unit: KiB|MiB|GiB
+=======
++ Recommended value: `0`. Starting from v8.0.0, TiKV introduces the `shared-blob-cache` configuration item and enables it by default, so there is no need to set `blob-cache-size` separately. The configuration of `blob-cache-size` only takes effect when `shared-blob-cache` is set to `false`.
++ Unit: KiB|MiB|GiB
+
+### `shared-blob-cache` (New in v8.0.0)
+
++ Controls whether to enable the shared cache for Titan blob files and RocksDB block files.
++ Default value: `true`. When the shared cache is enabled, block files have higher priority. This means that TiKV prioritizes meeting the cache needs of block files and then uses the remaining cache for blob files.
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ### `min-gc-batch-size`
 
@@ -1660,7 +1738,14 @@ Configuration items related to `rocksdb.defaultcf.titan`.
 
 ### `discardable-ratio`
 
-+ The ratio at which GC is triggered for Blob files. The Blob file can be selected for GC only if the proportion of the invalid values in a Blob file exceeds this ratio.
++ When the ratio of obsolete data (the corresponding key has been updated or deleted) in a Blob file exceeds the following threshold, Titan GC is triggered. When Titan writes the valid data of this Blob file to another file, you can use the `discardable-ratio` value to estimate the upper limits of write amplification and space amplification (assuming the compression is disabled).
+
+    Upper limit of write amplification = 1 / `discardable-ratio`
+
+    Upper limit of space amplification = 1 / (1 - `discardable-ratio`)
+
+    From these two equations, you can see that decreasing the value of `discardable_ratio` can reduce space amplification but results in more frequent GC in Titan. Increasing the value reduces the frequency of Titan GC, thereby lowering the corresponding I/O bandwidth and CPU usage, but increases disk usage.
+
 + Default value: `0.5`
 + Minimum value: `0`
 + Maximum value: `1`
@@ -1683,8 +1768,8 @@ Configuration items related to `rocksdb.defaultcf.titan`.
 
 + Specifies the running mode of Titan.
 + Optional values:
-    + `normal`: Writes data to the blob file when the value size exceeds `min-blob-size`.
-    + `read_only`: Refuses to write new data to the blob file, but still reads the original data from the blob file.
+    + `normal`: Writes data to the blob file when the value size exceeds [`min-blob-size`](#min-blob-size).
+    + `read-only`: Refuses to write new data to the blob file, but still reads the original data from the blob file.
     + `fallback`: Writes data in the blob file back to LSM.
 + Default value: `normal`
 
@@ -1977,8 +2062,12 @@ Configuration items related to security.
 
 ### `redact-info-log` <span class="version-mark">New in v4.0.8</span>
 
-+ This configuration item enables or disables log redaction. If the configuration value is set to `true`, all user data in the log will be replaced by `?`.
++ This configuration item enables or disables log redaction. Value options: `true`, `false`, `"on"`, `"off"`, and `"marker"`. The `"on"`, `"off"`, and `"marker"` options are introduced in v8.3.0.
++ If the configuration item is set to `false` or `"off"`, log redaction is disabled.
++ If the configuration item is set to `true` or `"on"`, all user data in the log is replaced by `?`.
++ If the configuration item is set to `"marker"`, all user data in the log is wrapped in `‹ ›`. If user data contains `‹` or `›`, `‹` is escaped as `‹‹`, and `›` is escaped as `››`. Based on the marked logs, you can decide whether to desensitize the marked information when the logs are displayed.
 + Default value: `false`
++ For details on how to use it, see [Log redaction in TiKV side](/log-redaction.md#log-redaction-in-tikv-side).
 
 ## security.encryption
 
@@ -2058,7 +2147,11 @@ Configuration items related to TiDB Lightning import and BR restore.
 + The garbage ratio threshold to trigger GC.
 + Default value: `1.1`
 
+<<<<<<< HEAD
 ### `num-threads` <span class="version-mark">New in v6.5.8, v7.1.4 and v7.5.1</span>
+=======
+### `num-threads` <span class="version-mark">New in v6.5.8, v7.1.4, v7.5.1, and v7.6.0</span>
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 + The number of GC threads when `enable-compaction-filter` is `false`.
 + Default value: `1`
@@ -2137,6 +2230,10 @@ Configuration items related to log backup.
 
 + The rate limit on throughput in an incremental data scan during log backup, which means the maximum amount of data that can be read from the disk per second. Note that if you only specify a number (for example, `60`), the unit is Byte instead of KiB.
 + Default value: 60MiB
+<<<<<<< HEAD
+=======
++ Minimum value: 1MiB
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ### `max-flush-interval` <span class="version-mark">New in v6.2.0</span>
 

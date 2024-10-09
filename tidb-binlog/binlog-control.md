@@ -5,7 +5,11 @@ summary: Learns how to use `binlogctl`.
 
 # binlogctl
 
+<<<<<<< HEAD
 [Binlog Control](https://github.com/pingcap/tidb-binlog/tree/release-7.5/binlogctl) (`binlogctl` for short) is a command line tool for TiDB Binlog. You can use `binlogctl` to manage TiDB Binlog clusters.
+=======
+[Binlog Control](https://github.com/pingcap/tidb-binlog/tree/master/binlogctl) (`binlogctl` for short) is a command line tool for [TiDB Binlog](/tidb-binlog/tidb-binlog-overview.md) (deprecated). You can use `binlogctl` to manage TiDB Binlog clusters.
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 You can use `binlogctl` to:
 

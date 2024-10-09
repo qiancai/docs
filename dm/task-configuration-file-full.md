@@ -1,5 +1,9 @@
 ---
 title: DM Advanced Task Configuration File
+<<<<<<< HEAD
+=======
+aliases: ['/docs/tidb-data-migration/dev/task-configuration-file-full/','/docs/tidb-data-migration/dev/dm-portal/']
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 summary: This document introduces the advanced task configuration file of Data Migration (DM), covering global and instance configuration. The global configuration includes basic and feature settings, while the instance configuration defines subtasks for data migration from one or multiple MySQL instances in the upstream to the same instance in the downstream.
 ---
 
@@ -139,12 +143,12 @@ loaders:
     #   (https://docs.pingcap.com/tidb/stable/tidb-lightning-physical-import-mode-usage#conflict-detection).
     #   Conflicting data is not resolved in this method. "none" has the best performance, but
     #   might lead to inconsistent data in the downstream database.
-    # - "manual". Corresponds to the "remove" strategy of conflict detection in TiDB Lightning's physical import.
+    # - "manual". Corresponds to the "replace" strategy of conflict detection in TiDB Lightning's physical import.
     #   (https://docs.pingcap.com/tidb/stable/tidb-lightning-physical-import-mode-usage#conflict-detection).
     #   When the import encounter conflicting data, DM removes all conflicting records from
-    #   the target table and records the data in the `${meta-schema}_${name}.conflict_error_v1`
+    #   the target table and records the data in the `${meta-schema}_${name}.conflict_error_v3`
     #   table. In this configuration file, the conflicting data is recorded in the
-    #   `dm_meta_test.conflict_error_v1` table. When the full import phase is completed, the
+    #   `dm_meta_test.conflict_error_v3` table. When the full import phase is completed, the
     #   tasks is paused and you are prompted to query this table and manually resolve the
     #   conflicts. You need to resume the task and enter the incremental phase using the `resume-task` command.
     on-duplicate-physical: "none"

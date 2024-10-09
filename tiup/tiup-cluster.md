@@ -61,7 +61,11 @@ To deploy the cluster, run the `tiup cluster deploy` command. The usage of the c
 tiup cluster deploy <cluster-name> <version> <topology.yaml> [flags]
 ```
 
+<<<<<<< HEAD
 This command requires you to provide the cluster name, the TiDB cluster version (such as `v7.5.3`), and a topology file of the cluster.
+=======
+This command requires you to provide the cluster name, the TiDB cluster version (such as `v8.3.0`), and a topology file of the cluster.
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 To write a topology file, refer to [the example](https://github.com/pingcap/tiup/blob/master/embed/examples/cluster/topology.example.yaml). The following file is an example of the simplest topology:
 
@@ -95,6 +99,9 @@ tiflash_servers:
   - host: 172.16.5.142
   - host: 172.16.5.143
 
+tiproxy_servers:
+  - host: 172.16.5.144
+
 grafana_servers:
   - host: 172.16.5.134
 
@@ -118,12 +125,20 @@ tidb_servers:
 ...
 ```
 
+<<<<<<< HEAD
 Save the file as `/tmp/topology.yaml`. If you want to use TiDB v7.5.3 and your cluster name is `prod-cluster`, run the following command:
+=======
+Save the file as `/tmp/topology.yaml`. If you want to use TiDB v8.3.0 and your cluster name is `prod-cluster`, run the following command:
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 {{< copyable "shell-regular" >}}
 
 ```shell
+<<<<<<< HEAD
 tiup cluster deploy -p prod-cluster v7.5.3 /tmp/topology.yaml
+=======
+tiup cluster deploy -p prod-cluster v8.3.0 /tmp/topology.yaml
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ```
 
 During the execution, TiUP asks you to confirm your topology again and requires the root password of the target machine (the `-p` flag means inputting password):
@@ -131,12 +146,17 @@ During the execution, TiUP asks you to confirm your topology again and requires 
 ```bash
 Please confirm your topology:
 TiDB Cluster: prod-cluster
+<<<<<<< HEAD
 TiDB Version: v7.5.3
+=======
+TiDB Version: v8.3.0
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 Type        Host          Ports                            OS/Arch       Directories
 ----        ----          -----                            -------       -----------
 pd          172.16.5.134  2379/2380                        linux/x86_64  deploy/pd-2379,data/pd-2379
 pd          172.16.5.139  2379/2380                        linux/x86_64  deploy/pd-2379,data/pd-2379
 pd          172.16.5.140  2379/2380                        linux/x86_64  deploy/pd-2379,data/pd-2379
+tiproxy     172.16.5.144  6000/3080                        linux/x86_64  deploy/tiproxy-6000
 tikv        172.16.5.134  20160/20180                      linux/x86_64  deploy/tikv-20160,data/tikv-20160
 tikv        172.16.5.139  20160/20180                      linux/x86_64  deploy/tikv-20160,data/tikv-20160
 tikv        172.16.5.140  20160/20180                      linux/x86_64  deploy/tikv-20160,data/tikv-20160
@@ -174,7 +194,11 @@ tiup cluster list
 Starting /root/.tiup/components/cluster/v1.12.3/cluster list
 Name          User  Version    Path                                               PrivateKey
 ----          ----  -------    ----                                               ----------
+<<<<<<< HEAD
 prod-cluster  tidb  v7.5.3    /root/.tiup/storage/cluster/clusters/prod-cluster  /root/.tiup/storage/cluster/clusters/prod-cluster/ssh/id_rsa
+=======
+prod-cluster  tidb  v8.3.0    /root/.tiup/storage/cluster/clusters/prod-cluster  /root/.tiup/storage/cluster/clusters/prod-cluster/ssh/id_rsa
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ```
 
 ## Start the cluster
@@ -204,7 +228,11 @@ tiup cluster display prod-cluster
 ```
 Starting /root/.tiup/components/cluster/v1.12.3/cluster display prod-cluster
 TiDB Cluster: prod-cluster
+<<<<<<< HEAD
 TiDB Version: v7.5.3
+=======
+TiDB Version: v8.3.0
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ID                  Role        Host          Ports                            OS/Arch       Status  Data Dir              Deploy Dir
 --                  ----        ----          -----                            -------       ------  --------              ----------
 172.16.5.134:3000   grafana     172.16.5.134  3000                             linux/x86_64  Up      -                     deploy/grafana-3000
@@ -221,6 +249,7 @@ ID                  Role        Host          Ports                            O
 172.16.5.134:20160  tikv        172.16.5.134  20160/20180                      linux/x86_64  Up      data/tikv-20160       deploy/tikv-20160
 172.16.5.139:20160  tikv        172.16.5.139  20160/20180                      linux/x86_64  Up      data/tikv-20160       deploy/tikv-20160
 172.16.5.140:20160  tikv        172.16.5.140  20160/20180                      linux/x86_64  Up      data/tikv-20160       deploy/tikv-20160
+172.16.5.144:6000   tiproxy     172.16.5.144  6000/3080                        linux/x86_64  Up      -                     deploy/tiproxy-6000
 ```
 
 The `Status` column uses `Up` or `Down` to indicate whether the service is running normally.
@@ -278,7 +307,11 @@ tiup cluster display prod-cluster
 ```
 Starting /root/.tiup/components/cluster/v1.12.3/cluster display prod-cluster
 TiDB Cluster: prod-cluster
+<<<<<<< HEAD
 TiDB Version: v7.5.3
+=======
+TiDB Version: v8.3.0
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ID                  Role        Host          Ports                            OS/Arch       Status   Data Dir              Deploy Dir
 --                  ----        ----          -----                            -------       ------   --------              ----------
 172.16.5.134:3000   grafana     172.16.5.134  3000                             linux/x86_64  Up       -                     deploy/grafana-3000
@@ -295,6 +328,7 @@ ID                  Role        Host          Ports                            O
 172.16.5.134:20160  tikv        172.16.5.134  20160/20180                      linux/x86_64  Up       data/tikv-20160       deploy/tikv-20160
 172.16.5.139:20160  tikv        172.16.5.139  20160/20180                      linux/x86_64  Up       data/tikv-20160       deploy/tikv-20160
 172.16.5.140:20160  tikv        172.16.5.140  20160/20180                      linux/x86_64  Offline  data/tikv-20160       deploy/tikv-20160
+172.16.5.144:6000   tiproxy     172.16.5.144  6000/3080                        linux/x86_64  Up       -                     deploy/tiproxy-6000
 ```
 
 After PD schedules the data on the node to other TiKV nodes, this node will be deleted automatically.
@@ -389,12 +423,20 @@ Global Flags:
   -y, --yes               Skip all confirmations and assumes 'yes'
 ```
 
+<<<<<<< HEAD
 For example, the following command upgrades the cluster to v7.5.3:
+=======
+For example, the following command upgrades the cluster to v8.3.0:
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 {{< copyable "shell-regular" >}}
 
 ```bash
+<<<<<<< HEAD
 tiup cluster upgrade tidb-test v7.5.3
+=======
+tiup cluster upgrade tidb-test v8.3.0
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ```
 
 ## Update configuration
@@ -579,11 +621,19 @@ tiup cluster audit
 Starting component `cluster`: /home/tidb/.tiup/components/cluster/v1.12.3/cluster audit
 ID      Time                       Command
 --      ----                       -------
+<<<<<<< HEAD
 4BLhr0  2024-08-05T23:55:09+08:00  /home/tidb/.tiup/components/cluster/v1.12.3/cluster deploy test v7.5.3 /tmp/topology.yaml
 4BKWjF  2024-08-05T23:36:57+08:00  /home/tidb/.tiup/components/cluster/v1.12.3/cluster deploy test v7.5.3 /tmp/topology.yaml
 4BKVwH  2024-08-05T23:02:08+08:00  /home/tidb/.tiup/components/cluster/v1.12.3/cluster deploy test v7.5.3 /tmp/topology.yaml
 4BKKH1  2024-08-05T16:39:04+08:00  /home/tidb/.tiup/components/cluster/v1.12.3/cluster destroy test
 4BKKDx  2024-08-05T16:36:57+08:00  /home/tidb/.tiup/components/cluster/v1.12.3/cluster deploy test v7.5.3 /tmp/topology.yaml
+=======
+4BLhr0  2024-08-22T23:55:09+08:00  /home/tidb/.tiup/components/cluster/v1.12.3/cluster deploy test v8.3.0 /tmp/topology.yaml
+4BKWjF  2024-08-22T23:36:57+08:00  /home/tidb/.tiup/components/cluster/v1.12.3/cluster deploy test v8.3.0 /tmp/topology.yaml
+4BKVwH  2024-08-22T23:02:08+08:00  /home/tidb/.tiup/components/cluster/v1.12.3/cluster deploy test v8.3.0 /tmp/topology.yaml
+4BKKH1  2024-08-22T16:39:04+08:00  /home/tidb/.tiup/components/cluster/v1.12.3/cluster destroy test
+4BKKDx  2024-08-22T16:36:57+08:00  /home/tidb/.tiup/components/cluster/v1.12.3/cluster deploy test v8.3.0 /tmp/topology.yaml
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ```
 
 The first column is `audit-id`. To view the execution log of a certain command, pass the `audit-id` of a command as the flag as follows:
@@ -699,7 +749,11 @@ All operations above performed on the cluster machine use the SSH client embedde
 
 Then you can use the `--ssh=system` command-line flag to enable the system-native command-line tool:
 
+<<<<<<< HEAD
 - Deploy a cluster: `tiup cluster deploy <cluster-name> <version> <topo> --ssh=system`. Fill in the name of your cluster for `<cluster-name>`, the TiDB version to be deployed (such as `v7.5.3`) for `<version>`, and the topology file for `<topo>`.
+=======
+- Deploy a cluster: `tiup cluster deploy <cluster-name> <version> <topo> --ssh=system`. Fill in the name of your cluster for `<cluster-name>`, the TiDB version to be deployed (such as `v8.3.0`) for `<version>`, and the topology file for `<topo>`.
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 - Start a cluster: `tiup cluster start <cluster-name> --ssh=system`
 - Upgrade a cluster: `tiup cluster upgrade ... --ssh=system`
 

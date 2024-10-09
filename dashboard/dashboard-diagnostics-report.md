@@ -1,6 +1,10 @@
 ---
 title: TiDB Dashboard Diagnostic Report
 summary: TiDB Dashboard Diagnostic Report introduces diagnostic report content, including basic, diagnostic, load, overview, monitoring, and configuration information. It also includes comparison report details, DIFF_RATIO explanation, and Maximum Different Item table.
+<<<<<<< HEAD
+=======
+aliases: ['/docs/dev/dashboard/dashboard-diagnostics-report/']
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # TiDB Dashboard Diagnostic Report

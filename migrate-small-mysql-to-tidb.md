@@ -1,6 +1,10 @@
 ---
 title: Migrate Small Datasets from MySQL to TiDB
 summary: Learn how to migrate small datasets from MySQL to TiDB.
+<<<<<<< HEAD
+=======
+aliases: ['/tidb/dev/usage-scenario-incremental-migration/']
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # Migrate Small Datasets from MySQL to TiDB

@@ -238,7 +238,9 @@ For more details, see [`ALTER USER ... RESOURCE GROUP`](/sql-statements/sql-stat
 
 #### Bind the current session to a resource group
 
-By binding a session to a resource group, the resource usage of the corresponding session is limited by the specified usage (RU).
+You can use the [`SET RESOURCE GROUP`](/sql-statements/sql-statement-set-resource-group.md) statement to change the bound resource group of the current session. By binding a session to a resource group, the resource usage of the corresponding session is limited by the specified usage (RU).
+
+When the system variable [`tidb_resource_control_strict_mode`](/system-variables.md#tidb_resource_control_strict_mode-new-in-v820) is set to `ON`, you need to have the `SUPER` or `RESOURCE_GROUP_ADMIN` or `RESOURCE_GROUP_USER` privilege to execute this statement.
 
 The following example binds the current session to the resource group `rg1`.
 
@@ -250,6 +252,8 @@ SET RESOURCE GROUP rg1;
 
 By adding the [`RESOURCE_GROUP(resource_group_name)`](/optimizer-hints.md#resource_groupresource_group_name) hint to a SQL statement, you can specify the resource group to which the statement is bound. This hint supports `SELECT`, `INSERT`, `UPDATE`, and `DELETE` statements.
 
+When the system variable [`tidb_resource_control_strict_mode`](/system-variables.md#tidb_resource_control_strict_mode-new-in-v820) is set to `ON`, you need to have the `SUPER` or `RESOURCE_GROUP_ADMIN` or `RESOURCE_GROUP_USER` privilege to use this hint.
+
 The following example binds the current statement to the resource group `rg1`.
 
 ```sql
@@ -258,10 +262,13 @@ SELECT /*+ RESOURCE_GROUP(rg1) */ * FROM t limit 10;
 
 ### Manage queries that consume more resources than expected (Runaway Queries)
 
+<<<<<<< HEAD
 > **Warning:**
 >
 > This feature is experimental. It is not recommended that you use it in the production environment. This feature might be changed or removed without prior notice. If you find a bug, you can report an [issue](https://github.com/pingcap/tidb/issues) on GitHub.
 
+=======
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 A runaway query is a query (`SELECT` statement only) that consumes more time or resources than expected. The term **runaway queries** is used in the following to describe the feature of managing the runaway query.
 
 - Starting from v7.2.0, the resource control feature introduces the management of runaway queries. You can set criteria for a resource group to identify runaway queries and automatically take actions to prevent them from exhausting resources and affecting other queries. You can manage runaway queries for a resource group by including the `QUERY_LIMIT` field in [`CREATE RESOURCE GROUP`](/sql-statements/sql-statement-create-resource-group.md) or [`ALTER RESOURCE GROUP`](/sql-statements/sql-statement-alter-resource-group.md).
@@ -587,6 +594,36 @@ When you enable resource control, the system table [`INFORMATION_SCHEMA.SLOW_QUE
 
 The system table [`INFORMATION_SCHEMA.statements_summary`](/statement-summary-tables.md#statements_summary) in TiDB stores the normalized and aggregated statistics of SQL statements. You can use the system table to view and analyze the execution performance of SQL statements. It also contains statistics about resource control, including the resource group name, RU consumption, and the time spent waiting for available RUs. For more details, see [`statements_summary` fields description](/statement-summary-tables.md#statements_summary-fields-description).
 
+<<<<<<< HEAD
+=======
+### View the RU consumption of resource groups
+
+Starting from v7.6.0, TiDB provides the system table [`mysql.request_unit_by_group`](/mysql-schema/mysql-schema.md#system-tables-related-to-resource-control) to store the historical records of the RU consumption of each resource group.
+
+Example:
+
+```sql
+SELECT * FROM request_unit_by_group LIMIT 5;
+```
+
+```
++----------------------------+----------------------------+----------------+----------+
+| start_time                 | end_time                   | resource_group | total_ru |
++----------------------------+----------------------------+----------------+----------+
+| 2024-01-01 00:00:00.000000 | 2024-01-02 00:00:00.000000 | default        |   334147 |
+| 2024-01-01 00:00:00.000000 | 2024-01-02 00:00:00.000000 | rg1            |     4172 |
+| 2024-01-01 00:00:00.000000 | 2024-01-02 00:00:00.000000 | rg2            |    34028 |
+| 2024-01-02 00:00:00.000000 | 2024-01-03 00:00:00.000000 | default        |   334088 |
+| 2024-01-02 00:00:00.000000 | 2024-01-03 00:00:00.000000 | rg1            |     3850 |
++----------------------------+----------------------------+----------------+----------+
+5 rows in set (0.01 sec)
+```
+
+> **Note:**
+>
+> The data of `mysql.request_unit_by_group` is automatically imported by a TiDB scheduled task at the end of each day. If the RU consumption of a resource group is 0 on a certain day, no record is generated. By default, this table stores data for the last three months (up to 92 days). Data that exceeds this period is automatically cleared.
+
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ## Monitoring metrics and charts
 
 <CustomContent platform="tidb">

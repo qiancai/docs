@@ -86,9 +86,15 @@ The `tiup mirror clone` command provides many optional flags (might provide more
 
     If you want to clone only one version (not all versions) of a component, use `--<component>=<version>` to specify this version. For example:
 
+<<<<<<< HEAD
     - Execute the `tiup mirror clone <target-dir> --tidb v7.5.3` command to clone the v7.5.3 version of the TiDB component.
     - Run the `tiup mirror clone <target-dir> --tidb v7.5.3 --tikv all` command to clone the v7.5.3 version of the TiDB component and all versions of the TiKV component.
     - Run the `tiup mirror clone <target-dir> v7.5.3` command to clone the v7.5.3 version of all components in a cluster.
+=======
+    - Execute the `tiup mirror clone <target-dir> --tidb v8.3.0` command to clone the v8.3.0 version of the TiDB component.
+    - Run the `tiup mirror clone <target-dir> --tidb v8.3.0 --tikv all` command to clone the v8.3.0 version of the TiDB component and all versions of the TiKV component.
+    - Run the `tiup mirror clone <target-dir> v8.3.0` command to clone the v8.3.0 version of all components in a cluster.
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 After cloning, signing keys are set up automatically.
 

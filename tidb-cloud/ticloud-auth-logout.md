@@ -19,6 +19,7 @@ To log out of TiDB Cloud:
 ticloud auth logout
 ```
 
+<<<<<<<< HEAD:tidb-cloud/ticloud-auth-logout.md
 ## Inherited flags
 
 | Flag                 | Description                                                                                | Required | Note                                                                                                             |
@@ -26,6 +27,21 @@ ticloud auth logout
 | --no-color           | Disables color in output.                                                                  | No       | Only works in non-interactive mode. In interactive mode, disabling color might not work with some UI components. |
 | -P, --profile string | Specifies the active [user profile](/tidb-cloud/cli-reference.md#user-profile) used in this command. | No       | Works in both non-interactive and interactive modes.                                                             |
 | -D, --debug          | Enables debug mode.                                                                          | No       | Works in both non-interactive and interactive modes.                                                             |
+========
+## Flags
+
+| Flag       | Description                       |
+|------------|-----------------------------------|
+ | -h, --help | Shows help information for this command. |
+
+## Inherited flags
+
+| Flag                 | Description                                                                                          | Required | Note                                                                                                             |
+|----------------------|------------------------------------------------------------------------------------------------------|----------|------------------------------------------------------------------------------------------------------------------|
+| --no-color           | Disables color in output.                                                                            | No       | Only works in non-interactive mode. In interactive mode, disabling color might not work with some UI components. |
+| -P, --profile string | Specifies the active [user profile](/tidb-cloud/cli-reference.md#user-profile) used in this command. | No       | Works in both non-interactive and interactive modes.                                                             |
+| -D, --debug          | Enables debug mode.                                                                                   | No       | Works in both non-interactive and interactive modes.                                                             |
+>>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c:tidb-cloud/ticloud-update.md
 
 ## Feedback
 

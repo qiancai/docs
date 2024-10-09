@@ -21,6 +21,7 @@ The following table lists the commands available for the TiDB Cloud CLI.
 
 To use the `ticloud` CLI in your terminal, run `ticloud [command] [subcommand]`. If you are using [TiUP](https://docs.pingcap.com/tidb/stable/tiup-overview), use `tiup cloud [command] [subcommand]` instead.
 
+<<<<<<< HEAD
 | Command               | Subcommand                                                            | Description                                    |
 |-----------------------|-----------------------------------------------------------------------|------------------------------------------------|
 | auth                  | login, logout, whoami                                                 | Login and logout                               |
@@ -35,6 +36,21 @@ To use the `ticloud` CLI in your terminal, run `ticloud [command] [subcommand]`.
 | project               | list                                                                  | Manage projects                                |
 | upgrade                | -                                                                     | Update the CLI to the latest version           |
 | help                  | auth, config, serverless, ai, project, upgrade, help, completion            | View help for any command                      |
+=======
+| Command           | Subcommand                                                               | Description                                                                                             |
+|-------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| auth              | login, logout                                                            | Login and logout                                                                                        |
+| serverless (alias: s)     | create, delete, describe, list, update, spending-limit, region, shell   | Manage TiDB Cloud Serverless clusters                                                                         |
+| serverless branch | create, delete, describe, list, shell                                    | Manage TiDB Cloud Serverless branches                                                                         |
+| serverless import | cancel, describe, list, start                                            | Manage TiDB Cloud Serverless import tasks |
+| serverless export | create, describe, list, cancel, download                                 | Manage TiDB Cloud Serverless export tasks                                                                      |
+| ai                | -                                                                        | Chat with TiDB Bot                                                                                      |
+| completion        | bash, fish, powershell, zsh                                              | Generate completion script for specified shell                                                          |
+| config            | create, delete, describe, edit, list, set, use                           | Configure user profiles                                                                                 |
+| project           | list                                                                     | Manage projects                                                                                         |
+| update            | -                                                                        | Update the CLI to the latest version                                                                    |
+| help              | cluster, completion, config, help, import, project, update               | View help for any command                                                                               |
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ## Command modes
 

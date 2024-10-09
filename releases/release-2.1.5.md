@@ -1,5 +1,9 @@
 ---
 title: TiDB 2.1.5 Release Notes
+<<<<<<< HEAD
+=======
+aliases: ['/docs/dev/releases/release-2.1.5/','/docs/dev/releases/2.1.5/']
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 summary: TiDB 2.1.5 and TiDB Ansible 2.1.5 are released on February 28, 2019. The release improves stability, SQL optimizer, statistics, and execution engine. Fixes include issues with sorting, data overflow, and SQL query results. New features include system variables, HTTP API, and detailed error messages. PD now has an option to exclude Tombstone stores, and TiKV fixes issues with data import, errors, and panic caused by Region merge. Tools like Lightning and TiDB Binlog also receive updates.
 ---
 

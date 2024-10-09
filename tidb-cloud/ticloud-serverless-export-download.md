@@ -29,6 +29,7 @@ ticloud serverless export download -c <cluster-id> -e <export-id>
 
 In non-interactive mode, you need to manually enter the required flags. In interactive mode, you can just follow CLI prompts to fill them in.
 
+<<<<<<< HEAD
 | Flag                    | Description                                                                                                                       | Required | Note                                                 |
 |-------------------------|-----------------------------------------------------------------------------------------------------------------------------------|----------|------------------------------------------------------|
 | -c, --cluster-id string | Specifies the ID of the cluster.                                                                                                  | Yes      | Only works in non-interactive mode.                  |
@@ -37,6 +38,15 @@ In non-interactive mode, you need to manually enter the required flags. In inter
 | --concurrency int       | Specifies the download concurrency. The default value is `3`.                                                                                                 | No       | Works in both non-interactive and interactive modes. |
 | --force                 | Downloads the exported data without confirmation.                                                                                 | No       | Works in both non-interactive and interactive modes. |
 | -h, --help              | Shows help information for this command.                                                                                          | No       | Works in both non-interactive and interactive modes. |
+=======
+| Flag                    | Description                                                                        | Required | Note                                                 |
+|-------------------------|------------------------------------------------------------------------------------|----------|------------------------------------------------------|
+| -c, --cluster-id string | Specifies the ID of the cluster.                                                       | Yes      | Only works in non-interactive mode.                  |
+| -e, --export-id string  | Specifies the ID of the export task.                                                               | Yes      | Only works in non-interactive mode.                  |
+| --output-path string    | Specifies the destination path for saving the downloaded data. If not specified, the data is downloaded to the current directory. | No       | Only works in non-interactive mode.                  |
+| --force                 | Downloads the exported data without confirmation.                                                      | No       | Works in both non-interactive and interactive modes. |
+| -h, --help              | Shows help information for this command.                                                  | No       | Works in both non-interactive and interactive modes. |
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ## Inherited flags
 

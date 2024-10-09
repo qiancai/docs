@@ -1,6 +1,10 @@
 ---
 title: TiDB Dashboard Cluster Diagnostic Page
 summary: TiDB Dashboard Cluster Diagnostics diagnoses cluster problems and summarizes results into a web page. Access the page through the dashboard or browser. Generate diagnostic and comparison reports for specified time ranges. Historical reports are also available.
+<<<<<<< HEAD
+=======
+aliases: ['/docs/dev/dashboard/dashboard-diagnostics-access/']
+>>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # TiDB Dashboard Cluster Diagnostics Page
