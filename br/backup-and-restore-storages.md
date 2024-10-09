@@ -1,10 +1,6 @@
 ---
 title: Backup Storages
 summary: TiDB supports backup storage to Amazon S3, Google Cloud Storage, Azure Blob Storage, and NFS. You can specify the URI and authentication for different storage services. BR sends credentials to TiKV by default when using S3, GCS, or Azure Blob Storage. You can disable this for cloud environments. The URI format for each storage service is specified, along with authentication methods. Server-side encryption is supported for Amazon S3 and Azure Blob Storage. BR v6.3.0 also supports AWS S3 Object Lock.
-<<<<<<< HEAD
-=======
-aliases: ['/docs/dev/br/backup-and-restore-storages/','/tidb/dev/backup-storage-S3/','/tidb/dev/backup-storage-azblob/','/tidb/dev/backup-storage-gcs/','/tidb/dev/external-storage/']
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # Backup Storages
@@ -22,7 +18,7 @@ By default, BR sends a credential to each TiKV node when using Amazon S3, GCS, o
 Note that this operation is not applicable to cloud environments. If you use IAM Role authorization, each node has its own role and permissions. In this case, you need to configure `--send-credentials-to-tikv=false` (or `-c=0` in short) to disable sending credentials:
 
 ```bash
-tiup br backup full -c=0 -u pd-service:2379 --storage 's3://bucket-name/prefix'
+./br backup full -c=0 -u pd-service:2379 --storage 's3://bucket-name/prefix'
 ```
 
 If you back up or restore data using the [`BACKUP`](/sql-statements/sql-statement-backup.md) and [`RESTORE`](/sql-statements/sql-statement-restore.md) statements, you can add the `SEND_CREDENTIALS_TO_TIKV = FALSE` option:
@@ -53,14 +49,14 @@ This section provides some URI examples by using `external` as the `host` parame
 **Back up snapshot data to Amazon S3**
 
 ```shell
-tiup br backup full -u "${PD_IP}:2379" \
+./br backup full -u "${PD_IP}:2379" \
 --storage "s3://external/backup-20220915?access-key=${access-key}&secret-access-key=${secret-access-key}"
 ```
 
 **Restore snapshot data from Amazon S3**
 
 ```shell
-tiup br restore full -u "${PD_IP}:2379" \
+./br restore full -u "${PD_IP}:2379" \
 --storage "s3://external/backup-20220915?access-key=${access-key}&secret-access-key=${secret-access-key}"
 ```
 
@@ -70,14 +66,14 @@ tiup br restore full -u "${PD_IP}:2379" \
 **Back up snapshot data to GCS**
 
 ```shell
-tiup br backup full --pd "${PD_IP}:2379" \
+./br backup full --pd "${PD_IP}:2379" \
 --storage "gcs://external/backup-20220915?credentials-file=${credentials-file-path}"
 ```
 
 **Restore snapshot data from GCS**
 
 ```shell
-tiup br restore full --pd "${PD_IP}:2379" \
+./br restore full --pd "${PD_IP}:2379" \
 --storage "gcs://external/backup-20220915?credentials-file=${credentials-file-path}"
 ```
 
@@ -87,14 +83,14 @@ tiup br restore full --pd "${PD_IP}:2379" \
 **Back up snapshot data to Azure Blob Storage**
 
 ```shell
-tiup br backup full -u "${PD_IP}:2379" \
+./br backup full -u "${PD_IP}:2379" \
 --storage "azure://external/backup-20220915?account-name=${account-name}&account-key=${account-key}"
 ```
 
 **Restore the `test` database from snapshot backup data in Azure Blob Storage**
 
 ```shell
-tiup br restore db --db test -u "${PD_IP}:2379" \
+./br restore db --db test -u "${PD_IP}:2379" \
 --storage "azure://external/backup-20220915account-name=${account-name}&account-key=${account-key}"
 ```
 
@@ -131,7 +127,7 @@ It is recommended that you configure access to S3 using either of the following 
     Associate an IAM role that can access S3 with EC2 instances where the TiKV and BR nodes run. After the association, BR can directly access the backup directories in S3 without additional settings.
 
     ```shell
-    tiup br backup full --pd "${PD_IP}:2379" \
+    br backup full --pd "${PD_IP}:2379" \
     --storage "s3://${host}/${path}"
     ```
 
@@ -198,7 +194,7 @@ You can configure the account used to access GCS by specifying the access key. I
     - Use BR to back up data to Azure Blob Storage:
 
         ```shell
-        tiup br backup full -u "${PD_IP}:2379" \
+        ./br backup full -u "${PD_IP}:2379" \
         --storage "azure://external/backup-20220915?account-name=${account-name}"
         ```
 
@@ -217,10 +213,4 @@ BR supports specifying the Azure server-side encryption scope or providing the e
 
 ## Other features supported by the storage service
 
-Amazon [S3 Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html) can help prevent backup data from accidental or intentional deletion during a specified retention period, enhancing the security and integrity of data. Starting from v6.3.0, BR supports Amazon S3 Object Lock for snapshot backups, adding an additional layer of security for full backups. Starting from v8.0.0, PITR also supports Amazon S3 Object Lock. Whether for full backups or log data backups, the Object Lock feature ensures more reliable data protection, further strengthening the security of data backup and recovery and meeting regulatory requirements.
-
-BR and PITR automatically detect whether the Amazon S3 Object Lock feature is enabled or disabled. You do not need to perform any additional operations.
-
-> **Warning:**
->
-> If the Object Lock feature is enabled during the snapshot backup or PITR log backup process, the snapshot backup or log backup might fail. You need to restart the snapshot backup or PITR log backup task to continue the backup.
+BR v6.3.0 supports AWS [S3 Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html). You can enable this feature to prevent backup data from being tampered with or deleted.

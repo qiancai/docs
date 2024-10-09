@@ -16,11 +16,7 @@ cdc cli changefeed create --server=http://10.0.10.25:8300 --sink-uri="mysql://ro
 ```shell
 Create changefeed successfully!
 ID: simple-replication-task
-<<<<<<< HEAD
 Info: {"upstream_id":7178706266519722477,"namespace":"default","id":"simple-replication-task","sink_uri":"mysql://root:xxxxx@127.0.0.1:4000/?time-zone=","create_time":"2024-08-05T15:05:46.679218+08:00","start_ts":438156275634929669,"engine":"unified","config":{"case_sensitive":false,"enable_old_value":true,"force_replicate":false,"ignore_ineligible_table":false,"check_gc_safe_point":true,"enable_sync_point":true,"bdr_mode":false,"sync_point_interval":30000000000,"sync_point_retention":3600000000000,"filter":{"rules":["test.*"],"event_filters":null},"mounter":{"worker_num":16},"sink":{"protocol":"","schema_registry":"","csv":{"delimiter":",","quote":"\"","null":"\\N","include_commit_ts":false},"column_selectors":null,"transaction_atomicity":"none","encoder_concurrency":16,"terminator":"\r\n","date_separator":"none","enable_partition_separator":false},"consistent":{"level":"none","max_log_size":64,"flush_interval":2000,"storage":""}},"state":"normal","creator_version":"v7.5.3"}
-=======
-Info: {"upstream_id":7178706266519722477,"namespace":"default","id":"simple-replication-task","sink_uri":"mysql://root:xxxxx@127.0.0.1:4000/?time-zone=","create_time":"2024-08-22T15:05:46.679218+08:00","start_ts":438156275634929669,"engine":"unified","config":{"case_sensitive":false,"enable_old_value":true,"force_replicate":false,"ignore_ineligible_table":false,"check_gc_safe_point":true,"enable_sync_point":true,"bdr_mode":false,"sync_point_interval":30000000000,"sync_point_retention":3600000000000,"filter":{"rules":["test.*"],"event_filters":null},"mounter":{"worker_num":16},"sink":{"protocol":"","schema_registry":"","csv":{"delimiter":",","quote":"\"","null":"\\N","include_commit_ts":false},"column_selectors":null,"transaction_atomicity":"none","encoder_concurrency":16,"terminator":"\r\n","date_separator":"none","enable_partition_separator":false},"consistent":{"level":"none","max_log_size":64,"flush_interval":2000,"storage":""}},"state":"normal","creator_version":"v8.3.0"}
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ```
 
 - `--changefeed-id`: The ID of the replication task. The format must match the `^[a-zA-Z0-9]+(\-[a-zA-Z0-9]+)*$` regular expression. If this ID is not specified, TiCDC automatically generates a UUID (the version 4 format) as the ID.
@@ -47,11 +43,7 @@ This section introduces the configuration of a replication task.
 # memory-quota = 1073741824
 
 # Specifies whether the database names and tables in the configuration file are case-sensitive.
-<<<<<<< HEAD
 # Starting from v7.5.0, the default value changes from true to false.
-=======
-# Starting from v6.5.6, v7.1.3, and v7.5.0, the default value changes from true to false.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 # This configuration item affects configurations related to filter and sink.
 case-sensitive = false
 
@@ -76,13 +68,10 @@ case-sensitive = false
 # The default value is the same as the default SQL mode of TiDB.
 # sql-mode = "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
 
-<<<<<<< HEAD
 # The default value is false, which means that Bi-Directional Replication (BDR) mode is disabled.
 # For more information, see https://docs.pingcap.com/tidb/stable/ticdc-bidirectional-replication
 # bdr-mode = false
 
-=======
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 # The duration for which the changefeed is allowed to automatically retry when internal errors or exceptions occur. The default value is 30 minutes.
 # The changefeed enters the failed state if internal errors or exceptions occur in the changefeed and persist longer than the duration set by this parameter.
 # When the changefeed is in the failed state, you need to restart the changefeed manually for recovery.
@@ -159,7 +148,7 @@ enable-table-across-nodes = false
 # ]
 
 # The protocol configuration item specifies the protocol format used for encoding messages.
-# When the downstream is Kafka, the protocol can be canal-json, avro, debezium, open-protocol, or simple.
+# When the downstream is Kafka, the protocol can only be canal-json, avro, or open-protocol.
 # When the downstream is Pulsar, the protocol can only be canal-json.
 # When the downstream is a storage service, the protocol can only be canal-json or csv.
 # Note: This configuration item only takes effect if the downstream is Kafka, Pulsar, or a storage service.
@@ -202,10 +191,6 @@ date-separator = 'day'
 # Note: This configuration item only takes effect if the downstream is a storage service.
 enable-partition-separator = true
 
-# Controls whether to disable the output of schema information. The default value is false, which means enabling the output of schema information.
-# Note: This parameter only takes effect when the sink type is MQ and the output protocol is Debezium.
-debezium-disable-schema = false
-
 # Since v6.5.0, TiCDC supports saving data changes to storage services in CSV format. Ignore the following configurations if you replicate data to MQ or MySQL sinks.
 # [sink.csv]
 # The character used to separate fields in the CSV file. The value must be an ASCII character and defaults to `,`.
@@ -218,44 +203,6 @@ debezium-disable-schema = false
 # include-commit-ts = false
 # The encoding method of binary data, which can be 'base64' or 'hex'. The default value is 'base64'.
 # binary-encoding-method = 'base64'
-# Whether to output handle key information. The default value is false. 
-# This configuration parameter is for internal implementation only, so it is not recommended to set it.
-# output-handle-key = false
-# Whether to output the value before the row data changes. The default value is false. 
-# When it is enabled, the UPDATE event will output two rows of data: the first row is a DELETE event that outputs the data before the change; the second row is an INSERT event that outputs the changed data.
-# When it is enabled (setting it to true), the "is-update" column will be added before the column with data changes. This added column is used to identify whether the data change of the current row comes from the UPDATE event or the original INSERT/DELETE event.
-# If the data change of the current row comes from the UPDATE event, the value of the "is-update" column is true. Otherwise it is false.
-# output-old-value = false
-
-# Starting from v8.0.0, TiCDC supports the Simple message encoding protocol. The following are the configuration parameters for the Simple protocol.
-# For more information about the protocol, see <https://docs.pingcap.com/tidb/stable/ticdc-simple-protocol>.
-# The following configuration parameters control the sending behavior of bootstrap messages.
-# send-bootstrap-interval-in-sec controls the time interval for sending bootstrap messages, in seconds.
-# The default value is 120 seconds, which means that a bootstrap message is sent every 120 seconds for each table.
-# send-bootstrap-interval-in-sec = 120
-
-# send-bootstrap-in-msg-count controls the message interval for sending bootstrap, in message count.
-# The default value is 10000, which means that a bootstrap message is sent every 10000 row changed messages for each table.
-# send-bootstrap-in-msg-count = 10000
-# Note: If you want to disable the sending of bootstrap messages, set both send-bootstrap-interval-in-sec and send-bootstrap-in-msg-count to 0.
-
-# send-bootstrap-to-all-partition controls whether to send bootstrap messages to all partitions.
-# The default value is true, which means that bootstrap messages are sent to all partitions of the corresponding table topic.
-# Setting it to false means bootstrap messages are sent to only the first partition of the corresponding table topic.
-# send-bootstrap-to-all-partition = true
-
-[sink.kafka-config.codec-config]
-# encoding-format controls the encoding format of the Simple protocol messages. Currently, the Simple protocol message supports "json" and "avro" encoding formats.
-# The default value is "json".
-# encoding-format = "json"
-
-[sink.open]
-# Whether to output the value before the row data changes. The default value is true. When it is disabled, the UPDATE event does not output the "p" field.
-# output-old-value = true
-
-[sink.debezium]
-# Whether to output the value before the row data changes. The default value is true. When it is disabled, the UPDATE event does not output the "before" field.
-# output-old-value = true
 
 [sink.open]
 # Whether to output the value before the row data changes. The default value is true. When it is disabled, the UPDATE event does not output the "p" field. This is introduced in v7.5.2.
@@ -314,11 +261,7 @@ sasl-oauth-grant-type = "client_credentials"
 # The audience in the Kafka SASL OAUTHBEARER authentication. The default value is empty. This parameter is optional when the OAUTHBEARER authentication is used.
 sasl-oauth-audience = "kafka"
 
-<<<<<<< HEAD
 # The following configuration item controls whether to output the original data change event. The default value is false. For more information, see https://docs.pingcap.com/tidb/v7.5/ticdc-split-update-behavior#control-whether-to-split-primary-or-unique-key-update-events.
-=======
-# The following configuration item controls whether to output the original data change event. The default value is false. For more information, see https://docs.pingcap.com/tidb/dev/ticdc-split-update-behavior#control-whether-to-split-primary-or-unique-key-update-events.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 # output-raw-change-event = false
 
 # The following configuration is only required when using Avro as the protocol and AWS Glue Schema Registry:
@@ -371,11 +314,7 @@ batching-max-publish-delay=10
 # The timeout for a Pulsar producer to send a message. The value is 30 seconds by default.
 send-timeout=30
 
-<<<<<<< HEAD
 # The following configuration item controls whether to output the original data change event. The default value is false. For more information, see https://docs.pingcap.com/tidb/v7.5/ticdc-split-update-behavior#control-whether-to-split-primary-or-unique-key-update-events.
-=======
-# The following configuration item controls whether to output the original data change event. The default value is false. For more information, see https://docs.pingcap.com/tidb/dev/ticdc-split-update-behavior#control-whether-to-split-primary-or-unique-key-update-events.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 # output-raw-change-event = false
 
 [sink.cloud-storage-config]
@@ -397,10 +336,6 @@ file-cleanup-cron-spec = "0 0 2 * * *"
 # The concurrency for uploading a single file.
 # The default value is 1, which means concurrency is disabled.
 flush-concurrency = 1
-<<<<<<< HEAD
 # The following configuration item controls whether to output the original data change event. The default value is false. For more information, see https://docs.pingcap.com/tidb/v7.5/ticdc-split-update-behavior#control-whether-to-split-primary-or-unique-key-update-events.
-=======
-# The following configuration item controls whether to output the original data change event. The default value is false. For more information, see https://docs.pingcap.com/tidb/dev/ticdc-split-update-behavior#control-whether-to-split-primary-or-unique-key-update-events.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 output-raw-change-event = false
 ```

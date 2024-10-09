@@ -1,10 +1,6 @@
 ---
 title: TiDB Dashboard Log Search Page
 summary: TiDB Dashboard log search page allows users to search logs, preview results, and download logs. Users can access the page after logging in, and specify time range, log level, keywords, and components for the search. The search result page displays parameter options, search progress, and search results. Users can download selected logs, cancel running tasks, and retry failed tasks. The search history list shows details of past searches and allows users to delete unnecessary history.
-<<<<<<< HEAD
-=======
-aliases: ['/docs/dev/dashboard/dashboard-log-search/']
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # TiDB Dashboard Log Search Page

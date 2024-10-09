@@ -1,9 +1,5 @@
 ---
 title: TiDB 2.1.9 Release Notes
-<<<<<<< HEAD
-=======
-aliases: ['/docs/dev/releases/release-2.1.9/','/docs/dev/releases/2.1.9/']
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 summary: TiDB 2.1.9 was released on May 6, 2019. It includes various bug fixes and improvements, such as fixing compatibility issues, privilege check problems, and wrong result issues. The release also includes improvements to slow query logs and support for controlling the number of rows returned by operators. Additionally, there are updates to PD, TiKV, TiDB Binlog, TiDB Lightning, and sync-diff-inspector. TiDB Ansible has also been updated with documentation links and parameter removal.
 ---
 

@@ -31,11 +31,7 @@ blob-file-compression = "zstd"
 
 > **Note:**
 >
-<<<<<<< HEAD
 > When Titan is enabled, there might be a slight performance degradation for range scans on the primary key. For more information, see [Impact of `min-blob-size` on performance](https://docs.pingcap.com/tidb/stable/titan-overview#impact-of-min-blob-size-on-performance).
-=======
-> When Titan is enabled, there might be a slight performance degradation for range scans on the primary key. For more information, see [Impact of `min-blob-size` on performance](/storage-engine/titan-overview.md#impact-of-min-blob-size-on-performance).
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ### Increase all the compression levels
 

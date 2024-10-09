@@ -176,7 +176,6 @@ Take the following steps to configure an access key:
 
 </div>
 </SimpleTab>
-<<<<<<< HEAD
 
 ## Configure GCS access
 
@@ -223,5 +222,3 @@ To allow TiDB Serverless to access your Azure Blob container, you need to config
    ![sas-create](/media/tidb-cloud/serverless-external-storage/azure-sas-create.png)
 
 4. Click **Generate SAS and connection string** to generate the SAS token.
-=======
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c

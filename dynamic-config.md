@@ -134,7 +134,6 @@ The following TiKV configuration items can be modified dynamically:
 | `raftstore.raft-max-size-per-msg` | The soft limit on the size of a single message packet that is allowed to be generated |
 | `raftstore.raft-entry-max-size` | The hard limit on the maximum size of a single Raft log |
 | `raftstore.raft-entry-cache-life-time` | The maximum remaining time allowed for the log cache in memory |
-| `raftstore.max-apply-unpersisted-log-limit` | The maximum number of committed but not persisted Raft logs that can be applied |
 | `raftstore.split-region-check-tick-interval` | The time interval at which to check whether the Region split is needed |
 | `raftstore.region-split-check-diff` | The maximum value by which the Region data is allowed to exceed before Region split |
 | `raftstore.region-compact-check-interval` | The time interval at which to check whether it is necessary to manually trigger RocksDB compaction |
@@ -164,9 +163,7 @@ The following TiKV configuration items can be modified dynamically:
 | `raftstore.apply-max-batch-size` | Raft state machines process data write requests in batches by the BatchSystem. This configuration item specifies the maximum number of Raft state machines that can execute the requests in one batch. |
 | `raftstore.store-max-batch-size` | Raft state machines process requests for flushing logs into the disk in batches by the BatchSystem. This configuration item specifies the maximum number of Raft state machines that can process the requests in one batch. |
 | `raftstore.store-io-pool-size` | The number of threads that process Raft I/O tasks, which is also the size of the StoreWriter thread pool (**DO NOT** modify this value from a non-zero value to 0 or from 0 to a non-zero value) |
-| `raftstore.periodic-full-compact-start-max-cpu` | The CPU usage threshold at which TiKV performs periodic full compaction if full compaction is enabled |
 | `readpool.unified.max-thread-count` | The maximum number of threads in the thread pool that uniformly processes read requests, which is the size of the UnifyReadPool thread pool |
-| `readpool.unified.max-tasks-per-worker` | The maximum number of tasks allowed for a single thread in the unified read pool. `Server Is Busy` error is returned when the value is exceeded. |
 | `readpool.unified.auto-adjust-pool-size` | Determines whether to automatically adjust the UnifyReadPool thread pool size |
 | `coprocessor.split-region-on-table` | Enables to split Region by table |
 | `coprocessor.batch-split-limit` | The threshold of Region split in batches |
@@ -213,9 +210,6 @@ The following TiKV configuration items can be modified dynamically:
 | `{db-name}.{cf-name}.soft-pending-compaction-bytes-limit` | The soft limit on the pending compaction bytes |
 | `{db-name}.{cf-name}.hard-pending-compaction-bytes-limit` | The hard limit on the pending compaction bytes |
 | `{db-name}.{cf-name}.titan.blob-run-mode` | The mode of processing blob files |
-| `{db-name}.{cf-name}.titan.min-blob-size` | The threshold at which data is stored in Titan. Data is stored in a Titan blob file when its value reaches this threshold. |
-| `{db-name}.{cf-name}.titan.blob-file-compression` | The compression algorithm used by Titan blob files |
-| `{db-name}.{cf-name}.titan.discardable-ratio` | The threshold of garbage data ratio in Titan data files for GC. When the ratio of useless data in a blob file exceeds the threshold, Titan GC is triggered. |
 | `server.grpc-memory-pool-quota` | Limits the memory size that can be used by gRPC |
 | `server.max-grpc-send-msg-len` | Sets the maximum length of a gRPC message that can be sent |
 | `server.snap-io-max-bytes-per-sec` | Sets the maximum allowable disk bandwidth when processing snapshots |

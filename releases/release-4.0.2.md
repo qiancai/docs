@@ -1,9 +1,5 @@
 ---
 title: TiDB 4.0.2 Release Notes
-<<<<<<< HEAD
-=======
-aliases: ['/docs/dev/releases/release-4.0.2/']
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 summary: TiDB 4.0.2 was released on July 1, 2020. The new version includes compatibility changes, new features, improvements, bug fixes, and new changes. Some highlights include support for new aggregate functions, improvements in query latency, and bug fixes related to execution plan, runtime errors, and data replication. Additionally, there are new features and improvements in TiKV, PD, TiFlash, and Tools.
 ---
 

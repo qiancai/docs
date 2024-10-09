@@ -23,11 +23,7 @@ cdc cli changefeed create \
 
 Create changefeed successfully!
 ID: simple-replication-task
-<<<<<<< HEAD
 Info: {"upstream_id":7277814241002263370,"namespace":"default","id":"simple-replication-task","sink_uri":"pulsar://127.0.0.1:6650/consumer-test?protocol=canal-json","create_time":"2024-08-05T14:42:32.000904+08:00","start_ts":444203257406423044,"config":{"memory_quota":1073741824,"case_sensitive":false,"force_replicate":false,"ignore_ineligible_table":false,"check_gc_safe_point":true,"enable_sync_point":false,"bdr_mode":false,"sync_point_interval":600000000000,"sync_point_retention":86400000000000,"filter":{"rules":["pulsar_test.*"]},"mounter":{"worker_num":16},"sink":{"protocol":"canal-json","csv":{"delimiter":",","quote":"\"","null":"\\N","include_commit_ts":false,"binary_encoding_method":"base64"},"dispatchers":[{"matcher":["pulsar_test.*"],"partition":"","topic":"test_{schema}_{table}"}],"encoder_concurrency":16,"terminator":"\r\n","date_separator":"day","enable_partition_separator":true,"only_output_updated_columns":false,"delete_only_output_handle_key_columns":false,"pulsar_config":{"connection-timeout":30,"operation-timeout":30,"batching-max-messages":1000,"batching-max-publish-delay":10,"send-timeout":30},"advance_timeout":150},"consistent":{"level":"none","max_log_size":64,"flush_interval":2000,"use_file_backend":false},"scheduler":{"enable_table_across_nodes":false,"region_threshold":100000,"write_key_threshold":0},"integrity":{"integrity_check_level":"none","corruption_handle_level":"warn"}},"state":"normal","creator_version":"v7.5.3","resolved_ts":444203257406423044,"checkpoint_ts":444203257406423044,"checkpoint_time":"2024-08-05 14:42:31.410"}
-=======
-Info: {"upstream_id":7277814241002263370,"namespace":"default","id":"simple-replication-task","sink_uri":"pulsar://127.0.0.1:6650/consumer-test?protocol=canal-json","create_time":"2024-08-22T14:42:32.000904+08:00","start_ts":444203257406423044,"config":{"memory_quota":1073741824,"case_sensitive":false,"force_replicate":false,"ignore_ineligible_table":false,"check_gc_safe_point":true,"enable_sync_point":false,"bdr_mode":false,"sync_point_interval":600000000000,"sync_point_retention":86400000000000,"filter":{"rules":["pulsar_test.*"]},"mounter":{"worker_num":16},"sink":{"protocol":"canal-json","csv":{"delimiter":",","quote":"\"","null":"\\N","include_commit_ts":false,"binary_encoding_method":"base64"},"dispatchers":[{"matcher":["pulsar_test.*"],"partition":"","topic":"test_{schema}_{table}"}],"encoder_concurrency":16,"terminator":"\r\n","date_separator":"day","enable_partition_separator":true,"only_output_updated_columns":false,"delete_only_output_handle_key_columns":false,"pulsar_config":{"connection-timeout":30,"operation-timeout":30,"batching-max-messages":1000,"batching-max-publish-delay":10,"send-timeout":30},"advance_timeout":150},"consistent":{"level":"none","max_log_size":64,"flush_interval":2000,"use_file_backend":false},"scheduler":{"enable_table_across_nodes":false,"region_threshold":100000,"write_key_threshold":0},"integrity":{"integrity_check_level":"none","corruption_handle_level":"warn"}},"state":"normal","creator_version":"v8.3.0","resolved_ts":444203257406423044,"checkpoint_ts":444203257406423044,"checkpoint_time":"2024-08-22 14:42:31.410"}
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ```
 
 The meaning of each parameter is as follows:
@@ -67,7 +63,6 @@ The configurable parameters in a URI are as follows:
 
 | Parameter           | Description                                                   |
 | :------------------ | :------------------------------------------------------------ |
-| `pulsar`             | The scheme for the downstream Pulsar. The value can be `pulsar`, `pulsar+ssl`, `pulsar+http`, or `pulsar+https`, in which `pulsar+http` and `pulsar+https` are supported starting from v8.2.0.                        |
 | `127.0.0.1`          | The IP address by which the downstream Pulsar provides service.             |
 | `6650`               | The connection port for the downstream Pulsar.                              |
 | `persistent://abc/def/yktest`   |  As shown in the preceding configuration example 1, this parameter is used to specify the tenant, namespace, and topic of Pulsar.   |
@@ -147,11 +142,7 @@ send-timeout=30
 
 ### TLS encrypted transmission
 
-<<<<<<< HEAD
 For v7.5.1 and later v7.5 patch versions, TiCDC supports TLS encrypted transmission for Pulsar. The configuration example is as follows:
-=======
-Starting from v7.5.1 and v8.0.0, TiCDC supports TLS encrypted transmission for Pulsar. The configuration example is as follows:
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 Sink URI:
 
@@ -232,11 +223,7 @@ The following is a sample configuration when you use token authentication with P
 
 - OAuth2 authentication
 
-<<<<<<< HEAD
     For v7.5.1 and later v7.5 patch versions, TiCDC supports the OAuth2 authentication for Pulsar.
-=======
-    Starting from v7.5.1 and v8.0.0, TiCDC supports the OAuth2 authentication for Pulsar.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
     Sink URI: 
 

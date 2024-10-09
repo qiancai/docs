@@ -4,11 +4,7 @@
 - [Docs Home](https://docs.pingcap.com/)
 - About TiDB Self-Managed
   - [What is TiDB Self-Managed](/overview.md)
-<<<<<<< HEAD
   - [TiDB 7.5 Release Notes](/releases/release-7.5.0.md)
-=======
-  - [TiDB 8.3 Release Notes](/releases/release-8.3.0.md)
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
   - [Features](/basic-features.md)
   - [MySQL Compatibility](/mysql-compatibility.md)
   - [TiDB Limitations](/tidb-limitations.md)
@@ -120,8 +116,6 @@
   - Plan Cluster Topology
     - [Minimal Topology](/minimal-deployment-topology.md)
     - [TiFlash Topology](/tiflash-deployment-topology.md)
-    - [PD Microservices Topology](/pd-microservices-deployment-topology.md)
-    - [TiProxy Topology](/tiproxy/tiproxy-deployment-topology.md)
     - [TiCDC Topology](/ticdc-deployment-topology.md)
     - [TiDB Binlog Topology](/tidb-binlog-deployment-topology.md)
     - [TiSpark Topology](/tispark-deployment-topology.md)
@@ -333,13 +327,6 @@
   - [Use Load Base Split](/configure-load-base-split.md)
   - [Use Store Limit](/configure-store-limit.md)
   - [DDL Execution Principles and Best Practices](/ddl-introduction.md)
-  - Use PD Microservices
-    - [PD Microservices Overview](/pd-microservices.md)
-    - [Scale PD Microservice Nodes Using TiUP](/scale-microservices-using-tiup.md)
-    - [TSO Configuration File](/tso-configuration-file.md)
-    - [TSO Configuration Flags](/command-line-flags-for-tso-configuration.md)
-    - [Scheduling Configuration File](/scheduling-configuration-file.md)
-    - [Scheduling Configuration Flags](/command-line-flags-for-scheduling-configuration.md)
 - TiDB Tools
   - [Overview](/ecosystem-tool-user-guide.md)
   - [Use Cases](/ecosystem-tool-user-case.md)
@@ -458,7 +445,6 @@
       - [Binlog Event Filter](/dm/dm-binlog-event-filter.md)
       - [Filter DMLs Using SQL Expressions](/dm/feature-expression-filter.md)
       - [Online DDL Tool Support](/dm/dm-online-ddl-tool-support.md)
-      - [Customize a Secret Key for Encryption and Decryption](/dm/dm-customized-secret-key.md)
       - Manage a Data Migration Task
         - [Precheck a Task](/dm/dm-precheck.md)
         - [Create a Task](/dm/dm-create-task.md)
@@ -532,8 +518,6 @@
       - [Release Notes](/dm/dm-release-notes.md)
   - TiDB Lightning
     - [Overview](/tidb-lightning/tidb-lightning-overview.md)
-    - [`IMPORT INTO` vs. TiDB Lightning](/tidb-lightning/import-into-vs-tidb-lightning.md)
-    - [Compatibility of TiDB Lightning and `IMPORT INTO` with TiCDC and Log Backup](/tidb-lightning/tidb-lightning-compatibility-and-scenarios.md)
     - [Get Started](/get-started-with-tidb-lightning.md)
     - [Deploy TiDB Lightning](/tidb-lightning/deploy-tidb-lightning.md)
     - [Target Database Requirements](/tidb-lightning/tidb-lightning-requirements.md)
@@ -577,7 +561,6 @@
         - [Replicate Data to Pulsar](/ticdc/ticdc-sink-to-pulsar.md)
         - [Replicate Data to Storage Services](/ticdc/ticdc-sink-to-cloud-storage.md)
       - [Manage Changefeeds](/ticdc/ticdc-manage-changefeed.md)
-      - [TiCDC Client Authentication](/ticdc/ticdc-client-authentication.md)
       - [Log Filter](/ticdc/ticdc-filter.md)
       - [DDL Replication](/ticdc/ticdc-ddl.md)
       - [Bidirectional Replication](/ticdc/ticdc-bidirectional-replication.md)
@@ -595,10 +578,8 @@
       - Output Protocols
         - [TiCDC Avro Protocol](/ticdc/ticdc-avro-protocol.md)
         - [TiCDC Canal-JSON Protocol](/ticdc/ticdc-canal-json.md)
-        - [TiCDC CSV Protocol](/ticdc/ticdc-csv.md)
-        - [TiCDC Debezium Protocol](/ticdc/ticdc-debezium.md)
         - [TiCDC Open Protocol](/ticdc/ticdc-open-protocol.md)
-        - [TiCDC Simple Protocol](/ticdc/ticdc-simple-protocol.md)
+        - [TiCDC CSV Protocol](/ticdc/ticdc-csv.md)
       - [TiCDC Open API v2](/ticdc/ticdc-open-api-v2.md)
       - [TiCDC Open API v1](/ticdc/ticdc-open-api.md)
       - TiCDC Data Consumption
@@ -608,7 +589,7 @@
     - [Troubleshoot](/ticdc/troubleshoot-ticdc.md)
     - [FAQs](/ticdc/ticdc-faq.md)
     - [Glossary](/ticdc/ticdc-glossary.md)
-  - TiDB Binlog (Deprecated)
+  - TiDB Binlog
     - [Overview](/tidb-binlog/tidb-binlog-overview.md)
     - [Quick Start](/tidb-binlog/get-started-with-tidb-binlog.md)
     - [Deploy](/tidb-binlog/deploy-tidb-binlog.md)
@@ -640,15 +621,6 @@
     - [Data Check for Tables with Different Schema/Table Names](/sync-diff-inspector/route-diff.md)
     - [Data Check in the Sharding Scenario](/sync-diff-inspector/shard-diff.md)
     - [Data Check in the DM Replication Scenario](/sync-diff-inspector/dm-diff.md)
-  - TiProxy
-    - [Overview](/tiproxy/tiproxy-overview.md)
-    - [Load Balancing Policies](/tiproxy/tiproxy-load-balance.md)
-    - [Configuration](/tiproxy/tiproxy-configuration.md)
-    - [Command Line Parameters](/tiproxy/tiproxy-command-line-flags.md)
-    - [Monitoring Metrics](/tiproxy/tiproxy-grafana.md)
-    - [API](/tiproxy/tiproxy-api.md)
-    - [Troubleshooting](/tiproxy/troubleshoot-tiproxy.md)
-    - [Performance Test](/tiproxy/tiproxy-performance-test.md)
 - Reference
   - Cluster Architecture
     - [Overview](/tidb-architecture.md)
@@ -733,10 +705,6 @@
       - [Expression Syntax](/expression-syntax.md)
       - [Comment Syntax](/comment-syntax.md)
     - SQL Statements
-<<<<<<< HEAD
-=======
-      - [Overview](/sql-statements/sql-statement-overview.md)
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
       - [`ADMIN`](/sql-statements/sql-statement-admin.md)
       - [`ADMIN CANCEL DDL`](/sql-statements/sql-statement-admin-cancel-ddl.md)
       - [`ADMIN CHECKSUM TABLE`](/sql-statements/sql-statement-admin-checksum-table.md)
@@ -745,7 +713,6 @@
       - [`ADMIN PAUSE DDL`](/sql-statements/sql-statement-admin-pause-ddl.md)
       - [`ADMIN RECOVER INDEX`](/sql-statements/sql-statement-admin-recover.md)
       - [`ADMIN RESUME DDL`](/sql-statements/sql-statement-admin-resume-ddl.md)
-      - [`ADMIN [SET|SHOW|UNSET] BDR ROLE`](/sql-statements/sql-statement-admin-bdr-role.md)
       - [`ADMIN SHOW DDL [JOBS|JOB QUERIES]`](/sql-statements/sql-statement-admin-show-ddl.md)
       - [`ADMIN SHOW TELEMETRY`](/sql-statements/sql-statement-admin-show-telemetry.md)
       - [`ALTER DATABASE`](/sql-statements/sql-statement-alter-database.md)
@@ -844,10 +811,6 @@
       - [`SHOW BUILTINS`](/sql-statements/sql-statement-show-builtins.md)
       - [`SHOW CHARACTER SET`](/sql-statements/sql-statement-show-character-set.md)
       - [`SHOW COLLATION`](/sql-statements/sql-statement-show-collation.md)
-<<<<<<< HEAD
-=======
-      - [`SHOW COLUMN_STATS_USAGE`](/sql-statements/sql-statement-show-column-stats-usage.md)
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
       - [`SHOW COLUMNS FROM`](/sql-statements/sql-statement-show-columns-from.md)
       - [`SHOW CONFIG`](/sql-statements/sql-statement-show-config.md)
       - [`SHOW CREATE DATABASE`](/sql-statements/sql-statement-show-create-database.md)
@@ -874,12 +837,10 @@
       - [`SHOW PROFILES`](/sql-statements/sql-statement-show-profiles.md)
       - [`SHOW PUMP STATUS`](/sql-statements/sql-statement-show-pump-status.md)
       - [`SHOW SCHEMAS`](/sql-statements/sql-statement-show-schemas.md)
-      - [`SHOW STATS_BUCKETS`](/sql-statements/sql-statement-show-stats-buckets.md)
       - [`SHOW STATS_HEALTHY`](/sql-statements/sql-statement-show-stats-healthy.md)
-      - [`SHOW STATS_HISTOGRAMS`](/sql-statements/sql-statement-show-stats-histograms.md)
+      - [`SHOW STATS_HISTOGRAMS`](/sql-statements/sql-statement-show-histograms.md)
       - [`SHOW STATS_LOCKED`](/sql-statements/sql-statement-show-stats-locked.md)
       - [`SHOW STATS_META`](/sql-statements/sql-statement-show-stats-meta.md)
-      - [`SHOW STATS_TOPN`](/sql-statements/sql-statement-show-stats-topn.md)
       - [`SHOW STATUS`](/sql-statements/sql-statement-show-status.md)
       - [`SHOW TABLE NEXT_ROW_ID`](/sql-statements/sql-statement-show-table-next-rowid.md)
       - [`SHOW TABLE REGIONS`](/sql-statements/sql-statement-show-table-regions.md)
@@ -917,15 +878,7 @@
       - [Encryption and Compression Functions](/functions-and-operators/encryption-and-compression-functions.md)
       - [Locking Functions](/functions-and-operators/locking-functions.md)
       - [Information Functions](/functions-and-operators/information-functions.md)
-      - JSON Functions
-        - [Overview](/functions-and-operators/json-functions.md)
-        - [Functions That Create JSON](/functions-and-operators/json-functions/json-functions-create.md)
-        - [Functions That Search JSON](/functions-and-operators/json-functions/json-functions-search.md)
-        - [Functions That Modify JSON](/functions-and-operators/json-functions/json-functions-modify.md)
-        - [Functions That Return JSON](/functions-and-operators/json-functions/json-functions-return.md)
-        - [JSON Utility Functions](/functions-and-operators/json-functions/json-functions-utility.md)
-        - [Functions That Aggregate JSON](/functions-and-operators/json-functions/json-functions-aggregate.md)
-        - [Functions That Validate JSON](/functions-and-operators/json-functions/json-functions-validate.md)
+      - [JSON Functions](/functions-and-operators/json-functions.md)
       - [Aggregate (GROUP BY) Functions](/functions-and-operators/aggregate-group-by-functions.md)
       - [GROUP BY Modifiers](/functions-and-operators/group-by-modifier.md)
       - [Window Functions](/functions-and-operators/window-functions.md)
@@ -957,9 +910,7 @@
       - [GBK](/character-set-gbk.md)
     - [Placement Rules in SQL](/placement-rules-in-sql.md)
     - System Tables
-      - `mysql` Schema
-        - [Overview](/mysql-schema/mysql-schema.md)
-        - [`user`](/mysql-schema/mysql-schema-user.md)
+      - [`mysql`](/mysql-schema.md)
       - INFORMATION_SCHEMA
         - [Overview](/information-schema/information-schema.md)
         - [`ANALYZE_STATUS`](/information-schema/information-schema-analyze-status.md)
@@ -1007,7 +958,6 @@
         - [`TIDB_HOT_REGIONS`](/information-schema/information-schema-tidb-hot-regions.md)
         - [`TIDB_HOT_REGIONS_HISTORY`](/information-schema/information-schema-tidb-hot-regions-history.md)
         - [`TIDB_INDEXES`](/information-schema/information-schema-tidb-indexes.md)
-        - [`TIDB_INDEX_USAGE`](/information-schema/information-schema-tidb-index-usage.md)
         - [`TIDB_SERVERS_INFO`](/information-schema/information-schema-tidb-servers-info.md)
         - [`TIDB_TRX`](/information-schema/information-schema-tidb-trx.md)
         - [`TIFLASH_REPLICA`](/information-schema/information-schema-tiflash-replica.md)
@@ -1024,11 +974,7 @@
       - PERFORMANCE_SCHEMA
         - [Overview](/performance-schema/performance-schema.md)
         - [`SESSION_CONNECT_ATTRS`](/performance-schema/performance-schema-session-connect-attrs.md)
-      - SYS
-        - [Overview](/sys-schema/sys-schema.md)
-        - [`schema_unused_indexes`](/sys-schema/sys-schema-unused-indexes.md)
     - [Metadata Lock](/metadata-lock.md)
-    - [TiDB Accelerated Table Creation](/accelerated-table-creation.md)
   - UI
     - TiDB Dashboard
       - [Overview](/dashboard/dashboard-intro.md)
@@ -1083,20 +1029,6 @@
   - [Release Timeline](/releases/release-timeline.md)
   - [TiDB Versioning](/releases/versioning.md)
   - [TiDB Installation Packages](/binary-package.md)
-<<<<<<< HEAD
-=======
-  - v8.3
-    - [8.3.0-DMR](/releases/release-8.3.0.md)
-  - v8.2
-    - [8.2.0-DMR](/releases/release-8.2.0.md)
-  - v8.1
-    - [8.1.1](/releases/release-8.1.1.md)
-    - [8.1.0](/releases/release-8.1.0.md)
-  - v8.0
-    - [8.0.0-DMR](/releases/release-8.0.0.md)
-  - v7.6
-    - [7.6.0-DMR](/releases/release-7.6.0.md)
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
   - v7.5
     - [7.5.3](/releases/release-7.5.3.md)
     - [7.5.2](/releases/release-7.5.2.md)
@@ -1120,10 +1052,7 @@
   - v6.6
     - [6.6.0-DMR](/releases/release-6.6.0.md)
   - v6.5
-<<<<<<< HEAD
     - [6.5.11](/releases/release-6.5.11.md)
-=======
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
     - [6.5.10](/releases/release-6.5.10.md)
     - [6.5.9](/releases/release-6.5.9.md)
     - [6.5.8](/releases/release-6.5.8.md)

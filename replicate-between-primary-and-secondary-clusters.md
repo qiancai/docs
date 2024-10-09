@@ -98,11 +98,7 @@ To replicate incremental data from a running TiDB cluster to its secondary clust
 
 ## Step 2. Migrate full data
 
-<<<<<<< HEAD
 After setting up the environment, you can use the backup and restore functions of [BR](https://github.com/pingcap/tidb/tree/release-7.5/br) to migrate full data. BR can be started in [three ways](/br/br-use-overview.md#deploy-and-use-br). In this document, we use the SQL statements, `BACKUP` and `RESTORE`.
-=======
-After setting up the environment, you can use the backup and restore functions of [BR](https://github.com/pingcap/tidb/tree/master/br) to migrate full data. BR can be started in [three ways](/br/br-use-overview.md#deploy-and-use-br). In this document, we use the SQL statements, `BACKUP` and `RESTORE`.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 > **Note:**
 >

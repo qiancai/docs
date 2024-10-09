@@ -108,7 +108,6 @@ To know the performance of TiDB with only the row-based storage engine, execute 
 {{< copyable "sql" >}}
 
 ```sql
-USE test;
 SELECT
     l_orderkey,
     SUM(
@@ -174,8 +173,7 @@ For tables with TiFlash replicas, the TiDB optimizer automatically determines wh
 {{< copyable "sql" >}}
 
 ```sql
-USE test;
-EXPLAIN ANALYZE SELECT
+explain analyze SELECT
     l_orderkey,
     SUM(
         l_extendedprice * (1 - l_discount)

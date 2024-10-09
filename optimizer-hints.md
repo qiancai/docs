@@ -11,7 +11,7 @@ If you encounter a situation where hints do not take effect, see [Troubleshoot c
 
 ## Syntax
 
-Optimizer hints are case insensitive and specified within `/*+ ... */` comments following the `SELECT`, `INSERT`, `UPDATE` or `DELETE` keyword in a SQL statement.
+Optimizer hints are case insensitive and specified within `/*+ ... */` comments following the `SELECT`, `UPDATE` or `DELETE` keyword in a SQL statement. Optimizer hints are not currently supported for `INSERT` statements.
 
 Multiple hints can be specified by separating with commas. For example, the following query uses three different hints:
 
@@ -81,6 +81,38 @@ This hint specifies the outer `SELECT` query block's name to `QB1`, which makes 
 > **Note:**
 >
 > In the above example, if the hint specifies the `QB_NAME` to `sel_2` and does not specify a new `QB_NAME` for the original second `SELECT` query block, then `sel_2` becomes an invalid name for the second `SELECT` query block.
+
+### SET_VAR(VAR_NAME=VAR_VALUE)
+
+You can temporarily modify the value of system variables during statement execution by using the `SET_VAR(VAR_NAME=VAR_VALUE)` hint. After the statement is executed, the value of the system variable in the current session is automatically restored to the original value. This hint can be used to modify some system variables related to the optimizer and executor. For a list of system variables that can be modified using this hint, refer to [System variables](/system-variables.md).
+
+> **Warning:**
+>
+> It is strongly recommended not to modify variables that are not explicitly supported, as this might cause unpredictable behavior.
+
+The following is an example:
+
+```sql
+SELECT /*+ SET_VAR(MAX_EXECUTION_TIME=1234) */ @@MAX_EXECUTION_TIME;
+SELECT @@MAX_EXECUTION_TIME;
+```
+
+After executing the preceding SQL statements, the first query returns the value `1234` set in the hint, instead of the default value of `MAX_EXECUTION_TIME`. The second query returns the default value of the variable.
+
+```sql
++----------------------+
+| @@MAX_EXECUTION_TIME |
++----------------------+
+|                 1234 |
++----------------------+
+1 row in set (0.00 sec)
++----------------------+
+| @@MAX_EXECUTION_TIME |
++----------------------+
+|                    0 |
++----------------------+
+1 row in set (0.00 sec)
+```
 
 ### MERGE_JOIN(t1_name [, tl_name ...])
 
@@ -780,39 +812,6 @@ In the following example, the Plan Cache is forcibly disabled when executing the
 prepare stmt from 'select  /*+ IGNORE_PLAN_CACHE() */ * from t where t.id = ?';
 ```
 
-### SET_VAR(VAR_NAME=VAR_VALUE)
-
-You can temporarily modify the value of system variables during statement execution by using the `SET_VAR(VAR_NAME=VAR_VALUE)` hint. After the statement is executed, the value of the system variable in the current session is automatically restored to the original value. This hint can be used to modify some system variables related to the optimizer and executor. For a list of system variables that can be modified using this hint, refer to [System Variables](/system-variables.md).
-
-> **Warning:**
->
-> - It is strongly recommended not to modify variables that are not explicitly supported, as this might cause unpredictable behavior.
-> - Do not write `SET_VAR` in subqueries. Otherwise it might not take effect. For more information, see [`SET_VAR` does not take effect when written in subqueries](#set_var-does-not-take-effect-when-written-in-subqueries).
-
-The following is an example:
-
-```sql
-SELECT /*+ SET_VAR(MAX_EXECUTION_TIME=1234) */ @@MAX_EXECUTION_TIME;
-SELECT @@MAX_EXECUTION_TIME;
-```
-
-After executing the preceding SQL statements, the first query returns the value `1234` set in the hint, instead of the default value of `MAX_EXECUTION_TIME`. The second query returns the default value of the variable.
-
-```sql
-+----------------------+
-| @@MAX_EXECUTION_TIME |
-+----------------------+
-|                 1234 |
-+----------------------+
-1 row in set (0.00 sec)
-+----------------------+
-| @@MAX_EXECUTION_TIME |
-+----------------------+
-|                    0 |
-+----------------------+
-1 row in set (0.00 sec)
-```
-
 ### STRAIGHT_JOIN()
 
 The `STRAIGHT_JOIN()` hint reminds the optimizer to join tables in the order of table names in the `FROM` clause when generating the join plan.
@@ -857,10 +856,6 @@ Example:
 ```sql
 SELECT /*+ RESOURCE_GROUP(rg1) */ * FROM t limit 10;
 ```
-
-> **Note:**
->
-> Starting from v8.2.0, TiDB introduces privilege control for this hint. When the system variable [`tidb_resource_control_strict_mode`](/system-variables.md#tidb_resource_control_strict_mode-new-in-v820) is set to `ON`, you need to have the `SUPER` or `RESOURCE_GROUP_ADMIN` or `RESOURCE_GROUP_USER` privilege to use this hint. If you do not have the required privilege, this hint is ignored, and TiDB returns a warning. You can view the details by executing `SHOW WARNINGS;` after the query.
 
 ## Troubleshoot common issues that hints do not take effect
 
@@ -984,30 +979,6 @@ SHOW WARNINGS;
 
 As you can see from the preceding example, the `INL_JOIN` hint does not take effect. This is due to a limitation of the optimizer that prevents using the `Projection` or `Selection` operator as the probe side of `IndexJoin`.
 
-<<<<<<< HEAD
-=======
-Starting from TiDB v8.0.0, you can avoid this issue by setting [`tidb_enable_inl_join_inner_multi_pattern`](/system-variables.md#tidb_enable_inl_join_inner_multi_pattern-new-in-v700) to `ON`.
-
-```sql
-SET @@tidb_enable_inl_join_inner_multi_pattern=ON;
-Query OK, 0 rows affected (0.00 sec)
-
-EXPLAIN SELECT /*+ INL_JOIN(t1, t2) */ * FROM t1, t2 WHERE t1.id=t2.id AND SUBSTR(t1.tname,1,2)=SUBSTR(t2.tname,1,2);
-+------------------------------+--------------+-----------+---------------+--------------------------------------------------------------------------------------------------------------------------------------------+
-| id                           | estRows      | task      | access object | operator info                                                                                                                              |
-+------------------------------+--------------+-----------+---------------+--------------------------------------------------------------------------------------------------------------------------------------------+
-| IndexJoin_18                 | 12500.00     | root      |               | inner join, inner:Projection_14, outer key:test.t1.id, inner key:test.t2.id, equal cond:eq(Column#5, Column#6), eq(test.t1.id, test.t2.id) |
-| ├─Projection_32(Build)       | 10000.00     | root      |               | test.t1.id, test.t1.tname, substr(test.t1.tname, 1, 2)->Column#5                                                                           |
-| │ └─TableReader_34           | 10000.00     | root      |               | data:TableFullScan_33                                                                                                                      |
-| │   └─TableFullScan_33       | 10000.00     | cop[tikv] | table:t1      | keep order:false, stats:pseudo                                                                                                             |
-| └─Projection_14(Probe)       | 100000000.00 | root      |               | test.t2.id, test.t2.tname, substr(test.t2.tname, 1, 2)->Column#6                                                                           |
-|   └─TableReader_13           | 10000.00     | root      |               | data:TableRangeScan_12                                                                                                                     |
-|     └─TableRangeScan_12      | 10000.00     | cop[tikv] | table:t2      | range: decided by [eq(test.t2.id, test.t1.id)], keep order:false, stats:pseudo                                                             |
-+------------------------------+--------------+-----------+---------------+--------------------------------------------------------------------------------------------------------------------------------------------+
-7 rows in set (0.00 sec)
-```
-
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 #### `INL_JOIN`, `INL_HASH_JOIN`, and `INL_MERGE_JOIN` hints do not take effect due to collation incompatibility
 
 When the collation of the join key is incompatible between two tables, the `IndexJoin` operator cannot be utilized to execute the query. In this case, the [`INL_JOIN`](#inl_joint1_name--tl_name-), [`INL_HASH_JOIN`](#inl_hash_join), and [`INL_MERGE_JOIN`](#inl_merge_join) hints do not take effect. For example:
@@ -1109,32 +1080,4 @@ CREATE TABLE t2 (a INT);
 set tidb_opt_enable_hash_join=off;
 EXPLAIN SELECT /*+ NO_MERGE_JOIN(t1) */ * FROM t1, t2 WHERE t1.a=t2.a;
 ERROR 1815 (HY000): Internal : Can't find a proper physical plan for this query
-```
-
-### `SET_VAR` does not take effect when written in subqueries
-
-`SET_VAR` is used to modify the value of system variables for the current statement. Do not write it in subqueries. If you write it in a subquery, `SET_VAR` might not take effect due to the special handling of subqueries.
-
-In the following example, `SET_VAR` is written in the subquery, so it does not take effect.
-
-```sql
-mysql> SELECT @@MAX_EXECUTION_TIME, a FROM (SELECT /*+ SET_VAR(MAX_EXECUTION_TIME=123) */ 1 as a) t;
-+----------------------+---+
-| @@MAX_EXECUTION_TIME | a |
-+----------------------+---+
-|                    0 | 1 |
-+----------------------+---+
-1 row in set (0.00 sec)
-```
-
-In the following example, `SET_VAR` is not written in a subquery, so it takes effect.
-
-```sql
-mysql> SELECT /*+ SET_VAR(MAX_EXECUTION_TIME=123) */ @@MAX_EXECUTION_TIME, a FROM (SELECT 1 as a) t;
-+----------------------+---+
-| @@MAX_EXECUTION_TIME | a |
-+----------------------+---+
-|                  123 | 1 |
-+----------------------+---+
-1 row in set (0.00 sec)
 ```

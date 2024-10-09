@@ -1,10 +1,6 @@
 ---
 title: Slow Queries Page of TiDB Dashboard
 summary: TiDB Dashboard's Slow Queries page allows users to search and view slow queries in the cluster. Queries with an execution time over 300 milliseconds are considered slow. Users can adjust the threshold and access the page through the dashboard or a browser. They can also change filters, display more columns, export queries, and view execution details.
-<<<<<<< HEAD
-=======
-aliases: ['/docs/dev/dashboard/dashboard-slow-query/']
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # Slow Queries Page of TiDB Dashboard

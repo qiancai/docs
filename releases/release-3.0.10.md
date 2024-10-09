@@ -1,9 +1,5 @@
 ---
 title: TiDB 3.0.10 Release Notes
-<<<<<<< HEAD
-=======
-aliases: ['/docs/dev/releases/release-3.0.10/','/docs/dev/releases/3.0.10/']
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 summary: TiDB 3.0.10 was released on February 20, 2020. It includes various bug fixes and improvements for TiDB, TiKV, PD, and TiDB Ansible. Some notable fixes include wrong Join results, data visibility issues, and system panic problems. TiDB Ansible also added new monitoring items to the dashboard. The release notes recommend using the latest 3.0.x version due to known issues in this release.
 ---
 

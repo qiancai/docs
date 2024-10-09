@@ -15,7 +15,6 @@ While you can also export data using tools such as [mysqldump](https://dev.mysql
 
 ## Export locations
 
-<<<<<<< HEAD
 You can export data to the following locations:
 
 - A local file
@@ -24,9 +23,6 @@ You can export data to the following locations:
     - [Amazon S3](https://aws.amazon.com/s3/)
     - [Google Cloud Storage](https://cloud.google.com/storage)
     - [Azure Blob Storage](https://azure.microsoft.com/en-us/services/storage/blobs/)
-=======
-You can export data to a local file or [Amazon S3](https://aws.amazon.com/s3/).
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 > **Note:**
 >
@@ -53,7 +49,6 @@ To export data to Amazon S3, you need to provide the following information:
 
 For more information, see [Configure External Storage Access for TiDB Cloud Serverless](/tidb-cloud/serverless-external-storage.md#configure-amazon-s3-access).
 
-<<<<<<< HEAD
 ### Google Cloud Storage
 
 To export data to Google Cloud Storage, you need to provide the following information:
@@ -80,17 +75,12 @@ For more information, see [Configure External Storage Access for TiDB Serverless
 >
 > Currently, you can only export to Azure Blob Storage using [TiDB Cloud CLI](/tidb-cloud/cli-reference.md).
 
-=======
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ## Export options
 
 ### Data filtering
 
 - TiDB Cloud console supports exporting data with the selected databases and tables.
-<<<<<<< HEAD
 - TiDB Cloud CLI supports exporting data with SQL statements and [table filters](/table-filter.md).
-=======
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ### Data formats
 
@@ -102,7 +92,6 @@ You can export data in the following formats:
     - `separator`: specify the character used to separate fields in the exported data. The default separator is `,`.
     - `header`: specify whether to include a header row in the exported data. The default value is `true`.
     - `null-value`: specify the string that represents a NULL value in the exported data. The default value is `\N`.
-<<<<<<< HEAD
 - `Parquet`: export data in Parquet format. Currently, it is only supported in TiDB Cloud CLI.
 
 The schema and data are exported according to the following naming conventions:
@@ -112,16 +101,6 @@ The schema and data are exported according to the following naming conventions:
 | Database schema | {database}-schema-create.sql                          | {database}-schema-create.sql.{compression-type}                                                                     |
 | Table schema    | {database}.{table}-schema.sql                         | {database}.{table}-schema.sql.{compression-type}                                                                    |
 | Data            | {database}.{table}.{0001}.{csv&#124;parquet&#124;sql} | {database}.{table}.{0001}.{csv&#124;sql}.{compression-type}<br/>{database}.{table}.{0001}.{compression-type}.parquet |
-=======
-
-The schema and data are exported according to the following naming conventions:
-
-| Item            | Not compressed                                       | Compressed                                                                                                          |
-|-----------------|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| Database schema | {database}-schema-create.sql                         | {database}-schema-create.sql.{compression-type}                                                                     |
-| Table schema    | {database}.{table}-schema.sql                        | {database}.{table}-schema.sql.{compression-type}                                                                    |
-| Data            | {database}.{table}.{0001}.{csv&#124;sql} | {database}.{table}.{0001}.{csv&#124;sql}.{compression-type} |
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ### Data compression
 
@@ -132,7 +111,6 @@ You can compress the exported CSV and SQL data using the following algorithms:
 - `zstd`: compress the exported data with `zstd`.
 - `none`: do not compress the exported `data`.
 
-<<<<<<< HEAD
 You can compress the exported Parquet data using the following algorithms:
 
 - `zstd` (default): compress the Parquet file with `zstd`.
@@ -185,9 +163,6 @@ When exporting data to the Parquet format, the data conversion between TiDB Clou
 | BIT                        | BYTE_ARRAY              | /                                            |
 
 ## Examples
-=======
-## Steps
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ### Export data to a local file
 
@@ -271,24 +246,16 @@ When exporting data to the Parquet format, the data conversion between TiDB Clou
 <div label="CLI">
 
 ```shell
-<<<<<<< HEAD
 ticloud serverless export create -c <cluster-id> --s3.uri <uri> --s3.access-key-id <access-key-id> --s3.secret-access-key <secret-access-key> --filter "database.table"
 ```
 
 - `s3.uri`: the Amazon S3 URI with the `s3://<bucket-name>/<file-path>` format.
-=======
-ticloud serverless export create -c <cluster-id> --s3.bucket-uri <uri> --s3.access-key-id <access-key-id> --s3.secret-access-key <secret-access-key>
-```
-
-- `s3.bucket-uri`: the Amazon S3 URI with the `s3://<bucket-name>/<file-path>` format.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 - `s3.access-key-id`: the access key ID of the user who has the permission to access the bucket.
 - `s3.secret-access-key`: the access key secret of the user who has the permission to access the bucket.
 
 </div>
 </SimpleTab>
 
-<<<<<<< HEAD
 ### Export data to Google Cloud Storage
 
 Currently, you can only export data to Google Cloud Storage using [TiDB Cloud CLI](/tidb-cloud/cli-reference.md).
@@ -311,8 +278,6 @@ ticloud serverless export create -c <cluster-id> --azblob.uri <uri> --azblob.sas
 - `azblob.uri`: the URI of the Azure Blob Storage in the `azure://<account-name>.blob.core.windows.net/<container-name>/<file-path>` format.
 - `azblob.sas-token`: the account SAS token of the Azure Blob Storage.
 
-=======
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ### Cancel an export task
 
 To cancel an ongoing export task, take the following steps:

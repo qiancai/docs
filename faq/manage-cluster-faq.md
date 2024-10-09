@@ -29,7 +29,7 @@ TiKV data is located in the [`--data-dir`](/command-line-flags-for-tikv-configur
 
 ### What are the system tables in TiDB?
 
-Similar to MySQL, TiDB includes system tables as well, used to store the information required by the server when it runs. See [TiDB system table](/mysql-schema/mysql-schema.md).
+Similar to MySQL, TiDB includes system tables as well, used to store the information required by the server when it runs. See [TiDB system table](/mysql-schema.md).
 
 ### Where are the TiDB/PD/TiKV logs?
 
@@ -55,7 +55,7 @@ By default, TiDB/PD/TiKV outputs standard error in the logs. If a log file is sp
 
 ### Does TiDB support session timeout?
 
-TiDB currently supports the following timeouts: [`wait_timeout`](/system-variables.md#wait_timeout), [`interactive_timeout`](/system-variables.md#interactive_timeout), and [`tidb_idle_transaction_timeout`](/system-variables.md#tidb_idle_transaction_timeout-new-in-v760).
+TiDB currently supports two timeouts, [`wait_timeout`](/system-variables.md#wait_timeout) and [`interactive_timeout`](/system-variables.md#interactive_timeout).
 
 ### What is the TiDB version management strategy?
 

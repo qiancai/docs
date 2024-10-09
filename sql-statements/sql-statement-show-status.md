@@ -30,12 +30,6 @@ mysql> SHOW SESSION STATUS;
 +-------------------------------+--------------------------------------+
 | Variable_name                 | Value                                |
 +-------------------------------+--------------------------------------+
-<<<<<<< HEAD
-=======
-| Compression                   | OFF                                  |
-| Compression_algorithm         |                                      |
-| Compression_level             | 0                                    |
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 | Ssl_cipher                    |                                      |
 | Ssl_cipher_list               |                                      |
 | Ssl_server_not_after          |                                      |
@@ -47,11 +41,7 @@ mysql> SHOW SESSION STATUS;
 | last_plan_binding_update_time | 0000-00-00 00:00:00                  |
 | server_id                     | 61160e73-ab80-40ff-8f33-27d55d475fd1 |
 +-------------------------------+--------------------------------------+
-<<<<<<< HEAD
 10 rows in set (0.00 sec)
-=======
-13 rows in set (0.00 sec)
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 mysql> SHOW GLOBAL STATUS;
 +-----------------------+--------------------------------------+

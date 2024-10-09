@@ -15,10 +15,12 @@ summary: The usage of SHOW PLACEMENT LABELS in TiDB.
 
 ```ebnf+diagram
 ShowStmt ::=
-    "SHOW" "PLACEMENT" "LABELS" ShowLikeOrWhere?
+    "PLACEMENT" "LABELS"
 ```
 
 ## Examples
+
+{{< copyable "sql" >}}
 
 ```sql
 SHOW PLACEMENT LABELS;

@@ -40,7 +40,8 @@ Before using the DM tool, note the following restrictions:
 
 + Database version requirements
 
-    - MySQL version 5.6 ~ 8.0
+    - MySQL version 5.5 ~ 5.7
+    - MySQL version 8.0 (experimental features)
     - MariaDB version >= 10.1.2 (experimental features)
 
     > **Note:**
@@ -61,10 +62,6 @@ Before using the DM tool, note the following restrictions:
 + GBK character set compatibility
 
     - DM does not support migrating `charset=GBK` tables to TiDB clusters earlier than v5.4.0.
-
-+ Binlog compatibility
-
-    - DM does not support the MySQL 8.0 new feature binlog [Transaction_payload_event](https://dev.mysql.com/doc/refman/8.0/en/binary-log-transaction-compression.html). Using binlog Transaction_payload_event might result in data inconsistency between upstream and downstream.
 
 ## Contributing
 
@@ -88,9 +85,5 @@ Before v5.4, the DM documentation is independent of the TiDB documentation. To a
 
 > **Note:**
 >
-<<<<<<< HEAD
 > - Since October 2021, DM's GitHub repository has been moved to [pingcap/tiflow](https://github.com/pingcap/tiflow/tree/release-7.5/dm). If you see any issues with DM, submit your issue to the `pingcap/tiflow` repository for feedback.
-=======
-> - Since October 2021, DM's GitHub repository has been moved to [pingcap/tiflow](https://github.com/pingcap/tiflow/tree/master/dm). If you see any issues with DM, submit your issue to the `pingcap/tiflow` repository for feedback.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 > - In earlier versions (v1.0 and v2.0), DM uses version numbers that are independent of TiDB. Since v5.3, DM uses the same version number as TiDB. The next version of DM v2.0 is DM v5.3. There are no compatibility changes from DM v2.0 to v5.3, and the upgrade process is the same as a normal upgrade, only an increase in version number.

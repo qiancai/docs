@@ -9,12 +9,17 @@ The `SHOW CREATE SEQUENCE` shows the detailed information of a sequence, which i
 
 ## Synopsis
 
-```ebnf+diagram
-ShowCreateSequenceStmt ::=
-    "SHOW" "CREATE" "SEQUENCE" ( SchemaName "." )? TableName
-```
+**ShowCreateSequenceStmt:**
+
+![ShowCreateSequenceStmt](/media/sqlgram/ShowCreateSequenceStmt.png)
+
+**TableName:**
+
+![TableName](/media/sqlgram/TableName.png)
 
 ## Examples
+
+{{< copyable "sql" >}}
 
 ```sql
 CREATE SEQUENCE seq;
@@ -23,6 +28,8 @@ CREATE SEQUENCE seq;
 ```
 Query OK, 0 rows affected (0.03 sec)
 ```
+
+{{< copyable "sql" >}}
 
 ```sql
 SHOW CREATE SEQUENCE seq;

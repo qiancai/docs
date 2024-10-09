@@ -7,25 +7,12 @@ summary: Introduce the behavior changes about whether TiCDC splits `UPDATE` even
 
 ## Split `UPDATE` events for MySQL sinks
 
-<<<<<<< HEAD
 Starting from v7.5.2, when using the MySQL sink, any TiCDC node that receives a request for replicating a table will fetch the current timestamp `thresholdTS` from PD before starting the replication to the downstream. Based on the value of this timestamp, TiCDC decides whether to split `UPDATE` events:
 
 - For transactions containing one or multiple `UPDATE` changes, if the  transaction `commitTS` is less than `thresholdTS`, TiCDC splits the `UPDATE` event into a `DELETE` event and an `INSERT` event before writing them to the Sorter module.
 - For `UPDATE` events with the transaction `commitTS` greater than or equal to `thresholdTS`, TiCDC does not split them. For more information, see GitHub issue [#10918](https://github.com/pingcap/tiflow/issues/10918).
 
 This behavior change addresses the issue of downstream data inconsistencies caused by the potentially incorrect order of `UPDATE` events received by TiCDC, which can lead to an incorrect order of split `DELETE` and `INSERT` events.
-=======
-Starting from v6.5.10, v7.5.2, v8.1.1, and v8.2.0, when using the MySQL sink, any TiCDC node that receives a request for replicating a table will fetch the current timestamp `thresholdTS` from PD before starting the replication to the downstream. Based on the value of this timestamp, TiCDC decides whether to split `UPDATE` events:
-
-- For transactions containing one or multiple `UPDATE` changes, if the transaction `commitTS` is less than `thresholdTS`, TiCDC splits the `UPDATE` event into a `DELETE` event and an `INSERT` event before writing them to the Sorter module.
-- For `UPDATE` events with the transaction `commitTS` greater than or equal to `thresholdTS`, TiCDC does not split them. For more information, see GitHub issue [#10918](https://github.com/pingcap/tiflow/issues/10918).
-
-> **Note:**
->
-> In v8.1.0, when using MySQL Sink, TiCDC also decides whether to split `UPDATE` events based on the value of `thresholdTS`, but `thresholdTS` is obtained differently. Specifically, in v8.1.0, `thresholdTS` is the current timestamp fetched from PD at TiCDC startup, but this way might cause data inconsistency issues in multi-node scenarios. For more information, see GitHub issue [#11219](https://github.com/pingcap/tiflow/issues/11219).
-
-This behavior change (that is, deciding whether to split `UPDATE` events based on `thresholdTS`) addresses the issue of downstream data inconsistencies caused by the potentially incorrect order of `UPDATE` events received by TiCDC, which can lead to an incorrect order of split `DELETE` and `INSERT` events.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 Take the following SQL statements as an example:
 
@@ -123,11 +110,7 @@ Therefore, TiCDC splits these two events into four events, that is, deleting rec
 
 ### Control whether to split primary or unique key `UPDATE` events
 
-<<<<<<< HEAD
 Starting from v6.5.10, v7.1.6, and v7.5.3, when using a non-MySQL sink, TiCDC supports controlling whether to split primary or unique key `UPDATE` events via the `output-raw-change-event` parameter, as described in the GitHub issue [#11211]( https://github.com/pingcap/tiflow/issues/11211). The specific behavior of this parameter is as follows:
-=======
-Starting from v6.5.10, v7.1.6, v7.5.3, and v8.1.1, when using a non-MySQL sink, TiCDC supports controlling whether to split primary or unique key `UPDATE` events via the `output-raw-change-event` parameter, as described in the GitHub issue [#11211]( https://github.com/pingcap/tiflow/issues/11211). The specific behavior of this parameter is as follows:
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 - When you set `output-raw-change-event = false`, if the primary key or non-null unique index value is modified in an `UPDATE` event, TiCDC splits the event into `DELETE` and `INSERT` events and ensures that all events follow the sequence of `DELETE` events preceding `INSERT` events.
 - When you set `output-raw-change-event = true`, TiCDC does not split `UPDATE` events. Note that when the primary key of a table is a clustered index, updates to the primary key are still split into `DELETE` and `INSERT` events in TiDB, and such behavior is not affected by the `output-raw-change-event` parameter.
@@ -163,13 +146,3 @@ Starting from v6.5.10, v7.1.6, v7.5.3, and v8.1.1, when using a non-MySQL sink, 
 | -- | -- | -- | -- | -- |
 | <= v7.5.2 | ALL | ✓ | ✗ |
 | \>= v7.5.3 | ALL | ✓ (Default value:`output-raw-change-event = false`) | ✓  (Optional: `output-raw-change-event = true`) | |
-<<<<<<< HEAD
-=======
-
-#### Release 8.1 compatibility
-
-| Version | Protocol | Split UK/PK `UPDATE` events | Not split UK/PK `UPDATE` events  | Comments |
-| -- | -- | -- | -- | -- |
-| v8.1.0 | ALL | ✓ | ✗ |
-| \>= v8.1.1 | ALL | ✓ (Default value:`output-raw-change-event = false`) | ✓  (Optional: `output-raw-change-event = true`) | |
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c

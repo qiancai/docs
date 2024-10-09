@@ -122,7 +122,3 @@ The output is as follows:
 +-------+---------+------+------+---------+-------+
 1 row in set (0.00 sec)
 ```
-
-## See also
-
-- [`SHOW COLUMNS FROM`](/sql-statements/sql-statement-show-columns-from.md)

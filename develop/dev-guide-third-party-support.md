@@ -140,11 +140,7 @@ If you encounter problems when connecting to TiDB using the tools listed in this
          <td>v7.0</td>
          <td>Full</td>
          <td>N/A</td>
-<<<<<<< HEAD
          <td><a href="https://docs.pingcap.com/tidb/v7.5/dev-guide-sample-application-ruby-rails">Connect to TiDB with Rails Framework and ActiveRecord ORM</a></td>
-=======
-         <td><a href="/tidb/dev/dev-guide-sample-application-ruby-rails">Connect to TiDB with Rails Framework and ActiveRecord ORM</a></td>
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
       </tr>
       <tr>
          <td rowspan="3">JavaScript / TypeScript</td>
@@ -152,33 +148,21 @@ If you encounter problems when connecting to TiDB using the tools listed in this
          <td>v6.20.1</td>
          <td>Full</td>
          <td>N/A</td>
-<<<<<<< HEAD
          <td><a href="https://docs.pingcap.com/tidb/v7.5/dev-guide-sample-application-nodejs-sequelize">Connect to TiDB with Sequelize</a></td>
-=======
-         <td><a href="/tidb/dev/dev-guide-sample-application-nodejs-sequelize">Connect to TiDB with Sequelize</a></td>
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
       </tr>
       <tr>
          <td><a href="https://www.prisma.io/" target="_blank" referrerpolicy="no-referrer-when-downgrade">Prisma</a></td>
          <td>4.16.2</td>
          <td>Full</td>
          <td>N/A</td>
-<<<<<<< HEAD
          <td><a href="https://docs.pingcap.com/tidb/v7.5/dev-guide-sample-application-nodejs-prisma">Connect to TiDB with Prisma</a></td>
-=======
-         <td><a href="/tidb/dev/dev-guide-sample-application-nodejs-prisma">Connect to TiDB with Prisma</a></td>
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
       </tr>
       <tr>
          <td><a href="https://typeorm.io/" target="_blank" referrerpolicy="no-referrer-when-downgrade">TypeORM</a></td>
          <td>v0.3.17</td>
          <td>Full</td>
          <td>N/A</td>
-<<<<<<< HEAD
          <td><a href="https://docs.pingcap.com/tidb/v7.5/dev-guide-sample-application-nodejs-typeorm">Connect to TiDB with TypeORM</a></td>
-=======
-         <td><a href="/tidb/dev/dev-guide-sample-application-nodejs-typeorm">Connect to TiDB with TypeORM</a></td>
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
       </tr>
       <tr>
          <td rowspan="2">Python</td>
@@ -186,11 +170,7 @@ If you encounter problems when connecting to TiDB using the tools listed in this
          <td>v4.2</td>
          <td>Full</td>
          <td><a href="https://github.com/pingcap/django-tidb" target="_blank" referrerpolicy="no-referrer-when-downgrade">django-tidb</a></td>
-<<<<<<< HEAD
          <td><a href="https://docs.pingcap.com/tidb/v7.5/dev-guide-sample-application-python-django">Connect to TiDB with Django</a></td>
-=======
-         <td><a href="/tidb/dev/dev-guide-sample-application-python-django">Connect to TiDB with Django</a></td>
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
       </tr>
       <tr>
          <td><a href="https://www.sqlalchemy.org/" target="_blank" referrerpolicy="no-referrer-when-downgrade">SQLAlchemy</a></td>

@@ -1,10 +1,6 @@
 ---
 title: Secure TiDB Dashboard
 summary: TiDB Dashboard requires enhanced security measures, including setting a strong password for the root user, creating a least-privileged user, and using a firewall to block untrusted access. It is also recommended to use a reverse proxy and enable TLS for further security.
-<<<<<<< HEAD
-=======
-aliases: ['/docs/dev/dashboard/dashboard-ops-security/']
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # Secure TiDB Dashboard

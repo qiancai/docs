@@ -7,15 +7,11 @@ summary: Learn about the TiDB system tables.
 
 The `mysql` schema contains TiDB system tables. The design is similar to the `mysql` schema in MySQL, where tables such as `mysql.user` can be edited directly. It also contains a number of tables which are extensions to MySQL.
 
-> **Note:**
->
-> In most scenarios, it is not recommended to change the content of system tables directly using `INSERT`, `UPDATE`, or `DELETE`. Instead, use statements such as [`CREATE USER`](/sql-statements/sql-statement-create-user.md), [`ALTER USER`](/sql-statements/sql-statement-alter-user.md), [`DROP USER`](/sql-statements/sql-statement-drop-user.md), [`GRANT`](/sql-statements/sql-statement-grant-privileges.md), [`REVOKE`](/sql-statements/sql-statement-revoke-privileges.md), and [`SHOW CREATE USER`](/sql-statements/sql-statement-show-create-user.md) to manage users and privileges. If direct modification of system tables is unavoidable, use [`FLUSH PRIVILEGES`](/sql-statements/sql-statement-flush-privileges.md) to make the changes take effect.
-
 ## Grant system tables
 
 These system tables contain grant information about user accounts and their privileges:
 
-- [`user`](/mysql-schema/mysql-schema-user.md): user accounts, global privileges, and other non-privilege columns
+- `user`: user accounts, global privileges, and other non-privilege columns
 - `db`: database-level privileges
 - `tables_priv`: table-level privileges
 - `columns_priv`: column-level privileges
@@ -90,11 +86,7 @@ Currently, the `help_topic` is NULL.
 ## System tables related to DDL statements
 
 * `tidb_ddl_history`: the history records of DDL statements
-<<<<<<< HEAD:mysql-schema.md
 * `tidb_ddl_job`: the metadata of DDL statements that are currently being executed by TiDB
-=======
-* `tidb_ddl_jobs`: the metadata of DDL statements that are currently being executed by TiDB
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c:mysql-schema/mysql-schema.md
 * `tidb_ddl_reorg`: the metadata of physical DDL statements (such as adding indexes) that are currently being executed by TiDB
 
 ## System tables related to TiDB Distributed eXecution Framework (DXF)
@@ -104,13 +96,6 @@ Currently, the `help_topic` is NULL.
 * `tidb_global_task_history`: the metadata of the historical DXF tasks, including both succeeded and failed tasks
 * `tidb_background_subtask`: the metadata of the current DXF subtask
 * `tidb_background_subtask_history`: the metadata of the historical DXF subtasks
-<<<<<<< HEAD:mysql-schema.md
-=======
-
-## System tables related to Resource Control
-
-* `request_unit_by_group`: the history records of consumed resource units (RUs) of all resource groups
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c:mysql-schema/mysql-schema.md
 
 ## Miscellaneous system tables
 

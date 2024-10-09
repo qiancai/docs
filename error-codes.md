@@ -431,9 +431,9 @@ TiDB is compatible with the error codes in MySQL, and in most cases returns the 
 
 * Error Number: 8216
 
-    The usage of the `AUTO_RANDOM` columns is incorrect.
+    The usage of automatic random columns is incorrect.
 
-    See [`AUTO_RANDOM`](/auto-random.md) to modify.
+    See [auto random](/auto-random.md) to modify.
 
 * Error Number: 8223
 
@@ -524,10 +524,6 @@ TiDB is compatible with the error codes in MySQL, and in most cases returns the 
 * Error Number: 8262
 
     DDL is paused by `ADMIN PAUSE` and cannot be paused again.
-
-* Error Number: 8263
-
-    This DDL cannot be executed under a specific BDR role. Make sure that the cluster is in [bidirectional replication](/ticdc/ticdc-bidirectional-replication.md). If the cluster is not in bidirectional replication, you can use `ADMIN UNSET BDR ROLE;` to make DDL normal.
 
 * Error Number: 9001
 

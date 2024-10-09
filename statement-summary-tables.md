@@ -86,11 +86,7 @@ The following is a sample output of querying `statements_summary`:
 > **Note:**
 >
 > - In TiDB, the time unit of fields in statement summary tables is nanosecond (ns), whereas in MySQL the time unit is picosecond (ps).
-<<<<<<< HEAD
 > - Starting from v7.5.1, for clusters with [resource control](/tidb-resource-control.md) enabled, `statements_summary` will be aggregated by resource group, for example, the same statements executed in different resource groups will be collected as different records.
-=======
-> - Starting from v7.5.1 and v7.6.0, for clusters with [resource control](/tidb-resource-control.md) enabled, `statements_summary` will be aggregated by resource group, for example, the same statements executed in different resource groups will be collected as different records.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ## `statements_summary_history`
 
@@ -332,11 +328,9 @@ Basic fields:
 - `SAMPLE_USER`: The users who execute SQL statements of this category. Only one user is taken.
 - `PLAN_DIGEST`: The digest of the execution plan.
 - `PLAN`: The original execution plan. If there are multiple statements, the plan of only one statement is taken.
-- `BINARY_PLAN`: The original execution plan encoded in binary format. If there are multiple statements, the plan of only one statement is taken. Execute the [`SELECT tidb_decode_binary_plan('xxx...')`](/functions-and-operators/tidb-functions.md#tidb_decode_binary_plan) statement to parse the specific execution plan.
+- `BINARY_PLAN`: The original execution plan encoded in binary format. If there are multiple statements, the plan of only one statement is taken. Execute the `SELECT tidb_decode_binary_plan('xxx...')` statement to parse the specific execution plan.
 - `PLAN_CACHE_HITS`: The total number of times that SQL statements of this category hit the plan cache.
 - `PLAN_IN_CACHE`: Indicates whether the previous execution of SQL statements of this category hit the plan cache.
-- `PLAN_CACHE_UNQUALIFIED`: The number of times that the SQL statements of this category fail to hit the plan cache.
-- `PLAN_CACHE_UNQUALIFIED_LAST_REASON`: The reason why the SQL statements of this category fail to hit the plan cache last time.
 
 Fields related to execution time:
 

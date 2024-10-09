@@ -7,18 +7,6 @@ summary: An overview of the usage of SHOW STATS_LOCKED for the TiDB database.
 
 `SHOW STATS_LOCKED` shows the tables whose statistics are locked.
 
-<<<<<<< HEAD
-=======
-Currently, the `SHOW STATS_LOCKED` statement returns the following columns:
-
-| Column name | Description            |
-| -------- | ------------- |
-| `Db_name` | The database name |
-| `Table_name` | The table name |
-| `Partition_name` | The partition name |
-| `Status` | The statistics status, such as `locked` |
-
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ## Synopsis
 
 ```ebnf+diagram

@@ -5,7 +5,7 @@ summary: Learn to deploy TiDB Binlog with a simple TiDB cluster.
 
 # TiDB Binlog Tutorial
 
-This tutorial starts with a simple [TiDB Binlog](/tidb-binlog/tidb-binlog-overview.md) (deprecated) deployment with a single node of each component (Placement Driver, TiKV Server, TiDB Server, Pump, and Drainer), set up to push data into a MariaDB Server instance.
+This tutorial starts with a simple TiDB Binlog deployment with a single node of each component (Placement Driver, TiKV Server, TiDB Server, Pump, and Drainer), set up to push data into a MariaDB Server instance.
 
 This tutorial is targeted toward users who have some familiarity with the [TiDB Architecture](/tidb-architecture.md), who may have already set up a TiDB cluster (not mandatory), and who wants to gain hands-on experience with TiDB Binlog. This tutorial is a good way to "kick the tires" of TiDB Binlog and to familiarize yourself with the concepts of its architecture.
 
@@ -42,11 +42,7 @@ sudo yum install -y mariadb-server
 ```
 
 ```bash
-<<<<<<< HEAD
 curl -L https://download.pingcap.org/tidb-community-server-v7.5.3-linux-amd64.tar.gz | tar xzf -
-=======
-curl -L https://download.pingcap.org/tidb-community-server-v8.3.0-linux-amd64.tar.gz | tar xzf -
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 cd tidb-latest-linux-amd64
 ```
 

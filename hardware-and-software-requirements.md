@@ -17,7 +17,6 @@ As an open-source distributed SQL database with high performance, TiDB can be de
 
 ## OS and platform requirements
 
-<<<<<<< HEAD
 In v7.5 LTS, TiDB ensures multi-level quality standards for various combinations of operating systems and CPU architectures.
 
 + For the following combinations of operating systems and CPU architectures, TiDB **provides enterprise-level production quality**, and the product features have been comprehensively and systematically verified:
@@ -119,82 +118,6 @@ In v7.5 LTS, TiDB ensures multi-level quality standards for various combinations
 + If you are using the 32-bit version of an operating system listed in the preceding two tables, TiDB **is not guaranteed** to be compilable, buildable or deployable on the 32-bit operating system and the corresponding CPU architecture, or TiDB does not actively adapt to the 32-bit operating system.
 
 + Other operating system versions not mentioned above might work but are not officially supported.
-=======
-<table>
-<thead>
-  <tr>
-    <th>Operating systems</th>
-    <th>Supported CPU architectures</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Red Hat Enterprise Linux 8.4 or a later 8.x version</td>
-    <td><ul><li>x86_64</li><li>ARM 64</li></ul></td>
-  </tr>
-  <tr>
-    <td><ul><li>Red Hat Enterprise Linux 7.3 or a later 7.x version</li><li>CentOS 7.3 or a later 7.x version</li></ul></td>
-    <td><ul><li>x86_64</li><li>ARM 64</li></ul></td>
-  </tr>
-  <tr>
-    <td>Amazon Linux 2</td>
-    <td><ul><li>x86_64</li><li>ARM 64</li></ul></td>
-  </tr>
-  <tr>
-    <td>Amazon Linux 2023</td>
-    <td><ul><li>x86_64</li><li>ARM 64</li></ul></td>
-  </tr>
-  <tr>
-    <td>Rocky Linux 9.1 or later</td>
-    <td><ul><li>x86_64</li><li>ARM 64</li></ul></td>
-  </tr>
-  <tr>
-    <td>Kylin Euler V10 SP1/SP2</td>
-    <td><ul><li>x86_64</li><li>ARM 64</li></ul></td>
-  </tr>
-  <tr>
-    <td>UnionTech OS (UOS) V20</td>
-    <td><ul><li>x86_64</li><li>ARM 64</li></ul></td>
-  </tr>
-  <tr>
-    <td>openEuler 22.03 LTS SP1/SP3</td>
-    <td><ul><li>x86_64</li><li>ARM 64</li></ul></td>
-  </tr>
-  <tr>
-    <td>macOS 12 (Monterey) or later</td>
-    <td><ul><li>x86_64</li><li>ARM 64</li></ul></td>
-  </tr>
-  <tr>
-    <td>Oracle Enterprise Linux 8 or a later</td>
-    <td>x86_64</td>
-  </tr>
-  <tr>
-    <td>Ubuntu LTS 20.04 or later</td>
-    <td>x86_64</td>
-  </tr>
-  <tr>
-    <td>CentOS 8 Stream</td>
-    <td><ul><li>x86_64</li><li>ARM 64</li></ul></td>
-  </tr>
-  <tr>
-    <td>Debian 10 (Buster) or later</td>
-    <td>x86_64</td>
-  </tr>
-  <tr>
-    <td>Fedora 38 or later</td>
-    <td>x86_64</td>
-  </tr>
-  <tr>
-    <td>openSUSE Leap later than v15.5 (not including Tumbleweed)</td>
-    <td>x86_64</td>
-  </tr>
-  <tr>
-    <td>SUSE Linux Enterprise Server 15</td>
-    <td>x86_64</td>
-  </tr>
-</tbody>
-</table>
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 > **Note:**
 >
@@ -209,9 +132,9 @@ In v7.5 LTS, TiDB ensures multi-level quality standards for various combinations
 |  Libraries required for compiling and running TiDB |  Version   |
 |   :---   |   :---   |
 |   Golang  |  1.21 or later |
-|   Rust    |   nightly-2023-12-28 or later  |
+|   Rust    |   nightly-2022-07-31 or later  |
 |  GCC      |   7.x      |
-|  LLVM     |  17.0 or later  |
+|  LLVM     |  13.0 or later  |
 
 Library required for running TiDB: glibc (2.28-151.el8 version)
 
@@ -263,11 +186,7 @@ You can deploy and run TiDB on the 64-bit generic hardware server platform in th
 > - For performance-related test, do not use low-performance storage and network hardware configuration, in order to guarantee the correctness of the test result.
 > - For the TiKV server, it is recommended to use NVMe SSDs to ensure faster reads and writes.
 > - If you only want to test and verify the features, follow [Quick Start Guide for TiDB](/quick-start-with-tidb.md) to deploy TiDB on a single machine.
-<<<<<<< HEAD
 > - Starting from v6.3.0, to deploy TiFlash under the Linux AMD64 architecture, the CPU must support the AVX2 instruction set. Ensure that `cat /proc/cpuinfo | grep avx2` has output. To deploy TiFlash under the Linux ARM64 architecture, the CPU must support the ARMv8 instruction set architecture. Ensure that `cat /proc/cpuinfo | grep 'crc32' | grep 'asimd'` has output. By using the instruction set extensions, TiFlash's vectorization engine can deliver better performance.
-=======
-> - Starting from v6.3.0, to deploy TiFlash under the Linux AMD64 architecture, the CPU must support the AVX2 instruction set. Ensure that `grep avx2 /proc/cpuinfo` has output. To deploy TiFlash under the Linux ARM64 architecture, the CPU must support the ARMv8 instruction set architecture. Ensure that `grep 'crc32' /proc/cpuinfo | grep 'asimd'` has output. By using the instruction set extensions, TiFlash's vectorization engine can deliver better performance.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ### Production environment
 
@@ -344,11 +263,7 @@ As an open-source distributed SQL database, TiDB requires the following network 
 <tbody>
   <tr>
     <td>TiDB</td>
-<<<<<<< HEAD
     <td><ul><li>At least 30 GB for the log disk</li><li>Starting from v6.5.0, Fast Online DDL (controlled by the <a href="https://docs.pingcap.com/tidb/v7.5/system-variables#tidb_ddl_enable_fast_reorg-new-in-v630">tidb_ddl_enable_fast_reorg</a> variable) is enabled by default to accelerate DDL operations, such as adding indexes. If DDL operations involving large objects exist in your application, or you want to use <a href="https://docs.pingcap.com/tidb/v7.5/sql-statement-import-into">IMPORT INTO</a> to import data, it is highly recommended to prepare additional SSD disk space for TiDB (100 GB or more). For detailed configuration instructions, see <a href="https://docs.pingcap.com/tidb/v7.5/check-before-deployment#set-temporary-spaces-for-tidb-instances-recommended">Set a temporary space for a TiDB instance</a></li></ul></td>
-=======
-    <td><ul><li>At least 30 GB for the log disk</li><li>Starting from v6.5.0, Fast Online DDL (controlled by the <a href="https://docs.pingcap.com/tidb/dev/system-variables#tidb_ddl_enable_fast_reorg-new-in-v630">tidb_ddl_enable_fast_reorg</a> variable) is enabled by default to accelerate DDL operations, such as adding indexes. If DDL operations involving large objects exist in your application, or you want to use <a href="https://docs.pingcap.com/tidb/dev/sql-statement-import-into">IMPORT INTO</a> to import data, it is highly recommended to prepare additional SSD disk space for TiDB (100 GB or more). For detailed configuration instructions, see <a href="https://docs.pingcap.com/tidb/dev/check-before-deployment#set-temporary-spaces-for-tidb-instances-recommended">Set a temporary space for a TiDB instance</a></li></ul></td>
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
     <td>Lower than 90%</td>
   </tr>
   <tr>
@@ -381,11 +296,7 @@ As an open-source distributed SQL database, TiDB requires the following network 
 
 ## Web browser requirements
 
-<<<<<<< HEAD
 TiDB relies on [Grafana](https://grafana.com/) to provide visualization of database metrics. A recent version of Internet Explorer, Chrome or Firefox with Javascript enabled is sufficient.
-=======
-TiDB relies on [Grafana](https://grafana.com/) to provide visualization of database metrics. A recent version of Microsoft Edge, Safari, Chrome or Firefox with Javascript enabled is sufficient.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ## Hardware and software requirements for TiFlash disaggregated storage and compute architecture
 

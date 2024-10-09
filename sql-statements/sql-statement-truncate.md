@@ -11,13 +11,17 @@ Both `TRUNCATE TABLE tableName` and `TRUNCATE tableName` are valid syntax.
 
 ## Synopsis
 
-```ebnf+diagram
-TruncateTableStmt ::=
-    "TRUNCATE" ( "TABLE" )? TableName
+**TruncateTableStmt:**
 
-TableName ::=
-    (Identifier ".")? Identifier
-```
+![TruncateTableStmt](/media/sqlgram/TruncateTableStmt.png)
+
+**OptTable:**
+
+![OptTable](/media/sqlgram/OptTable.png)
+
+**TableName:**
+
+![TableName](/media/sqlgram/TableName.png)
 
 ## Examples
 

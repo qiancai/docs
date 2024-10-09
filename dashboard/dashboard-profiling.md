@@ -1,10 +1,6 @@
 ---
 title: TiDB Dashboard Instance Profiling - Manual Profiling
 summary: Manual Profiling allows users to collect current performance data on demand for TiDB, TiKV, PD, and TiFlash instances. Experts can analyze resource consumption details like CPU and memory to pinpoint ongoing performance problems. Access the page through TiDB Dashboard or a browser. Start profiling by choosing target instances and modify the duration if needed. View real-time progress and download performance data after profiling is completed. View profiling history for detailed operations.
-<<<<<<< HEAD
-=======
-aliases: ['/docs/dev/dashboard/dashboard-profiling/']
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # TiDB Dashboard Instance Profiling - Manual Profiling

@@ -403,10 +403,6 @@
       - [Expression Syntax](/expression-syntax.md)
       - [Comment Syntax](/comment-syntax.md)
     - SQL Statements
-<<<<<<< HEAD
-=======
-      - [Overview](/sql-statements/sql-statement-overview.md)
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
       - [`ADMIN`](/sql-statements/sql-statement-admin.md)
       - [`ADMIN CANCEL DDL`](/sql-statements/sql-statement-admin-cancel-ddl.md)
       - [`ADMIN CHECKSUM TABLE`](/sql-statements/sql-statement-admin-checksum-table.md)
@@ -510,8 +506,7 @@
       - [`SHOW BUILTINS`](/sql-statements/sql-statement-show-builtins.md)
       - [`SHOW CHARACTER SET`](/sql-statements/sql-statement-show-character-set.md)
       - [`SHOW COLLATION`](/sql-statements/sql-statement-show-collation.md)
-      - [`SHOW COLUMN_STATS_USAGE`](/sql-statements/sql-statement-show-column-stats-usage.md)
-      - [`SHOW COLUMNS FROM`](/sql-statements/sql-statement-show-columns-from.md)
+      - [`SHOW [FULL] COLUMNS FROM`](/sql-statements/sql-statement-show-columns-from.md)
       - [`SHOW CREATE DATABASE`](/sql-statements/sql-statement-show-create-database.md)
       - [`SHOW CREATE PLACEMENT POLICY`](/sql-statements/sql-statement-show-create-placement-policy.md)
       - [`SHOW CREATE RESOURCE GROUP`](/sql-statements/sql-statement-show-create-resource-group.md)
@@ -521,7 +516,7 @@
       - [`SHOW DATABASES`](/sql-statements/sql-statement-show-databases.md)
       - [`SHOW ENGINES`](/sql-statements/sql-statement-show-engines.md)
       - [`SHOW ERRORS`](/sql-statements/sql-statement-show-errors.md)
-      - [`SHOW FIELDS FROM`](/sql-statements/sql-statement-show-fields-from.md)
+      - [`SHOW [FULL] FIELDS FROM`](/sql-statements/sql-statement-show-fields-from.md)
       - [`SHOW GRANTS`](/sql-statements/sql-statement-show-grants.md)
       - [`SHOW IMPORT JOB`](/sql-statements/sql-statement-show-import-job.md)
       - [`SHOW INDEXES [FROM|IN]`](/sql-statements/sql-statement-show-indexes.md)
@@ -534,17 +529,15 @@
       - [`SHOW PROCESSLIST`](/sql-statements/sql-statement-show-processlist.md)
       - [`SHOW PROFILES`](/sql-statements/sql-statement-show-profiles.md)
       - [`SHOW SCHEMAS`](/sql-statements/sql-statement-show-schemas.md)
-      - [`SHOW STATS_BUCKETS`](/sql-statements/sql-statement-show-stats-buckets.md)
       - [`SHOW STATS_HEALTHY`](/sql-statements/sql-statement-show-stats-healthy.md)
-      - [`SHOW STATS_HISTOGRAMS`](/sql-statements/sql-statement-show-stats-histograms.md)
+      - [`SHOW STATS_HISTOGRAMS`](/sql-statements/sql-statement-show-histograms.md)
       - [`SHOW STATS_LOCKED`](/sql-statements/sql-statement-show-stats-locked.md)
       - [`SHOW STATS_META`](/sql-statements/sql-statement-show-stats-meta.md)
-      - [`SHOW STATS_TOPN`](/sql-statements/sql-statement-show-stats-topn.md)
       - [`SHOW STATUS`](/sql-statements/sql-statement-show-status.md)
       - [`SHOW TABLE NEXT_ROW_ID`](/sql-statements/sql-statement-show-table-next-rowid.md)
       - [`SHOW TABLE REGIONS`](/sql-statements/sql-statement-show-table-regions.md)
       - [`SHOW TABLE STATUS`](/sql-statements/sql-statement-show-table-status.md)
-      - [`SHOW TABLES`](/sql-statements/sql-statement-show-tables.md)
+      - [`SHOW [FULL] TABLES`](/sql-statements/sql-statement-show-tables.md)
       - [`SHOW [GLOBAL|SESSION] VARIABLES`](/sql-statements/sql-statement-show-variables.md)
       - [`SHOW WARNINGS`](/sql-statements/sql-statement-show-warnings.md)
       - [`SPLIT REGION`](/sql-statements/sql-statement-split-region.md)
@@ -576,15 +569,7 @@
       - [Encryption and Compression Functions](/functions-and-operators/encryption-and-compression-functions.md)
       - [Locking Functions](/functions-and-operators/locking-functions.md)
       - [Information Functions](/functions-and-operators/information-functions.md)
-      - JSON Functions
-        - [Overview](/functions-and-operators/json-functions.md)
-        - [Functions That Create JSON](/functions-and-operators/json-functions/json-functions-create.md)
-        - [Functions That Search JSON](/functions-and-operators/json-functions/json-functions-search.md)
-        - [Functions That Modify JSON](/functions-and-operators/json-functions/json-functions-modify.md)
-        - [Functions That Return JSON](/functions-and-operators/json-functions/json-functions-return.md)
-        - [JSON Utility Functions](/functions-and-operators/json-functions/json-functions-utility.md)
-        - [Functions That Aggregate JSON](/functions-and-operators/json-functions/json-functions-aggregate.md)
-        - [Functions That Validate JSON](/functions-and-operators/json-functions/json-functions-validate.md)
+      - [JSON Functions](/functions-and-operators/json-functions.md)
       - [Aggregate (GROUP BY) Functions](/functions-and-operators/aggregate-group-by-functions.md)
       - [GROUP BY Modifiers](/functions-and-operators/group-by-modifier.md)
       - [Window Functions](/functions-and-operators/window-functions.md)
@@ -622,9 +607,7 @@
       - [Use the `tidb_snapshot` System Variable](/read-historical-data.md)
     - [Placement Rules in SQL](/placement-rules-in-sql.md)
     - System Tables
-      - `mysql` Schema
-        - [Overview](/mysql-schema/mysql-schema.md)
-        - [`user`](/mysql-schema/mysql-schema-user.md)
+      - [`mysql`](/mysql-schema.md)
       - INFORMATION_SCHEMA
         - [Overview](/information-schema/information-schema.md)
         - [`ANALYZE_STATUS`](/information-schema/information-schema-analyze-status.md)
@@ -661,7 +644,6 @@
         - [`TABLE_STORAGE_STATS`](/information-schema/information-schema-table-storage-stats.md)
         - [`TIDB_HOT_REGIONS_HISTORY`](/information-schema/information-schema-tidb-hot-regions-history.md)
         - [`TIDB_INDEXES`](/information-schema/information-schema-tidb-indexes.md)
-        - [`TIDB_INDEX_USAGE`](/information-schema/information-schema-tidb-index-usage.md)
         - [`TIDB_SERVERS_INFO`](/information-schema/information-schema-tidb-servers-info.md)
         - [`TIDB_TRX`](/information-schema/information-schema-tidb-trx.md)
         - [`TIFLASH_REPLICA`](/information-schema/information-schema-tiflash-replica.md)
@@ -677,12 +659,8 @@
       - PERFORMANCE_SCHEMA
         - [Overview](/performance-schema/performance-schema.md)
         - [`SESSION_CONNECT_ATTRS`](/performance-schema/performance-schema-session-connect-attrs.md)
-      - SYS
-        - [Overview](/sys-schema/sys-schema.md)
-        - [`schema_unused_indexes`](/sys-schema/sys-schema-unused-indexes.md)
     - [Metadata Lock](/metadata-lock.md)
     - [Use UUIDs](/best-practices/uuid.md)
-    - [TiDB Accelerated Table Creation](/accelerated-table-creation.md)
   - [System Variables](/system-variables.md)
   - [Server Status Variables](/status-variables.md)
   - Storage Engines
@@ -697,10 +675,7 @@
     - auth
       - [login](/tidb-cloud/ticloud-auth-login.md)
       - [logout](/tidb-cloud/ticloud-auth-logout.md)
-<<<<<<< HEAD
       - [whoami](/tidb-cloud/ticloud-auth-whoami.md)
-=======
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
     - serverless
       - [create](/tidb-cloud/ticloud-cluster-create.md)
       - [delete](/tidb-cloud/ticloud-cluster-delete.md)
@@ -727,14 +702,11 @@
         - [list](/tidb-cloud/ticloud-serverless-export-list.md)
         - [cancel](/tidb-cloud/ticloud-serverless-export-cancel.md)
         - [download](/tidb-cloud/ticloud-serverless-export-download.md)
-<<<<<<< HEAD
       - sql-user
         - [create](/tidb-cloud/ticloud-serverless-sql-user-create.md)
         - [delete](/tidb-cloud/ticloud-serverless-sql-user-delete.md)
         - [list](/tidb-cloud/ticloud-serverless-sql-user-list.md)
         - [update](/tidb-cloud/ticloud-serverless-sql-user-update.md)
-=======
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
     - [ai](/tidb-cloud/ticloud-ai.md)
     - [completion](/tidb-cloud/ticloud-completion.md)
     - config
@@ -747,11 +719,7 @@
       - [use](/tidb-cloud/ticloud-config-use.md)
     - project
       - [list](/tidb-cloud/ticloud-project-list.md)
-<<<<<<< HEAD
     - [upgrade](/tidb-cloud/ticloud-upgrade.md)
-=======
-    - [update](/tidb-cloud/ticloud-update.md)
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
     - [help](/tidb-cloud/ticloud-help.md)
   - [Table Filter](/table-filter.md)
   - [Resource Control](/tidb-resource-control.md)

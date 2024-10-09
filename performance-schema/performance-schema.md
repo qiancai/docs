@@ -9,7 +9,7 @@ TiDB implements performance schema tables for MySQL compatibility.
 
 ## Tables for MySQL compatibility
 
-| Table name                                                                                       | Description                                               |
+| Table Name                                                                                       | Description                                               |
 |--------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
 | `events_stages_current`                                                                          |                                                           |
 | `events_stages_history`                                                                          |                                                           |
@@ -33,7 +33,7 @@ TiDB implements performance schema tables for MySQL compatibility.
 
 ## Tables that are TiDB extensions
 
-| Table name                                                                                       | Description                                               |
+| Table Name                                                                                       | Description                                               |
 |--------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
 | `pd_profile_allocs`                                                                              |                                                           |
 | `pd_profile_block`                                                                               |                                                           |

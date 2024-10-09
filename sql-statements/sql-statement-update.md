@@ -9,22 +9,29 @@ The `UPDATE` statement is used to modify data in a specified table.
 
 ## Synopsis
 
-```ebnf+diagram
-UpdateStmt ::=
-    "UPDATE" UpdateOption
-(   TableRef "SET" Assignment ("," Assignment)* WhereClause? OrderBy? Limit?
-|   TableRefs "SET" Assignment ("," Assignment)* WhereClause?
-)
+**UpdateStmt:**
 
-UpdateOption ::=
-    OptimizerHints? ("LOW_PRIORITY" | "HIGH_PRIORITY" | "DELAYED")? "IGNORE"?
+![UpdateStmt](/media/sqlgram/UpdateStmt.png)
 
-TableRef ::=
-    ( TableFactor | JoinTable )
+**PriorityOpt:**
 
-TableRefs ::=
-    EscapedTableRef ("," EscapedTableRef)*
-```
+![PriorityOpt](/media/sqlgram/PriorityOpt.png)
+
+**TableRef:**
+
+![TableRef](/media/sqlgram/TableRef.png)
+
+**TableRefs:**
+
+![TableRefs](/media/sqlgram/TableRefs.png)
+
+**AssignmentList:**
+
+![AssignmentList](/media/sqlgram/AssignmentList.png)
+
+**WhereClauseOptional:**
+
+![WhereClauseOptional](/media/sqlgram/WhereClauseOptional.png)
 
 ## Examples
 

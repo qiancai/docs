@@ -9,7 +9,6 @@ The `SELECT` statement is used to read data from TiDB.
 
 ## Synopsis
 
-<<<<<<< HEAD
 **SelectStmt:**
 
 ![SelectStmt](/media/sqlgram/SelectStmt.png)
@@ -28,79 +27,66 @@ The `SELECT` statement is used to read data from TiDB.
 
 **TableRefsClause:**
 
-=======
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ```ebnf+diagram
-SelectStmt ::=
-    ( SelectStmtBasic | SelectStmtFromDualTable | SelectStmtFromTable )
-    OrderBy? SelectStmtLimit? SelectLockOpt? SelectStmtIntoOption
-
-SelectStmtBasic ::=
-    "SELECT" SelectStmtOpts Field ("," Field)* ( "HAVING" Expression)?
-
-SelectStmtFromDualTable ::=
-    "SELECT" SelectStmtOpts Field ("," Field)* "FROM" "DUAL" WhereClause?
-
-SelectStmtFromTable ::=
-    "SELECT" SelectStmtOpts Field ("," Field)* "FROM" TableRefsClause
-    WhereClause? GroupByClause? ( "HAVING" Expression)? WindowClause?
-
-SelectStmtOpts ::=
-    TableOptimizerHints DefaultFalseDistictOpt PriorityOpt SelectStmtSQLSmallResult
-    SelectStmtSQLBigResult SelectStmtSQLBufferResult SelectStmtSQLCache SelectStmtCalcFoundRows
-    SelectStmtStraightJoin
-
 TableRefsClause ::=
-    TableRef ( ',' TableRef )*
-
-TableRef ::=
-    TableFactor
-|   JoinTable
-
-TableFactor ::=
-    TableName ( "PARTITION" "(" Identifier ("," Identifier)* ")" )? ("AS" TableAlias)? AsOfClause? TableSample?
-
-JoinTable ::=
-    TableRef
-    (
-        ("INNER" | "CROSS")? "JOIN" TableRef JoinClause?
-        | "STRAIGHT_JOIN" TableRef "ON" Expression
-        | ("LEFT" | "RIGHT") "OUTER"? "JOIN" TableRef JoinClause
-        | "NATURAL" ("LEFT" | "RIGHT") "OUTER"? "JOIN" TableFactor
-    )
-
-JoinClause ::=
-    ("ON" Expression
-    | "USING" "(" ColumnNameList ")" )
+    TableRef AsOfClause? ( ',' TableRef AsOfClause? )*
 
 AsOfClause ::=
     'AS' 'OF' 'TIMESTAMP' Expression
+```
 
-SelectStmtLimit ::=
-    ("LIMIT" LimitOption ( ("," | "OFFSET") LimitOption )?
-| "FETCH" ("FIRST" | "NEXT") LimitOption? ("ROW" | "ROWS") "ONLY" )
+**WhereClauseOptional:**
 
+![WhereClauseOptional](/media/sqlgram/WhereClauseOptional.png)
+
+**SelectStmtGroup:**
+
+![SelectStmtGroup](/media/sqlgram/SelectStmtGroup.png)
+
+**HavingClause:**
+
+![HavingClause](/media/sqlgram/HavingClause.png)
+
+**OrderByOptional:**
+
+![OrderByOptional](/media/sqlgram/OrderByOptional.png)
+
+**SelectStmtLimit:**
+
+![SelectStmtLimit](/media/sqlgram/SelectStmtLimit.png)
+
+**FirstOrNext:**
+
+![FirstOrNext](/media/sqlgram/FirstOrNext.png)
+
+**FetchFirstOpt:**
+
+![FetchFirstOpt](/media/sqlgram/FetchFirstOpt.png)
+
+**RowOrRows:**
+
+![RowOrRows](/media/sqlgram/RowOrRows.png)
+
+**SelectLockOpt:**
+
+```ebnf+diagram
 SelectLockOpt ::= 
-    ( 'FOR' 'UPDATE' ( 'OF' TableList )? 'NOWAIT'?
-|   'LOCK' 'IN' 'SHARE' 'MODE' )
+    ( ( 'FOR' 'UPDATE' ( 'OF' TableList )? 'NOWAIT'? )
+|   ( 'LOCK' 'IN' 'SHARE' 'MODE' ) )?
 
 TableList ::=
     TableName ( ',' TableName )*
+```
 
-WhereClause ::=
-    "WHERE" Expression
+**WindowClauseOptional**
 
-GroupByClause ::=
-    "GROUP" "BY" Expression
+![WindowClauseOptional](/media/sqlgram/WindowClauseOptional.png)
 
-OrderBy ::=
-    "ORDER" "BY" Expression
+**TableSampleOpt**
 
-WindowClause ::=
-    "WINDOW" WindowDefinition ("," WindowDefinition)*
-
-TableSample ::=
-    'TABLESAMPLE' 'REGIONS' '(' ')'
+```ebnf+diagram
+TableSampleOpt ::=
+    'TABLESAMPLE' 'REGIONS()'
 ```
 
 ## Description of the syntax elements

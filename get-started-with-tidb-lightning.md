@@ -1,9 +1,5 @@
 ---
 title: Quick Start for TiDB Lightning
-<<<<<<< HEAD
-=======
-aliases: ['/docs/dev/get-started-with-tidb-lightning/','/docs/dev/how-to/get-started/tidb-lightning/']
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 summary: TiDB Lightning is a tool for importing MySQL data into a TiDB cluster. It is recommended for test and trial purposes only, not for production or development environments. The process involves preparing full backup data, deploying the TiDB cluster, installing TiDB Lightning, starting TiDB Lightning, and checking data integrity. For detailed features and usage, refer to the TiDB Lightning Overview.
 ---
 
@@ -31,11 +27,7 @@ First, you can use [dumpling](/dumpling-overview.md) to export data from MySQL.
     tiup install dumpling
     ```
 
-<<<<<<< HEAD
 3. To export data from MySQL, you can refer to the detailed steps provided in [Use Dumpling to Export Data](/dumpling-overview.md#export-to-sql-files)：
-=======
-3. To export data from MySQL, you can refer to the detailed steps provided in [Use Dumpling to Export Data](/dumpling-overview.md#export-to-sql-files):
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
     ```sh
     tiup dumpling -h 127.0.0.1 -P 3306 -u root -t 16 -F 256MB -B test -f 'test.t[12]' -o /data/my_database/
@@ -99,8 +91,8 @@ tiup install tidb-lightning
     password = "rootroot"
     # Table schema information is fetched from TiDB via this status-port.
     status-port = 10080
-    # The PD address of the cluster. Starting from v7.6.0, TiDB supports setting multiple PD addresses.
-    pd-addr = "172.16.31.3:2379,56.78.90.12:3456"
+    # The PD address of the cluster
+    pd-addr = "172.16.31.3:2379"
     ```
 
 2. Run `tidb-lightning`. To avoid the program exiting due to the `SIGHUP` signal when starting the program directly in the command line using `nohup`, it is recommended to put the `nohup` command in a script. For example:

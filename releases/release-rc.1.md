@@ -1,9 +1,5 @@
 ---
 title: TiDB RC1 Release Notes
-<<<<<<< HEAD
-=======
-aliases: ['/docs/dev/releases/release-rc.1/','/docs/dev/releases/rc1/']
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 summary: TiDB RC1 was released on December 23, 2016. Updates include improved write speed and reduced disk space usage in TiKV, optimized scheduling strategy framework in PD, and added features in the SQL query optimizer and new tools in TiDB. The release also supports more built-in functions in MySQL and enhances the speed of the `add index` statement.
 ---
 

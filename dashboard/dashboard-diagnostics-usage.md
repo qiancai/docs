@@ -1,10 +1,6 @@
 ---
 title: Locate Problems Using Diagnostic Report of TiDB Dashboard
 summary: TiDB Dashboard's diagnostic report helps locate problems by comparing system performance at different time ranges. It identifies issues like QPS decrease, latency increase, and slow queries, providing detailed analysis and SQL statements for further investigation. This comparison report is essential for quickly identifying and addressing performance issues.
-<<<<<<< HEAD
-=======
-aliases: ['/docs/dev/dashboard/dashboard-diagnostics-usage/']
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 ---
 
 # Locate Problems Using Diagnostic Report of TiDB Dashboard

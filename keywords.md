@@ -7,9 +7,11 @@ summary: Keywords and Reserved Words
 
 This article introduces the keywords in TiDB, the differences between reserved words and non-reserved words and summarizes all keywords for the query.
 
-Keywords are words that have special meanings in SQL statements, such as [`SELECT`](/sql-statements/sql-statement-select.md), [`UPDATE`](/sql-statements/sql-statement-update.md), and [`DELETE`](/sql-statements/sql-statement-delete.md). Some of them can be used as identifiers directly, which are called **non-reserved keywords**. Some of them require special treatment before being used as identifiers, which are called **reserved keywords**. However, there are special non-reserved keywords that might still require special treatment. It is recommended that you treat them as reserved keywords.
+Keywords are words that have special meanings in SQL statements, such as `SELECT`, `UPDATE`, and `DELETE`. Some of them can be used as identifiers directly, which are called **non-reserved keywords**. Some of them require special treatment before being used as identifiers, which are called **reserved keywords**. However, there are special non-reserved keywords that might still require special treatment. It is recommended that you treat them as reserved keywords.
 
 To use the reserved keywords as identifiers, you must enclose them in backticks `` ` ``:
+
+{{< copyable "sql" >}}
 
 ```sql
 CREATE TABLE select (a INT);
@@ -18,6 +20,8 @@ CREATE TABLE select (a INT);
 ```
 ERROR 1105 (HY000): line 0 column 19 near " (a INT)" (total length 27)
 ```
+
+{{< copyable "sql" >}}
 
 ```sql
 CREATE TABLE `select` (a INT);
@@ -29,6 +33,8 @@ Query OK, 0 rows affected (0.09 sec)
 
 The non-reserved keywords do not require backticks, such as `BEGIN` and `END`, which can be successfully used as identifiers in the following statement:
 
+{{< copyable "sql" >}}
+
 ```sql
 CREATE TABLE `select` (BEGIN int, END int);
 ```
@@ -39,6 +45,8 @@ Query OK, 0 rows affected (0.09 sec)
 
 In the special case, the reserved keywords do not need backticks if they are used with the `.` delimiter:
 
+{{< copyable "sql" >}}
+
 ```sql
 CREATE TABLE test.select (BEGIN int, END int);
 ```
@@ -47,11 +55,7 @@ CREATE TABLE test.select (BEGIN int, END int);
 Query OK, 0 rows affected (0.08 sec)
 ```
 
-<<<<<<< HEAD
 Starting from v7.5.3, TiDB provides a full list of keywords in the [`INFORMATION_SCHEMA.KEYWORDS`](/information-schema/information-schema-keywords.md) table.
-=======
-Starting from v7.5.3 and v7.6.0, TiDB provides a full list of keywords in the [`INFORMATION_SCHEMA.KEYWORDS`](/information-schema/information-schema-keywords.md) table.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ## Keyword list
 
@@ -137,7 +141,6 @@ The following list shows the keywords in TiDB. Reserved keywords are marked with
 - CHECK (R)
 - CHECKPOINT
 - CHECKSUM
-- CHECKSUM_CONCURRENCY
 - CIPHER
 - CLEANUP
 - CLIENT
@@ -159,8 +162,6 @@ The following list shows the keywords in TiDB. Reserved keywords are marked with
 - COMPACT
 - COMPRESSED
 - COMPRESSION
-- COMPRESSION_LEVEL
-- COMPRESSION_TYPE
 - CONCURRENCY
 - CONFIG
 - CONNECTION
@@ -243,8 +244,6 @@ The following list shows the keywords in TiDB. Reserved keywords are marked with
 - ENABLED
 - ENCLOSED (R)
 - ENCRYPTION
-- ENCRYPTION_KEYFILE
-- ENCRYPTION_METHOD
 - END
 - ENFORCED
 - ENGINE
@@ -326,7 +325,6 @@ The following list shows the keywords in TiDB. Reserved keywords are marked with
 - IDENTIFIED
 - IF (R)
 - IGNORE (R)
-- IGNORE_STATS
 - ILIKE (R)
 - IMPORT
 - IMPORTS
@@ -395,7 +393,6 @@ The following list shows the keywords in TiDB. Reserved keywords are marked with
 - LINES (R)
 - LIST
 - LOAD (R)
-- LOAD_STATS
 - LOCAL
 - LOCAL_ONLY
 - LOCALTIME (R)
@@ -658,11 +655,7 @@ The following list shows the keywords in TiDB. Reserved keywords are marked with
 - STATS_BUCKETS
 - STATS_COL_CHOICE
 - STATS_COL_LIST
-<<<<<<< HEAD
 - STATS_EXTENDED (R)
-=======
-- STATS_EXTENDED
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 - STATS_HEALTHY
 - STATS_HISTOGRAMS
 - STATS_LOCKED
@@ -739,7 +732,6 @@ The following list shows the keywords in TiDB. Reserved keywords are marked with
 - UNIQUE (R)
 - UNKNOWN
 - UNLOCK (R)
-- UNSET
 - UNSIGNED (R)
 - UNTIL (R)
 - UPDATE (R)
@@ -761,7 +753,6 @@ The following list shows the keywords in TiDB. Reserved keywords are marked with
 - VARCHARACTER (R)
 - VARIABLES
 - VARYING (R)
-- VECTOR
 - VIEW
 - VIRTUAL (R)
 - VISIBLE
@@ -769,7 +760,6 @@ The following list shows the keywords in TiDB. Reserved keywords are marked with
 <a id="W" class="letter" href="#W">W</a>
 
 - WAIT
-- WAIT_TIFLASH_READY
 - WARNINGS
 - WEEK
 - WEIGHT_STRING
@@ -779,7 +769,6 @@ The following list shows the keywords in TiDB. Reserved keywords are marked with
 - WIDTH
 - WINDOW (R-Window)
 - WITH (R)
-- WITH_SYS_TABLE
 - WITHOUT
 - WORKLOAD
 - WRITE (R)

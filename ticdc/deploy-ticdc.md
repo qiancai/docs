@@ -95,11 +95,7 @@ tiup cluster upgrade <cluster-name> <version> --transfer-timeout 600
 
 > **Note:**
 >
-<<<<<<< HEAD
 > In the preceding command, you need to replace `<cluster-name>` and `<version>` with the actual cluster name and cluster version. For example, the version can be v7.5.3.
-=======
-> In the preceding command, you need to replace `<cluster-name>` and `<version>` with the actual cluster name and cluster version. For example, the version can be v8.3.0.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ### Upgrade cautions
 
@@ -156,11 +152,7 @@ See [Enable TLS Between TiDB Components](/enable-tls-between-components.md).
 
 ## View TiCDC status using the command-line tool
 
-<<<<<<< HEAD
 Run the following command to view the TiCDC cluster status. Note that you need to replace `v<CLUSTER_VERSION>` with the TiCDC cluster version, such as `v7.5.3`:
-=======
-Run the following command to view the TiCDC cluster status. Note that you need to replace `v<CLUSTER_VERSION>` with the TiCDC cluster version, such as `v8.3.0`:
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ```shell
 tiup cdc:v<CLUSTER_VERSION> cli capture list --server=http://10.0.10.25:8300

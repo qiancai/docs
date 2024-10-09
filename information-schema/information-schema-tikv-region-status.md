@@ -10,18 +10,13 @@ The `TIKV_REGION_STATUS` table shows some basic information of TiKV Regions via 
 > **Note:**
 >
 > This table is not available on [TiDB Cloud Serverless](https://docs.pingcap.com/tidbcloud/select-cluster-tier#tidb-cloud-serverless) clusters.
-<<<<<<< HEAD
 
 {{< copyable "sql" >}}
-=======
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ```sql
-USE INFORMATION_SCHEMA;
-DESC TIKV_REGION_STATUS;
+USE information_schema;
+DESC tikv_region_status;
 ```
-
-The output is as follows:
 
 ```sql
 +---------------------------+-------------+------+------+---------+-------+
@@ -36,9 +31,6 @@ The output is as follows:
 | IS_INDEX                  | tinyint(1)  | NO   |      | 0       |       |
 | INDEX_ID                  | bigint(21)  | YES  |      | NULL    |       |
 | INDEX_NAME                | varchar(64) | YES  |      | NULL    |       |
-| IS_PARTITION              | tinyint(1)  | NO   |      | 0       |       |
-| PARTITION_ID              | bigint(21)  | YES  |      | NULL    |       |
-| PARTITION_NAME            | varchar(64) | YES  |      | NULL    |       |
 | EPOCH_CONF_VER            | bigint(21)  | YES  |      | NULL    |       |
 | EPOCH_VERSION             | bigint(21)  | YES  |      | NULL    |       |
 | WRITTEN_BYTES             | bigint(21)  | YES  |      | NULL    |       |
@@ -48,7 +40,7 @@ The output is as follows:
 | REPLICATIONSTATUS_STATE   | varchar(64) | YES  |      | NULL    |       |
 | REPLICATIONSTATUS_STATEID | bigint(21)  | YES  |      | NULL    |       |
 +---------------------------+-------------+------+------+---------+-------+
-20 rows in set (0.00 sec)
+17 rows in set (0.00 sec)
 ```
 
 The descriptions of the columns in the `TIKV_REGION_STATUS` table are as follows:
@@ -62,9 +54,6 @@ The descriptions of the columns in the `TIKV_REGION_STATUS` table are as follows
 * `IS_INDEX`: Whether the Region data is an index. 0 means that it is not an index, while 1 means that it is an index. If the current Region contains both table data and index data, there will be multiple rows of records, and `IS_INDEX` is 0 and 1 respectively.
 * `INDEX_ID`: The ID of the index to which the Region belongs. If `IS_INDEX` is 0, the value of this column is NULL.
 * `INDEX_NAME`: The name of the index to which the Region belongs. If `IS_INDEX` is 0, the value of this column is NULL.
-* `IS_PARTITION`: Whether the table to which the Region belongs is partitioned.
-* `PARTITION_ID`: If the table to which the Region belongs is partitioned, this column displays the ID of the partition to which the Region belongs.
-* `PARTITION_NAME`: If the table to which the Region belongs is partitioned, this column displays the name of the partition to which the Region belongs.
 * `EPOCH_CONF_VER`: The version number of the Region configuration. The version number increases when a peer is added or removed.
 * `EPOCH_VERSION`: The current version number of the Region. The version number increases when the Region is split or merged.
 * `WRITTEN_BYTES`: The amount of data (bytes) written to the Region.

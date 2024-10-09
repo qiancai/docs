@@ -5,11 +5,7 @@ summary: Learn about Lightning and the whole architecture.
 
 # TiDB Lightning Overview
 
-<<<<<<< HEAD
 [TiDB Lightning](https://github.com/pingcap/tidb/tree/release-7.5/br/pkg/lightning) is a tool used for importing data at TB scale to TiDB clusters. It is often used for initial data import to TiDB clusters.
-=======
-[TiDB Lightning](https://github.com/pingcap/tidb/tree/master/lightning) is a tool used for importing data at TB scale to TiDB clusters. It is often used for initial data import to TiDB clusters.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 TiDB Lightning supports the following file formats:
 
@@ -22,13 +18,6 @@ TiDB Lightning can read data from the following sources:
 - Local
 - [Amazon S3](/external-storage-uri.md#amazon-s3-uri-format)
 - [Google Cloud Storage](/external-storage-uri.md#gcs-uri-format)
-<<<<<<< HEAD
-=======
-
-> **Note:**
->
-> Compared with TiDB Lightning, the [`IMPORT INTO`](/sql-statements/sql-statement-import-into.md) statement can be directly executed on TiDB nodes, supports automated distributed task scheduling and [TiDB Global Sort](/tidb-global-sort.md), and offers significant improvements in deployment, resource utilization, task configuration convenience, ease of invocation and integration, high availability, and scalability. It is recommended that you consider using `IMPORT INTO` instead of TiDB Lightning in appropriate scenarios.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ## TiDB Lightning architecture
 

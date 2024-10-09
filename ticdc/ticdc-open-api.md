@@ -163,11 +163,7 @@ The configuration parameters of sink are as follows:
 
 `matcher`: The matching syntax of matcher is the same as the filter rule syntax.
 
-<<<<<<< HEAD
 `protocol`: For the sink of MQ type, you can specify the protocol format of the message. Currently the following protocols are supported: `canal-json`, `open-protocol`, and `avro`.
-=======
-`protocol`: For the sink of MQ type, you can specify the protocol format of the message. Currently the following protocols are supported: `canal-json`, `open-protocol`, `avro`, `debezium`, and `simple`.
->>>>>>> fb8de73b7d2edc9d0318d206ff75b6b94c9c177c
 
 ### Example
 

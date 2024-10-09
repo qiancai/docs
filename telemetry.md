@@ -79,7 +79,7 @@ When the telemetry collection feature is enabled for TiSpark, the Spark module w
 You can view TiSpark usage information that is collected in Spark logs. You can set the Spark log level to INFO or lower, for example:
 
 ```shell
-grep "Telemetry report" {spark.log} | tail -n 1
+cat {spark.log} | grep Telemetry report | tail -n 1
 ```
 
 ## Disable telemetry
