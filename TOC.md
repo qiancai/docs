@@ -626,6 +626,7 @@
   - TiProxy
     - [Overview](/tiproxy/tiproxy-overview.md)
     - [Load Balancing Policies](/tiproxy/tiproxy-load-balance.md)
+    - [Traffic Replay](/tiproxy/tiproxy-traffic-replay.md)
     - [Configuration](/tiproxy/tiproxy-configuration.md)
     - [Command Line Parameters](/tiproxy/tiproxy-command-line-flags.md)
     - [Monitoring Metrics](/tiproxy/tiproxy-grafana.md)
@@ -996,6 +997,7 @@
         - [`schema_unused_indexes`](/sys-schema/sys-schema-unused-indexes.md)
     - [Metadata Lock](/metadata-lock.md)
     - [TiDB Accelerated Table Creation](/accelerated-table-creation.md)
+    - [Schema Cache](/schema-cache.md)
   - UI
     - TiDB Dashboard
       - [Overview](/dashboard/dashboard-intro.md)
@@ -1062,6 +1064,7 @@
   - v7.6
     - [7.6.0-DMR](/releases/release-7.6.0.md)
   - v7.5
+    - [7.5.4](/releases/release-7.5.4.md)
     - [7.5.3](/releases/release-7.5.3.md)
     - [7.5.2](/releases/release-7.5.2.md)
     - [7.5.1](/releases/release-7.5.1.md)
