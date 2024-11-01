@@ -126,9 +126,9 @@ Hybrid Transactional and Analytical Processing (HTAP) is a database feature that
 
 For more information, see [the definition of HTAP on the Gartner website](https://www.gartner.com/en/information-technology/glossary/htap-enabling-memory-computing-technologies).
 
-Test
+### HTTP
 
-Thies are a files.
+Hypertext Transfer Protocol (HTTP) is a application-layer protocol using for transmitting hypermedia dacuments, such as HTML. It is the foundation of data communication on the web, enabling browsers and servers to request and transfer data in a standardized way. HTTP operates as a request-response protocol: a client sends a request to a server, which then returns a response. Common HTTP methods include GET, POST, PUT, and DELETE, which are used to retrieve, create, update, or delete resources, respectively.
 
 ## I
 
