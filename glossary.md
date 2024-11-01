@@ -30,6 +30,10 @@ Batch Create Table is a feature introduced in TiDB v6.0.0. This feature is enabl
 
 Baseline Capturing captures queries that meet capturing conditions and create bindings for them. It is used for [preventing regression of execution plans during an upgrade](/sql-plan-management.md#prevent-regression-of-execution-plans-during-an-upgrade).
 
+### BR
+
+BR is the Backup and Restore tool for TiDB. For more information, see [BR Overview](/br/backup-and-restore-overview.md).
+
 ### Bucket
 
 A [Region](#regionpeerraft-group) is logically divided into several small ranges called bucket. TiKV collects query statistics by buckets and reports the bucket status to PD. For details, see the [Bucket design doc](https://github.com/tikv/rfcs/blob/master/text/0082-dynamic-size-region.md#bucket).
@@ -40,6 +44,10 @@ A [Region](#regionpeerraft-group) is logically divided into several small ranges
 
 With the cached table feature, TiDB loads the data of an entire table into the memory of the TiDB server, and TiDB directly gets the table data from the memory without accessing TiKV, which improves the read performance.
 
+### CF
+
+In RocksDB and TiKV, a Column Family (CF) represents a logical grouping of key-value pairs within a database.
+
 ### Coalesce Partition
 
 Coalesce Partition is a way of decreasing the number of partitions in a Hash or Key partitioned table. For more information, see [Manage Hash and Key partitions](/partitioned-table.md#manage-hash-and-key-partitions).
@@ -48,11 +56,75 @@ Coalesce Partition is a way of decreasing the number of partitions in a Hash or 
 
 Introduced in TiDB 5.3.0, Continuous Profiling is a way to observe resource overhead at the system call level. With the support of Continuous Profiling, TiDB provides performance insight as clear as directly looking into the database source code, and helps R&D and operation and maintenance personnel to locate the root cause of performance problems using a flame graph. For details, see [TiDB Dashboard Instance Profiling - Continuous Profiling](/dashboard/continuous-profiling.md).
 
+### CTE
+
+A Common Table Expression (CTE) is a feature in the SQL standard that allows for defining a temporary result set using the [`WITH`](/sql-statements/sql-statement-with.md) clause.
+
 ## D
+
+### DDL
+
+Data Definition Language (DDL) is the part of the SQL standard that deals with creating, modifying, and dropping tables, indexes, columns and other database objects.
+
+### DM
+
+Data Migration (DM) is a tool for migrating data from MySQL-compatible databases into TiDB. It reads data from a MySQL source instance and applies it to a TiDB target instance.
+
+For more information, see [DM Overview](/dm/dm-overview.md).
+
+### DML
+
+Data Modification Language (DML) is a subset of the SQL standard that deals with inserting, updating, and deleting rows in tables.
+
+### DMR
+
+Development Milestone Release (DMR) is a TiDB version that introduces the latest features but does not offer long-term support.
+
+For more information, see [TiDB Versioning](/releases/versioning.md).
+
+### DR
+
+Disaster Recovery (DR) includes solutions that can be used to recover data from a disaster in the future. These solutions typically involve backups and standby clusters.
+
+For more information, see [Overview of TiDB Disaster Recovery Solutions](dr-solution-introduction).
+
+### DXF
+
+Distributed eXecution Framework (DXF) is the framework used by TiDB for accelerating index creation and data import by distributing tasks over all available resources.
+
+For more information, see [DXF Introduction](/tidb-distributed-execution-framework.md).
 
 ### Dynamic Pruning
 
 Dynamic pruning mode is one of the modes that TiDB accesses partitioned tables. In dynamic pruning mode, each operator supports direct access to multiple partitions. Therefore, TiDB no longer uses Union. Omitting the Union operation can improve the execution efficiency and avoid the problem of Union concurrent execution.
+
+## E
+
+### EC2
+
+[Elastic Compute Cloud (EC2)](https://aws.amazon.com/pm/ec2/) is an AWS service that provides scalable compute resources. It can be used with TiUP to deploy and manage a TiDB cluster.
+
+## G
+
+### GA
+
+If a feature is General Available (GA), it indicates it can be used in production environments. Note that even if a feature is GA in a DMR version, it is recommended to use the feature in production environments in a later LTS version.
+
+### GC
+
+Garbage Collection (GC) is a process that clears obsolete data to free up resources. For information on TiKV GC process, see the [Garbage Collection overview](/garbage-collection-overview.md).
+
+### GTID
+
+Global Transaction Identifiers (GTIDs) are unique transaction IDs used in MySQL binary logs to track which transactions have been replicated. Data Migration (DM) uses these IDs to ensure consistent replication.
+
+## H
+
+### HTAP
+
+Hybrid Transactional and Analytical Processing (HTAP) is a database feature that enables both OLTP (Online Transactional Processing) and OLAP (Online Analytical Processing) workloads within the same database. For TiDB, the HTAP feature is provided by using TiKV for row storage and TiFlash for columnar storage.
+
+For more information, see [the definition of HTAP on the Gartner website](https://www.gartner.com/en/information-technology/glossary/htap-enabling-memory-computing-technologies).
 
 ## I
 
