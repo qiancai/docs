@@ -10,9 +10,9 @@
   - [TiDB Limitations](/tidb-limitations.md)
   - [Credits](/credits.md)
   - [Roadmap](/tidb-roadmap.md)
-- Quick Start
-  - [Try Out TiDB](/quick-start-with-tidb.md)
-  - [Try Out HTAP](/quick-start-with-htap.md)
+- Get Started
+  - [Quick Start with TiDB](/quick-start-with-tidb.md)
+  - [Quick Start with HTAP](/quick-start-with-htap.md)
   - [Learn TiDB SQL](/basic-sql-operations.md)
   - [Learn HTAP](/explore-htap.md)
   - [Import Example Database](/import-example-data.md)
@@ -140,9 +140,8 @@
     - [TiSpark Topology](/tispark-deployment-topology.md)
     - [Cross-DC Topology](/geo-distributed-deployment-topology.md)
     - [Hybrid Topology](/hybrid-deployment-topology.md)
-  - Install and Start
-    - [Use TiUP](/production-deployment-using-tiup.md)
-    - [Deploy on Kubernetes](/tidb-in-kubernetes.md)
+  - [Deploy Using TiUP](/production-deployment-using-tiup.md)
+  - [Deploy on Kubernetes](/tidb-in-kubernetes.md)
   - [Verify Cluster Status](/post-installation-check.md)
   - Test Cluster Performance
     - [Test TiDB Using Sysbench](/benchmark/benchmark-tidb-using-sysbench.md)
@@ -158,6 +157,7 @@
     - [Migrate Large Datasets from MySQL](/migrate-large-mysql-to-tidb.md)
     - [Migrate and Merge MySQL Shards of Small Datasets](/migrate-small-mysql-shards-to-tidb.md)
     - [Migrate and Merge MySQL Shards of Large Datasets](/migrate-large-mysql-shards-to-tidb.md)
+    - [Migrate from Vitess](/migrate-from-vitess.md)
     - [Migrate from MariaDB](/migrate-from-mariadb.md)
     - [Migrate from CSV Files](/migrate-from-csv-files-to-tidb.md)
     - [Migrate from SQL Files](/migrate-from-sql-files-to-tidb.md)
