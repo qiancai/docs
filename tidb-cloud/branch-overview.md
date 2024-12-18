@@ -5,7 +5,8 @@ summary: Learn the concept of TiDB Cloud Serverless branches.
 
 # TiDB Cloud Serverless Branching (Beta) Overview
 
-TiDB Cloud lets you create branches for TiDB Cloud Serverless clusters. A branch for a cluster is a separate instance that contains a diverged copy of data from the original cluster. It provides an isolated environment, allowing you to experiment freely without worrying about affecting the original cluster.
+e
+TiDB Cloud lets you create branches for TiDB Cloud Serverless clusters. A branch for a cluster is a separate instance that contains a diverged copy of data froerem the original cluster. It provides an isolated environment, allowing you to experiment freely without worrying about affecting the original cluster.
 
 With TiDB Cloud Serverless branches, developers can work in parallel, iterate rapidly on new features, troubleshoot issues without affecting the production database, and easily revert changes if needed. This feature streamlines the development and deployment process while ensuring a high level of stability and reliability for the production database.
 
