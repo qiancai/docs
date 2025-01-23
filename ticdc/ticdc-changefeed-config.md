@@ -26,7 +26,7 @@ Info: {"upstream_id":7178706266519722477,"namespace":"default","id":"simple-repl
     [scheme]://[userinfo@][host]:[port][/path]?[query_parameters]
     ```
 
-    When the sink URI contains special characters such as `! * ' ( ) ; : @ & = + $ , / ? % # [ ]`, you need to escape the special characters, for example, in [URI Encoder](https://www.urlencoder.org/).
+    When the sink URI parameters contain special characters such as `! * ' ( ) ; : @ & = + $ , / ? % # [ ]`, you need to escape the special characters, for example, in [URI Encoder](https://www.urlencoder.org/).
 
 - `--start-ts`: Specifies the starting TSO of the changefeed. From this TSO, the TiCDC cluster starts pulling data. The default value is the current time.
 - `--target-ts`: Specifies the ending TSO of the changefeed. To this TSO, the TiCDC cluster stops pulling data. The default value is empty, which means that TiCDC does not automatically stop pulling data.
@@ -45,6 +45,11 @@ This section introduces the configuration of a replication task.
 
 - Specifies whether the database names and tables in the configuration file are case-sensitive. Starting from v6.5.6, v7.1.3, and v7.5.0, the default value changes from `true` to `false`.
 - This configuration item affects configurations related to filter and sink.
+- Default value: `false`
+
+### `force-replicate`
+
+- Specifies whether to forcibly [replicate tables without a valid index](/ticdc/ticdc-manage-changefeed.md#replicate-tables-without-a-valid-index).
 - Default value: `false`
 
 ### `enable-sync-point` <span class="version-mark">New in v6.3.0</span>
