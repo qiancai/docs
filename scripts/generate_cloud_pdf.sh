@@ -19,7 +19,7 @@ pandoc -N --toc --smart --latex-engine=xelatex \
 --template=templates/template.tex \
 --columns=80 \
 --listings \
--V title="TiDB Cloud Documentation" \
+-V title="TiDB Cloud Get Started Documentation" \
 -V author="PingCAP Inc." \
 -V date="${_version_tag}" \
 -V CJKmainfont="${MAINFONT}" \
@@ -27,3 +27,4 @@ pandoc -N --toc --smart --latex-engine=xelatex \
 -V geometry:margin=1in \
 -V include-after="\\input{templates/copyright.tex}" \
 "doc_cloud.md" -s -o "output_cloud.pdf"
+echo "done"
