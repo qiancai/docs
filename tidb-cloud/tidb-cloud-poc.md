@@ -67,16 +67,16 @@ To create a [TiDB Cloud Dedicated](/tidb-cloud/select-cluster-tier.md#tidb-cloud
 
     Once you submit the form, the TiDB Cloud Support team will review your application, contact you, and transfer credits to your account once the application is approved. You can also contact a PingCAP support engineer to assist with your PoC procedures to ensure the PoC runs as smoothly as possible.
 
-2. Refer to [Create a TiDB Cloud Dedicated Cluster](/tidb-cloud/create-tidb-cluster.md) to create a TiDB Cloud Dedicated cluster for the PoC.
+2. Refer to [Create a TiDB Cloud Dedicated Cluster](https://docs.pingcap.com/tidbcloud/create-tidb-cluster) to create a TiDB Cloud Dedicated cluster for the PoC.
 
 Capacity planning is recommended for cluster sizing before you create a cluster. You can start with estimated numbers of TiDB, TiKV, or TiFlash nodes, and scale out the cluster later to meet performance requirements. You can find more details in the following documents or consult our support team.
 
-- For more information about estimation practice, see [Size Your TiDB](/tidb-cloud/size-your-cluster.md).
-- For configurations of the TiDB Cloud Dedicated cluster, see [Create a TiDB Cloud Dedicated Cluster](/tidb-cloud/create-tidb-cluster.md). Configure the cluster size for TiDB, TiKV, and TiFlash (optional) respectively.
+- For more information about estimation practice, see [Size Your TiDB](https://docs.pingcap.com/tidbcloud/size-your-cluster).
+- For configurations of the TiDB Cloud Dedicated cluster, see [Create a TiDB Cloud Dedicated Cluster](https://docs.pingcap.com/tidbcloud/create-tidb-cluster). Configure the cluster size for TiDB, TiKV, and TiFlash (optional) respectively.
 - For how to plan and optimize your PoC credits consumption effectively, see [FAQ](#faq) in this document.
-- For more information about scaling, see [Scale Your TiDB Cluster](/tidb-cloud/scale-tidb-cluster.md).
+- For more information about scaling, see [Scale Your TiDB Cluster](https://docs.pingcap.com/tidbcloud/scale-tidb-cluster).
 
-Once a dedicated PoC cluster is created, you are ready to load data and perform a series of tests. For how to connect to a TiDB cluster, see [Connect to Your TiDB Cloud Dedicated Cluster](/tidb-cloud/connect-to-tidb-cluster.md).
+Once a dedicated PoC cluster is created, you are ready to load data and perform a series of tests. For how to connect to a TiDB cluster, see [Connect to Your TiDB Cloud Dedicated Cluster](https://docs.pingcap.com/tidbcloud/connect-to-tidb-cluster).
 
 For a newly created cluster, note the following configurations:
 
@@ -108,7 +108,7 @@ Here are some best practices:
 
 For SQL statements, you might need to adapt them depending on the level of your data source's compatibility with TiDB.
 
-If you have any questions, contact [PingCAP](/tidb-cloud/tidb-cloud-support.md) for consultation.
+If you have any questions, contact [PingCAP](https://docs.pingcap.com/tidbcloud/tidb-cloud-support) for consultation.
 
 ## Step 5. Import data
 
@@ -116,11 +116,11 @@ You can import a small dataset to quickly test feasibility, or a large dataset t
 
 You can import data in various formats to TiDB Cloud:
 
-- [Migrate MySQL-Compatible Databases to TiDB Cloud Using Data Migration](/tidb-cloud/migrate-from-mysql-using-data-migration.md)
-- [Import Local Files to TiDB Cloud](/tidb-cloud/tidb-cloud-import-local-files.md)
-- [Import sample data in the SQL file format](/tidb-cloud/import-sample-data.md)
-- [Import CSV Files from Amazon S3 or GCS](/tidb-cloud/import-csv-files.md)
-- [Import Apache Parquet Files](/tidb-cloud/import-parquet-files.md)
+- [Migrate MySQL-Compatible Databases to TiDB Cloud Using Data Migration](https://docs.pingcap.com/tidbcloud/migrate-from-mysql-using-data-migration)
+- [Import Local Files to TiDB Cloud](https://docs.pingcap.com/tidbcloud/tidb-cloud-import-local-files)
+- [Import sample data in the SQL file format](https://docs.pingcap.com/tidbcloud/import-sample-data)
+- [Import CSV Files from Amazon S3 or GCS](https://docs.pingcap.com/tidbcloud/import-csv-files)
+- [Import Apache Parquet Files](https://docs.pingcap.com/tidbcloud/import-parquet-files)
 
 > **Note:**
 >
@@ -134,10 +134,10 @@ Before testing the workload, consider performing a manual backup, so that you ca
 
 After kicking off the workload, you can observe the system using the following methods:
 
-- The commonly used metrics of the cluster can be found on the cluster overview page, including Total QPS, Latency, Connections, TiFlash Request QPS, TiFlash Request Duration, TiFlash Storage Size, TiKV Storage Size, TiDB CPU, TiKV CPU, TiKV IO Read, and TiKV IO Write. See [Monitor a TiDB Cluster](/tidb-cloud/monitor-tidb-cluster.md).
-- Go to **Diagnosis > Statements**, where you can observe SQL execution and easily locate performance problems without querying the system tables. See [Statement Analysis](/tidb-cloud/tune-performance.md).
+- The commonly used metrics of the cluster can be found on the cluster overview page, including Total QPS, Latency, Connections, TiFlash Request QPS, TiFlash Request Duration, TiFlash Storage Size, TiKV Storage Size, TiDB CPU, TiKV CPU, TiKV IO Read, and TiKV IO Write. See [Monitor a TiDB Cluster](https://docs.pingcap.com/tidbcloud/monitor-tidb-cluster).
+- Go to **Diagnosis > Statements**, where you can observe SQL execution and easily locate performance problems without querying the system tables. See [Statement Analysis](https://docs.pingcap.com/tidbcloud/tune-performance).
 - Go to **Diagnosis > Key Visualizer**, where you can view TiDB data access patterns and data hotspots. See [Key Visualizer](/tidb-cloud/tune-performance.md#key-visualizer).
-- You can also integrate these metrics to your own Datadog and Prometheus. See [Third-Party Monitoring Integrations](/tidb-cloud/third-party-monitoring-integrations.md).
+- You can also integrate these metrics to your own Datadog and Prometheus. See [Third-Party Monitoring Integrations](https://docs.pingcap.com/tidbcloud/third-party-monitoring-integrations).
 
 Now it is time for evaluating the test results.
 
@@ -155,7 +155,7 @@ The following are tips for performance tuning:
 
 - Improve write performance
 
-    - Increase the write throughput by scaling out the TiDB clusters (see [Scale a TiDB Cluster](/tidb-cloud/scale-tidb-cluster.md)).
+    - Increase the write throughput by scaling out the TiDB clusters (see [Scale a TiDB Cluster](https://docs.pingcap.com/tidbcloud/scale-tidb-cluster)).
     - Reduce lock conflicts by using the [optimistic transaction model](https://docs.pingcap.com/tidb/stable/optimistic-transaction#tidb-optimistic-transaction-model).
 
 - Improve query performance
@@ -163,7 +163,7 @@ The following are tips for performance tuning:
     - Check the SQL execution plan on the **Diagnostic > Statements** page.
     - Check hotspot issues on the **Dashboard > Key Visualizer** page.
     - Monitor if the TiDB cluster is running out of capacity on the **Overview > Capacity Metrics** page.
-    - Use the TiFlash feature to optimize analytical processing. See [Use an HTAP Cluster](/tiflash/tiflash-overview.md).
+    - Use the TiFlash feature to optimize analytical processing. See [Use an HTAP Cluster](https://docs.pingcap.com/tidbcloud/tiflash-overview).
 
 ## Step 7. Explore more features
 
@@ -171,11 +171,11 @@ Now the workload testing is finished, you can explore more features, for example
 
 - Upgrade
 
-    TiDB Cloud regularly upgrades the TiDB clusters, while you can also submit a support ticket to request an upgrade to your clusters. See [Upgrade a TiDB Cluster](/tidb-cloud/upgrade-tidb-cluster.md).
+    TiDB Cloud regularly upgrades the TiDB clusters, while you can also submit a support ticket to request an upgrade to your clusters. See [Upgrade a TiDB Cluster](https://docs.pingcap.com/tidbcloud/upgrade-tidb-cluster).
 
 - Backup
 
-    To avoid vendor lock-in, you can use daily full backup to migrate data to a new cluster and use [Dumpling](https://docs.pingcap.com/tidb/stable/dumpling-overview) to export data. For more information, see [Back Up and Restore TiDB Cloud Dedicated Data](/tidb-cloud/backup-and-restore.md#turn-on-auto-backup) and [Back Up and Restore TiDB Cloud Serverless Data](/tidb-cloud/backup-and-restore-serverless.md).
+    To avoid vendor lock-in, you can use daily full backup to migrate data to a new cluster and use [Dumpling](https://docs.pingcap.com/tidb/stable/dumpling-overview) to export data. For more information, see [Back Up and Restore TiDB Cloud Dedicated Data](/tidb-cloud/backup-and-restore.md#turn-on-auto-backup) and [Back Up and Restore TiDB Cloud Serverless Data](https://docs.pingcap.com/tidbcloud/backup-and-restore-serverless).
 
 ## Step 8. Clean up the environment and finish the PoC
 
@@ -183,9 +183,9 @@ You have completed the full cycle of a PoC after you test TiDB Cloud using real 
 
 If you want to try TiDB Cloud on a larger scale, for a new round of deployments and tests, such as deploying with other node storage sizes offered by TiDB Cloud, get full access to TiDB Cloud by creating a [TiDB Cloud Dedicated](/tidb-cloud/select-cluster-tier.md#tidb-cloud-dedicated) cluster.
 
-If your credits are running out and you want to continue with the PoC, contact the [TiDB Cloud Support](/tidb-cloud/tidb-cloud-support.md) for consultation.
+If your credits are running out and you want to continue with the PoC, contact the [TiDB Cloud Support](https://docs.pingcap.com/tidbcloud/tidb-cloud-support) for consultation.
 
-You can end the PoC and remove the test environment anytime. For more information, see [Delete a TiDB Cluster](/tidb-cloud/delete-tidb-cluster.md).
+You can end the PoC and remove the test environment anytime. For more information, see [Delete a TiDB Cluster](https://docs.pingcap.com/tidbcloud/delete-tidb-cluster).
 
 Any feedback to our support team is highly appreciated by filling in the [TiDB Cloud Feedback form](https://www.surveymonkey.com/r/L3VVW8R), such as the PoC process, the feature requests, and how we can improve the products.
 
@@ -203,10 +203,10 @@ Database backup and restore operations are typically CPU-intensive, and always r
 
 The following are some considerations about scaling:
 
-- During peak hours or data import, if you observe that the capacity metrics on the dashboard have reached the upper limits (see [Monitor a TiDB Cluster](/tidb-cloud/monitor-tidb-cluster.md)), you might need to scale out the cluster.
+- During peak hours or data import, if you observe that the capacity metrics on the dashboard have reached the upper limits (see [Monitor a TiDB Cluster](https://docs.pingcap.com/tidbcloud/monitor-tidb-cluster)), you might need to scale out the cluster.
 - If you observe that the resource usage is persistently low, for example, only 10%-20% of CPU usage, you can scale in the cluster to save resources.
 
-You can scale out clusters on the console by yourself. If you need to scale in a cluster, you need to contact [TiDB Cloud Support](/tidb-cloud/tidb-cloud-support.md) for help. For more information about scaling, see [Scale Your TiDB Cluster](/tidb-cloud/scale-tidb-cluster.md). You can keep in touch with the support team to track the exact progress. You must wait for the scaling operation to finish before starting your test because it can impact the performance due to data rebalancing.
+You can scale out clusters on the console by yourself. If you need to scale in a cluster, you need to contact [TiDB Cloud Support](https://docs.pingcap.com/tidbcloud/tidb-cloud-support) for help. For more information about scaling, see [Scale Your TiDB Cluster](https://docs.pingcap.com/tidbcloud/scale-tidb-cluster). You can keep in touch with the support team to track the exact progress. You must wait for the scaling operation to finish before starting your test because it can impact the performance due to data rebalancing.
 
 ### 3. How to make the best use of my PoC credits?
 
@@ -228,4 +228,4 @@ If you want to extend the PoC trial period or are running out of credits, [conta
 
 ### 5. I'm stuck with a technical problem. How do I get help for my PoC?
 
-You can always [contact TiDB Cloud Support](/tidb-cloud/tidb-cloud-support.md) for help.
+You can always [contact TiDB Cloud Support](https://docs.pingcap.com/tidbcloud/tidb-cloud-support) for help.

@@ -13,7 +13,7 @@ TiDB Cloud Dedicated lets you adjust its compute and storage resources separatel
 
 > **Tip:**
 >
-> For information about how to determine the size of a TiDB Cloud Dedicated cluster, see [Determine Your TiDB Size](/tidb-cloud/size-your-cluster.md).
+> For information about how to determine the size of a TiDB Cloud Dedicated cluster, see [Determine Your TiDB Size](https://docs.pingcap.com/tidbcloud/size-your-cluster).
 
 ## Vertical and horizontal scaling
 

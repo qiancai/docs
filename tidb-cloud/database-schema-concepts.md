@@ -17,13 +17,13 @@ A database in TiDB is a collection of objects such as tables and indexes.
 
 System databases are default databases created by TiDB to store system tables. TiDB provides the following system databases:
 
-- [`INFORMATION_SCHEMA`](/information-schema/information-schema.md)
+- [`INFORMATION_SCHEMA`](https://docs.pingcap.com/tidbcloud/information-schema)
 
-- [`mysql`](/mysql-schema/mysql-schema.md)
+- [`mysql`](https://docs.pingcap.com/tidbcloud/mysql-schema)
 
-- [`performance_schema`](/performance-schema/performance-schema.md)
+- [`performance_schema`](https://docs.pingcap.com/tidbcloud/performance-schema)
 
-- [`sys`](/sys-schema/sys-schema.md)
+- [`sys`](https://docs.pingcap.com/tidbcloud/sys-schema)
 
 ### `test` database
 
@@ -33,7 +33,7 @@ TiDB comes with a default database named `test`. However, it is recommended that
 
 A table is a collection of related data in a [database](/develop/dev-guide-schema-design-overview.md#database).
 
-Each table consists of rows and columns. Each value in a row belongs to a specific column. Each column allows only a single data type. To further qualify columns, you can add some [constraints](/constraints.md). To accelerate calculations, you can add [generated columns](/generated-columns.md).
+Each table consists of rows and columns. Each value in a row belongs to a specific column. Each column allows only a single data type. To further qualify columns, you can add some [constraints](https://docs.pingcap.com/tidbcloud/constraints). To accelerate calculations, you can add [generated columns](https://docs.pingcap.com/tidbcloud/generated-columns).
 
 ### System table
 
@@ -45,7 +45,7 @@ Each table consists of rows and columns. Each value in a row belongs to a specif
 
 ### Cached table
 
-TiDB introduces the [cached table](/cached-tables.md) feature for frequently accessed but rarely updated small hotspot tables. When this feature is used, the data of an entire table is loaded into the memory of the TiDB server, and TiDB directly gets the table data from the memory without accessing TiKV, which improves the read performance.
+TiDB introduces the [cached table](https://docs.pingcap.com/tidbcloud/cached-tables) feature for frequently accessed but rarely updated small hotspot tables. When this feature is used, the data of an entire table is loaded into the memory of the TiDB server, and TiDB directly gets the table data from the memory without accessing TiKV, which improves the read performance.
 
 ### Temporary table
 
@@ -53,7 +53,7 @@ The temporary tables feature solves the issue of temporarily storing the interme
 
 ### Partitioned table
 
-In TiDB, [partitioning](/partitioned-table.md) enables you to divide a large table into one or more manageable pieces called partitions. Each partition is independent and can be managed individually.
+In TiDB, [partitioning](https://docs.pingcap.com/tidbcloud/partitioned-table) enables you to divide a large table into one or more manageable pieces called partitions. Each partition is independent and can be managed individually.
 
 ## Columns
 
@@ -63,7 +63,7 @@ For more information, see [Define columns](/develop/dev-guide-create-table.md#de
 
 ## Generated columns
 
-TiDB lets you extract data from the JSON data type as a [generated column](/generated-columns.md).
+TiDB lets you extract data from the JSON data type as a [generated column](https://docs.pingcap.com/tidbcloud/generated-columns).
 
 Unlike general columns, the value of the generated column is calculated by the expression in the column definition. When inserting or updating a generated column, you cannot assign a value, but only use `DEFAULT`.
 
@@ -71,7 +71,7 @@ There are two kinds of generated columns: virtual and stored. A virtual generate
 
 ## Data types
 
-TiDB supports all the data types in MySQL except the `SPATIAL` type. This includes all the [numeric types](/data-type-numeric.md), [string types](/data-type-string.md), [date & time types](/data-type-date-and-time.md), and [the JSON type](/data-type-json.md).
+TiDB supports all the data types in MySQL except the `SPATIAL` type. This includes all the [numeric types](https://docs.pingcap.com/tidbcloud/data-type-numeric), [string types](https://docs.pingcap.com/tidbcloud/data-type-string), [date & time types](https://docs.pingcap.com/tidbcloud/data-type-date-and-time), and [the JSON type](https://docs.pingcap.com/tidbcloud/data-type-json).
 
 ## Indexes
 
@@ -107,7 +107,7 @@ In clustered indexes, the term clustered refers to the organization of how data 
 
 This feature controls how data is stored in tables containing primary keys. It provides TiDB with the ability to organize tables in a way that can improve the performance of certain queries.
 
-For more information, see [Clustered Indexes](/clustered-indexes.md).
+For more information, see [Clustered Indexes](https://docs.pingcap.com/tidbcloud/clustered-indexes).
 
 ### Secondary index
 
@@ -157,7 +157,7 @@ A FOREIGN KEY is a database constraint that enforces referential integrity betwe
 
 Starting from v6.6.0, TiDB supports foreign key constraints as an experimental feature. This feature allows cross-table referencing of related data and helps maintain data consistency by enforcing referential integrity. However, it is important to note that this feature is experimental and not recommended for production environments due to potential performance issues, especially with large data volumes.
 
-For more information, see [FOREIGN KEY constraints](/foreign-key.md).
+For more information, see [FOREIGN KEY constraints](https://docs.pingcap.com/tidbcloud/foreign-key).
 
 ## Views
 
@@ -167,10 +167,10 @@ A view acts as a virtual table, whose schema is defined by the `SELECT` statemen
 
 - Defining complex queries that frequently appear as views to make complex queries easier and more convenient.
 
-For more information, see [Views](/views.md).
+For more information, see [Views](https://docs.pingcap.com/tidbcloud/views).
 
 ## Sequence
 
 A sequence is a database object designed to generate a sequence of numbers according to a specified set of rules. This feature is especially useful in scenarios where unique identifiers are required, such as in the creation of primary keys for database tables.
 
-For more information, see [sequence](/sql-statements/sql-statement-create-sequence.md).
+For more information, see [sequence](https://docs.pingcap.com/tidbcloud/sql-statement-create-sequence).

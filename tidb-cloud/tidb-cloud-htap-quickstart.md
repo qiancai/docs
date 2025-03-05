@@ -151,8 +151,8 @@ In this step, you can compare the execution statistics between TiKV (row-based s
 
 ## Learn more
 
-- [TiFlash Overview](/tiflash/tiflash-overview.md)
-- [Create TiFlash Replicas](/tiflash/create-tiflash-replicas.md)
-- [Read Data from TiFlash](/tiflash/use-tidb-to-read-tiflash.md)
-- [Use MPP Mode](/tiflash/use-tiflash-mpp-mode.md)
-- [Supported Push-down Calculations](/tiflash/tiflash-supported-pushdown-calculations.md)
+- [TiFlash Overview](https://docs.pingcap.com/tidbcloud/tiflash-overview)
+- [Create TiFlash Replicas](https://docs.pingcap.com/tidbcloud/create-tiflash-replicas)
+- [Read Data from TiFlash](https://docs.pingcap.com/tidbcloud/use-tidb-to-read-tiflash)
+- [Use MPP Mode](https://docs.pingcap.com/tidbcloud/use-tiflash-mpp-mode)
+- [Supported Push-down Calculations](https://docs.pingcap.com/tidbcloud/tiflash-supported-pushdown-calculations)

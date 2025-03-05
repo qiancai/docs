@@ -25,13 +25,13 @@ SQL is divided into the following 4 types according to their functions:
 
 - DCL (Data Control Language): It is used to define access privileges and security levels.
 
-To get an overview of SQL statements in TiDB, see [SQL Statement Overview](/sql-statements/sql-statement-overview.md).
+To get an overview of SQL statements in TiDB, see [SQL Statement Overview](https://docs.pingcap.com/tidbcloud/sql-statement-overview).
 
 ## SQL mode
 
 TiDB servers operate in different SQL modes and apply these modes differently for different clients. SQL mode defines the SQL syntax that TiDB supports and the type of data validation check to perform.
 
-For more information, see [SQL Mode](/sql-mode.md).
+For more information, see [SQL Mode](https://docs.pingcap.com/tidbcloud/sql-mode).
 
 ## Row ID generation attributes
 
@@ -51,21 +51,21 @@ For performance reasons, `AUTO_INCREMENT` numbers are allocated in a batch of va
 
 If you want the `AUTO_INCREMENT` numbers to be monotonic on all TiDB servers and your TiDB version is v6.5.0 or later, it is recommended to enable the [MySQL compatibility mode](/auto-increment.md#mysql-compatibility-mode).
 
-For more information, see [AUTO_INCREMENT](/auto-increment.md).
+For more information, see [AUTO_INCREMENT](https://docs.pingcap.com/tidbcloud/auto-increment).
 
 ### AUTO_RANDOM
 
-`AUTO_RANDOM` is a column attribute that is used to automatically assign values to a `BIGINT` column. Values assigned automatically are random and unique. Since the value of `AUTO_RANDOM` is random and unique, `AUTO_RANDOM` is often used in place of [`AUTO_INCREMENT`](/auto-increment.md) to avoid write hotspots in a single storage node caused by TiDB assigning consecutive IDs.
+`AUTO_RANDOM` is a column attribute that is used to automatically assign values to a `BIGINT` column. Values assigned automatically are random and unique. Since the value of `AUTO_RANDOM` is random and unique, `AUTO_RANDOM` is often used in place of [`AUTO_INCREMENT`](https://docs.pingcap.com/tidbcloud/auto-increment) to avoid write hotspots in a single storage node caused by TiDB assigning consecutive IDs.
 
-Since the value of `AUTO_RANDOM` is random and unique, `AUTO_RANDOM` is often used in place of [`AUTO_INCREMENT`](/auto-increment.md) to avoid write hotspots in a single storage node caused by TiDB assigning consecutive IDs. If the current `AUTO_INCREMENT` column is a primary key and the type is `BIGINT`, you can execute the `ALTER TABLE t MODIFY COLUMN id BIGINT AUTO_RANDOM(5);` statement to switch from `AUTO_INCREMENT` to `AUTO_RANDOM`.
+Since the value of `AUTO_RANDOM` is random and unique, `AUTO_RANDOM` is often used in place of [`AUTO_INCREMENT`](https://docs.pingcap.com/tidbcloud/auto-increment) to avoid write hotspots in a single storage node caused by TiDB assigning consecutive IDs. If the current `AUTO_INCREMENT` column is a primary key and the type is `BIGINT`, you can execute the `ALTER TABLE t MODIFY COLUMN id BIGINT AUTO_RANDOM(5);` statement to switch from `AUTO_INCREMENT` to `AUTO_RANDOM`.
 
-For more information, see [AUTO_RANDOM](/auto-random.md).
+For more information, see [AUTO_RANDOM](https://docs.pingcap.com/tidbcloud/auto-random).
 
 ### SHARD_ROW_ID_BITS
 
 For the tables with a non-clustered primary key or no primary key, TiDB uses an implicit auto-increment row ID. When a large number of `INSERT` operations are performed, the data is written into a single Region, causing a write hot spot.
 
-To mitigate the hot spot issue, you can configure [`SHARD_ROW_ID_BITS`](/shard-row-id-bits.md). The row IDs are scattered, and the data are written into multiple different Regions.
+To mitigate the hot spot issue, you can configure [`SHARD_ROW_ID_BITS`](https://docs.pingcap.com/tidbcloud/shard-row-id-bits). The row IDs are scattered, and the data are written into multiple different Regions.
 
 ## Keywords
 
@@ -77,7 +77,7 @@ Keywords are words that have special meanings in SQL statements, such as `SELECT
 
 However, some non-reserved keywords might still require special treatment. It is recommended that you treat them as reserved keywords.
 
-For more information, see [Keywords](/keywords.md).
+For more information, see [Keywords](https://docs.pingcap.com/tidbcloud/keywords).
 
 ## User-defined variables
 
@@ -85,10 +85,10 @@ TiDB lets you set and read the user-defined variables. The format of the user-de
 
 The user-defined variables are session-specific, which means a user variable defined by one client connection cannot be seen or used by other client connections.
 
-For more information, see [User-Defined Variables](/user-defined-variables.md).
+For more information, see [User-Defined Variables](https://docs.pingcap.com/tidbcloud/user-defined-variables).
 
 ## Metadata lock
 
 In TiDB, a metadata lock is a mechanism introduced to manage changes to table metadata during online schema changes. When a transaction begins, it locks onto a snapshot of the current metadata. If the metadata changes during the transaction, TiDB throws an "Information schema is changed" error, preventing the transaction from committing. The metadata lock coordinates Data Manipulation Language (DML) and Data Definition Language (DDL) operations by prioritizing DMLs, ensuring that in-progress DML transactions with outdated metadata commit before applying new DDL changes, thus minimizing errors and maintaining data consistency.
 
-For more information, see [Metadata Lock](/metadata-lock.md).
+For more information, see [Metadata Lock](https://docs.pingcap.com/tidbcloud/metadata-lock).

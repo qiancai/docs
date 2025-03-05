@@ -43,13 +43,13 @@ The TiDB Cloud CLI, `ticloud`, allows you to manage TiDB Cloud Serverless and Ti
 - Importing data into clusters.
 - Exporting data from clusters.
 
-For more information, see [TiDB Cloud CLI Reference](/tidb-cloud/cli-reference.md).
+For more information, see [TiDB Cloud CLI Reference](https://docs.pingcap.com/tidbcloud/cli-reference).
 
 ## TiDB Cloud API (Beta)
 
-The TiDB Cloud API is a REST-based interface that provides programmatic access to manage resources across TiDB Cloud Serverless and TiDB Cloud Dedicated. It enables automated and efficient handling of tasks such as managing projects, clusters, backups, restores, data imports, billing, and other resources in [TiDB Cloud Data Service](/tidb-cloud/data-service-overview.md).
+The TiDB Cloud API is a REST-based interface that provides programmatic access to manage resources across TiDB Cloud Serverless and TiDB Cloud Dedicated. It enables automated and efficient handling of tasks such as managing projects, clusters, backups, restores, data imports, billing, and other resources in [TiDB Cloud Data Service](https://docs.pingcap.com/tidbcloud/data-service-overview).
 
-For more information, see [TiDB Cloud API Overview](/tidb-cloud/api-overview.md).
+For more information, see [TiDB Cloud API Overview](https://docs.pingcap.com/tidbcloud/api-overview).
 
 ## Nodes
 
@@ -60,13 +60,13 @@ In TiDB Cloud, each cluster consists of TiDB, TiKV, and TiFlash nodes.
 
 ### TiDB node
 
-A [TiDB node](/tidb-computing.md) is a stateless SQL layer that connects to applications using a MySQL-compatible endpoint. It handles tasks like parsing, optimizing, and creating distributed execution plans for SQL queries.
+A [TiDB node](https://docs.pingcap.com/tidbcloud/tidb-computing) is a stateless SQL layer that connects to applications using a MySQL-compatible endpoint. It handles tasks like parsing, optimizing, and creating distributed execution plans for SQL queries.
 
 You can deploy multiple TiDB nodes to scale horizontally and manage higher workloads. These nodes work with load balancers, such as TiProxy or HAProxy, to provide a seamless interface. TiDB nodes do not store data themselves---they forward data requests to TiKV nodes for row-based storage or TiFlash nodes for columnar storage.
 
 ### TiKV node
 
-A [TiKV node](/tikv-overview.md) is the backbone of data storage in the TiDB architecture, serving as a distributed transactional key-value storage engine that delivers reliability, scalability, and high availability.
+A [TiKV node](https://docs.pingcap.com/tidbcloud/tikv-overview) is the backbone of data storage in the TiDB architecture, serving as a distributed transactional key-value storage engine that delivers reliability, scalability, and high availability.
 
 **Key features:**
 
@@ -91,7 +91,7 @@ A [TiKV node](/tikv-overview.md) is the backbone of data storage in the TiDB arc
 
 ### TiFlash node
 
-A [TiFlash node](/tiflash/tiflash-overview.md) is a specialized type of storage node within the TiDB architecture. Unlike ordinary TiKV nodes, TiFlash is designed for analytical acceleration with a columnar storage model.
+A [TiFlash node](https://docs.pingcap.com/tidbcloud/tiflash-overview) is a specialized type of storage node within the TiDB architecture. Unlike ordinary TiKV nodes, TiFlash is designed for analytical acceleration with a columnar storage model.
 
 **Key features:**
 

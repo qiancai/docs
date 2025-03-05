@@ -13,7 +13,7 @@ TiDB's optimistic transaction model does not detect conflicts until the commit p
 
 Assume that the database is used as a counter. High access concurrency might lead to severe conflicts, resulting in multiple retries or even timeouts. Therefore, in the scenario of severe conflicts, it is recommended to use the pessimistic transaction mode or to solve problems at the system architecture level, such as placing a counter in Redis. Nonetheless, the optimistic transaction model is efficient if the access conflict is not very severe.
 
-For more information, see [TiDB Optimistic Transaction Model](/optimistic-transaction.md).
+For more information, see [TiDB Optimistic Transaction Model](https://docs.pingcap.com/tidbcloud/optimistic-transaction).
 
 ## Pessimistic transaction mode
 
@@ -21,7 +21,7 @@ In TiDB, the pessimistic transaction mode has almost the same behavior as in MyS
 
 However, if the application scenario has fewer conflicts, the optimistic transaction model has better performance.
 
-For more information, see [TiDB Pessimistic Transaction Mode](/pessimistic-transaction.md).
+For more information, see [TiDB Pessimistic Transaction Mode](https://docs.pingcap.com/tidbcloud/pessimistic-transaction).
 
 ## Transaction isolation levels
 
@@ -29,7 +29,7 @@ Transaction isolation is one of the foundations of database transaction processi
 
 TiDB implements Snapshot Isolation (SI) consistency, which it advertises as `REPEATABLE-READ` for compatibility with MySQL. This differs from the [ANSI Repeatable Read isolation level](/transaction-isolation-levels.md#difference-between-tidb-and-ansi-repeatable-read) and the [MySQL Repeatable Read level](/transaction-isolation-levels.md#difference-between-tidb-and-mysql-repeatable-read).
 
-For more information, see [TiDB Transaction Isolation Levels](/transaction-isolation-levels.md).
+For more information, see [TiDB Transaction Isolation Levels](https://docs.pingcap.com/tidbcloud/transaction-isolation-levels).
 
 ## Non-transactional DML statements
 
@@ -37,4 +37,4 @@ A non-transactional DML statement is a DML statement split into multiple SQL sta
 
 Usually, memory-consuming transactions need to be split into multiple SQL statements to bypass the transaction size limit. Non-transactional DML statements integrate this process into the TiDB kernel to achieve the same effect. It is helpful to understand the effect of non-transactional DML statements by splitting SQL statements. The `DRY RUN` syntax can be used to preview the split statements.
 
-For more information, see [Non-Transactional DML Statements](/non-transactional-dml.md).
+For more information, see [Non-Transactional DML Statements](https://docs.pingcap.com/tidbcloud/non-transactional-dml).

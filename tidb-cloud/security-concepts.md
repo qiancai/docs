@@ -41,7 +41,7 @@ TiDB Cloud user accounts are the foundation for managing identity and access to 
 
     - **Best practice**: Use for smaller teams or those without strict compliance needs.
 
-    - For more information, see [Standard SSO Authentication](/tidb-cloud/tidb-cloud-sso-authentication.md).
+    - For more information, see [Standard SSO Authentication](https://docs.pingcap.com/tidbcloud/tidb-cloud-sso-authentication).
 
 - **Organization SSO authentication**
 
@@ -51,7 +51,7 @@ TiDB Cloud user accounts are the foundation for managing identity and access to 
 
     - **Best practice**: Ideal for larger organizations with advanced security and compliance requirements.
 
-    - For more information, see [Organization SSO Authentication](/tidb-cloud/tidb-cloud-org-sso-authentication.md).
+    - For more information, see [Organization SSO Authentication](https://docs.pingcap.com/tidbcloud/tidb-cloud-org-sso-authentication).
 
 ### Database access control
 
@@ -166,7 +166,7 @@ TiDB Cloud ensures secure cluster connectivity and data transmission through rob
 
 - Enables secure connectivity for SQL clients within your Virtual Private Cloud (VPC) to TiDB Cloud Dedicated clusters.
 
-- Supported by [AWS PrivateLink](/tidb-cloud/set-up-private-endpoint-connections.md) and [Google Cloud Private Service Connect](/tidb-cloud/set-up-private-endpoint-connections-on-google-cloud.md).
+- Supported by [AWS PrivateLink](https://docs.pingcap.com/tidbcloud/set-up-private-endpoint-connections) and [Google Cloud Private Service Connect](https://docs.pingcap.com/tidbcloud/set-up-private-endpoint-connections-on-google-cloud).
 
 **Best practices:** Use private endpoints in production to minimize public exposure and review configurations regularly.
 
@@ -174,7 +174,7 @@ TiDB Cloud ensures secure cluster connectivity and data transmission through rob
 
 - Encrypts communication between clients and servers to secure data transmission.
 
-- Setup guides available for both [Serverless](/tidb-cloud/secure-connections-to-serverless-clusters.md) and [Dedicated](/tidb-cloud/tidb-cloud-tls-connect-to-dedicated.md) clusters.
+- Setup guides available for both [Serverless](https://docs.pingcap.com/tidbcloud/secure-connections-to-serverless-clusters) and [Dedicated](https://docs.pingcap.com/tidbcloud/tidb-cloud-tls-connect-to-dedicated) clusters.
 
 **Best practices:** Ensure TLS certificates are current and rotate them periodically.
 
@@ -182,7 +182,7 @@ TiDB Cloud ensures secure cluster connectivity and data transmission through rob
 
 - Establishes private connections between Virtual Private Clouds, enabling secure, seamless communication.
 
-- For more information, see [Connect to TiDB Cloud Dedicated via VPC Peering](/tidb-cloud/set-up-vpc-peering-connections.md).
+- For more information, see [Connect to TiDB Cloud Dedicated via VPC Peering](https://docs.pingcap.com/tidbcloud/set-up-vpc-peering-connections).
 
 **Best practices:** Use for critical workloads to avoid public internet exposure and monitor performance.
 
@@ -190,7 +190,7 @@ TiDB Cloud ensures secure cluster connectivity and data transmission through rob
 
 - Acts as a firewall to restrict cluster access to trusted IP addresses.
 
-- For more information, see [Configure an IP Access List](/tidb-cloud/configure-ip-access-list.md).
+- For more information, see [Configure an IP Access List](https://docs.pingcap.com/tidbcloud/configure-ip-access-list).
 
 **Best practices:** Regularly audit and update the access list to maintain security.
 
@@ -214,7 +214,7 @@ TiDB Cloud safeguards static data with advanced encryption capabilities, ensurin
 
 - Leverage CMEK for industries requiring strict compliance, such as HIPAA and GDPR.
 
-For more information, see [Encryption at Rest Using Customer-Managed Encryption Keys](/tidb-cloud/tidb-cloud-encrypt-cmek.md).
+For more information, see [Encryption at Rest Using Customer-Managed Encryption Keys](https://docs.pingcap.com/tidbcloud/tidb-cloud-encrypt-cmek).
 
 ## Audit logging
 
@@ -240,4 +240,4 @@ Records detailed database operations, including executed SQL statements and user
 
 - Use logs for compliance reporting and forensic analysis.
 
-For more information, see [Console Audit Logging](/tidb-cloud/tidb-cloud-console-auditing.md) and [Database Audit Logging](/tidb-cloud/tidb-cloud-auditing.md).
+For more information, see [Console Audit Logging](https://docs.pingcap.com/tidbcloud/tidb-cloud-console-auditing) and [Database Audit Logging](https://docs.pingcap.com/tidbcloud/tidb-cloud-auditing).

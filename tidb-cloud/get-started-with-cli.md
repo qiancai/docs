@@ -167,7 +167,7 @@ tiup update cloud
 
 ## What's next
 
-Check out [CLI reference](/tidb-cloud/cli-reference.md) to explore more features of TiDB Cloud CLI.
+Check out [CLI reference](https://docs.pingcap.com/tidbcloud/cli-reference) to explore more features of TiDB Cloud CLI.
 
 ## Feedback
 

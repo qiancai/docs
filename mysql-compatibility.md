@@ -23,8 +23,8 @@ However, some features of MySQL are not supported in TiDB. This could be because
 
 It's important to note that TiDB does not support the MySQL replication protocol. Instead, specific tools are provided to replicate data with MySQL:
 
-- Replicate data from MySQL: [TiDB Data Migration (DM)](/dm/dm-overview.md) is a tool that supports full data migration and incremental data replication from MySQL or MariaDB into TiDB.
-- Replicate data to MySQL: [TiCDC](/ticdc/ticdc-overview.md) is a tool for replicating the incremental data of TiDB by pulling TiKV change logs. TiCDC uses the [MySQL sink](/ticdc/ticdc-overview.md#replication-consistency) to replicate the incremental data of TiDB to MySQL.
+- Replicate data from MySQL: [TiDB Data Migration (DM)](https://docs.pingcap.com/tidb/stable/dm-overview) is a tool that supports full data migration and incremental data replication from MySQL or MariaDB into TiDB.
+- Replicate data to MySQL: [TiCDC](https://docs.pingcap.com/tidb/stable/ticdc-overview) is a tool for replicating the incremental data of TiDB by pulling TiKV change logs. TiCDC uses the [MySQL sink](/ticdc/ticdc-overview.md#replication-consistency) to replicate the incremental data of TiDB to MySQL.
 
 </CustomContent>
 
@@ -32,7 +32,7 @@ It's important to note that TiDB does not support the MySQL replication protocol
 
 > **Note:**
 >
-> This page describes general differences between MySQL and TiDB. For more information on compatibility with MySQL in the areas of security and pessimistic transaction mode, refer to the dedicated pages on [Security](/security-compatibility-with-mysql.md) and [Pessimistic Transaction Mode](/pessimistic-transaction.md#difference-with-mysql-innodb).
+> This page describes general differences between MySQL and TiDB. For more information on compatibility with MySQL in the areas of security and pessimistic transaction mode, refer to the dedicated pages on [Security](https://docs.pingcap.com/tidb/stable/security-compatibility-with-mysql) and [Pessimistic Transaction Mode](/pessimistic-transaction.md#difference-with-mysql-innodb).
 
 </CustomContent>
 
@@ -85,7 +85,7 @@ You can try out TiDB features on [TiDB Playground](https://play.tidbcloud.com/?u
 
 + For TiDB v6.6.0 and earlier versions, auto-increment columns in TiDB behave the same as in MySQL InnoDB, requiring them to be primary keys or index prefixes. Starting from v7.0.0, TiDB removes this restriction, allowing for more flexible table primary key definitions. [#40580](https://github.com/pingcap/tidb/issues/40580)
 
-For more details, see [`AUTO_INCREMENT`](/auto-increment.md).
+For more details, see [`AUTO_INCREMENT`](https://docs.pingcap.com/tidbcloud/auto-increment).
 
 > **Note:**
 >
@@ -121,7 +121,7 @@ As shown, because of the shared allocator, the `id` increments by 2 each time. T
 
 > **Note:**
 >
-> The `AUTO_INCREMENT` attribute might cause hotspot in production environments. See [Troubleshoot HotSpot Issues](/troubleshoot-hot-spot-issues.md) for details. It is recommended to use [`AUTO_RANDOM`](/auto-random.md) instead.
+> The `AUTO_INCREMENT` attribute might cause hotspot in production environments. See [Troubleshoot HotSpot Issues](https://docs.pingcap.com/tidb/stable/troubleshoot-hot-spot-issues) for details. It is recommended to use [`AUTO_RANDOM`](https://docs.pingcap.com/tidbcloud/auto-random) instead.
 
 </CustomContent>
 
@@ -129,7 +129,7 @@ As shown, because of the shared allocator, the `id` increments by 2 each time. T
 
 > **Note:**
 >
-> The `AUTO_INCREMENT` attribute might cause hotspot in production environments. See [Troubleshoot HotSpot Issues](https://docs.pingcap.com/tidb/stable/troubleshoot-hot-spot-issues#handle-auto-increment-primary-key-hotspot-tables-using-auto_random) for details. It is recommended to use [`AUTO_RANDOM`](/auto-random.md) instead.
+> The `AUTO_INCREMENT` attribute might cause hotspot in production environments. See [Troubleshoot HotSpot Issues](https://docs.pingcap.com/tidb/stable/troubleshoot-hot-spot-issues#handle-auto-increment-primary-key-hotspot-tables-using-auto_random) for details. It is recommended to use [`AUTO_RANDOM`](https://docs.pingcap.com/tidbcloud/auto-random) instead.
 
 </CustomContent>
 
@@ -137,13 +137,13 @@ As shown, because of the shared allocator, the `id` increments by 2 each time. T
 
 <CustomContent platform="tidb">
 
-TiDB utilizes a combination of [Prometheus and Grafana](/tidb-monitoring-api.md) for storing and querying performance monitoring metrics. In TiDB, most [performance schema tables](/performance-schema/performance-schema.md) do not return any results.
+TiDB utilizes a combination of [Prometheus and Grafana](https://docs.pingcap.com/tidb/stable/tidb-monitoring-api) for storing and querying performance monitoring metrics. In TiDB, most [performance schema tables](https://docs.pingcap.com/tidbcloud/performance-schema) do not return any results.
 
 </CustomContent>
 
 <CustomContent platform="tidb-cloud">
 
-To check performance metrics in TiDB Cloud, you can either check the cluster overview page in the TiDB Cloud console or use [third-party monitoring integrations](/tidb-cloud/third-party-monitoring-integrations.md). Most [performance schema tables](/performance-schema/performance-schema.md) return empty results in TiDB.
+To check performance metrics in TiDB Cloud, you can either check the cluster overview page in the TiDB Cloud console or use [third-party monitoring integrations](https://docs.pingcap.com/tidbcloud/third-party-monitoring-integrations). Most [performance schema tables](https://docs.pingcap.com/tidbcloud/performance-schema) return empty results in TiDB.
 
 </CustomContent>
 
@@ -153,11 +153,11 @@ The output format, content, and privilege settings of Query Execution Plan (`EXP
 
 In TiDB, the MySQL system variable `optimizer_switch` is read-only and has no effect on query plans. Although optimizer hints can be used in similar syntax to MySQL, the available hints and their implementation might differ.
 
-For more information, refer to [Understand the Query Execution Plan](/explain-overview.md).
+For more information, refer to [Understand the Query Execution Plan](https://docs.pingcap.com/tidbcloud/explain-overview).
 
 ### Built-in functions
 
-TiDB supports most of the built-in functions in MySQL, but not all. You can use the statement [`SHOW BUILTINS`](/sql-statements/sql-statement-show-builtins.md) to get a list of the available functions.
+TiDB supports most of the built-in functions in MySQL, but not all. You can use the statement [`SHOW BUILTINS`](https://docs.pingcap.com/tidbcloud/sql-statement-show-builtins) to get a list of the available functions.
 
 ### DDL operations
 
@@ -165,9 +165,9 @@ In TiDB, all supported DDL changes can be performed online. However, there are s
 
 * When using a single `ALTER TABLE` statement to alter multiple schema objects (such as columns or indexes) of a table, specifying the same object in multiple changes is not supported. For example, if you execute the `ALTER TABLE t1 MODIFY COLUMN c1 INT, DROP COLUMN c1` command, the `Unsupported operate same column/index` error is output.
 * It is not supported to modify multiple TiDB-specific schema objects using a single `ALTER TABLE` statement, such as `TIFLASH REPLICA`, `SHARD_ROW_ID_BITS`, and `AUTO_ID_CACHE`.
-* TiDB does not support the changes of some data types using `ALTER TABLE`. For example, TiDB does not support the change from the `DECIMAL` type to the `DATE` type. If a data type change is unsupported, TiDB reports the `Unsupported modify column: type %d not match origin %d` error. Refer to [`ALTER TABLE`](/sql-statements/sql-statement-modify-column.md) for more details.
-* The `ALGORITHM={INSTANT,INPLACE,COPY}` syntax functions only as an assertion in TiDB, and does not modify the `ALTER` algorithm. See [`ALTER TABLE`](/sql-statements/sql-statement-alter-table.md) for further details.
-* Adding/Dropping the primary key of the `CLUSTERED` type is unsupported. For more details about the primary key of the `CLUSTERED` type, refer to [clustered index](/clustered-indexes.md).
+* TiDB does not support the changes of some data types using `ALTER TABLE`. For example, TiDB does not support the change from the `DECIMAL` type to the `DATE` type. If a data type change is unsupported, TiDB reports the `Unsupported modify column: type %d not match origin %d` error. Refer to [`ALTER TABLE`](https://docs.pingcap.com/tidbcloud/sql-statement-modify-column) for more details.
+* The `ALGORITHM={INSTANT,INPLACE,COPY}` syntax functions only as an assertion in TiDB, and does not modify the `ALTER` algorithm. See [`ALTER TABLE`](https://docs.pingcap.com/tidbcloud/sql-statement-alter-table) for further details.
+* Adding/Dropping the primary key of the `CLUSTERED` type is unsupported. For more details about the primary key of the `CLUSTERED` type, refer to [clustered index](https://docs.pingcap.com/tidbcloud/clustered-indexes).
 * Different types of indexes (`HASH|BTREE|RTREE|FULLTEXT`) are not supported, and will be parsed and ignored when specified.
 * TiDB supports `HASH`, `RANGE`, `LIST`, and `KEY` partitioning types. For an unsupported partition type, TiDB returns `Warning: Unsupported partition type %s, treat as normal table`, where `%s` is the specific unsupported partition type.
 * Range, Range COLUMNS, List, and List COLUMNS partitioned tables support `ADD`, `DROP`, `TRUNCATE`, and `REORGANIZE` operations. Other partition operations are ignored.
@@ -177,13 +177,13 @@ In TiDB, all supported DDL changes can be performed online. However, there are s
     - `SUBPARTITION`
     - `{CHECK|OPTIMIZE|REPAIR|IMPORT|DISCARD|REBUILD} PARTITION`
 
-    For more details on partitioning, see [Partitioning](/partitioned-table.md).
+    For more details on partitioning, see [Partitioning](https://docs.pingcap.com/tidbcloud/partitioned-table).
 
 ### Analyzing tables
 
 In TiDB, [Statistics Collection](/statistics.md#manual-collection) differs from MySQL in that it completely rebuilds the statistics for a table, making it a more resource-intensive operation that takes longer to complete. In contrast, MySQL/InnoDB performs a relatively lightweight and short-lived operation.
 
-For more information, refer to [`ANALYZE TABLE`](/sql-statements/sql-statement-analyze-table.md).
+For more information, refer to [`ANALYZE TABLE`](https://docs.pingcap.com/tidbcloud/sql-statement-analyze-table).
 
 ### Limitations of `SELECT` syntax
 
@@ -192,11 +192,11 @@ TiDB does not support the following `SELECT` syntax:
 - `SELECT ... INTO @variable`
 - `SELECT .. GROUP BY expr` does not imply `GROUP BY expr ORDER BY expr` as it does in MySQL 5.7.
 
-For more details, see the [`SELECT`](/sql-statements/sql-statement-select.md) statement reference.
+For more details, see the [`SELECT`](https://docs.pingcap.com/tidbcloud/sql-statement-select) statement reference.
 
 ### `UPDATE` statement
 
-See the [`UPDATE`](/sql-statements/sql-statement-update.md) statement reference.
+See the [`UPDATE`](https://docs.pingcap.com/tidbcloud/sql-statement-update) statement reference.
 
 ### Views
 
@@ -208,7 +208,7 @@ For more information, see [Compatibility between TiDB local temporary tables and
 
 ### Character sets and collations
 
-* To learn about the character sets and collations supported by TiDB, see [Character Set and Collation Overview](/character-set-and-collation.md).
+* To learn about the character sets and collations supported by TiDB, see [Character Set and Collation Overview](https://docs.pingcap.com/tidbcloud/character-set-and-collation).
 
 * For information on the MySQL compatibility of the GBK character set, refer to [GBK compatibility](/character-set-gbk.md#mysql-compatibility) .
 
@@ -226,7 +226,7 @@ To specify a storage engine using the [`--store`](/command-line-flags-for-tidb-c
 
 ### SQL modes
 
-TiDB supports most [SQL modes](/sql-mode.md):
+TiDB supports most [SQL modes](https://docs.pingcap.com/tidbcloud/sql-mode):
 
 - The compatibility modes, such as `Oracle` and `PostgreSQL` are parsed but ignored. Compatibility modes are deprecated in MySQL 5.7 and removed in MySQL 8.0.
 - The `ONLY_FULL_GROUP_BY` mode has minor [semantic differences](/functions-and-operators/aggregate-group-by-functions.md#differences-from-mysql) from MySQL 5.7.
@@ -289,6 +289,6 @@ TiDB does not implement specific features deprecated in MySQL, including:
 
 The following statements for creating, modifying, and dropping resource groups have different supported parameters than MySQL. For details, see the following documents:
 
-- [`CREATE RESOURCE GROUP`](/sql-statements/sql-statement-create-resource-group.md)
-- [`DROP RESOURCE GROUP`](/sql-statements/sql-statement-drop-resource-group.md)
-- [`ALTER RESOURCE GROUP`](/sql-statements/sql-statement-alter-resource-group.md)
+- [`CREATE RESOURCE GROUP`](https://docs.pingcap.com/tidbcloud/sql-statement-create-resource-group)
+- [`DROP RESOURCE GROUP`](https://docs.pingcap.com/tidbcloud/sql-statement-drop-resource-group)
+- [`ALTER RESOURCE GROUP`](https://docs.pingcap.com/tidbcloud/sql-statement-alter-resource-group)

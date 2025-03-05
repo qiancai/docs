@@ -19,4 +19,4 @@ Replication includes only incremental data changes by default. If existing data 
 
 In TiDB Cloud, replication can be tailored by defining table filters (to specify which tables to replicate) and event filters (to include or exclude specific types of events like INSERT or DELETE).
 
-For more information, see [Changefeed](/tidb-cloud/changefeed-overview.md).
+For more information, see [Changefeed](https://docs.pingcap.com/tidbcloud/changefeed-overview).
