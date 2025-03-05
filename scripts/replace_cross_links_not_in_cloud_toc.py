@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """
-This script converts internal markdown links that are not referenced in TOC-tidb-cloud.md to HTTP links.
-
-It reads the TOC file to identify which pages are included in the cloud documentation,
-then processes only those markdown files to convert links to pages not in the TOC to external HTTP links.
+The script only processes markdown files that are mentioned in cloud_toc_path.
+When replacing links within those files, it does the following:
+Check if the link is in cloud_toc_path - if it is, leave it as is (already implemented)
+If the link is not in cloud_toc_path, check if it's in cloud_toc_path2
+If it's not in either TOC and doesn't start with "/tidb-cloud/", use base_url2 for the external link
+Otherwise, use base_url for the external link.
 """
 
 import os
@@ -15,6 +17,7 @@ from pathlib import Path
 # ==========================================
 # Path to the TOC file for TiDB Cloud
 cloud_toc_path = r"/Users/grcai/Documents/GitHub/docs/TOC-tidb-cloud.md"
+cloud_toc_path2 = r"/Users/grcai/Documents/temp2/TOC-tidb-cloud_original.md"
 
 # Base URL for external links
 base_url = "https://docs.pingcap.com/tidbcloud"
@@ -101,7 +104,7 @@ def format_url_path(path):
     
     return path
 
-def process_markdown_file(file_path, toc_links, base_url, base_url2, dry_run):
+def process_markdown_file(file_path, toc_links, toc_links2, base_url, base_url2, dry_run):
     """Process a markdown file to replace links not in TOC."""
     # Skip binary files
     if is_binary_file(file_path):
@@ -144,7 +147,7 @@ def process_markdown_file(file_path, toc_links, base_url, base_url2, dry_run):
         if not comparison_link.startswith('/'):
             comparison_link = '/' + comparison_link
         
-        # If link is not in TOC, replace it with HTTP link
+        # If link is not in primary TOC, replace it with HTTP link
         if comparison_link not in toc_links:
             # Remove leading slash for URL construction
             if comparison_link.startswith('/'):
@@ -158,8 +161,11 @@ def process_markdown_file(file_path, toc_links, base_url, base_url2, dry_run):
             path_parts = url_path.split('/')
             simplified_path = path_parts[-1] if path_parts else ''
             
-            # Use base_url for tidb-cloud links, base_url2 for other links
-            if comparison_link.startswith('tidb-cloud/'):
+            # Determine which base URL to use based on the link
+            # If link is in second TOC or starts with tidb-cloud/, use base_url
+            # Otherwise use base_url2
+            normalized_comparison = '/' + comparison_link if not comparison_link.startswith('/') else comparison_link
+            if normalized_comparison in toc_links2 or comparison_link.startswith('tidb-cloud/'):
                 new_link = f"{base_url}/{simplified_path}{anchor}"
             else:
                 new_link = f"{base_url2}/{simplified_path}{anchor}"
@@ -186,18 +192,22 @@ def process_markdown_file(file_path, toc_links, base_url, base_url2, dry_run):
 def main():
     print("Starting cross-link conversion process...")
     print(f"TOC file: {cloud_toc_path}")
+    print(f"TOC file 2: {cloud_toc_path2}")
     print(f"Base URL: {base_url}")
     print(f"Base URL2: {base_url2}")
     print(f"Dry run: {dry_run}")
     
-    # Extract links and files from TOC
+    # Extract links from both TOC files
     toc_links, toc_files = extract_toc_links_and_files(cloud_toc_path)
-    print(f"Found {len(toc_links)} links in TOC file")
-    print(f"Found {len(toc_files)} markdown files referenced in TOC")
+    toc_links2, _ = extract_toc_links_and_files(cloud_toc_path2)
     
-    # Process only the files referenced in the TOC
+    print(f"Found {len(toc_links)} links in primary TOC file")
+    print(f"Found {len(toc_links2)} links in secondary TOC file")
+    print(f"Found {len(toc_files)} markdown files referenced in primary TOC")
+    
+    # Process only the files referenced in the primary TOC
     for file_path in toc_files:
-        process_markdown_file(file_path, toc_links, base_url, base_url2, dry_run)
+        process_markdown_file(file_path, toc_links, toc_links2, base_url, base_url2, dry_run)
     
     if dry_run:
         print("\nThis was a dry run. No files were modified.")
