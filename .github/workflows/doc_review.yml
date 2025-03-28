@@ -40,7 +40,7 @@ jobs:
             echo "REVIEW_MODE=latest" >> $GITHUB_OUTPUT
           fi
       - name: AI Doc Reviewer
-        uses: qiancai/ai-doc-reviewer@main
+        uses: qiancai/ai-doc-reviewer@test-gpt
         continue-on-error: false  # Ensure workflow fails if the action fails
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
