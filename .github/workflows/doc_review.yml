@@ -7,6 +7,11 @@ on:
     types:
       - created
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 jobs:
   review:
     runs-on: ubuntu-latest
