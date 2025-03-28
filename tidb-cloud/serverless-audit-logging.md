@@ -28,3 +28,26 @@ To disable the audit logging for a TiDB Cloud Serverless cluster, using the [TiD
 ```shell
 ticloud serverless audit-log disable --cluster-id <cluster-id>
 ```
+
+
+## Configure audit logging
+
+### Redacted
+
+TiDB Cloud Serverless redacts sensitive data in the audit logs by default. For example, the following SQL statement:
+
+```sql 
+INSERT INTO `test`.`users` (`id`, `name`, `password`) VALUES (1, 'Alice', '123456');
+```
+
+is redacted as follows:
+
+```sql
+INSERT INTO `test`.`users` (`id`, `name`, `password`) VALUES ( ... );
+```
+
+If you want to disable the redaction, using the [TiDB Cloud CLI](/tidb-cloud/cli-reference.md)
+
+```shell
+ticloud serverless audit-log config --cluster-id <cluster-id> --unredacted
+```
