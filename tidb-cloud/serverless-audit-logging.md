@@ -3,7 +3,7 @@ title: TiDB Cloud Serverless Database Audit Logging
 summary: Learn about how to audit a serverless cluster in TiDB Cloud.
 ---
 
-# TiDB Cloud Serverless Database Audit Logging
+# TiDB Cloud Serverless Database Audit Loging
 
 TiDB Cloud Serverless provides you with a database audit logging feature to record a history of user access details (such as any SQL statements executed) in logs.
 
