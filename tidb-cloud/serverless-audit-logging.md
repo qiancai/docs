@@ -1,5 +1,5 @@
 ---
-title: TiDB Cloud Serverless Database Audit Logging
+title: TiDB Cloud Serverless Database Audit Loging
 summary: Learn about how to audit a serverless cluster in TiDB Cloud.
 ---
 
