@@ -16,7 +16,7 @@ Review Guidelines:
 - Focus on improving the clarity, accuracy, and readability of the content.
 - Ensure the documentation is easy to understand for TiDB users.
 - Review not just the wording but also the logic and structure of the content.
-- Ensure the documentation follows Google developer documentation style guide. For example, when a step in a procedure includes a goal, state the goal before the action. 
+- Ensure the documentation follows Google developer documentation style guide. For example, when a step includes a goal such as "To ...", state the goal before the action. 
 - Review the document in the context of the overall user experience and functionality described.
 - Provide "reviews" ONLY if there is something to improve. Otherwise, "reviews" should be an empty array.
 - Write the review comment in the language of the documentation.
