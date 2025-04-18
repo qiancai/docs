@@ -6,3 +6,4 @@ have_fun: false  # Disables fun features like poems in PR summaries
 
 code_review:
   disable: false  # Enables code reviews
+  comment_severity_threshold: LOW
