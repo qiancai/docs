@@ -15,7 +15,7 @@ To assess the effectiveness of user access policies and other information securi
 
 The audit logging feature is disabled by default. To audit a cluster, you need to enable the audit logging.
 
-## Enable audit logging
+## Enabling audit logging
 
 Use the [TiDB Cloud CLI](/tidb-cloud/cli-reference.md) to enable the audit logging feature for a TiDB Cloud Serverless cluster.
 
