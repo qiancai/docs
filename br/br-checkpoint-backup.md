@@ -6,7 +6,7 @@ aliases: ["/tidb/dev/br-checkpoint"]
 
 # Checkpoint Backup
 
-Snapshot backup might be interrupted due t recoverable errors, such as disk exhaustion and node crash. Before TiDB v6.5.0, data that is backed up before the interruption would be invalidated even after the error is addressed, and you need to start the backup from scratch. For large clusters, this incurs considerable extra cost.
+Snapshot backup might be interrupted due t recoverable errors, such as disk exhaustion and node crash. Before TiDB v6.5.0, data that is backed up before the interruption would be invalidated even after the error is addressed, and users need to start the backup from scratch. For large clusters, this incurs considerable extra cost.
 
 In TiDB v6.5.0, Backup & Restore (B) introduces the checkpoint backup feature to allow continuing an interrupted backup. This feature can retain most data of the interrupted backup.
 
@@ -28,7 +28,7 @@ Checkpoint backup relies on the GC mechanism and cannot recover all data that ha
 
 ### Backup retry must be prior to GC
 
-During the backup, `br` periodically updates the `gc-safepoint` of the backup snapshot in PD to avoid data being garbage collected. When `br` exits, the `gc-safepoint` cannot be updated in time. As a result, before the next backup retry, the data might have been garbage collected.
+During the backup, `br` perioically updates the `gc-safepoint` of the backup snapshot in PD to avoid data being garbage collected. When `br` exits, the `gc-safepoint` cannot be updated in time. As a result, before the next backup retry, the data might have been garbage collected.
 
 To avoid this situation, `br` keeps the `gc-safepoint` for about one hour by default when `gcttl` is not specified. Users can set the `gcttl` parameter to extend the retention period if needed .
 
