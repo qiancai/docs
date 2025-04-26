@@ -57,6 +57,7 @@ SHOW CREATE RESOURCE GROUP rg1; -- Show the definition of the `rg1` resource gro
 ```
 
 ```sql
++----------------+---------------------------------------------------------------+\n| Resource_Group | Create Resource Group                                         |\n+----------------+---------------------------------------------------------------+\n| rg1            | CREATE RESOURCE GROUP `rg1` RU_PER_SEC=1000 PRIORITY="MEDIUM" |\n+----------------+---------------------------------------------------------------+\n1 row in set (0.00 sec)
 ```
 
 ```sql
