@@ -17,15 +17,17 @@ DESC resource_groups;
 ```
 
 ```sql
-+------------+-------------+------+------+---------+-------+
-| Field      | Type        | Null | Key  | Default | Extra |
-+------------+-------------+------+------+---------+-------+
-| NAME       | varchar(32) | NO   |      | NULL    |       |
-| RU_PER_SEC | bigint(21)  | YES  |      | NULL    |       |
-| PRIORITY   | varchar(6)  | YES  |      | NULL    |       |
-| BURSTABLE  | varchar(3)  | YES  |      | NULL    |       |
-+------------+-------------+------+------+---------+-------+
-3 rows in set (0.00 sec)
++-------------+--------------+------+------+---------+-------+
+| Field       | Type         | Null | Key  | Default | Extra |
++-------------+--------------+------+------+---------+-------+
+| NAME        | varchar(32)  | NO   |      | NULL    |       |
+| RU_PER_SEC  | varchar(21)  | YES  |      | NULL    |       |
+| PRIORITY    | varchar(6)   | YES  |      | NULL    |       |
+| BURSTABLE   | varchar(3)   | YES  |      | NULL    |       |
+| QUERY_LIMIT | varchar(256) | YES  |      | NULL    |       |
+| BACKGROUND  | varchar(256) | YES  |      | NULL    |       |
++-------------+--------------+------+------+---------+-------+
+6 rows in set (0.00 sec)
 ```
 
 ## Examples
@@ -35,11 +37,11 @@ SELECT * FROM information_schema.resource_groups; -- View all resource groups. T
 ```
 
 ```sql
-+---------+------------+----------+-----------+
-| NAME    | RU_PER_SEC | PRIORITY | BURSTABLE |
-+---------+------------+----------+-----------+
-| default | UNLIMITED  | MEDIUM   | YES       |
-+---------+------------+----------+-----------+
++---------+------------+----------+----------------+-------------+------------+
+| NAME    | RU_PER_SEC | PRIORITY | BURSTABLE      | QUERY_LIMIT | BACKGROUND |
++---------+------------+----------+----------------+-------------+------------+
+| default | UNLIMITED  | MEDIUM   | YES(UNLIMITED) | NULL        | NULL       |
++---------+------------+----------+----------------+-------------+------------+
 ```
 
 ```sql
@@ -55,12 +57,6 @@ SHOW CREATE RESOURCE GROUP rg1; -- Show the definition of the `rg1` resource gro
 ```
 
 ```sql
-+----------------+---------------------------------------------------------------+
-| Resource_Group | Create Resource Group                                         |
-+----------------+---------------------------------------------------------------+
-| rg1            | CREATE RESOURCE GROUP `rg1` RU_PER_SEC=1000 PRIORITY="MEDIUM" |
-+----------------+---------------------------------------------------------------+
-1 row in set (0.00 sec)
 ```
 
 ```sql
@@ -68,11 +64,11 @@ SELECT * FROM information_schema.resource_groups WHERE NAME = 'rg1'; -- View the
 ```
 
 ```sql
-+------+------------+----------+-----------+-------------+
-| NAME | RU_PER_SEC | PRIORITY | BURSTABLE | QUERY_LIMIT |
-+------+------------+----------+-----------+-------------+
-| rg1  | 1000       | MEDIUM   | NO        | NULL        |
-+------+------------+----------+-----------+-------------+
++------+------------+----------+-----------+-------------+------------+
+| NAME | RU_PER_SEC | PRIORITY | BURSTABLE | QUERY_LIMIT | BACKGROUND |
++------+------------+----------+-----------+-------------+------------+
+| rg1  | 1000       | MEDIUM   | NO        | NULL        | NULL       |
++------+------------+----------+-----------+-------------+------------+
 1 row in set (0.00 sec)
 ```
 
@@ -81,8 +77,8 @@ The descriptions of the columns in the `RESOURCE_GROUPS` table are as follows:
 * `NAME`: the name of the resource group.
 * `RU_PER_SEC`: the backfilling speed of the resource group. The unit is RU/second, in which RU means [Request Unit](/tidb-resource-control-ru-groups.md#what-is-request-unit-ru).
 * `PRIORITY`: the absolute priority of tasks to be processed on TiKV. Different resources are scheduled according to the `PRIORITY` setting. Tasks with high `PRIORITY` are scheduled first. For resource groups with the same `PRIORITY`, tasks will be scheduled proportionally according to the `RU_PER_SEC` configuration. If `PRIORITY` is not specified, the default priority is `MEDIUM`.
-* `BURSTABLE`: whether to allow the resource group to overuse the available system resources.
+* `BURSTABLE`: whether to allow this resource group to overuse the remaining system resources. There are three modes: `OFF`, which means this resource group is not allowed to overuse the remaining system resources; `MODERATED`, which means this resource group is allowed to overuse the remaining system resources to a limited extent, prioritizing the allocation of resources within the resource group's limit; `UNLIMITED`, which means this resource group is allowed to overuse the remaining system resources without limit, competing equally with resources within the limit. If no target value is specified for `BURSTABLE`, `MODERATED` is enabled by default.
 
 > **Note:**
 >
-> TiDB automatically creates a `default` resource group during cluster initialization. For this resource group, the default value of `RU_PER_SEC` is `UNLIMITED` (equivalent to the maximum value of the `INT` type, that is, `2147483647`) and it is in `BURSTABLE` mode. All requests that are not bound to any resource group are automatically bound to this `default` resource group. When you create a new configuration for another resource group, it is recommended to modify the `default` resource group configuration as needed.
+> TiDB automatically creates a `default` resource group during cluster initialization. For this resource group, the default value of `RU_PER_SEC` is `UNLIMITED` (equivalent to the maximum value of the `INT` type, that is, `2147483647`), and the `BURSTABLE` mode is `UNLIMITED`. All requests that are not bound to any resource group are automatically bound to this `default` resource group. This resource group cannot be deleted, but its RU configuration can be modified.

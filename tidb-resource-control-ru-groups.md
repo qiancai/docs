@@ -185,19 +185,25 @@ You can delete a resource group by using [`DROP RESOURCE GROUP`](/sql-statements
 
 The following is an example of how to create a resource group.
 
-1. Create a resource group `rg1`. The resource limit is 500 RUs per second and allows applications in this resource group to overrun resources.
+1. Create a resource group `rg1`. The resource limit is 500 RUs per second and allows applications in this resource group to overrun resources. Without explicit specification, its `BURSTABLE` mode is `MODERATED`.
 
     ```sql
     CREATE RESOURCE GROUP IF NOT EXISTS rg1 RU_PER_SEC = 500 BURSTABLE;
     ```
 
-2. Create a resource group `rg2`. The RU backfill rate is 600 RUs per second and does not allow applications in this resource group to overrun resources.
+2. Create a resource group `rg1`. The resource limit is 500 RUs per second and allows applications in this resource group to overrun resources. Its mode is `UNLIMITED`.
+
+    ```sql
+    CREATE RESOURCE GROUP IF NOT EXISTS rg1 RU_PER_SEC = 500 BURSTABLE=UNLIMITED;
+    ```
+
+3. Create a resource group `rg2`. The RU backfill rate is 600 RUs per second and does not allow applications in this resource group to overrun resources.
 
     ```sql
     CREATE RESOURCE GROUP IF NOT EXISTS rg2 RU_PER_SEC = 600;
     ```
 
-3. Create a resource group `rg3` with the absolute priority set to `HIGH`. The absolute priority currently supports `LOW|MEDIUM|HIGH`. The default value is `MEDIUM`.
+4. Create a resource group `rg3` with the absolute priority set to `HIGH`. The absolute priority currently supports `LOW|MEDIUM|HIGH`. The default value is `MEDIUM`.
 
     ```sql
     CREATE RESOURCE GROUP IF NOT EXISTS rg3 RU_PER_SEC = 100 PRIORITY = HIGH;
@@ -232,7 +238,7 @@ If there are too many requests that result in insufficient resources for the res
 > **Note:**
 >
 > - When you bind a user to a resource group by using `CREATE USER` or `ALTER USER`, it will not take effect for the user's existing sessions, but only for the user's new sessions.
-> - TiDB automatically creates a `default` resource group during cluster initialization. For this resource group, the default value of `RU_PER_SEC` is `UNLIMITED` (equivalent to the maximum value of the `INT` type, that is, `2147483647`) and it is in `BURSTABLE` mode. Statements that are not bound to a resource group are automatically bound to this resource group. This resource group does not support deletion, but you can modify the configuration of its RU.
+> - TiDB automatically creates a `default` resource group during cluster initialization. For this resource group, the default value of `RU_PER_SEC` is `UNLIMITED` (equivalent to the maximum value of the `INT` type, that is, `2147483647`), and the `BURSTABLE` mode is `UNLIMITED`. Statements that are not bound to a resource group are automatically bound to this resource group. This resource group does not support deletion, but you can modify the configuration of its RU.
 
 To unbind users from a resource group, you can simply bind them to the `default` group again as follows:
 

@@ -55,11 +55,11 @@ SELECT * FROM information_schema.resource_groups WHERE NAME ='rg1';
 ```
 
 ```sql
-+------+------------+----------+-----------+-------------+
-| NAME | RU_PER_SEC | PRIORITY | BURSTABLE | QUERY_LIMIT |
-+------+------------+----------+-----------+-------------+
-| rg1  | 500        | MEDIUM   | YES       | NULL        |
-+------+------------+----------+-----------+-------------+
++------+------------+----------+----------------+-------------+------------+
+| NAME | RU_PER_SEC | PRIORITY | BURSTABLE      | QUERY_LIMIT | BACKGROUND |
++------+------------+----------+----------------+-------------+------------+
+| rg1  | 500        | MEDIUM   | YES(UNLIMITED) | NULL        | NULL       |
++------+------------+----------+----------------+-------------+------------+
 1 row in set (0.01 sec)
 ```
 
@@ -71,7 +71,7 @@ DROP RESOURCE GROUP IF EXISTS rg1;
 Query OK, 1 rows affected (0.09 sec)
 ```
 
-```
+```sql
 SELECT * FROM information_schema.resource_groups WHERE NAME ='rg1';
 ```
 
