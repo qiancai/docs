@@ -5,8 +5,6 @@ import json
 from urllib.request import urlopen, Request
 from google import genai
 
-import subprocess
-
 repo_owner = "qiancai"
 repo_name = "docs"
 en_branch = "release-8.5"
@@ -21,10 +19,6 @@ if not genai_token:
     sys.exit(1)
 
 client = genai.Client(api_key=genai_token)
-
-def get_current_working_directory():
-    """Get current working directory"""
-    return os.getcwd()
 
 def read_file_from_repo(file_path):
     """Read a file from the current repository"""
@@ -90,8 +84,6 @@ def get_latest_commit_sha(repo_owner, repo_name, branch, toc_file_name):
             
         if data and len(data) > 0:
             latest_commit = data[0]['sha']
-            commit_message = data[0]['commit']['message'].split('\n')[0]  # First line only
-            commit_date = data[0]['commit']['author']['date']
             
             print(f"Latest commit: {latest_commit}")
             
@@ -251,8 +243,11 @@ def apply_hunks_by_line_numbers(target_file, hunks, earlier_commit, latest_commi
                     pass
 
         # replace the earlier commit with the latest commit
+        for i, line in enumerate(modified):
+            if "EN commit:" in line and earlier_commit in line:
+                modified[i] = line.replace(earlier_commit, latest_commit)
+                break
         modified_content = "\n".join(modified) + "\n"
-        modified_content = modified_content.replace(earlier_commit, latest_commit)
 
         success = write_file_to_repo(target_file, modified_content)
         if not success:
@@ -585,7 +580,7 @@ if __name__ == "__main__":
             if earlier_commit == latest_commit:
                 print(f"Earlier commit is the same as latest commit. No sync needed for {toc_file_name}.")
             else:
-                pass
+                print(f"Skipping sync for {toc_file_name} due to missing commit information. Check logs for errors.")
     
     # Clean up temporary files
     cleanup_temp_files()
