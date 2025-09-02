@@ -45,7 +45,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           cd docs
-          python scripts/sync-cloud-toc-changes-to-from-zh-to-en.py
 
       - name: Check for changes
         id: check_changes
