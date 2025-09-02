@@ -1,4 +1,4 @@
-name: Sync Cloud ZH TOC
+name: Sync Cloud ZH TOC Files
 
 on:
   workflow_dispatch:
