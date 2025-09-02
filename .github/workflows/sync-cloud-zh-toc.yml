@@ -38,11 +38,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          echo "Installing Python dependencies..."
           pip install "google-genai>=0.3,<1"
-          echo "Verifying installed packages..."
-          pip list | grep google
-          echo "Dependencies installed successfully"
 
       - name: Configure Git
         run: |
@@ -55,35 +51,10 @@ jobs:
           GEMINI_API_TOKEN: ${{ secrets.GEMINI_API_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          echo "Copying script to docs directory..."
           cp temp_scripts/sync-en-cloud-toc-changes-to-zh.py docs/
-          echo "Script copied successfully"
-          
-          echo "Entering docs directory..."
           cd docs
-          
-          echo "Checking Python version..."
-          python --version
-          python3 --version
-          
-          echo "Checking script permissions and existence..."
-          ls -la sync-en-cloud-toc-changes-to-zh.py
-          
-          echo "Checking environment variables..."
-          echo "GEMINI_API_TOKEN is set: $([ -n "$GEMINI_API_TOKEN" ] && echo 'Yes' || echo 'No')"
-          echo "GITHUB_TOKEN is set: $([ -n "$GITHUB_TOKEN" ] && echo 'Yes' || echo 'No')"
-          
-          echo "Starting TOC sync script execution..."
-          python3 sync-en-cloud-toc-changes-to-zh.py || {
-            echo "Script execution failed with exit code $?"
-            echo "Checking for any error logs..."
-            ls -la
-            exit 1
-          }
-          
-          echo "Script execution completed, cleaning up..."
-          rm sync-en-cloud-toc-changes-to-zh.py
-          echo "Cleanup completed"
+          python sync-en-cloud-toc-changes-to-zh.py
+          rm sync-en-cloud-toc-changes-to-zh.py # Remove the script file so it won't be included in PR
 
       - name: Clean up temporary files
         run: |
