@@ -29,8 +29,8 @@ jobs:
           pip install "google-genai>=0.3,<1"
 
       - name: Configure Git
+        working-directory: docs
         run: |
-          cd docs
           git config user.name github-actions
           git config user.email github-actions@github.com
 
@@ -38,14 +38,14 @@ jobs:
         env:
           GEMINI_API_TOKEN: ${{ secrets.GEMINI_API_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
+        working-directory: docs
         run: |
-          cd docs
           python scripts/sync-cloud-toc-changes-to-from-zh-to-en.py
 
       - name: Check for changes
         id: check_changes
+        working-directory: docs
         run: |
-          cd docs
           if git diff --quiet; then
             echo "changes=false" >> $GITHUB_OUTPUT
             echo "No changes detected"
