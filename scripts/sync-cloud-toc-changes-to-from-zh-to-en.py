@@ -74,10 +74,14 @@ def get_latest_commit_sha(repo_owner, repo_name, branch, toc_file_name):
         url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/commits"
         params = f"?sha={branch}&path={toc_file_name}&per_page=1"
         full_url = url + params
-        req = Request(full_url, headers={
-            "User-Agent": "Python-Script/1.0",
-            "Accept": "application/vnd.github.v3+json"
-        })
+        headers = {
+            "User-Agent": "tidb-docs-sync/1.0",
+            "Accept": "application/vnd.github.v3+json",
+        }
+        gh_token = os.getenv("GITHUB_TOKEN")
+        if gh_token:
+            headers["Authorization"] = f"Bearer {gh_token}"
+        req = Request(full_url, headers=headers)
         
         with urlopen(req) as resp:
             data = json.loads(resp.read().decode('utf-8'))
@@ -97,12 +101,19 @@ def get_latest_commit_sha(repo_owner, repo_name, branch, toc_file_name):
         return None
 
 def get_github_compare_diff(base_commit, head_commit):
-    """Fetch unified diff from GitHub compare endpoint (.diff) for the repo {repo_owner}/docs"""
+    """Fetch unified diff from GitHub compare endpoint (.diff) for the repo {repo_owner}/{repo_name}"""
     try:
-        url = f"https://github.com/{repo_owner}/docs/compare/{base_commit}...{head_commit}.diff"
+        url = f"https://github.com/{repo_owner}/{repo_name}/compare/{base_commit}...{head_commit}.diff"
         print(f"Fetching compare diff from: {url}")
-        req = Request(url, headers={"User-Agent": "curl/8.0"})
-        with urlopen(req) as resp:
+        headers = {
+            "User-Agent": "tidb-docs-sync/1.0",
+            "Accept": "application/vnd.github.v3.diff",
+        }
+        gh_token = os.getenv("GITHUB_TOKEN")
+        if gh_token:
+            headers["Authorization"] = f"Bearer {gh_token}"
+        req = Request(url, headers=headers)
+        with urlopen(req, timeout=20) as resp:
             content_bytes = resp.read()
             # GitHub serves UTF-8
             return content_bytes.decode("utf-8", errors="replace")
@@ -257,7 +268,7 @@ def apply_hunks_by_line_numbers(target_file, hunks, earlier_commit, latest_commi
         return True, modified_lines
     except Exception as e:
         print(f"Error applying hunks: {e}")
-        return False
+        return False, {}
 
 def sync_toc_files_using_github_compare(commit1, commit2, source_file, target_file):
     """Sync by fetching compare diff from GitHub and applying hunks by line numbers."""
@@ -265,13 +276,13 @@ def sync_toc_files_using_github_compare(commit1, commit2, source_file, target_fi
     diff_text = get_github_compare_diff(commit1, commit2)
     if not diff_text:
         print("No diff content retrieved from GitHub")
-        return False
+        return False, {}
 
     print("Parsing diff for target file hunks...")
     hunks = parse_github_diff_for_file(diff_text, source_file)
     if not hunks:
         print(f"No hunks found for file: {source_file}")
-        return False
+        return False, {}
 
     print(f"Found {len(hunks)} hunks for {source_file}. Applying to {target_file} by line numbers...")
     sync_status, modified_lines = apply_hunks_by_line_numbers(target_file, hunks, commit1, commit2)
@@ -542,7 +553,7 @@ if __name__ == "__main__":
         # If earlier_commit is different from latest_commit, sync the TOC file.
         if earlier_commit and latest_commit and earlier_commit != latest_commit:
             # Download the EN TOC content from the earlier commit for comparison
-            en_toc_path = f"https://raw.githubusercontent.com/{repo_owner}/docs/{earlier_commit}/{toc_file_name}"
+            en_toc_path = f"https://raw.githubusercontent.com/{repo_owner}/{repo_name}/{earlier_commit}/{toc_file_name}"
             print(f"Downloading EN TOC content from: {en_toc_path}")
             en_toc_content = urlopen(en_toc_path).read().decode("utf-8")
             
