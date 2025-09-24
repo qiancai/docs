@@ -1,5 +1,4 @@
 doc_name,section_name,number_of_lines
-sections_with_most_lines.md,Sections with Most Lines Report,1005
 keywords.md,Keyword list,684
 develop/dev-guide-transaction-restraints.md,SI cannot avoid write skew,538
 develop/dev-guide-optimistic-and-pessimistic-transaction.md,Write a pessimistic transaction example,494
@@ -17,13 +16,16 @@ check-before-deployment.md,Check and configure the optimal parameters of the ope
 sql-statements/sql-statement-create-binding.md,Examples,226
 sql-statements/sql-statement-explain.md,Examples,226
 develop/dev-guide-proxysql-integration.md,Query rules,219
+releases/release-7.1.6.md,Bug fixes,210
 dm/handle-failed-ddl-statements.md,Shard merge scenario,210
 develop/dev-guide-update-data.md,Example,209
 node_modules/@octokit/request/README.md,request(),208
+releases/release-timeline.md,TiDB Release Timeline,204
 dm/dm-open-api.md,Example,203
 dm/dm-open-api.md,Example,203
 ticdc/ticdc-open-api-v2.md,Parameter descriptions,202
 tidb-cloud/tidb-cloud-tls-connect-to-dedicated.md,Secure connection to a TiDB Cloud Dedicated cluster,202
+releases/release-1.0-ga.md,Thanks to the individual contributors,201
 node_modules/axios/README.md,Request Config,196
 dm/dm-query-status.md,Detailed query result,187
 dm/handle-failed-ddl-statements.md,Shard merge scenario,184
@@ -33,10 +35,12 @@ develop/dev-guide-use-stale-read.md,Transaction level,173
 ticdc/ticdc-debezium.md,Value format,170
 partitioned-table.md,"Partitioning keys, primary keys and unique keys",168
 node_modules/mdast-util-mdx/readme.md,Use,161
+releases/release-7.5.2.md,Bug fixes,160
 pd-control.md,`config [show | set <option> <value> | placement-rules]`,159
 quick-start-with-tidb.md,Deploy a local test cluster,159
 partitioned-table.md,Dynamic pruning mode,159
 information-schema/information-schema-metrics-summary.md,METRICS_SUMMARY,159
+releases/release-6.0.0-dmr.md,Configuration file parameters,157
 develop/dev-guide-insert-data.md,Insert rows,157
 ticdc/ticdc-simple-protocol.md,DDL,157
 dm/quick-start-with-dm.md,Step 2: Prepare a source database (optional),157
@@ -49,6 +53,7 @@ develop/dev-guide-optimistic-and-pessimistic-transaction.md,Write an optimistic 
 node_modules/acorn/README.md,Interface,148
 node_modules/@octokit/oauth-methods/README.md,`scopeToken()`,147
 sql-statements/sql-statement-show-variables.md,Examples,141
+releases/release-7.5.1.md,Bug fixes,140
 sql-statements/sql-statement-create-table.md,Synopsis,138
 node_modules/mdast-util-gfm/readme.md,Tasklist,137
 sql-statements/sql-statement-drop-binding.md,Examples,137
@@ -59,10 +64,13 @@ node_modules/@octokit/auth-app/README.md,`createAppAuth(options)` or `new Octoki
 node_modules/@octokit/app/README.md,Constructor,134
 tidb-cloud/terraform-use-cluster-resource.md,Get cluster specification information using the `tidbcloud_cluster_specs` data source,133
 tidb-cloud/import-parquet-files-serverless.md,Step 4. Import Parquet files to TiDB Cloud Serverless,132
+releases/release-5.2.4.md,Bug fixes,131
 tidb-cloud/import-csv-files-serverless.md,Step 4. Import CSV files to TiDB Cloud Serverless,131
 metrics-schema.md,Additional Examples,130
 information-schema/information-schema-slow-query.md,CLUSTER_SLOW_QUERY table,129
+releases/release-8.1.1.md,Bug fixes,128
 develop/dev-guide-use-common-table-expression.md,Non-recursive CTE,128
+releases/release-7.6.0.md,Bug fixes,127
 node_modules/@octokit/auth-oauth-user/README.md,When passing an existing authentication object,127
 node_modules/@octokit/auth-oauth-user/README.md,GitHub APP user authentication token with expiring enabled,127
 node_modules/@octokit/auth-app/README.md,Installation access token authentication,127
@@ -70,7 +78,10 @@ node_modules/@octokit/core/README.md,Options,126
 develop/dev-guide-use-stale-read.md,Statement level,124
 ticdc/ticdc-avro-protocol.md,Column data format,124
 information-schema/information-schema-tiflash-tables.md,TIFLASH_TABLES,124
+releases/release-7.1.2.md,Bug fixes,123
+releases/release-8.0.0.md,Bug fixes,120
 statement-summary-tables.md,`statements_summary` fields description,119
+releases/release-6.5.12.md,Bug fixes,119
 node_modules/lru-cache/README.md,Status Tracking,119
 partitioned-table.md,Range partitioning,118
 develop/dev-guide-delete-data.md,Bulk-delete example,118
@@ -82,6 +93,7 @@ node_modules/@octokit/oauth-app/README.md,Constructor options,116
 develop/dev-guide-paginate-results.md,Paging batches for single-field primary key tables,115
 develop/dev-guide-proxysql-integration.md,Option 2: Integrate TiDB (self-hosted) with ProxySQL,115
 ticdc/ticdc-debezium.md,Value format,115
+releases/release-6.0.0-dmr.md,Bug fixes,114
 information-schema/information-schema-slow-query.md,SLOW_QUERY,114
 functions-and-operators/string-functions.md,[`LIKE`](https://dev.mysql.com/doc/refman/8.0/en/string-comparison-functions.html#operator_like),114
 statistics.md,Lock statistics,113
@@ -91,19 +103,24 @@ auto-random.md,Basic concepts,111
 sql-statements/sql-statement-rename-table.md,Examples,111
 dm/dm-ddl-compatible.md,Skip DDL statements,111
 explain-joins.md,Index Join,110
+releases/release-8.5.0.md,TiDB 8.5.0 Release Notes,110
 sql-statements/sql-statement-create-index.md,Expression index,109
 dm/dm-open-api.md,Example,109
 functions-and-operators/string-functions.md,[`REGEXP_INSTR()`](https://dev.mysql.com/doc/refman/8.0/en/regexp.html#function_regexp-instr),109
+releases/release-5.4.1.md,Bug Fixes,108
 sql-statements/sql-statement-drop-role.md,Examples,108
 explain-partitions.md,Explain Statements Using Partitions,107
 latency-breakdown.md,Commit,107
+releases/release-7.1.4.md,Bug fixes,107
 node_modules/@octokit/auth-app/README.md,Installation authentication,107
 two-data-centers-in-one-city-deployment.md,Placement Rules,106
 latency-breakdown.md,Async write,106
+releases/release-6.5.4.md,Bug fixes,106
 information-schema/information-schema-user-privileges.md,USER_PRIVILEGES,106
 information-schema/information-schema-tables.md,TABLES,106
 tidb-read-staleness.md,Usage examples,105
 privilege-management.md,Grant privileges,105
+releases/release-6.5.6.md,Bug fixes,105
 tidb-cloud/limited-sql-features.md,System variables,105
 node_modules/@octokit/auth-oauth-user/README.md,GitHub APP user authentication token with expiring disabled,105
 node_modules/@octokit/oauth-methods/README.md,`exchangeWebFlowCode()`,105
@@ -116,14 +133,19 @@ information-schema/information-schema-columns.md,COLUMNS,104
 dm/dm-open-api.md,Example,104
 system-variables.md,"tidb_opt_range_max_size <span class=""version-mark"">New in v6.4.0</span>",103
 functions-and-operators/encryption-and-compression-functions.md,[`VALIDATE_PASSWORD_STRENGTH()`](https://dev.mysql.com/doc/refman/8.0/en/encryption-functions.html#function_validate-password-strength),103
+releases/release-8.5.2.md,Bug fixes,102
 tidb-cloud/import-sample-data.md,Import Sample Data into TiDB Cloud Dedicated,102
 node_modules/micromark/readme.md,Extending markdown,102
 information-schema/information-schema-runaway-watches.md,Examples,102
 information-schema/information-schema.md,Tables that are TiDB extensions,102
+releases/release-7.5.5.md,Bug fixes,101
+releases/release-5.3.2.md,Bug Fixes,101
 scale-tidb-using-tiup.md,Scale out a TiDB/PD/TiKV cluster,100
 post-installation-check.md,Database operations,100
+releases/release-5.1.4.md,Bug fixes,100
 ticdc/integrate-confluent-using-ticdc.md,Create data replicas of TiDB tables in Snowflake,100
 node_modules/semver/README.md,Usage,100
+releases/release-6.5.1.md,Bug fixes,99
 node_modules/@octokit/auth-oauth-user/README.md,When using GitHub's OAuth device flow,99
 sql-statements/sql-statement-admin-show-ddl.md,`ADMIN SHOW DDL JOBS`,99
 tidb-lightning/tidb-lightning-error-resolution.md,Error report,99
@@ -137,12 +159,16 @@ develop/dev-guide-delete-data.md,Example,95
 dm/dm-faq.md,"In DM v2.0, why does the query result of the command `query-status` show that the Syncer checkpoint GTIDs are inconsecutive if the task has `enable-relay` and `enable-gtid` enabled at the same time?",95
 dm/handle-failed-ddl-statements.md,Non-shard-merge scenario,95
 partitioned-table.md,Partition selection,94
+releases/release-5.0.6.md,Bug fixes,94
+releases/release-8.2.0.md,Bug fixes,94
 tidb-cloud/serverless-external-storage.md,Configure Amazon S3 access using a Role ARN,94
 node_modules/@octokit/oauth-methods/README.md,`checkToken()`,94
 node_modules/@octokit/auth-app/README.md,User authentication (web flow),94
 node_modules/@octokit/auth-oauth-device/README.md,`createOAuthDeviceAuth(options)`,94
 node_modules/@octokit/auth-oauth-app/README.md,OAuth device flow,94
 node_modules/@octokit/auth-oauth-app/README.md,OAuth user access token authentication,94
+releases/release-5.3.1.md,Bug fixes,93
+releases/release-3.0-ga.md,TiDB,93
 ticdc/ticdc-open-protocol.md,Row Changed Event,93
 tidb-cloud/tidb-cloud-console-auditing.md,Console audit event types,93
 node_modules/@octokit/oauth-methods/README.md,`resetToken()`,93
@@ -156,46 +182,20 @@ node_modules/before-after-hook/README.md,hookCollection(),92
 functions-and-operators/group-by-modifier.md,Examples,92
 quick-start-with-tidb.md,# Monitored variables are applied to all the machines.,91
 explain-indexes.md,IndexFullScan,91
+releases/release-7.1.3.md,Bug fixes,91
+releases/release-8.5.0.md,Bug fixes,91
+releases/release-7.1.0.md,Bug fixes,91
+releases/release-6.6.0.md,Bug fixes,90
+releases/release-8.3.0.md,Bug fixes,90
 tidb-cloud/import-csv-files.md,Step 4. Import CSV files to TiDB Cloud,90
 node_modules/universal-github-app-jwt/README.md,`githubAppJwt(options)`,90
 sql-statements/sql-statement-show-columns-from.md,Examples,90
 dm/manually-handling-sharding-ddl-locks.md,Manual solution,90
+releases/release-5.1.5.md,Bug fixes,89
+releases/release-2.1-rc.1.md,TiDB,89
 ticdc/ticdc-avro-checksum-verification.md,Decode data and get the corresponding schema,89
 tidb-cloud/data-service-response-and-status-code.md,Response,89
 pd-control.md,`config [show | set service-middleware <option> [<key> <value> | <label> <qps|concurrency> <value>]]`,88
 check-before-deployment.md,Check and install the NTP service,88
 read-historical-data.md,Example,88
-ticdc/ticdc-manage-changefeed.md,Query a specific replication task,88
-tidb-cloud/import-parquet-files.md,Step 4. Import Parquet files to TiDB Cloud,88
-tidb-cloud/use-chat2query-api.md,3. Generate and execute SQL statements by calling `/v3/chat2data`,88
-tidb-cloud/migrate-sql-shards.md,Step 4. Check the replication task status,88
-mysql-schema/mysql-schema-user.md,`mysql.user`,88
-node_modules/@octokit/oauth-app/README.md,`app.scopeToken(options)`,88
-pd-control.md,`scheduler config balance-hot-region-scheduler`,87
-user-defined-variables.md,Read the user-defined variables,87
-system-variables.md,"tidb_opt_ordering_index_selectivity_ratio <span class=""version-mark"">New in v8.0.0</span>",87
-sql-plan-management.md,Cross-database binding,87
-explain-views.md,EXPLAIN Statements Using Views,87
-sql-statements/sql-statement-set-default-role.md,Examples,87
-functions-and-operators/tidb-functions.md,TIDB_DECODE_KEY,87
-explain-indexes.md,IndexLookup,86
-ticdc/ticdc-canal-json.md,Event of `Update` Type,86
-node_modules/mdast-util-gfm-task-list-item/readme.md,Use,86
-explain-mpp.md,Exchange operators,85
-auto-increment.md,AUTO_ID_CACHE,85
-tidb-cloud/use-chat2query-api.md,Call the Chat2Data v1 endpoint (deprecated),85
-tidb-cloud/data-service-app-config-files.md,Endpoint configuration,85
-node_modules/@octokit/auth-app/README.md,Usage with Octokit,85
-sql-statements/sql-statement-alter-user.md,Modify basic user information,85
-sql-statements/sql-statement-alter-table-compact.md,Observe data compaction progress,85
-sql-statements/sql-statement-lock-stats.md,Examples,85
-information-schema/information-schema-inspection-result.md,Diagnostics example,85
-tiup/tiup-cluster.md,Deploy the cluster,85
-constraints.md,Pessimistic transactions,84
-develop/dev-guide-join-tables.md,LEFT OUTER JOIN,84
-node_modules/@octokit/auth-app/README.md,User authentication (device flow),84
-functions-and-operators/string-functions.md,[`CONCAT_WS()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_concat-ws),84
-views.md,Use the HTTP APIs,83
-develop/dev-guide-create-secondary-indexes.md,Example,83
-develop/dev-guide-unstable-result-set.md,GROUP BY,83
-node_modules/@octokit/oauth-methods/README.md,GitHub App with expiring user authentication,83
+releases/release-6.0.0-dmr.md,System variables,88
