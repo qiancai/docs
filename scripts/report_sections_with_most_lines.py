@@ -1,0 +1,141 @@
+# This scripts counts the number of lines in each section of .md files in the target path (including .md files in the subdirectories) and reports the top 1000 sections with the most lines in a csv file. 
+
+# Note that "the number of lines in each section" only counts the lines in the section, not the lines in the section's sub-sections.
+
+# The header of the csv file is:
+# doc name, section_name, number_of_lines
+
+import os
+import re
+import csv
+from collections import defaultdict
+
+target_path = "/Users/grcai/Documents/GitHub/docs"
+exclude_paths = ["releases"] # exclude the releases directory in the target path when counting the lines
+
+def is_excluded_path(file_path, exclude_paths):
+    """Check if the file path contains any excluded directories."""
+    for exclude_path in exclude_paths:
+        if exclude_path in file_path.split(os.sep):
+            return True
+    return False
+
+def parse_markdown_sections(content, file_name):
+    """Parse markdown content and extract sections with line counts."""
+    lines = content.split('\n')
+    sections = []
+    current_section = None
+    current_section_lines = 0
+    current_level = 0
+    
+    for line_num, line in enumerate(lines):
+        # Check if line is a header (starts with #)
+        header_match = re.match(r'^(#{1,6})\s*(.*)', line.strip())
+        
+        if header_match:
+            # Save previous section if it exists
+            if current_section is not None:
+                sections.append({
+                    'doc_name': file_name,
+                    'section_name': current_section,
+                    'line_count': current_section_lines
+                })
+            
+            # Start new section
+            header_level = len(header_match.group(1))
+            section_name = header_match.group(2).strip()
+            current_section = section_name
+            current_section_lines = 0
+            current_level = header_level
+            
+        elif current_section is not None:
+            # Check if this line belongs to a sub-section (higher level header)
+            sub_header_match = re.match(r'^(#{1,6})\s*(.*)', line.strip())
+            if sub_header_match:
+                sub_level = len(sub_header_match.group(1))
+                if sub_level > current_level:
+                    # This is a sub-section, don't count its lines for current section
+                    continue
+            
+            # Count non-empty lines and lines that are not sub-section headers
+            if line.strip():  # Only count non-empty lines
+                current_section_lines += 1
+    
+    # Don't forget the last section
+    if current_section is not None:
+        sections.append({
+            'doc_name': file_name,
+            'section_name': current_section,
+            'line_count': current_section_lines
+        })
+    
+    return sections
+
+def find_markdown_files(target_path, exclude_paths):
+    """Find all .md files in the target path, excluding specified paths."""
+    md_files = []
+    
+    for root, dirs, files in os.walk(target_path):
+        # Remove excluded directories from dirs to prevent os.walk from entering them
+        dirs[:] = [d for d in dirs if not is_excluded_path(os.path.join(root, d), exclude_paths)]
+        
+        for file in files:
+            if file.endswith('.md'):
+                file_path = os.path.join(root, file)
+                if not is_excluded_path(file_path, exclude_paths):
+                    md_files.append(file_path)
+    
+    return md_files
+
+def main():
+    """Main function to process all markdown files and generate CSV report."""
+    all_sections = []
+    
+    # Find all markdown files
+    md_files = find_markdown_files(target_path, exclude_paths)
+    print(f"Found {len(md_files)} markdown files to process...")
+    
+    # Process each markdown file
+    for file_path in md_files:
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # Get relative file name for reporting
+            rel_path = os.path.relpath(file_path, target_path)
+            
+            # Parse sections and count lines
+            sections = parse_markdown_sections(content, rel_path)
+            all_sections.extend(sections)
+            
+        except Exception as e:
+            print(f"Error processing {file_path}: {e}")
+            continue
+    
+    # Sort sections by line count (descending) and take top 1000
+    all_sections.sort(key=lambda x: x['line_count'], reverse=True)
+    top_sections = all_sections[:1000]
+    
+    # Write to CSV
+    output_file = 'sections_with_most_lines.csv'
+    with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+        fieldnames = ['doc_name', 'section_name', 'number_of_lines']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        
+        writer.writeheader()
+        for section in top_sections:
+            writer.writerow({
+                'doc_name': section['doc_name'],
+                'section_name': section['section_name'],
+                'number_of_lines': section['line_count']
+            })
+    
+    print(f"Report generated: {output_file}")
+    print(f"Total sections processed: {len(all_sections)}")
+    print(f"Top {len(top_sections)} sections written to CSV")
+    
+    if top_sections:
+        print(f"Top section: '{top_sections[0]['section_name']}' in '{top_sections[0]['doc_name']}' with {top_sections[0]['line_count']} lines")
+
+if __name__ == "__main__":
+    main()

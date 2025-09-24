@@ -1,0 +1,1001 @@
+doc_name,section_name,number_of_lines
+keywords.md,Keyword list,684
+develop/dev-guide-transaction-restraints.md,SI cannot avoid write skew,538
+develop/dev-guide-optimistic-and-pessimistic-transaction.md,Write a pessimistic transaction example,494
+TOC-tidb-cloud.md,REFERENCE,442
+choose-index.md,Supported scenarios,402
+tidb-roadmap.md,Rolling roadmap highlights,384
+ticdc/ticdc-debezium.md,Value format,349
+error-codes.md,Error codes,310
+sql-statements/sql-statement-show-builtins.md,Examples,309
+functions-and-operators/json-functions/json-functions-validate.md,[JSON_SCHEMA_VALID()](https://dev.mysql.com/doc/refman/8.0/en/json-validation-functions.html#function_json-schema-valid),298
+TOC-tidb-cloud.md,GUIDES,283
+ticdc/ticdc-avro-checksum-verification.md,Calculate and verify the checksum value,281
+node_modules/@octokit/oauth-methods/README.md,`getWebFlowAuthorizationUrl()`,235
+check-before-deployment.md,Check and configure the optimal parameters of the operating system,234
+sql-statements/sql-statement-create-binding.md,Examples,226
+sql-statements/sql-statement-explain.md,Examples,226
+develop/dev-guide-proxysql-integration.md,Query rules,219
+dm/handle-failed-ddl-statements.md,Shard merge scenario,210
+develop/dev-guide-update-data.md,Example,209
+node_modules/@octokit/request/README.md,request(),208
+dm/dm-open-api.md,Example,203
+dm/dm-open-api.md,Example,203
+ticdc/ticdc-open-api-v2.md,Parameter descriptions,202
+tidb-cloud/tidb-cloud-tls-connect-to-dedicated.md,Secure connection to a TiDB Cloud Dedicated cluster,202
+node_modules/axios/README.md,Request Config,196
+dm/dm-query-status.md,Detailed query result,187
+dm/handle-failed-ddl-statements.md,Shard merge scenario,184
+node_modules/octokit/README.md,Constructor options,180
+dynamic-config.md,Modify TiKV configuration dynamically,174
+develop/dev-guide-use-stale-read.md,Transaction level,173
+ticdc/ticdc-debezium.md,Value format,170
+partitioned-table.md,"Partitioning keys, primary keys and unique keys",168
+node_modules/mdast-util-mdx/readme.md,Use,161
+pd-control.md,`config [show | set <option> <value> | placement-rules]`,159
+quick-start-with-tidb.md,Deploy a local test cluster,159
+partitioned-table.md,Dynamic pruning mode,159
+information-schema/information-schema-metrics-summary.md,METRICS_SUMMARY,159
+develop/dev-guide-insert-data.md,Insert rows,157
+ticdc/ticdc-simple-protocol.md,DDL,157
+dm/quick-start-with-dm.md,Step 2: Prepare a source database (optional),157
+node_modules/@octokit/endpoint/README.md,"`endpoint(route, options)` or `endpoint(options)`",156
+sql-statements/sql-statement-create-sequence.md,Examples,156
+sql-plan-management.md,Create a binding according to a SQL statement,155
+functions-and-operators/string-functions.md,[`LOCATE()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_locate),154
+node_modules/micromark/readme.md,Syntax extension,153
+develop/dev-guide-optimistic-and-pessimistic-transaction.md,Write an optimistic transaction example,151
+node_modules/acorn/README.md,Interface,148
+node_modules/@octokit/oauth-methods/README.md,`scopeToken()`,147
+sql-statements/sql-statement-show-variables.md,Examples,141
+sql-statements/sql-statement-create-table.md,Synopsis,138
+node_modules/mdast-util-gfm/readme.md,Tasklist,137
+sql-statements/sql-statement-drop-binding.md,Examples,137
+tidb-lightning/tidb-lightning-error-resolution.md,Example,136
+ticdc/ticdc-open-api-v2.md,Response body format,135
+tidb-cloud/connected-care-detail.md,Connected Care Details,135
+node_modules/@octokit/auth-app/README.md,`createAppAuth(options)` or `new Octokit({ auth })`,135
+node_modules/@octokit/app/README.md,Constructor,134
+tidb-cloud/terraform-use-cluster-resource.md,Get cluster specification information using the `tidbcloud_cluster_specs` data source,133
+tidb-cloud/import-parquet-files-serverless.md,Step 4. Import Parquet files to TiDB Cloud Serverless,132
+tidb-cloud/import-csv-files-serverless.md,Step 4. Import CSV files to TiDB Cloud Serverless,131
+metrics-schema.md,Additional Examples,130
+information-schema/information-schema-slow-query.md,CLUSTER_SLOW_QUERY table,129
+develop/dev-guide-use-common-table-expression.md,Non-recursive CTE,128
+node_modules/@octokit/auth-oauth-user/README.md,When passing an existing authentication object,127
+node_modules/@octokit/auth-oauth-user/README.md,GitHub APP user authentication token with expiring enabled,127
+node_modules/@octokit/auth-app/README.md,Installation access token authentication,127
+node_modules/@octokit/core/README.md,Options,126
+develop/dev-guide-use-stale-read.md,Statement level,124
+ticdc/ticdc-avro-protocol.md,Column data format,124
+information-schema/information-schema-tiflash-tables.md,TIFLASH_TABLES,124
+statement-summary-tables.md,`statements_summary` fields description,119
+node_modules/lru-cache/README.md,Status Tracking,119
+partitioned-table.md,Range partitioning,118
+develop/dev-guide-delete-data.md,Bulk-delete example,118
+sql-statements/sql-statement-show-table-regions.md,Examples,117
+node_modules/@octokit/auth-oauth-user/README.md,OAuth APP authentication token,116
+node_modules/@octokit/auth-app/README.md,GitHub APP user authentication token with expiring enabled,116
+node_modules/@octokit/auth-oauth-app/README.md,GitHub APP user authentication token with expiring enabled,116
+node_modules/@octokit/oauth-app/README.md,Constructor options,116
+develop/dev-guide-paginate-results.md,Paging batches for single-field primary key tables,115
+develop/dev-guide-proxysql-integration.md,Option 2: Integrate TiDB (self-hosted) with ProxySQL,115
+ticdc/ticdc-debezium.md,Value format,115
+information-schema/information-schema-slow-query.md,SLOW_QUERY,114
+functions-and-operators/string-functions.md,[`LIKE`](https://dev.mysql.com/doc/refman/8.0/en/string-comparison-functions.html#operator_like),114
+statistics.md,Lock statistics,113
+information-schema/information-schema-processlist.md,PROCESSLIST,113
+node_modules/mdast-util-mdx-jsx/readme.md,Use,112
+auto-random.md,Basic concepts,111
+sql-statements/sql-statement-rename-table.md,Examples,111
+dm/dm-ddl-compatible.md,Skip DDL statements,111
+explain-joins.md,Index Join,110
+sql-statements/sql-statement-create-index.md,Expression index,109
+dm/dm-open-api.md,Example,109
+functions-and-operators/string-functions.md,[`REGEXP_INSTR()`](https://dev.mysql.com/doc/refman/8.0/en/regexp.html#function_regexp-instr),109
+sql-statements/sql-statement-drop-role.md,Examples,108
+explain-partitions.md,Explain Statements Using Partitions,107
+latency-breakdown.md,Commit,107
+node_modules/@octokit/auth-app/README.md,Installation authentication,107
+two-data-centers-in-one-city-deployment.md,Placement Rules,106
+latency-breakdown.md,Async write,106
+information-schema/information-schema-user-privileges.md,USER_PRIVILEGES,106
+information-schema/information-schema-tables.md,TABLES,106
+tidb-read-staleness.md,Usage examples,105
+privilege-management.md,Grant privileges,105
+tidb-cloud/limited-sql-features.md,System variables,105
+node_modules/@octokit/auth-oauth-user/README.md,GitHub APP user authentication token with expiring disabled,105
+node_modules/@octokit/oauth-methods/README.md,`exchangeWebFlowCode()`,105
+node_modules/@octokit/auth-oauth-device/README.md,GitHub APP user authentication with expiring tokens enabled,105
+sql-statements/sql-statement-revoke-role.md,Examples,105
+identify-slow-queries.md,Fields description,104
+node_modules/@octokit/auth-oauth-user/README.md,When using GitHub's OAuth web flow,104
+information-schema/information-schema-partitions.md,PARTITIONS,104
+information-schema/information-schema-columns.md,COLUMNS,104
+dm/dm-open-api.md,Example,104
+system-variables.md,"tidb_opt_range_max_size <span class=""version-mark"">New in v6.4.0</span>",103
+functions-and-operators/encryption-and-compression-functions.md,[`VALIDATE_PASSWORD_STRENGTH()`](https://dev.mysql.com/doc/refman/8.0/en/encryption-functions.html#function_validate-password-strength),103
+tidb-cloud/import-sample-data.md,Import Sample Data into TiDB Cloud Dedicated,102
+node_modules/micromark/readme.md,Extending markdown,102
+information-schema/information-schema-runaway-watches.md,Examples,102
+information-schema/information-schema.md,Tables that are TiDB extensions,102
+scale-tidb-using-tiup.md,Scale out a TiDB/PD/TiKV cluster,100
+post-installation-check.md,Database operations,100
+ticdc/integrate-confluent-using-ticdc.md,Create data replicas of TiDB tables in Snowflake,100
+node_modules/semver/README.md,Usage,100
+node_modules/@octokit/auth-oauth-user/README.md,When using GitHub's OAuth device flow,99
+sql-statements/sql-statement-admin-show-ddl.md,`ADMIN SHOW DDL JOBS`,99
+tidb-lightning/tidb-lightning-error-resolution.md,Error report,99
+TOC-tidb-cloud.md,DEVELOP,98
+sql-prepared-plan-cache.md,SQL Prepared Execution Plan Cache,98
+dm/dm-continuous-data-validation.md,View the validation status,98
+dm/handle-failed-ddl-statements.md,Non-shard-merge scenario,97
+node_modules/jsonwebtoken/README.md,"jwt.verify(token, secretOrPublicKey, [options, callback])",96
+node_modules/@octokit/oauth-methods/README.md,`refreshToken()`,96
+develop/dev-guide-delete-data.md,Example,95
+dm/dm-faq.md,"In DM v2.0, why does the query result of the command `query-status` show that the Syncer checkpoint GTIDs are inconsecutive if the task has `enable-relay` and `enable-gtid` enabled at the same time?",95
+dm/handle-failed-ddl-statements.md,Non-shard-merge scenario,95
+partitioned-table.md,Partition selection,94
+tidb-cloud/serverless-external-storage.md,Configure Amazon S3 access using a Role ARN,94
+node_modules/@octokit/oauth-methods/README.md,`checkToken()`,94
+node_modules/@octokit/auth-app/README.md,User authentication (web flow),94
+node_modules/@octokit/auth-oauth-device/README.md,`createOAuthDeviceAuth(options)`,94
+node_modules/@octokit/auth-oauth-app/README.md,OAuth device flow,94
+node_modules/@octokit/auth-oauth-app/README.md,OAuth user access token authentication,94
+ticdc/ticdc-open-protocol.md,Row Changed Event,93
+tidb-cloud/tidb-cloud-console-auditing.md,Console audit event types,93
+node_modules/@octokit/oauth-methods/README.md,`resetToken()`,93
+node_modules/@octokit/oauth-methods/README.md,`deleteToken()`,93
+node_modules/@octokit/oauth-methods/README.md,`deleteAuthorization()`,93
+node_modules/@octokit/auth-oauth-app/README.md,OAuth web flow,93
+sql-statements/sql-statement-create-user.md,Examples,93
+develop/dev-guide-gui-vscode-sqltools.md,Connect to TiDB,92
+ticdc/ticdc-open-api-v2.md,Parameters for the request body,92
+node_modules/before-after-hook/README.md,hookCollection(),92
+functions-and-operators/group-by-modifier.md,Examples,92
+quick-start-with-tidb.md,# Monitored variables are applied to all the machines.,91
+explain-indexes.md,IndexFullScan,91
+tidb-cloud/import-csv-files.md,Step 4. Import CSV files to TiDB Cloud,90
+node_modules/universal-github-app-jwt/README.md,`githubAppJwt(options)`,90
+sql-statements/sql-statement-show-columns-from.md,Examples,90
+dm/manually-handling-sharding-ddl-locks.md,Manual solution,90
+ticdc/ticdc-avro-checksum-verification.md,Decode data and get the corresponding schema,89
+tidb-cloud/data-service-response-and-status-code.md,Response,89
+pd-control.md,`config [show | set service-middleware <option> [<key> <value> | <label> <qps|concurrency> <value>]]`,88
+check-before-deployment.md,Check and install the NTP service,88
+read-historical-data.md,Example,88
+ticdc/ticdc-manage-changefeed.md,Query a specific replication task,88
+tidb-cloud/import-parquet-files.md,Step 4. Import Parquet files to TiDB Cloud,88
+tidb-cloud/use-chat2query-api.md,3. Generate and execute SQL statements by calling `/v3/chat2data`,88
+tidb-cloud/migrate-sql-shards.md,Step 4. Check the replication task status,88
+mysql-schema/mysql-schema-user.md,`mysql.user`,88
+node_modules/@octokit/oauth-app/README.md,`app.scopeToken(options)`,88
+pd-control.md,`scheduler config balance-hot-region-scheduler`,87
+user-defined-variables.md,Read the user-defined variables,87
+system-variables.md,"tidb_opt_ordering_index_selectivity_ratio <span class=""version-mark"">New in v8.0.0</span>",87
+sql-plan-management.md,Cross-database binding,87
+explain-views.md,EXPLAIN Statements Using Views,87
+sql-statements/sql-statement-set-default-role.md,Examples,87
+functions-and-operators/tidb-functions.md,TIDB_DECODE_KEY,87
+explain-indexes.md,IndexLookup,86
+ticdc/ticdc-canal-json.md,Event of `Update` Type,86
+node_modules/mdast-util-gfm-task-list-item/readme.md,Use,86
+explain-mpp.md,Exchange operators,85
+auto-increment.md,AUTO_ID_CACHE,85
+tidb-cloud/use-chat2query-api.md,Call the Chat2Data v1 endpoint (deprecated),85
+tidb-cloud/data-service-app-config-files.md,Endpoint configuration,85
+node_modules/@octokit/auth-app/README.md,Usage with Octokit,85
+sql-statements/sql-statement-alter-user.md,Modify basic user information,85
+sql-statements/sql-statement-alter-table-compact.md,Observe data compaction progress,85
+sql-statements/sql-statement-lock-stats.md,Examples,85
+information-schema/information-schema-inspection-result.md,Diagnostics example,85
+tiup/tiup-cluster.md,Deploy the cluster,85
+constraints.md,Pessimistic transactions,84
+develop/dev-guide-join-tables.md,LEFT OUTER JOIN,84
+node_modules/@octokit/auth-app/README.md,User authentication (device flow),84
+functions-and-operators/string-functions.md,[`CONCAT_WS()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_concat-ws),84
+views.md,Use the HTTP APIs,83
+develop/dev-guide-create-secondary-indexes.md,Example,83
+develop/dev-guide-unstable-result-set.md,GROUP BY,83
+node_modules/@octokit/oauth-methods/README.md,GitHub App with expiring user authentication,83
+node_modules/@octokit/auth-app/README.md,GitHub APP user authentication token with expiring disabled,83
+node_modules/@octokit/auth-oauth-device/README.md,OAuth APP user authentication,83
+node_modules/@octokit/auth-oauth-app/README.md,GitHub APP user authentication token with expiring disabled,83
+sql-statements/sql-statement-alter-sequence.md,Examples,83
+sql-statements/sql-statement-admin.md,Examples,83
+hardware-and-software-requirements.md,OS and platform requirements,82
+online-unsafe-recovery.md,Step 2. Check the recovery progress and wait for the completion,82
+node_modules/micromark-extension-mdx-jsx/readme.md,Syntax,82
+node_modules/@octokit/oauth-methods/README.md,`createDeviceCode()`,82
+node_modules/mdast-util-mdx-expression/readme.md,Use,82
+sql-statements/sql-statement-create-role.md,Examples,82
+sql-statements/sql-statement-grant-role.md,Examples,82
+information-schema/information-schema-tiflash-segments.md,TIFLASH_SEGMENTS,82
+information-schema/information-schema-ddl-jobs.md,DDL_JOBS,82
+metrics-schema.md,Metrics Schema,81
+develop/dev-guide-use-follower-read.md,Enable Follower Read,81
+node_modules/micromark/readme.md,License,81
+node_modules/@octokit/oauth-authorization-url/README.md,Options,81
+node_modules/glob/README.md,Options,81
+functions-and-operators/json-functions/json-functions-aggregate.md,[JSON_OBJECTAGG()](https://dev.mysql.com/doc/refman/8.0/en/aggregate-functions.html#function_json-objectagg),81
+ticdc/ticdc-simple-protocol.md,BOOTSTRAP,80
+faq/upgrade-faq.md,`ERROR 1366 (HY000): incorrect utf8 value f09f8c80(🌀) for column a`,80
+node_modules/@octokit/oauth-authorization-url/README.md,Result,80
+node_modules/@octokit/oauth-app/README.md,`app.getWebFlowAuthorizationUrl(options)`,80
+temporary-tables.md,Usage examples of local temporary tables,79
+explain-overview.md,Understand EXPLAIN output,79
+blocklist-control-plan.md,Expression blocklist usage example,79
+ticdc/ticdc-simple-protocol.md,TableSchema definition,79
+node_modules/@octokit/oauth-methods/README.md,`exchangeDeviceCode()`,79
+sql-statements/sql-statement-flashback-cluster.md,Example,79
+information-schema/information-schema.md,Tables for MySQL compatibility,79
+tiup/tiup-overview.md,TiUP ecosystem introduction,79
+dynamic-config.md,Modify PD configuration dynamically,78
+develop/dev-guide-overview.md,Guides by language and framework,78
+node_modules/@octokit/oauth-app/README.md,"`app.on(eventName, eventHandler)`",78
+develop/dev-guide-sample-application-nodejs-prisma.md,Step 3: Provide connection Parameters,77
+ticdc/ticdc-filter.md,The event filter rules must be under the `[filter]` configuration. You can configure multiple event filters at the same time.,77
+tidb-cloud/terraform-use-cluster-resource.md,Get project IDs using the `tidbcloud_projects` data source,77
+node_modules/@octokit/app/README.md,"`createNodeMiddleware(app, options)`",77
+tidb-lightning/monitor-tidb-lightning.md,Monitoring metrics,77
+develop/dev-guide-proxysql-integration.md,Step 3. Configure ProxySQL,76
+ticdc/ticdc-canal-json.md,`mysqlType` field,76
+tidb-cloud/terraform-use-serverless-cluster-resource.md,Get project IDs using the `tidbcloud_projects` data source,76
+tidb-cloud/terraform-use-dedicated-cluster-resource.md,Get project IDs using the `tidbcloud_projects` data source,76
+faq/upgrade-faq.md,`unsupported modify column charset utf8mb4 not match origin utf8`,76
+dm/dm-table-routing.md,"Extract table, schema, and source information and write into the merged table",76
+br/br-snapshot-guide.md,Restore tables in the `mysql` schema,76
+partitioned-table.md,Default List partition,75
+develop/dev-guide-sample-application-python-sqlalchemy.md,Step 3: Configure connection information,75
+ticdc/ticdc-faq.md,How to verify if TiCDC has replicated all updates after upstream stops updating?,75
+tidb-cloud/terraform-use-dedicated-cluster-resource.md,(9 unchanged attributes hidden),75
+node_modules/mdast-util-mdxjs-esm/readme.md,Use,75
+node_modules/@octokit/webhooks/README.md,webhooks.verifyAndReceive(),75
+dm/dm-manage-source.md,Usage example,75
+encryption-at-rest.md,Specify a master key via KMS,74
+develop/dev-guide-sample-application-golang-gorm.md,Step 2: Configure connection information,74
+develop/dev-guide-sample-application-java-hibernate.md,Step 2: Configure connection information,74
+develop/dev-guide-sample-application-java-jdbc.md,Step 2: Configure connection information,74
+develop/dev-guide-sample-application-java-mybatis.md,Step 2: Configure connection information,74
+develop/dev-guide-sample-application-golang-sql-driver.md,Step 2: Configure connection information,74
+develop/dev-guide-sample-application-java-spring-boot.md,Step 2: Configure connection information,74
+tidb-cloud/tidb-cloud-encrypt-cmek.md,Step 2. Complete the CMEK configuration of the project,74
+tiflash/create-tiflash-replicas.md,Set available zones,74
+user-account-management.md,Add user accounts,73
+explain-walkthrough.md,Identify optimizations,73
+develop/dev-guide-sample-application-python-django.md,Step 3: Configure connection information,73
+develop/dev-guide-get-data-from-single-table.md,Execute a simple query,73
+develop/dev-guide-sample-application-python-mysqlclient.md,Step 3: Configure connection information,73
+develop/dev-guide-sample-application-nodejs-mysql2.md,Step 3: Configure connection information,73
+develop/dev-guide-sample-application-nodejs-mysqljs.md,Step 3: Configure connection information,73
+develop/dev-guide-sample-application-ruby-mysql2.md,Step 3: Configure connection information,73
+ticdc/ticdc-avro-checksum-verification.md,TiCDC Row Data Checksum Verification Based on Avro,73
+tidb-cloud/migrate-from-op-tidb.md,Replicate incremental data,73
+tidb-cloud/dedicated-external-storage.md,Configure Amazon S3 access using a Role ARN,73
+sql-statements/sql-statement-show-bindings.md,Examples,73
+sql-statements/sql-statement-alter-table.md,Examples,73
+functions-and-operators/string-functions.md,[`REGEXP_REPLACE()`](https://dev.mysql.com/doc/refman/8.0/en/regexp.html#function_regexp-replace),73
+comment-syntax.md,Comment Syntax,72
+develop/dev-guide-sample-application-python-mysql-connector.md,Step 3: Configure connection information,72
+develop/dev-guide-sample-application-python-peewee.md,Step 3: Configure connection information,72
+develop/dev-guide-sample-application-python-pymysql.md,Step 3: Configure connection information,72
+node_modules/form-data/Readme.md,Alternative submission methods,72
+node_modules/@octokit/plugin-throttling/README.md,Options,72
+node_modules/@octokit/auth-app/README.md,OAuth App authentication,72
+node_modules/@octokit/auth-oauth-device/README.md,GitHub APP user authentication with expiring tokens disabled,72
+node_modules/@octokit/auth-oauth-app/README.md,OAuth App authentication,72
+node_modules/axios/README.md,Example,72
+sql-statements/sql-statement-savepoint.md,Examples,72
+sql-statements/sql-statement-alter-index.md,Examples,72
+partitioned-table.md,Key partitioning,71
+tidb-external-ts.md,Usage examples,71
+develop/dev-guide-sample-application-nodejs-typeorm.md,Step 3: Configure connection information,71
+develop/dev-guide-gui-datagrip.md,Connect to TiDB,71
+develop/dev-guide-optimize-sql.md,Solution: Use covering index,71
+develop/dev-guide-sample-application-nodejs-sequelize.md,Step 3: Configure connection information,71
+tidb-cloud/terraform-use-cluster-resource.md,tidbcloud_cluster.import_cluster:,71
+node_modules/@octokit/auth-oauth-app/README.md,`createOAuthAppAuth(options)` or `new Octokit({ auth })`,71
+information-schema/information-schema-key-column-usage.md,KEY_COLUMN_USAGE,71
+tiup/tiup-cluster-no-sudo-mode.md,Prepare the user and configure the SSH mutual trust,71
+explain-aggregation.md,Explain Statements Using Aggregation,70
+temporary-tables.md,Usage examples of global temporary tables,70
+sql-tuning-best-practice.md,Read execution plans: first child first,70
+partitioned-table.md,Range INTERVAL partitioning,70
+partitioned-table.md,Global indexes,70
+partitioned-table.md,Compatibility with MySQL,70
+develop/dev-guide-index-best-practice.md,Best practices for using indexes,70
+node_modules/mdast-util-gfm-table/readme.md,Use,70
+dashboard/dashboard-ops-reverse-proxy.md,Step 1: Modify PD configuration to specify the path prefix of TiDB Dashboard service,70
+br/backup-and-restore-storages.md,Authentication,70
+best-practices/readonly-nodes.md,2. Use Placement Rules to store data on read-only nodes as learners,70
+character-set-and-collation.md,Character sets and collations supported by TiDB,69
+tso.md,TimeStamp Oracle (TSO) in TiDB,69
+node_modules/@octokit/plugin-retry/README.md,Usage,69
+dm/quick-start-create-task.md,Create a data migration task,69
+functions-and-operators/date-and-time-functions.md,Date and Time Functions,69
+scale-tidb-using-tiup.md,Scale in a TiDB/PD/TiKV cluster,68
+tikv-control.md,Use TiKV Control in TiUP,68
+partitioned-table.md,List COLUMNS partitioning,68
+develop/dev-guide-gui-dbeaver.md,Connect to TiDB,68
+develop/dev-guide-optimistic-and-pessimistic-transaction.md,An example that does not involve overselling,68
+tidb-cloud/import-sample-data-serverless.md,Import Sample Data into TiDB Cloud Serverless,68
+tidb-cloud/data-service-oas-with-nextjs.md,Step 3. Generate client code,68
+node_modules/@octokit/webhooks/README.md,Webhook events,68
+sql-statements/sql-statement-change-column.md,Examples,68
+sql-statements/sql-statement-alter-resource-group.md,Synopsis,68
+dm/feature-online-ddl.md,online-schema-change: gh-ost,68
+dm/feature-online-ddl.md,online-schema-change: pt,68
+dm/dm-open-api.md,Example,68
+functions-and-operators/string-functions.md,[`MAKE_SET()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_make-set),68
+correlated-subquery-optimization.md,Example,67
+develop/dev-guide-paginate-results.md,Clustered index table,67
+tidb-cloud/v8.5-performance-highlights.md,Test results,67
+node_modules/micromark-extension-mdx-jsx/readme.md,Tokens,67
+node_modules/@octokit/webhooks-methods/README.md,`verifyWithFallback()`,67
+check-before-deployment.md,Mount the data disk ext4 filesystem with options on the target machines that deploy TiKV,66
+dr-multi-replica.md,Set up a cluster and configure replicas,66
+partitioned-table.md,Some cases for partition pruning to take effect,66
+transaction-overview.md,Autocommit,66
+tiproxy/tiproxy-load-balance.md,Label-based load balancing,66
+faq/faq-overview.md,TiDB FAQ Summary,66
+node_modules/@octokit/plugin-throttling/README.md,Usage,66
+node_modules/axios/README.md,🆕 Automatic serialization to FormData,66
+functions-and-operators/cast-functions-and-operators.md,CAST,66
+tidb-lightning/tidb-lightning-requirements.md,Privileges of the target database,66
+cached-tables.md,Verify a cached table,65
+non-transactional-dml.md,Use a non-transactional DML statement,65
+sql-plan-replayer.md,Examples of exporting cluster information,65
+tidb-cloud/terraform-use-serverless-cluster-resource.md,(because tidbcloud_serverless_cluster.example is not in configuration),65
+tidb-cloud/data-service-manage-endpoint.md,Request,65
+tidb-cloud/tidb-cloud-htap-quickstart.md,Step 3. Compare the query performance between row-based storage and columnar storage,65
+tidb-cloud/integrate-tidbcloud-with-dbt.md,Step 4: (optional) Load CSV files,65
+node_modules/diff/README.md,API,65
+node_modules/bottleneck/README.md,Events,65
+node_modules/octokit/README.md,OAuth,65
+sql-statements/sql-statement-create-table.md,Examples,65
+dm/dm-open-api.md,Example,65
+explain-index-merge.md,Examples,64
+constraints.md,Optimistic transactions,64
+configure-placement-rules.md,Set rules using pd-ctl,64
+migrate-from-tidb-to-tidb.md,Step 2. Migrate full data,64
+develop/dev-guide-gui-mysql-workbench.md,Connect to TiDB,64
+develop/dev-guide-build-cluster-in-cloud.md,Step 2. Connect to a cluster,64
+develop/dev-guide-optimistic-and-pessimistic-transaction.md,An example that prevents overselling,64
+ticdc/ticdc-storage-consumer-dev-guide.md,Process DDL events,64
+tidb-cloud/terraform-use-dedicated-cluster-resource.md,tidbcloud_dedicated_cluster.example_cluster:,64
+node_modules/lru-cache/README.md,Storage Bounds Safety,64
+node_modules/lru-cache/README.md,Performance,64
+node_modules/vfile/readme.md,Sponsor,64
+node_modules/axios/CHANGELOG.md,Contributors to this release,64
+sql-statements/sql-statement-create-resource-group.md,Synopsis,64
+sql-statements/sql-statement-alter-resource-group.md,Examples,64
+information-schema/client-errors-summary-by-host.md,CLIENT_ERRORS_SUMMARY_BY_HOST,64
+information-schema/information-schema-inspection-summary.md,INSPECTION_SUMMARY,64
+sql-tuning-best-practice.md,SQL tuning with composite indexes for efficient filtering and sorting,63
+sql-plan-management.md,Create a binding according to a historical execution plan,63
+tiproxy/tiproxy-traffic-replay.md,Usage,63
+develop/dev-guide-proxysql-integration.md,Step 2. Generate ProxySQL configuration files,63
+develop/dev-guide-gui-navicat.md,Connect to TiDB,63
+develop/dev-guide-prepared-statement.md,`INSERT` example,63
+tidb-cloud/setup-aws-self-hosted-kafka-private-link-service.md,1. Set up the load balancer,63
+tidb-cloud/changefeed-sink-to-apache-kafka.md,Step 2. Configure the changefeed target,63
+node_modules/@octokit/oauth-app/README.md,Build Custom Middlewares,63
+node_modules/axios/README.md,Interceptors,63
+vector-search/vector-search-data-types.md,Cast between Vector ⇔ String,63
+sql-statements/sql-statement-create-index.md,Create multi-valued indexes,63
+information-schema/information-schema-metrics-tables.md,METRICS_TABLES,63
+information-schema/client-errors-summary-by-user.md,CLIENT_ERRORS_SUMMARY_BY_USER,63
+character-set-and-collation.md,Database character set and collation,62
+deploy-monitoring-services.md,scrape_timeout is set to the global default value (10s).,62
+sql-tuning-best-practice.md,Generate and display execution plans,62
+partitioned-table.md,Reorganize partitions,62
+develop/dev-guide-use-temporary-tables.md,Create a local temporary table,62
+tidb-cloud/serverless-driver-prisma-example.md,Step 4. Execute CRUD operations,62
+information-schema/information-schema-tikv-region-status.md,TIKV_REGION_STATUS,62
+functions-and-operators/json-functions/json-functions-search.md,[JSON_CONTAINS()](https://dev.mysql.com/doc/refman/8.0/en/json-search-functions.html#function_json-contains),62
+replicate-between-primary-and-secondary-clusters.md,Step 2. Migrate full data,61
+develop/dev-guide-get-data-from-single-table.md,Aggregate queries,61
+develop/dev-guide-optimistic-and-pessimistic-transaction.md,An example that does not involve overselling,61
+tidb-cloud/setup-aws-self-hosted-kafka-private-link-service.md,2. Set up Kafka brokers,61
+tidb-cloud/serverless-driver-kysely-example.md,Step 3. Create an edge function,61
+tidb-cloud/terraform-use-dedicated-cluster-resource.md,tidbcloud_dedicated_cluster.example_cluster:,61
+node_modules/@octokit/oauth-methods/README.md,OAuth APP authentication,61
+node_modules/@octokit/auth-app/README.md,JSON Web Token (JWT) authentication,61
+sql-statements/sql-statement-show-collation.md,Examples,61
+dashboard/dashboard-ops-reverse-proxy.md,Step 2: Modify the reverse proxy configuration,61
+information-schema/information-schema-analyze-status.md,ANALYZE_STATUS,61
+tiflash/use-tiflash-mpp-mode.md,Access partitioned tables in the MPP mode,61
+functions-and-operators/string-functions.md,[`LEFT()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_left),61
+migrate-from-mariadb.md,Character set and collation,60
+production-deployment-using-tiup.md,Step 3. Initialize the cluster topology file,60
+sql-tuning-best-practice.md,Identify bottlenecks in execution plans,60
+sql-tuning-best-practice.md,Performance comparison,60
+as-of-timestamp.md,Prepare data sample,60
+time-to-live.md,Observability,60
+develop/dev-guide-join-tables.md,INNER JOIN,60
+ticdc/ticdc-sink-to-cloud-storage.md,DDL events at the table level,60
+tidb-cloud/integrate-tidbcloud-with-dbt.md,Step 5: Transform data,60
+tidb-cloud/terraform-use-dedicated-cluster-resource.md,tidbcloud_dedicated_cluster.example_cluster:,60
+node_modules/lru-cache/README.md,Usage,60
+node_modules/@octokit/app/README.md,Usage,60
+node_modules/@octokit/auth-oauth-app/README.md,Usage with Octokit,60
+sql-statements/sql-statement-show-privileges.md,Examples,60
+sql-statements/sql-statement-set-variable.md,Examples,60
+tiflash/tune-tiflash-performance.md,Push down aggregate functions to a position before `Join` or `Union`,60
+functions-and-operators/aggregate-group-by-functions.md,Supported aggregate functions,60
+functions-and-operators/group-by-modifier.md,How to interpret the ROLLUP execution plan,60
+tiup/tiup-mirror-reference.md,Index,60
+views.md,Example,59
+binary-package.md,TiDB Installation Packages,59
+develop/dev-guide-optimistic-and-pessimistic-transaction.md,An example that prevents overselling,59
+tidb-cloud/troubleshoot-import-access-denied-error.md,Check the policy of the IAM role,59
+tidb-cloud/terraform-use-dedicated-cluster-resource.md,tidbcloud_dedicated_cluster.example_cluster will be created,59
+node_modules/@octokit/graphql/README.md,Partial responses,59
+sql-statements/sql-statement-set-role.md,Examples,59
+information-schema/information-schema-statistics.md,STATISTICS,59
+information-schema/information-schema-sequences.md,SEQUENCES,59
+clinic/clinic-user-guide-for-tiup.md,Prerequisites,59
+production-deployment-using-tiup.md,Prepare the TiUP offline component package,58
+develop/dev-guide-choose-driver-or-orm.md,Java ORM frameworks,58
+tidb-cloud/serverless-driver.md,Edge examples,58
+sql-statements/sql-statement-distribute-table.md,Examples,58
+information-schema/information-schema-tidb-hot-regions-history.md,TIDB_HOT_REGIONS_HISTORY,58
+dm/dm-binlog-event-filter.md,Parameter descriptions,58
+dm/dm-open-api.md,Example,58
+functions-and-operators/json-functions.md,JSONPath,58
+role-based-access-control.md,Check a role's privileges,57
+data-type-date-and-time.md,Date and Time Types,57
+partitioned-table.md,Handling of NULL with Range partitioning,57
+develop/dev-guide-optimistic-and-pessimistic-transaction.md,Pessimistic transactions,57
+tidb-cloud/integrate-tidbcloud-with-vercel.md,Integration workflow,57
+faq/upgrade-faq.md,`unsupported modify charset from utf8mb4 to utf8`,57
+node_modules/@octokit/endpoint/README.md,Usage,57
+information-schema/client-errors-summary-global.md,CLIENT_ERRORS_SUMMARY_GLOBAL,57
+tiflash/tune-tiflash-performance.md,Forcibly enable the MPP mode,57
+dm/relay-log.md,Query relay log status,57
+generated-columns.md,Usage,56
+foreign-key.md,Definition and metadata of foreign keys,56
+benchmark/benchmark-tidb-using-ch.md,Run the test,56
+develop/dev-guide-bookshop-schema-design.md,Database initialization script `dbinit.sql`,56
+tidb-cloud/setup-azure-self-hosted-kafka-private-link-service.md,1. Set up the load balancer,56
+tidb-cloud/use-chat2query-api.md,2. Check the analysis status by calling `/v2/jobs/{job_id}`,56
+node_modules/@octokit/oauth-app/README.md,"`createWebWorkerHandler(app, options)`",56
+node_modules/@octokit/oauth-app/README.md,"`createAWSLambdaAPIGatewayV2Handler(app, options)`",56
+clinic/clinic-user-guide-for-tiup.md,Step 2. Collect data,56
+tidb-upgrade-migration-guide.md,2. Execute the switchover,55
+sql-tuning-best-practice.md,Statistics management,55
+migrate-from-tidb-to-mysql.md,Step 2. Migrate full data,55
+external-storage-uri.md,Amazon S3 URI format,55
+develop/dev-guide-get-data-from-single-table.md,Limit the number of query results,55
+ticdc/ticdc-open-api-v2.md,Examples,55
+tidb-cloud/integrate-tidbcloud-with-n8n.md,Fields,55
+node_modules/@octokit/plugin-paginate-rest/README.md,Usage,55
+information-schema/information-schema-tikv-store-status.md,TIKV_STORE_STATUS,55
+tiflash/troubleshoot-tiflash.md,TiFlash replica is always unavailable,55
+dm/dm-open-api.md,Example,55
+tidb-control.md,The `base64decode` command,54
+troubleshoot-lock-conflicts.md,A few hot keys cause queueing locks,54
+tiproxy/tiproxy-traffic-replay.md,View and manage jobs,54
+develop/dev-guide-sample-application-ruby-rails.md,Step 3: Configure connection information,54
+tidb-cloud/setup-aws-self-hosted-kafka-private-link-service.md,1. Set up the Kafka VPC,54
+tidb-cloud/tidb-cloud-roadmap.md,Diagnosis and maintenance,54
+tidb-cloud/migrate-sql-shards.md,"If you have configured the upstream database service to switch master between different nodes automatically, you must enable GTID.",54
+node_modules/micromark/readme.md,HTML extension,54
+node_modules/@octokit/webhooks/README.md,createNodeMiddleware(),54
+node_modules/@octokit/oauth-app/README.md,For OAuth Device flow,54
+sql-statements/sql-statement-select.md,Synopsis,54
+sql-statements/sql-statement-calibrate-resource.md,Examples,54
+information-schema/information-schema-views.md,VIEWS,54
+information-schema/information-schema-cluster-log.md,CLUSTER_LOG,54
+information-schema/information-schema-referential-constraints.md,REFERENTIAL_CONSTRAINTS,54
+information-schema/information-schema-cluster-load.md,CLUSTER_LOAD,54
+dm/relay-log.md,Enable and disable relay log,54
+dm/dm-generate-self-signed-certificates.md,Issue certificates for DM-master,54
+data-type-json.md,MySQL compatibility,53
+character-set-and-collation.md,Concepts,53
+troubleshoot-stale-read.md,Example,53
+dr-secondary-cluster.md,Set up primary and secondary clusters,53
+grafana-overview-dashboard.md,Key metrics description,53
+ticdc/ticdc-sink-to-kafka.md,Configure sink URI for Kafka,53
+ticdc/ticdc-storage-consumer-dev-guide.md,Design a consumer,53
+ticdc/ticdc-sink-to-mysql.md,Configure sink URI for MySQL or TiDB,53
+tidb-cloud/terraform-use-serverless-cluster-resource.md,tidbcloud_serverless_cluster.example:,53
+tidb-cloud/terraform-use-serverless-cluster-resource.md,tidbcloud_serverless_cluster.example:,53
+tidb-cloud/terraform-use-import-resource.md,Create and run a local import task,53
+tidb-cloud/integrate-tidbcloud-with-dbt.md,Step 3: Configure the project,53
+tidb-cloud/terraform-use-cluster-resource.md,tidbcloud_cluster.example_cluster will be created,53
+tidb-cloud/terraform-use-restore-resource.md,Create a restore task,53
+tidb-cloud/terraform-use-dedicated-cluster-resource.md,tidbcloud_dedicated_node_group.example_group will be created,53
+faq/backup-and-restore-faq.md,"What should I do to handle the `Permission denied` or `No such file or directory` error, even if I have tried to run `br` using root in vain?",53
+node_modules/@octokit/oauth-app/README.md,"`createNodeMiddleware(app, options)`",53
+vector-search/vector-search-integrate-with-peewee.md,Step 4. Configure the environment variables,53
+vector-search/vector-search-integrate-with-django-orm.md,Step 4. Configure the environment variables,53
+dashboard/dashboard-faq.md,A `required component NgMonitoring is not started` error is shown,53
+tiflash/tune-tiflash-performance.md,Replace Shuffled Hash Join with Broadcast Hash Join,53
+dm/quick-start-with-dm.md,Step 6: Clean up (optional),53
+functions-and-operators/string-functions.md,[`INSERT()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_insert),53
+functions-and-operators/json-functions/json-functions-return.md,[JSON_TYPE()](https://dev.mysql.com/doc/refman/8.0/en/json-attribute-functions.html#function_json-type),53
+br/br-pitr-manual.md,Restore to a specified point in time (PITR),53
+optimizer-hints.md,`INL_JOIN` hint does not take effect when built-in functions are used on columns for joining tables,52
+statement-summary-tables.md,`statements_summary`,52
+choose-index.md,Multi-valued indexes and plan cache,52
+sql-plan-replayer.md,Use `PLAN REPLAYER` to import cluster information,52
+three-data-centers-in-two-cities-deployment.md,# the deployments if a specific deployment value is missing.,52
+auto-increment.md,Monotonicity,52
+develop/dev-guide-get-data-from-single-table.md,Sort results,52
+develop/dev-guide-use-temporary-tables.md,Create a global temporary table,52
+tidb-cloud/vector-search-integrate-with-amazon-bedrock.md,---- Model Invocation ----,52
+tidb-cloud/setup-self-hosted-kafka-private-service-connect.md,Step 2. Expose the Kafka cluster as Private Service Connect,52
+tidb-cloud/integrate-tidbcloud-with-netlify.md,Get the TiDB Cloud connection string,52
+node_modules/mdast-util-gfm-autolink-literal/readme.md,Use,52
+node_modules/micromark/readme.md,Origin story,52
+node_modules/@octokit/auth-oauth-device/README.md,`auth(options)`,52
+vector-search/vector-search-index.md,Check whether the vector index is used,52
+tiflash/tiflash-disaggregated-and-s3.md,172.31.9.1~2 are TiFlash Compute Nodes,52
+tiup/tiup-cluster.md,Scale in a cluster,52
+br/br-log-architecture.md,Structure of backup files,52
+clinic/quick-start-with-clinic.md,Prerequisites,52
+optimizer-hints.md,NO_DECORRELATE(),51
+explain-walkthrough.md,Assess the current performance,51
+character-set-and-collation.md,New framework for collations,51
+sql-tuning-best-practice.md,SQL tuning with a covering index,51
+latency-breakdown.md,Point get,51
+partitioned-table.md,Hash partitioning,51
+develop/dev-guide-hybrid-oltp-and-olap-queries.md,Create TiFlash replicas,51
+develop/dev-guide-prepared-statement.md,`SELECT` example,51
+ticdc/ticdc-sink-to-cloud-storage.md,Configure sink URI for external storage,51
+ticdc/ticdc-open-protocol.md,Examples of the Event stream output,51
+tidb-cloud/setup-self-hosted-kafka-private-service-connect.md,Deploy a new Kafka cluster,51
+tidb-cloud/tidb-cloud-roadmap.md,Developer experience and enterprise-grade features,51
+tidb-cloud/integrate-tidbcloud-with-aws-lambda.md,Prerequisites,51
+tidb-cloud/terraform-use-cluster-resource.md,Create a cluster using the cluster resource,51
+node_modules/@octokit/request-error/README.md,Usage,51
+sql-statements/sql-statement-select.md,SELECT ... INTO OUTFILE,51
+sql-statements/sql-statement-show-table-status.md,Examples,51
+information-schema/information-schema-cluster-hardware.md,CLUSTER_HARDWARE,51
+information-schema/information-schema-tidb-indexes.md,TIDB_INDEXES,51
+tiup/tiup-cluster-topology-reference.md,`monitoring_servers`,51
+optimizer-hints.md,Step 1: Define the query block name of the view using the `QB_NAME` hint,50
+tikv-control.md,View information of the Raft state machine,50
+identify-slow-queries.md,Query slow queries whose execution plan is changed,50
+partitioned-table.md,Update statistics of partitioned tables in dynamic pruning mode,50
+ticdc/ticdc-csv.md,Definition of the data format,50
+faq/sql-faq.md,The order of results is different from MySQL when `ORDER BY` is omitted,50
+node_modules/micromark-extension-gfm/readme.md,Tasklist,50
+node_modules/deprecation/README.md,Usage,50
+node_modules/@octokit/auth-token/README.md,Authentication object,50
+node_modules/@octokit/plugin-paginate-graphql/README.md,TypeScript Support,50
+node_modules/@octokit/oauth-methods/README.md,GitHub App with non-expiring user authentication,50
+node_modules/sade/readme.md,Command Aliases,50
+sql-statements/sql-statement-admin-recover.md,Examples,50
+sql-statements/sql-statement-modify-column.md,Reorg-Data Change,50
+dashboard/dashboard-diagnostics-report.md,Time Consumed by Each Component,50
+information-schema/information-schema-tidb-trx.md,TIDB_TRX,50
+information-schema/information-schema-tidb-trx.md,Example,50
+dm/feature-shard-merge-optimistic.md,Examples,50
+functions-and-operators/string-functions.md,[`CHAR()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_char),50
+functions-and-operators/string-functions.md,[`REPEAT()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_repeat),50
+garbage-collection-configuration.md,GC in Compaction Filter,49
+pd-control.md,`hot [read | write | store|  history <start_time> <end_time> [<key> <value>]]`,49
+schema-object-names.md,Schema Object Names,49
+character-set-and-collation.md,`utf8` and `utf8mb4` in TiDB,49
+deploy-monitoring-services.md,Step 4: Start Grafana on Node1,49
+system-variables.md,"tidb_opt_prefix_index_single_scan <span class=""version-mark"">New in v6.4.0</span>",49
+certificate-authentication.md,Configure user certificate information,49
+two-data-centers-in-one-city-deployment.md,Enable the DR Auto-Sync mode,49
+as-of-timestamp.md,Read historical data using the `SET TRANSACTION READ ONLY AS OF TIMESTAMP` statement,49
+auto-increment.md,Concept,49
+auto-increment.md,Clear the auto-increment ID cache,49
+performance-schema/performance-schema-session-connect-attrs.md,SESSION\_CONNECT\_ATTRS,49
+tiproxy/tiproxy-traffic-replay.md,View the replay report,49
+tidb-cloud/limited-sql-features.md,System tables,49
+tidb-cloud/terraform-use-dedicated-cluster-resource.md,(because tidbcloud_dedicated_cluster.example_cluster is not in configuration),49
+node_modules/before-after-hook/README.md,hookCollection.wrap(),49
+node_modules/jsonwebtoken/README.md,"jwt.sign(payload, secretOrPrivateKey, [options, callback])",49
+node_modules/micromark-util-resolve-all/readme.md,Use,49
+node_modules/micromark/readme.md,Setup,49
+node_modules/@octokit/webhooks-methods/README.md,`sign()`,49
+sql-statements/sql-statement-admin-cleanup.md,Examples,49
+information-schema/information-schema-resource-groups.md,Examples,49
+information-schema/information-schema-slow-query.md,View execution information,49
+information-schema/information-schema-memory-usage-ops-history.md,MEMORY_USAGE_OPS_HISTORY,49
+information-schema/information-schema-tikv-region-peers.md,TIKV_REGION_PEERS,49
+dm/relay-log.md,Pause and resume relay log,49
+dm/dmctl-introduction.md,Command mode,49
+dm/feature-shard-merge-pessimistic.md,Principles,49
+functions-and-operators/operators.md,Operators,49
+functions-and-operators/string-functions.md,[`REGEXP`](https://dev.mysql.com/doc/refman/8.0/en/regexp.html#operator_regexp),49
+placement-rules-in-sql.md,View placement policies,48
+tidb-resource-control-runaway-queries.md,`QUERY WATCH` parameters,48
+tiproxy/tiproxy-command-line-flags.md,`traffic show`,48
+develop/dev-guide-paginate-results.md,Paginate query results,48
+develop/dev-guide-unstable-result-set.md,ORDER BY,48
+tidb-cloud/serverless-driver.md,SQL level options,48
+tidb-cloud/terraform-use-serverless-cluster-resource.md,tidbcloud_serverless_cluster.example will be created,48
+tidb-cloud/terraform-use-import-resource.md,Create and run an Amazon S3 import task,48
+tidb-cloud/migrate-from-mysql-using-data-migration.md,Check current values and configure the source MySQL instance,48
+tidb-cloud/tidb-cloud-billing.md,"Billing from AWS Marketplace, Azure Marketplace, or Google Cloud Marketplace",48
+faq/manage-cluster-faq.md,How do I estimate the size of a table in TiDB?,48
+node_modules/semver/README.md,Exported Modules,48
+node_modules/micromark/readme.md,Tasklist,48
+node_modules/micromark/readme.md,Sponsor,48
+node_modules/@octokit/webhooks-methods/README.md,`verify()`,48
+node_modules/@octokit/graphql/README.md,Authentication,48
+sql-statements/sql-statement-show-tables.md,Examples,48
+sql-statements/sql-statement-split-region.md,Examples of Split Regions for partitioned tables,48
+sql-statements/sql-statement-set-names.md,Examples,48
+sql-statements/sql-statement-show-warnings.md,Examples,48
+sql-statements/sql-statement-table.md,Examples,48
+information-schema/information-schema-table-storage-stats.md,TABLE_STORAGE_STATS,48
+functions-and-operators/string-functions.md,[`INSTR()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_instr),48
+br/br-pitr-manual.md,Encrypt the log backup data,48
+literal-values.md,String literals,47
+sql-tuning-best-practice.md,SQL tuning with a composite index involving sorting,47
+sql-tuning-best-practice.md,Analytical query,47
+dr-secondary-cluster.md,Migrate data,47
+max-min-eliminate.md,Multiple `max`/`min` functions,47
+develop/dev-guide-proxysql-integration.md,Prerequisites,47
+develop/dev-guide-proxysql-integration.md,Step 4. Connect to your TiDB cluster through ProxySQL,47
+develop/dev-guide-choose-driver-or-orm.md,Java drivers,47
+ticdc/ticdc-split-update-behavior.md,Split `UPDATE` events for MySQL sinks,47
+tidb-cloud/serverless-driver.md,Data type mapping,47
+tidb-cloud/terraform-use-import-resource.md,tidbcloud_import.example_local:,47
+tidb-cloud/terraform-use-restore-resource.md,tidbcloud_restore.example_restore will be created,47
+node_modules/before-after-hook/README.md,Type support for `Collection`:,47
+node_modules/diff/README.md,Examples,47
+node_modules/semver/node_modules/lru-cache/README.md,API,47
+node_modules/@octokit/plugin-paginate-graphql/README.md,Usage,47
+node_modules/@octokit/plugin-paginate-graphql/README.md,Variables,47
+node_modules/@octokit/webhooks/README.md,webhooks.on(),47
+node_modules/sade/readme.md,!/usr/bin/env node,47
+node_modules/axios/README.md,🆕 HTML Form Posting (browser),47
+vector-search/vector-search-functions-and-operators.md,Extended built-in functions and operators,47
+sql-statements/sql-statement-use.md,Examples,47
+information-schema/information-schema-memory-usage.md,MEMORY_USAGE,47
+information-schema/information-schema-cluster-info.md,CLUSTER_INFO,47
+tiflash/tune-tiflash-performance.md,Set a greater execution concurrency,47
+tiflash/create-tiflash-replicas.md,Speed up TiFlash replication,47
+dm/dm-manage-source.md,Check data source configurations,47
+dm/dmctl-introduction.md,Interactive mode,47
+functions-and-operators/string-functions.md,[`EXPORT_SET()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_export-set),47
+functions-and-operators/json-functions/json-functions-search.md,[JSON_OVERLAPS()](https://dev.mysql.com/doc/refman/8.0/en/json-search-functions.html#function_json-overlaps),47
+best-practices/java-app-best-practices.md,Batch-related parameters,47
+best-practices/grafana-monitor-best-practices.md,Tip 7: Use the API of Prometheus to obtain the result of query expressions,47
+encryption-at-rest.md,Configure encryption,46
+identify-slow-queries.md,Query slow logs occurring only in abnormal time period,46
+configure-memory-usage.md,Disk spill,46
+system-variables.md,"tidb_analyze_skip_column_types <span class=""version-mark"">New in v7.2.0</span>",46
+basic-features.md,"Management, observability, and tools",46
+multi-data-centers-in-one-city-deployment.md,TiKV labels planning example,46
+latency-breakdown.md,Lock,46
+partitioned-table.md,Handling of NULL with Hash partitioning,46
+quick-start-with-htap.md,Step 2. Prepare test data,46
+hybrid-deployment-topology.md,Key parameters,46
+tidb-performance-tuning-config.md,TiKV configurations,46
+develop/dev-guide-hybrid-oltp-and-olap-queries.md,`PARTITION BY` clause,46
+ticdc/ticdc-canal-json.md,DML Event,46
+tidb-cloud/data-service-response-and-status-code.md,429,46
+tidb-cloud/terraform-use-serverless-branch-resource.md,(because tidbcloud_serverless_branch.example is not in configuration),46
+node_modules/@types/debug/README.md,[index.d.ts](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/debug/index.d.ts),46
+node_modules/lru-cache/README.md,"`async fetch(key, options = {}) => Promise`",46
+node_modules/@octokit/oauth-app/README.md,For OAuth Web flow,46
+sql-statements/sql-statement-admin.md,Synopsis,46
+information-schema/information-schema-tidb-index-usage.md,TIDB_INDEX_USAGE,46
+tiflash/use-tiflash-mpp-mode.md,Control whether to select the MPP mode,46
+tiup/tiup-dm-topology-reference.md,`monitoring_servers`,46
+br/br-pitr-manual.md,Pause and resume a log backup task,46
+tidb-lightning/tidb-lightning-data-source.md,Use regular expressions to replace names online,46
+best-practices/haproxy-best-practices.md,Configure HAProxy,46
+performance-tuning-methods.md,Tune by color,45
+performance-tuning-methods.md,Data traffic,45
+literal-values.md,Hexadecimal literals,45
+data-type-default-values.md,Specify expressions as default values,45
+constraints.md,PRIMARY KEY,45
+two-data-centers-in-one-city-deployment.md,# the deployments if a specific deployment value is missing.,45
+generate-self-signed-certificates.md,Issue certificates to TiKV instances,45
+latency-breakdown.md,Batch point get,45
+explain-subqueries.md,Null-aware anti semi join (`NOT IN` and `!= ALL` subqueries),45
+develop/dev-guide-sample-application-aws-lambda.md,Step 3: Configure connection information,45
+tidb-cloud/tidb-cloud-quickstart.md,Step 2: Try AI-assisted SQL Editor,45
+tidb-cloud/changefeed-sink-to-apache-kafka.md,Step 3. Set the changefeed,45
+tidb-cloud/migrate-from-mysql-using-data-migration.md,Step 2: Configure the source and target connections,45
+tidb-cloud/terraform-use-dedicated-cluster-resource.md,Create a TiDB Cloud Dedicated cluster,45
+node_modules/micromark-extension-gfm/readme.md,License,45
+node_modules/@octokit/webhooks/README.md,webhooks.receive(),45
+node_modules/@octokit/webhooks/README.md,webhooks.removeListener(),45
+vector-search/vector-search-integrate-with-langchain.md,Metadata filter syntax,45
+sql-statements/sql-statement-explain-analyze.md,RU (Request Unit) consumption,45
+information-schema/information-schema-inspection-rules.md,INSPECTION_RULES,45
+dm/quick-start-create-source.md,Step 3: Query the data source you created,45
+dm/maintain-dm-using-tiup.md,Maintain a DM Cluster Using TiUP,45
+dm/dm-manage-schema.md,Update the table schema,45
+functions-and-operators/tidb-functions.md,TiDB Specific Functions,45
+tiup/tiup-mirror-reference.md,Root directory,45
+tiup/tiup-mirror-reference.md,Component,45
+br/br-pitr-guide.md,Query the status of the log backup,45
+best-practices/high-concurrency-best-practices.md,Hotspot solution,45
+runtime-filter.md,Example,44
+security-compatibility-with-mysql.md,Usage,44
+privilege-management.md,Revoke privileges,44
+certificate-authentication.md,Generate client key and certificate,44
+tiproxy/tiproxy-load-balance.md,Location-based load balancing,44
+develop/dev-guide-proxysql-integration.md,Option 1: Configure ProxySQL using the Admin Interface,44
+develop/dev-guide-unstable-result-set.md,The result set is unstable because order by is not used in `GROUP_CONCAT()`,44
+tidb-cloud/tidb-cloud-performance-reference.md,8 vCPU performance,44
+node_modules/@octokit/oauth-methods/README.md,Types,44
+node_modules/axios/README.md,🆕 Progress capturing,44
+node_modules/micromark-extension-gfm-footnote/readme.md,Use,44
+sql-statements/sql-statement-alter-table.md,Synopsis,44
+sql-statements/sql-statement-admin-bdr-role.md,Examples,44
+sql-statements/sql-statement-admin-alter-ddl.md,ADMIN ALTER DDL JOBS,44
+sql-statements/sql-statement-drop-column.md,Examples,44
+sql-statements/sql-statement-set-resource-group.md,Examples,44
+dashboard/dashboard-ops-reverse-proxy.md,Step 2: Configure the reverse proxy,44
+functions-and-operators/bit-functions-and-operators.md,[`&` (bitwise AND)](https://dev.mysql.com/doc/refman/8.0/en/bit-functions.html#operator_bitwise-and),44
+certificate-authentication.md,Generate server key and certificate,43
+partition-pruning.md,Scenario one,43
+as-of-timestamp.md,Read historical data using the `START TRANSACTION READ ONLY AS OF TIMESTAMP` statement,43
+sql-prepared-plan-cache.md,Ignore the `COM_STMT_CLOSE` command and the `DEALLOCATE PREPARE` statement,43
+dumpling-overview.md,Option list of Dumpling,43
+develop/dev-guide-proxysql-integration.md,Option 2: Configure ProxySQL using a configuration file,43
+tidb-cloud/data-service-oas-with-nextjs.md,Step 4. Develop your Next.js application,43
+tidb-cloud/changefeed-sink-to-cloud-storage.md,Step 1. Configure destination,43
+node_modules/micromark-extension-mdxjs-esm/readme.md,Syntax,43
+sql-statements/sql-statement-show-backups.md,Examples,43
+sql-statements/sql-statement-insert.md,Examples,43
+sql-statements/sql-statement-show-stats-healthy.md,Examples,43
+sql-statements/sql-statement-create-view.md,Examples,43
+information-schema/information-schema-tidb-check-constraints.md,TIDB\_CHECK\_CONSTRAINTS,43
+information-schema/information-schema-tidb-servers-info.md,TIDB_SERVERS_INFO,43
+information-schema/information-schema-table-constraints.md,TABLE_CONSTRAINTS,43
+tiflash/tune-tiflash-performance.md,Configure `tiflash_fine_grained_shuffle_stream_count`,43
+tiflash/troubleshoot-tiflash.md,Removing TiFlash nodes is slow,43
+dm/manually-handling-sharding-ddl-locks.md,`shard-ddl-lock unlock`,43
+functions-and-operators/window-functions.md,[`NTH_VALUE()`](https://dev.mysql.com/doc/refman/8.0/en/window-function-descriptions.html#function_nth-value),43
+functions-and-operators/miscellaneous-functions.md,BIN_TO_UUID(),43
+functions-and-operators/string-functions.md,[`CONCAT()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_concat),43
+tidb-lightning/tidb-lightning-physical-import-mode-usage.md,The old version of conflict detection (deprecated in v8.0.0),43
+best-practices/high-concurrency-best-practices.md,Hotspot case,43
+enable-tls-between-components.md,Verify component caller's identity,42
+explain-aggregation.md,Stream Aggregation,42
+runtime-filter.md,Step 4. Performance comparison,42
+identify-slow-queries.md,Memory mapping in slow log,42
+hardware-and-software-requirements.md,Storage requirements,42
+scale-microservices-using-tiup.md,Switch from regular mode to microservices mode,42
+privilege-management.md,Privileges required for TiDB operations,42
+configure-placement-rules.md,"Scenario 2: Place five replicas in three data centers in the proportion of 2:2:1, and the Leader should not be in the third data center",42
+dumpling-overview.md,Use Dumpling to Export Data,42
+tispark-overview.md,TiSpark configurations,42
+develop/dev-guide-use-stale-read.md,Introduction,42
+ticdc/ticdc-ddl.md,DDL allow list,42
+tidb-cloud/v8.1-performance-benchmarking-with-tpcc.md,Test steps,42
+tidb-cloud/v7.5-performance-benchmarking-with-tpcc.md,Test steps,42
+tidb-cloud/v8.5-performance-benchmarking-with-tpcc.md,Test steps,42
+tidb-cloud/v6.5-performance-benchmarking-with-tpcc.md,Test steps,42
+tidb-cloud/v7.1-performance-benchmarking-with-tpcc.md,Test steps,42
+tidb-cloud/set-up-private-endpoint-connections.md,Step 2. Create an AWS interface endpoint,42
+tidb-cloud/setup-azure-self-hosted-kafka-private-link-service.md,"2.2 So the EXTERNAL can be ""b3.abc.eastus.azure.3199745.tidbcloud.com:9095"". Replace <broker_id> with ""b"" prefix plus ""node.id"" properties, and replace <port> with a unique port (9095) in the port range of the EXTERNAL advertised listener.",42
+tidb-cloud/setup-azure-self-hosted-kafka-private-link-service.md,TiDB Cloud will make these addresses resolvable and route requests to the correct broker when you create a changefeed connected to this Kafka cluster via Private Link Service.,42
+tidb-cloud/data-service-response-and-status-code.md,500,42
+tidb-cloud/serverless-driver-drizzle-example.md,Step 3. Create an edge function,42
+tidb-cloud/pause-or-resume-tidb-cluster.md,Pause a TiDB cluster,42
+tidb-cloud/tidb-cloud-auditing.md,Audit log fields,42
+node_modules/mdast-util-gfm-footnote/readme.md,Use,42
+node_modules/markdown-table/readme.md,`options.stringLength`,42
+node_modules/@octokit/plugin-paginate-rest/README.md,`octokit.paginate()`,42
+node_modules/@octokit/oauth-app/README.md,`app.checkToken(options)`,42
+node_modules/sade/readme.md,Single Command Mode,42
+sql-statements/sql-statement-drop-view.md,Examples,42
+sql-statements/sql-statement-grant-privileges.md,Synopsis,42
+sql-statements/sql-statement-split-region.md,Even Spilt,42
+information-schema/information-schema-deadlocks.md,DEADLOCKS,42
+information-schema/information-schema-cluster-config.md,CLUSTER_CONFIG,42
+information-schema/information-schema-variables-info.md,VARIABLES_INFO,42
+information-schema/information-schema-collations.md,COLLATIONS,42
+information-schema/information-schema-cluster-systeminfo.md,CLUSTER_SYSTEMINFO,42
+information-schema/information-schema-inspection-result.md,INSPECTION_RESULT,42
+cached-tables.md,Write data to a cached table,41
+filter-binlog-event.md,Configuration,41
+explain-walkthrough.md,Disable the early execution of subqueries,41
+import-example-data.md,Load data into TiDB,41
+migration-tools.md,Step 2. Install components,41
+system-variables.md,"tidb_constraint_check_in_place_pessimistic <span class=""version-mark"">New in v6.3.0</span>",41
+tikv-in-memory-engine.md,How to determine if the in-memory engine can improve my scenario?,41
+ddl-introduction.md,How the online DDL asynchronous change works in TiDB,41
+dumpling-overview.md,Format of exported files,41
+explain-indexes.md,Point_Get and Batch_Point_Get,41
+tiproxy/tiproxy-overview.md,Enable TiProxy for an existing cluster,41
+develop/dev-guide-connection-parameters.md,Batch-related parameters,41
+ticdc/ticdc-simple-protocol.md,mysqlType reference table,41
+tidb-cloud/vector-search-full-text-search-sql.md,Perform a full-text search,41
+tidb-cloud/serverless-driver-kysely-example.md,Step 3. Use Kysely to query data,41
+resources/doc-templates/patch_release_note_template_zh.md,改进提升,41
+resources/doc-templates/patch_release_note_template_zh.md,错误修复,41
+node_modules/proxy-from-env/README.md,Example,41
+node_modules/bottleneck/README.md,or ioredis (https://github.com/luin/ioredis),41
+node_modules/@octokit/webhooks-methods/README.md,usage,41
+node_modules/@octokit/plugin-throttling/README.md,or ioredis (https://github.com/luin/ioredis),41
+node_modules/@octokit/auth-oauth-device/README.md,For GitHub Apps,41
+node_modules/@octokit/graphql/README.md,Errors,41
+tiflash/tiflash-spill-disk.md,Example,41
+dm/dm-error-handling.md,Error system,41
+dm/manually-handling-sharding-ddl-locks.md,Manual solution,41
+dm/dm-open-api.md,Example,41
+functions-and-operators/sequence-functions.md,`SETVAL()`,41
+br/br-pitr-manual.md,Query the log backup status,41
+enable-tls-between-components.md,Path of the file that contains X509 key in PEM format.,40
+pd-control.md,`member [delete | leader_priority | leader [show | resign | transfer <member_name>]]`,40
+tidb-resource-control-ru-groups.md,What is Request Unit (RU),40
+replicate-data-to-kafka.md,(Optional) Step 4. Configure Flink to consume Kafka data,40
+dr-secondary-cluster.md,The path where redo logs are saved.,40
+latency-breakdown.md,Batch client,40
+explain-subqueries.md,Null-aware semi join (`IN` and `= ANY` subqueries),40
+sql-plan-management.md,Troubleshoot a binding,40
+sql-plan-management.md,Usage,40
+tidb-performance-tuning-config.md,System variables,40
+develop/dev-guide-use-subqueries.md,Self-contained subquery,40
+develop/dev-guide-sample-application-nodejs-sequelize.md,Connect to TiDB,40
+ticdc/ticdc-sink-to-kafka.md,Consume large messages from external storage,40
+tidb-cloud/terraform-use-serverless-export-resource.md,tidbcloud_serverless_export.example will be created,40
+tidb-cloud/v7.5-performance-benchmarking-with-sysbench.md,Test steps,40
+tidb-cloud/v8.5-performance-benchmarking-with-sysbench.md,Test steps,40
+tidb-cloud/terraform-use-dedicated-private-endpoint-connection-resource.md,tidbcloud_dedicated_private_endpoint_connection.example will be created,40
+tidb-cloud/serverless-driver-prisma-example.md,Step 3. Define your schema,40
+tidb-cloud/v8.1-performance-benchmarking-with-sysbench.md,Test steps,40
+tidb-cloud/data-service-get-started.md,3. Use the code example,40
+tidb-cloud/serverless-export.md,Data conversion,40
+tidb-cloud/v6.5-performance-benchmarking-with-sysbench.md,Test steps,40
+tidb-cloud/v7.1-performance-benchmarking-with-sysbench.md,Test steps,40
+node_modules/universal-github-app-jwt/README.md,Usage,40
+node_modules/axios/README.md,Table of Contents,40
+node_modules/axios/README.md,CancelToken `👎deprecated`,40
+sql-statements/sql-statement-revoke-privileges.md,Synopsis,40
+sql-statements/sql-statement-flush-status.md,Examples,40
+sql-statements/sql-statement-rename-user.md,Examples,40
+sql-statements/sql-statement-explain-analyze.md,Examples,40
+sql-statements/sql-statement-show-config.md,Examples,40
+sql-statements/sql-statement-admin-show-ddl.md,`ADMIN SHOW DDL JOB QUERIES LIMIT m OFFSET n`,40
+sql-statements/sql-statement-show-character-set.md,Examples,40
+information-schema/information-schema-session-variables.md,SESSION_VARIABLES,40
+information-schema/information-schema-character-sets.md,CHARACTER_SETS,40
+tiflash/tiflash-supported-pushdown-calculations.md,Example 4: Window functions,40
+functions-and-operators/set-operators.md,UNION operator,40
+functions-and-operators/string-functions.md,[`HEX()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_hex),40
+tiup/tiup-mirror-reference.md,Snapshot,40
+tiup/tiup-bench.md,Stress Test TiDB Using TiUP Bench Component,40
+tiup/tiup-cluster.md,Deploy and Maintain an Online TiDB Cluster Using TiUP,40
+tune-tikv-thread-performance.md,Performance tuning for TiKV thread pools,39
+optimizer-hints.md,SEMI_JOIN_REWRITE(),39
+best-practices-for-security-configuration.md,Protect internal ports,39
+configure-time-zone.md,Functions and data types affected by time zone settings,39
+latency-breakdown.md,General SQL layer,39
+auto-increment.md,Cache size control,39
+ticdc/ticdc-open-protocol.md,DDL Type Code,39
+ticdc/ticdc-simple-protocol.md,UPDATE,39
+ticdc/ticdc-sink-to-kafka.md,Partition dispatchers,39
+ticdc/ticdc-manage-changefeed.md,Manage processing units of replication sub-tasks (`processor`),39
+ticdc/ticdc-canal-json.md,Changes in the `Old` field of the `Delete` events,39
+ticdc/ticdc-avro-protocol.md,TiDB extension fields,39
+tidb-cloud/terraform-use-backup-resource.md,Create a backup with the backup resource,39
+tidb-cloud/migrate-from-op-tidb.md,"<Your AWS KMS ARN>: fill in the ARN for the S3 bucket KMS key. You can get it from S3 bucket > Properties > Default encryption > AWS KMS Key ARN. For more information, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/viewing-bucket-key-settings.html",39
+tidb-cloud/terraform-use-import-resource.md,tidbcloud_import.example_local:,39
+tidb-cloud/terraform-use-serverless-branch-resource.md,tidbcloud_serverless_branch.example will be created,39
+tidb-cloud/changefeed-sink-to-apache-kafka.md,Network,39
+tidb-cloud/terraform-use-restore-resource.md,tidbcloud_restore.example_restore:,39
+tidb-cloud/terraform-use-dedicated-vpc-peering-resource.md,tidbcloud_dedicated_vpc_peering.example will be created,39
+node_modules/before-after-hook/README.md,hookCollection.error(),39
+node_modules/before-after-hook/README.md,hookCollection.after(),39
+node_modules/micromark/readme.md,Use,39
+node_modules/@octokit/webhooks/README.md,Constructor,39
+vector-search/vector-search-integrate-with-langchain.md,Option 1: Use `similarity_search_with_score()`,39
+sql-statements/sql-statement-create-index.md,Synopsis,39
+dm/dm-manage-schema.md,Delete the table schema,39
+functions-and-operators/bit-functions-and-operators.md,[`BIT_COUNT()`](https://dev.mysql.com/doc/refman/8.0/en/bit-functions.html#function_bit-count),39
+functions-and-operators/encryption-and-compression-functions.md,[`COMPRESS()`](https://dev.mysql.com/doc/refman/8.0/en/encryption-functions.html#function_compress),39
+functions-and-operators/string-functions.md,[`OCT()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_oct),39
+functions-and-operators/string-functions.md,[`ORD()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_ord),39
+functions-and-operators/string-functions.md,[`REGEXP_LIKE()`](https://dev.mysql.com/doc/refman/8.0/en/regexp.html#function_regexp-like),39
+tiup/tiup-cluster-topology-reference.md,`tispark_masters`,39
+tiup/tiup-cluster.md,Update configuration,39
+br/backup-and-restore-storages.md,URI examples,39
+upgrade-tidb-using-tiup.md,Upgrade TiDB Using TiUP,38
+tidb-control.md,The `keyrange` command,38
+mysql-compatibility.md,Auto-increment ID,38
+role-based-access-control.md,Enable a role in the current session,38
+system-variable-reference.md,sql_mode,38
+sql-prepared-plan-cache.md,Clear execution plan cache,38
+latency-breakdown.md,Table scan & Index scan,38
+clustered-indexes.md,Check whether the primary key is a clustered index,38
+transaction-overview.md,Lazy check of constraints,38
+troubleshoot-lock-conflicts.md,Read-write conflicts,38
+sql-plan-management.md,Utilize the statement summary table to obtain queries that need to be bound,38
+foreign-key.md,Usage examples of foreign keys,38
+develop/dev-guide-timeouts-in-tidb.md,GC timeout,38
+develop/dev-guide-sample-application-java-mybatis.md,Connect to TiDB,38
+ticdc/ticdc-canal-json.md,DDL Event,38
+tidb-cloud/notification-2023-09-26-console-maintenance.md,Affected features of TiDB Cloud console UI,38
+tidb-cloud/changefeed-sink-to-apache-pulsar.md,Step 3. Configure the changefeed replication,38
+tidb-cloud/setup-azure-self-hosted-kafka-private-link-service.md,2. Set up Kafka brokers,38
+tidb-cloud/setup-self-hosted-kafka-private-service-connect.md,Step 2. Expose Kafka-proxy as Private Service Connect Service,38
+tidb-cloud/terraform-use-serverless-cluster-resource.md,Create a TiDB Cloud Serverless cluster,38
+tidb-cloud/get-started-with-cli.md,Installation,38
+tidb-cloud/tidb-cloud-import-local-files.md,Import local files,38
+node_modules/before-after-hook/README.md,hookCollection.before(),38
+node_modules/safe-buffer/README.md,Class Method: Buffer.allocUnsafeSlow(size),38
+node_modules/markdown-table/readme.md,Use,38
+node_modules/bottleneck/README.md,Retries,38
+node_modules/semver/node_modules/lru-cache/README.md,Options,38
+node_modules/mdast-util-mdx-jsx/readme.md,License,38
+node_modules/form-data/Readme.md,Usage,38
+node_modules/@octokit/auth-oauth-user/README.md,`auth(options)` or `octokit.auth(options)`,38
+node_modules/octokit/README.md,Usage,38
+node_modules/octokit/README.md,Authentication,38
+node_modules/debug/README.md,Usage,38
+sql-statements/sql-statement-show-placement-for.md,Examples,38
+sql-statements/sql-statement-overview.md,Schema management / Data definition statements (DDL),38
+information-schema/information-schema-schemata.md,SCHEMATA,38
+tiflash/tune-tiflash-performance.md,Enable `Distinct` optimization,38
+tiflash/tiflash-late-materialization.md,Enable or disable TiFlash late materialization,38
+tiflash/tiflash-spill-disk.md,Example,38
+dm/relay-log.md,Directory structure,38
+dm/dm-query-status.md,Query result,38
+functions-and-operators/window-functions.md,[`LAST_VALUE()`](https://dev.mysql.com/doc/refman/8.0/en/window-function-descriptions.html#function_last-value),38
+functions-and-operators/string-functions.md,[`FORMAT()`](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_format),38
+functions-and-operators/tidb-functions.md,TIDB_DECODE_SQL_DIGESTS,38
+functions-and-operators/json-functions/json-functions-search.md,[JSON_CONTAINS_PATH()](https://dev.mysql.com/doc/refman/8.0/en/json-search-functions.html#function_json-contains-path),38
+tiup/tiup-mirror.md,Work with custom components,38
+tiup/tiup-dm-topology-reference.md,`master_servers`,38
+check-before-deployment.md,Configure the firewall,37
+scale-tidb-using-tiup.md,Scale out a TiFlash cluster,37
+basic-sql-operations.md,"Create, show, and drop an index",37
+configure-memory-usage.md,Trigger the alarm of excessive memory usage,37
+troubleshoot-tidb-oom.md,Diagnostic information to be collected to troubleshoot OOM issues,37
+transaction-overview.md,Statement rollback,37
+tiproxy/tiproxy-overview.md,Create a cluster with TiProxy,37
+develop/dev-guide-optimize-sql.md,Solution: Use secondary index,37
+ticdc/integrate-confluent-using-ticdc.md,Step 3. Create a Kafka changefeed,37
+ticdc/integrate-confluent-using-ticdc.md,Integrate data with SQL Server,37
+ticdc/ticdc-canal-json.md,Integer types,37
+tidb-cloud/data-service-manage-endpoint.md,Basic properties,37
+tidb-cloud/data-service-manage-endpoint.md,Write SQL statements,37
+tidb-cloud/import-with-mysql-cli-serverless.md,Step 3. Import data from a SQL or CSV file,37
+tidb-cloud/import-with-mysql-cli.md,Step 3. Import data from a SQL or CSV file,37
+tidb-cloud/notification-2023-08-31-console-maintenance.md,Affected features of TiDB Cloud console UI,37
+tidb-cloud/integrate-tidbcloud-with-netlify.md,Step 2. Deploy the example app to Netlify,37
+tidb-cloud/troubleshoot-import-access-denied-error.md,Check the policy of the IAM user,37
+tidb-cloud/serverless-driver-kysely-example.md,Step 1. Create a project,37
+tidb-cloud/dedicated-external-storage.md,Configure GCS access,37
+tidb-cloud/data-service-get-started.md,Write SQL statements,37
+tidb-cloud/notification-2024-09-15-console-maintenance.md,Affected features of TiDB Cloud console UI,37
+node_modules/once/README.md,usage,37
+node_modules/combined-stream/Readme.md,Usage,37
+node_modules/estree-util-visit/readme.md,License,37
+node_modules/mdast-util-to-markdown/readme.md,Use,37
+node_modules/semver/README.md,Ranges,37
+node_modules/vfile/readme.md,License,37
+node_modules/@octokit/core/README.md,Defaults,37
+node_modules/mdast-util-gfm-strikethrough/readme.md,Use,37
+node_modules/axios/README.md,Handling Errors,37
+node_modules/axios/README.md,🆕 Automatic serialization to URLSearchParams,37
+sql-statements/sql-statement-analyze-table.md,Examples,37
+information-schema/information-schema-tidb-hot-regions.md,TIDB_HOT_REGIONS,37
+information-schema/information-schema-check-constraints.md,CHECK\_CONSTRAINTS,37
+dm/handle-failed-ddl-statements.md,binlog,37
+dm/dm-block-allow-table-lists.md,Usage examples,37
+functions-and-operators/aggregate-group-by-functions.md,Differences from MySQL,37
+functions-and-operators/window-functions.md,[`LEAD()`](https://dev.mysql.com/doc/refman/8.0/en/window-function-descriptions.html#function_lead),37
+functions-and-operators/window-functions.md,[`NTILE()`](https://dev.mysql.com/doc/refman/8.0/en/window-function-descriptions.html#function_ntile),37
+functions-and-operators/window-functions.md,[`ROW_NUMBER()`](https://dev.mysql.com/doc/refman/8.0/en/window-function-descriptions.html#function_row-number),37
+functions-and-operators/json-functions/json-functions-modify.md,[JSON_UNQUOTE()](https://dev.mysql.com/doc/refman/8.0/en/json-modification-functions.html#function_json-unquote),37
+tiup/tiup-cluster-topology-reference.md,`global`,37
+br/br-checkpoint-restore.md,Implementation details: store checkpoint data in the external storage,37
+tidb-control.md,The `in` subcommand,36
+tikv-control.md,Modify the TiKV configuration dynamically,36
+constraints.md,FOREIGN KEY,36
+filter-dml-event.md,Filter DML Events Using SQL Expressions,36
+partitioned-table.md,List partitioning,36
+partitioned-table.md,Decrease the number of partitions,36
+develop/dev-guide-playground-gitpod.md,Import your Dockerfile here.,36
+develop/dev-guide-paginate-results.md,Non-clustered index table,36
+develop/dev-guide-optimize-sql-best-practices.md,Use `PREPARE`,36
+develop/dev-guide-aws-appflow-integration.md,Set the source and destination tables,36
