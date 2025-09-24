@@ -1,4 +1,4 @@
-# This scripts counts the number of lines in each section of .md files in the target path (including .md files in the subdirectories) and reports the top 1000 sections with the most lines in a csv file. 
+# This scripts counts the number of lines in each section of .md files in the target path (including .md files in the subdirectories) and reports the top 200 sections with the most lines in a csv file. 
 
 # Note that "the number of lines in each section" only counts the lines in the section, not the lines in the section's sub-sections.
 
@@ -71,6 +71,41 @@ def parse_markdown_sections(content, file_name):
     
     return sections
 
+def create_section_anchor(section_name):
+    """Create a markdown anchor from section name."""
+    # Convert to lowercase and replace spaces/special chars with hyphens
+    anchor = re.sub(r'[^a-zA-Z0-9\s-]', '', section_name.lower())
+    anchor = re.sub(r'\s+', '-', anchor.strip())
+    anchor = re.sub(r'-+', '-', anchor)  # Remove multiple consecutive hyphens
+    return anchor.strip('-')
+
+def write_markdown_report(sections, output_file='sections_with_most_lines.md'):
+    """Write the sections report as a markdown file with clickable links."""
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write("# Sections with Most Lines Report\n\n")
+        f.write("This report shows the top sections from markdown files ordered by line count.\n\n")
+        f.write("| Rank | Document | Section | Lines |\n")
+        f.write("|------|----------|---------|-------|\n")
+        
+        for i, section in enumerate(sections, 1):
+            doc_name = section['doc_name']
+            section_name = section['section_name']
+            line_count = section['line_count']
+            
+            # Create the section anchor
+            section_anchor = create_section_anchor(section_name)
+            
+            # Create the clickable link - format: [Section Name](file.md#section-anchor)
+            if section_anchor:
+                section_link = f"[{section_name}]({doc_name}#{section_anchor})"
+            else:
+                # Fallback to just file link if anchor creation fails
+                section_link = f"[{section_name}]({doc_name})"
+            
+            f.write(f"| {i} | {doc_name} | {section_link} | {line_count} |\n")
+        
+        f.write(f"\n---\n*Report generated from {len(sections)} sections*\n")
+
 def find_markdown_files(target_path, exclude_paths):
     """Find all .md files in the target path, excluding specified paths."""
     md_files = []
@@ -112,13 +147,13 @@ def main():
             print(f"Error processing {file_path}: {e}")
             continue
     
-    # Sort sections by line count (descending) and take top 1000
+    # Sort sections by line count (descending) and take top 200
     all_sections.sort(key=lambda x: x['line_count'], reverse=True)
-    top_sections = all_sections[:1000]
+    top_sections = all_sections[:200]
     
     # Write to CSV
-    output_file = 'sections_with_most_lines.csv'
-    with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+    csv_output_file = 'sections_with_most_lines.csv'
+    with open(csv_output_file, 'w', newline='', encoding='utf-8') as csvfile:
         fieldnames = ['doc_name', 'section_name', 'number_of_lines']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         
@@ -130,9 +165,14 @@ def main():
                 'number_of_lines': section['line_count']
             })
     
-    print(f"Report generated: {output_file}")
+    # Write to Markdown
+    md_output_file = 'sections_with_most_lines.md'
+    write_markdown_report(top_sections, md_output_file)
+    
+    print(f"CSV report generated: {csv_output_file}")
+    print(f"Markdown report generated: {md_output_file}")
     print(f"Total sections processed: {len(all_sections)}")
-    print(f"Top {len(top_sections)} sections written to CSV")
+    print(f"Top {len(top_sections)} sections written to both CSV and Markdown")
     
     if top_sections:
         print(f"Top section: '{top_sections[0]['section_name']}' in '{top_sections[0]['doc_name']}' with {top_sections[0]['line_count']} lines")
