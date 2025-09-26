@@ -12,7 +12,7 @@ from github import Github, Auth
 
 # Conditional import for Gemini
 try:
-    from google import genai
+    import google.generativeai as genai
     GEMINI_AVAILABLE = True
 except ImportError:
     GEMINI_AVAILABLE = False
@@ -154,10 +154,10 @@ class UnifiedAIClient:
             self.model = "deepseek-chat"
         elif provider == "gemini":
             if not GEMINI_AVAILABLE:
-                raise ImportError("google.generativeai package not installed. Run: pip install google-generativeai")
+                raise ImportError("google-generativeai package not installed. Run: pip install google-generativeai")
             if not GEMINI_API_KEY:
                 raise ValueError("GEMINI_API_TOKEN environment variable must be set")
-            self.client = genai.Client(api_key=GEMINI_API_KEY)
+            genai.configure(api_key=GEMINI_API_KEY)
             self.model = GEMINI_MODEL_NAME
         else:
             raise ValueError(f"Unsupported AI provider: {provider}")
@@ -178,11 +178,9 @@ class UnifiedAIClient:
                 prompt = self._convert_messages_to_prompt(messages)
                 thread_safe_print(f"   🔄 Calling Gemini API...")
                 
-                # Use the correct Gemini API call format (based on your reference file)
-                response = self.client.models.generate_content(
-                    model=self.model, 
-                    contents=prompt
-                )
+                # Use the correct Gemini API call format
+                model = genai.GenerativeModel(self.model)
+                response = model.generate_content(prompt)
                 
                 if response and response.text:
                     thread_safe_print(f"   ✅ Gemini response received")
