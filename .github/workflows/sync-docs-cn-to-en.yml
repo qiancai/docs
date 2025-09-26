@@ -91,6 +91,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Run sync script
+        id: sync_script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEEPSEEK_API_TOKEN: ${{ secrets.DEEPSEEK_API_TOKEN }}
@@ -101,9 +102,17 @@ jobs:
           TARGET_REPO_PATH: ${{ github.workspace }}/target_repo
         run: |
           cd scripts/translate_doc_pr
-          python main_workflow.py
+          if python main_workflow.py; then
+            echo "sync_success=true" >> $GITHUB_OUTPUT
+            echo "✅ Sync script completed successfully"
+          else
+            echo "sync_success=false" >> $GITHUB_OUTPUT
+            echo "❌ Sync script failed"
+            exit 1
+          fi
 
       - name: Commit and push changes
+        if: steps.sync_script.outputs.sync_success == 'true'
         run: |
           cd target_repo
           git add .
@@ -122,13 +131,26 @@ jobs:
             echo "Changes pushed to target PR branch: ${{ steps.target_branch.outputs.target_branch }}"
           fi
 
-      - name: Add comment to target PR
+      - name: Add success comment to target PR
+        if: steps.sync_script.outputs.sync_success == 'true'
         run: |
-          # Add a comment to the target PR about the sync
+          # Add a comment to the target PR about the sync success
           curl -X POST \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/${{ steps.extract_info.outputs.target_owner }}/${{ steps.extract_info.outputs.target_repo }}/issues/${{ steps.extract_info.outputs.target_pr }}/comments" \
             -d "{
-              \"body\": \"🤖 **Auto-sync completed**\\n\\n📥 **Source PR**: ${{ github.event.inputs.source_pr_url }}\\n🎯 **Target PR**: ${{ github.event.inputs.target_pr_url }}\\n✅ English documentation has been updated based on Chinese documentation changes.\\n\\n_This comment was generated automatically by the sync workflow._\"
+              \"body\": \"🤖 **Auto-sync completed successfully**\\n\\n📥 **Source PR**: ${{ github.event.inputs.source_pr_url }}\\n🎯 **Target PR**: ${{ github.event.inputs.target_pr_url }}\\n✅ English documentation has been updated based on Chinese documentation changes.\\n\\n_This comment was generated automatically by the sync workflow._\"
+            }"
+
+      - name: Add failure comment to target PR
+        if: steps.sync_script.outputs.sync_success == 'false'
+        run: |
+          # Add a comment to the target PR about the sync failure
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ steps.extract_info.outputs.target_owner }}/${{ steps.extract_info.outputs.target_repo }}/issues/${{ steps.extract_info.outputs.target_pr }}/comments" \
+            -d "{
+              \"body\": \"🤖 **Auto-sync failed**\\n\\n📥 **Source PR**: ${{ github.event.inputs.source_pr_url }}\\n🎯 **Target PR**: ${{ github.event.inputs.target_pr_url }}\\n❌ The sync process encountered an error. Please check the workflow logs for details.\\n\\n_This comment was generated automatically by the sync workflow._\"
             }"
