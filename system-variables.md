@@ -1791,6 +1791,16 @@ Assume that you have a cluster with 4 TiDB nodes and multiple TiKV nodes. In thi
 - This variable is renamed from the variable [`tidb_ddl_version`](https://docs-archive.pingcap.com/tidb/v7.6/system-variables#tidb_ddl_version-new-in-v760) that is introduced in v7.6.0. Starting from v8.0.0, `tidb_ddl_version` no longer takes effect.
 - Starting from TiDB v8.5.0, the accelerated table creation feature is enabled by default for newly created clusters, with `tidb_enable_fast_create_table` set to `ON`. For clusters upgraded from v8.4.0 or earlier versions, the default value of `tidb_enable_fast_create_table` remains unchanged.
 
+### `tidb_opt_selectivity_factor` <span class="version-mark">Introduced in v9.0.0</span>
+
+- Scope: SESSION | GLOBAL
+- Is persisted to the cluster: Yes
+- Is controllable by Hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): Yes
+- Type: Float
+- Range: `[0, 1]`
+- Default value: `0.8`
+- This variable is used to specify the default selectivity of the TiDB optimizer. In some cases, when the optimizer cannot derive the predicate selectivity from statistics, the optimizer uses this default selectivity as a fallback value. **It is not recommended** to modify this value.
+
 ### tidb_default_string_match_selectivity <span class="version-mark">New in v6.2.0</span>
 
 - Scope: SESSION | GLOBAL
