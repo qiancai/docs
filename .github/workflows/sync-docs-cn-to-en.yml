@@ -25,13 +25,20 @@ on:
 jobs:
   sync-docs:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
+
+      - name: Checkout ai-pr-translator repository
+        uses: actions/checkout@v4
+        with:
+          repository: "qiancai/ai-pr-translator"
+          ref: "main"
+          path: "ai-pr-translator"
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -41,7 +48,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r scripts/translate_doc_pr/requirements.txt
+          pip install -r ai-pr-translator/scripts/requirements.txt
 
       - name: Extract PR information
         id: extract_info
@@ -101,7 +108,7 @@ jobs:
           AI_PROVIDER: ${{ github.event.inputs.ai_provider }}
           TARGET_REPO_PATH: ${{ github.workspace }}/target_repo
         run: |
-          cd scripts/translate_doc_pr
+          cd ai-pr-translator/scripts
           if python main_workflow.py; then
             echo "sync_success=true" >> $GITHUB_OUTPUT
             echo "✅ Sync script completed successfully"
@@ -120,13 +127,13 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Auto-sync: Update English docs from Chinese PR ${{ github.event.inputs.source_pr_url }}
-            
+
             Synced from: ${{ github.event.inputs.source_pr_url }}
             Target PR: ${{ github.event.inputs.target_pr_url }}
             AI Provider: ${{ github.event.inputs.ai_provider }}
-            
+
             Co-authored-by: github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
-            
+
             git push origin ${{ steps.target_branch.outputs.target_branch }}
             echo "Changes pushed to target PR branch: ${{ steps.target_branch.outputs.target_branch }}"
           fi
