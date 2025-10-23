@@ -78,20 +78,24 @@ jobs:
       - name: Get target PR branch info
         id: target_branch
         run: |
-          # Get target PR branch name
-          TARGET_BRANCH=$(curl -s \
+          # Get target PR information including head repository
+          PR_INFO=$(curl -s \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/${{ steps.extract_info.outputs.target_owner }}/${{ steps.extract_info.outputs.target_repo }}/pulls/${{ steps.extract_info.outputs.target_pr }}" \
-            | jq -r '.head.ref')
+            "https://api.github.com/repos/${{ steps.extract_info.outputs.target_owner }}/${{ steps.extract_info.outputs.target_repo }}/pulls/${{ steps.extract_info.outputs.target_pr }}")
+          
+          TARGET_BRANCH=$(echo "$PR_INFO" | jq -r '.head.ref')
+          HEAD_REPO=$(echo "$PR_INFO" | jq -r '.head.repo.full_name')
           
           echo "target_branch=${TARGET_BRANCH}" >> $GITHUB_OUTPUT
+          echo "head_repo=${HEAD_REPO}" >> $GITHUB_OUTPUT
           echo "Target branch: ${TARGET_BRANCH}"
+          echo "Head repository: ${HEAD_REPO}"
 
       - name: Clone target repository
         run: |
-          # Clone target repository with the PR branch
-          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ steps.extract_info.outputs.target_owner }}/${{ steps.extract_info.outputs.target_repo }}.git target_repo
+          # Clone the head repository (where the PR branch is)
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ steps.target_branch.outputs.head_repo }}.git target_repo
           cd target_repo
           git checkout ${{ steps.target_branch.outputs.target_branch }}
           git config user.name "github-actions[bot]"
