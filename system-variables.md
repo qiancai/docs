@@ -1792,6 +1792,16 @@ Assume that you have a cluster with 4 TiDB nodes and multiple TiKV nodes. In thi
 
 ### `tidb_enable_fast_create_table` <span class="version-mark">New in v8.0.0</span>
 
+### `tidb_opt_selectivity_factor` <span class="version-mark">Introduced in v9.0.0</span>
+
+- Scope: SESSION | GLOBAL
+- Persist to cluster: Yes
+- Controlled by Hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): Yes
+- Type: Floating-point number
+- Range: `[0, 1]`
+- Default value: `0.8`
+- This variable is used to specify the default selectivity of the TiDB optimizer. In some cases, when the optimizer cannot derive the predicate selectivity based on statistics, the optimizer uses this default selectivity as an alternative value. **It is not recommended** to modify this value.
+
 - Scope: GLOBAL
 - Persists to cluster: Yes
 - Applies to hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): No
