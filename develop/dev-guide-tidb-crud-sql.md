@@ -1,15 +1,15 @@
 ---
 title: CRUD SQL in TiDB
-summary: A brief introduction to TiDB's CURD SQL.
+summary: A brief introduction to TiDB's CRUD SQL.
 ---
 
 # CRUD SQL in TiDB
 
-This document briefly introduces how to use TiDB's CURD SQL.
+This document briefly introduces how to use TiDB's CRUD SQL.
 
 ## Before you start
 
-Please make sure you are connected to a TiDB cluster. If not, refer to [Build a TiDB Cloud Serverless Cluster](/develop/dev-guide-build-cluster-in-cloud.md#step-1-create-a-tidb-cloud-serverless-cluster) to create a TiDB Cloud Serverless cluster.
+Please make sure you are connected to a TiDB cluster. If not, refer to [Build a {{{ .starter }}} Cluster](/develop/dev-guide-build-cluster-in-cloud.md#step-1-create-a-tidb-cloud-cluster) to create a {{{ .starter }}} cluster.
 
 ## Explore SQL with TiDB
 
@@ -106,12 +106,12 @@ SELECT * FROM person WHERE id < 5;
 
 <CustomContent platform="tidb">
 
-Ask questions on [TiDB Community](https://ask.pingcap.com/), or [create a support ticket](/support.md).
+Ask the community on [Discord](https://discord.gg/DQZ2dy3cuc?utm_source=doc) or [Slack](https://slack.tidb.io/invite?team=tidb-community&channel=everyone&ref=pingcap-docs), or [submit a support ticket](/support.md).
 
 </CustomContent>
 
 <CustomContent platform="tidb-cloud">
 
-Ask questions on [TiDB Community](https://ask.pingcap.com/), or [create a support ticket](https://support.pingcap.com/).
+Ask the community on [Discord](https://discord.gg/DQZ2dy3cuc?utm_source=doc) or [Slack](https://slack.tidb.io/invite?team=tidb-community&channel=everyone&ref=pingcap-docs), or [submit a support ticket](https://tidb.support.pingcap.com/).
 
 </CustomContent>

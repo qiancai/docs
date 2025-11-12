@@ -36,19 +36,18 @@ tiup br backup full \
     --pd "${PD_IP}:2379" \
     --backupts '2024-06-28 13:30:00 +08:00' \
     --storage "s3://${backup_collection_addr}/snapshot-${date}?access-key=${access-key}&secret-access-key=${secret-access-key}" \
-    --ratelimit 128 \
     --log-file backupfull.log
 ```
 
 In the preceding command:
 
-- `--backupts`: The time point of the snapshot. The format can be [TSO](/glossary.md#tso) or timestamp, such as `400036290571534337` or `2024-06-28 13:30:00 +08:00`. If the data of this snapshot is garbage collected, the `tiup br backup` command returns an error and 'br' exits. If you leave this parameter unspecified, `br` picks the snapshot corresponding to the backup start time.
-- `--ratelimit`: The maximum speed **per TiKV** performing backup tasks. The unit is in MiB/s.
+- `--backupts`: The time point of the snapshot. The format can be [TSO](/tso.md) or timestamp, such as `400036290571534337` or `2024-06-28 13:30:00 +08:00`. If the data of this snapshot is garbage collected, the `tiup br backup` command returns an error and 'br' exits. If you leave this parameter unspecified, `br` picks the snapshot corresponding to the backup start time.
 - `--log-file`: The target file where `br` log is written.
 
 > **Note:**
 >
-> The BR tool already supports self-adapting to GC. It automatically registers `backupTS` (the latest PD timestamp by default) to PD's `safePoint` to ensure that TiDB's GC Safe Point does not move forward during the backup, thus avoiding manually setting GC configurations.
+> - Starting from v8.5.0, the BR tool disables the table-level checksum calculation during full backups by default (`--checksum=false`) to improve backup performance.
+> - The BR tool already supports self-adapting to GC. It automatically registers `backupTS` (the latest PD timestamp by default) to PD's `safePoint` to ensure that TiDB's GC Safe Point does not move forward during the backup, thus avoiding manually setting GC configurations.
 
 During backup, a progress bar is displayed in the terminal, as shown below. When the progress bar advances to 100%, the backup is complete.
 
@@ -71,7 +70,6 @@ tiup br backup db \
     --pd "${PD_IP}:2379" \
     --db test \
     --storage "s3://${backup_collection_addr}/snapshot-${date}?access-key=${access-key}&secret-access-key=${secret-access-key}" \
-    --ratelimit 128 \
     --log-file backuptable.log
 ```
 
@@ -89,7 +87,6 @@ tiup br backup table \
     --db test \
     --table usertable \
     --storage "s3://${backup_collection_addr}/snapshot-${date}?access-key=${access-key}&secret-access-key=${secret-access-key}" \
-    --ratelimit 128 \
     --log-file backuptable.log
 ```
 
@@ -106,7 +103,6 @@ tiup br backup full \
     --pd "${PD_IP}:2379" \
     --filter 'db*.tbl*' \
     --storage "s3://${backup_collection_addr}/snapshot-${date}?access-key=${access-key}&secret-access-key=${secret-access-key}" \
-    --ratelimit 128 \
     --log-file backupfull.log
 ```
 
@@ -131,13 +127,22 @@ tiup br restore full \
 --storage local:///br_data/ --pd "${PD_IP}:2379" --log-file restore.log
 ```
 
+> **Note:**
+>
+> Starting from v9.0.0, when the `--load-stats` parameter is set to `false`, BR no longer writes statistics for the restored tables to the `mysql.stats_meta` table. After the restore is complete, you can manually execute the [`ANALYZE TABLE`](/sql-statements/sql-statement-analyze-table.md) SQL statement to update the relevant statistics.
+
 When the backup and restore feature backs up data, it stores statistics in JSON format within the `backupmeta` file. When restoring data, it loads statistics in JSON format into the cluster. For more information, see [LOAD STATS](/sql-statements/sql-statement-load-stats.md).
 
-## Encrypt the backup data
+Starting from 9.0.0, BR introduces the `--fast-load-sys-tables` parameter, which is enabled by default. When restoring data to a new cluster using the `br` command-line tool, and the IDs of tables and partitions between the upstream and downstream clusters can be reused (otherwise, BR will automatically fall back to logically load statistics), enabling `--fast-load-sys-tables` lets BR to first restore the statistics-related system tables to the temporary system database `__TiDB_BR_Temporary_mysql`, and then atomically swap these tables with the corresponding tables in the `mysql` database using the `RENAME TABLE` statement.
 
-> **Warning:**
->
-> This is an experimental feature. It is not recommended that you use it in the production environment.
+The following is an example:
+
+```shell
+tiup br restore full \
+--storage local:///br_data/ --pd "${PD_IP}:2379" --log-file restore.log --load-stats --fast-load-sys-tables
+```
+
+## Encrypt the backup data
 
 BR supports encrypting backup data at the backup side and [at the storage side when backing up to Amazon S3](/br/backup-and-restore-storages.md#amazon-s3-server-side-encryption). You can choose either encryption method as required.
 
@@ -184,8 +189,26 @@ In the preceding command:
 During restore, a progress bar is displayed in the terminal as shown below. When the progress bar advances to 100%, the restore task is completed. Then `br` will verify the restored data to ensure data security.
 
 ```shell
-Full Restore <---------/...............................................> 17.12%.
+Split&Scatter Region <--------------------------------------------------------------------> 100.00%
+Download&Ingest SST <---------------------------------------------------------------------> 100.00%
+Restore Pipeline <-------------------------/...............................................> 17.12%
 ```
+
+Starting from TiDB v9.0.0, BR lets you specify `--fast-load-sys-tables` to restore statistics physically in a new cluster:
+
+```shell
+tiup br restore full \
+    --pd "${PD_IP}:2379" \
+    --with-sys-table \
+    --fast-load-sys-tables \
+    --storage "s3://${backup_collection_addr}/snapshot-${date}?access-key=${access-key}&secret-access-key=${secret-access-key}" \
+    --ratelimit 128 \
+    --log-file restorefull.log
+```
+
+> **Note:**
+>
+> Unlike the logical restoration of system tables using the `REPLACE INTO` SQL statement, physical restoration completely overwrites the existing data in the system tables.
 
 ## Restore a database or a table
 
@@ -278,10 +301,6 @@ ADMIN RELOAD BINDINGS;
 ```
 
 ## Restore encrypted snapshots
-
-> **Warning:**
->
-> This is an experimental feature. It is not recommended that you use it in the production environment.
 
 After encrypting the backup data, you need to pass in the corresponding decryption parameters to restore the data. Ensure that the decryption algorithm and key are correct. If the decryption algorithm or key is incorrect, the data cannot be restored. The following is an example:
 

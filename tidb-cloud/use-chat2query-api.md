@@ -21,7 +21,7 @@ Before calling Chat2Query endpoints, you need to create a Chat2Query Data App an
 
 To create a Data App for your project, perform the following steps:
 
-1. On the [**Data Service**](https://tidbcloud.com/console/data-service) page of your project, click <MDSvgIcon name="icon-create-data-app" /> **Create DataApp** in the left pane. The data app creation dialog is displayed.
+1. On the [**Data Service**](https://tidbcloud.com/project/data-service) page of your project, click <MDSvgIcon name="icon-create-data-app" /> **Create DataApp** in the left pane. The data app creation dialog is displayed.
 
     > **Tip:**
     >
@@ -39,7 +39,7 @@ Before calling an endpoint, you need to create an API key for the Chat2Query Dat
 
 To create an API key, perform the following steps:
 
-1. In the left pane of [**Data Service**](https://tidbcloud.com/console/data-service), click your Chat2Query Data App to view its details on the right side.
+1. In the left pane of [**Data Service**](https://tidbcloud.com/project/data-service), click your Chat2Query Data App to view its details on the right side.
 2. In the **Authentication** area, click **Create API Key**.
 3. In the **Create API Key** dialog, enter a description, and then select one of the following roles for your API key:
 
@@ -65,7 +65,7 @@ To create an API key, perform the following steps:
 
 > **Note:**
 >
-> Each Chat2Query Data App has a rate limit of 100 requests per day. If you exceed the rate limit, the API returns a `429` error. For more quota, you can [submit a request](https://support.pingcap.com/hc/en-us/requests/new?ticket_form_id=7800003722519) to our support team.
+> Each Chat2Query Data App has a rate limit of 100 requests per day. If you exceed the rate limit, the API returns a `429` error. For more quota, you can [submit a request](https://tidb.support.pingcap.com/) to our support team.
 
 In each Chat2Query Data App, you can find the following endpoints:
 
@@ -81,7 +81,7 @@ In each Chat2Query Data App, you can find the following endpoints:
 
 TiDB Cloud provides code examples to help you quickly call Chat2Query endpoints. To get the code example of a Chat2Query endpoint, perform the following steps:
 
-1. In the left pane of the [**Data Service**](https://tidbcloud.com/console/data-service) page, click the name of a Chat2Query endpoint.
+1. In the left pane of the [**Data Service**](https://tidbcloud.com/project/data-service) page, click the name of a Chat2Query endpoint.
 
     The information for calling this endpoint is displayed on the right side, such as endpoint URL, code example, and request method.
 
@@ -361,8 +361,8 @@ When calling `/v1/chat2data`, you need to replace the following parameters:
 
 > **Note:**
 >
-> Each Chat2Query Data App has a rate limit of 100 requests per day. If you exceed the rate limit, the API returns a `429` error. For more quota, you can [submit a request](https://support.pingcap.com/hc/en-us/requests/new?ticket_form_id=7800003722519) to our support team.
-> An API Key with the role `Chat2Query Data Summary Management Role` cannot call the Chat2Data v1 endpoint.
+> - Each Chat2Query Data App has a rate limit of 100 requests per day. If you exceed the rate limit, the API returns a `429` error. For more quota, you can [submit a request](https://tidb.support.pingcap.com/) to our support team.
+> - An API Key with the role `Chat2Query Data Summary Management Role` cannot call the Chat2Data v1 endpoint.
 The following code example is used to count how many users are in the `sp500insight.users` table:
 
 ```bash

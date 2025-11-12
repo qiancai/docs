@@ -24,6 +24,7 @@ A topology configuration file for TiDB deployment using TiUP might contain the f
 - [tikv_servers](#tikv_servers): The configuration of the TiKV instance. This configuration specifies the machines to which the TiKV component is deployed.
 - [tiflash_servers](#tiflash_servers): The configuration of the TiFlash instance. This configuration specifies the machines to which the TiFlash component is deployed.
 - [tiproxy_servers](#tiproxy_servers): The configuration of the TiProxy instance. This configuration specifies the machines to which the TiProxy component is deployed.
+- [kvcdc_servers](#kvcdc_servers): The configuration of the [TiKV-CDC](https://tikv.org/docs/7.1/concepts/explore-tikv-features/cdc/cdc/) instance. This configuration specifies the machines to which the TiKV-CDC component is deployed.
 - [cdc_servers](#cdc_servers): The configuration of the TiCDC instance. This configuration specifies the machines to which the TiCDC component is deployed.
 - [tispark_masters](#tispark_masters): The configuration of the TiSpark master instance. This configuration specifies the machines to which the TiSpark master component is deployed. Only one node of TiSpark master can be deployed.
 - [tispark_workers](#tispark_workers): The configuration of the TiSpark worker instance. This configuration specifies the machines to which the TiSpark worker component is deployed.
@@ -40,6 +41,8 @@ The `global` section corresponds to the cluster's global configuration and has t
 - `user`: The user used to start the deployed cluster. The default value is `"tidb"`. If the user specified in the `<user>` field does not exist on the target machine, this user is automatically created.
 
 - `group`: The user group to which a user belongs. It is specified when the user is created. The value defaults to that of the `<user>` field. If the specified group does not exist, it is automatically created.
+
+- `systemd_mode`: Specifies the `systemd` mode used on the target machine during cluster deployment. The default value is `system`. If set to `user`, sudo permissions are not required on the target machine, meaning [TiUP no-sudo mode](/tiup/tiup-cluster-no-sudo-mode.md) is used.
 
 - `ssh_port`: Specifies the SSH port to connect to the target machine for operations. The default value is `22`.
 
@@ -371,7 +374,7 @@ tikv_servers:
 
 - `ssh_port`: Specifies the SSH port to connect to the target machine for operations. If it is not specified, the `ssh_port` of the `global` section is used.
 
-- `tcp_port`: The port of the TiFlash TCP service. The default value is `9000`.
+- `tcp_port`: The port of the TiFlash TCP service for internal testing purposes. The default value is `9000`. Starting from TiUP v1.12.5, this configuration item does not take effect on clusters that are v7.1.0 or later.
 
 - `flash_service_port`: The port via which TiFlash provides services. TiDB reads data from TiFlash via this port. The default value is `3930`.
 
@@ -401,11 +404,10 @@ tikv_servers:
 
 - `resource_control`: Resource control for the service. If this field is configured, the field content is merged with the `resource_control` content in `global` (if the two fields overlap, the content of this field takes effect). Then, a systemd configuration file is generated and sent to the machine specified in `host`. The configuration rules of `resource_control` are the same as the `resource_control` content in `global`.
 
-After the deployment, for the fields above, you can only add directories to `data_dir`; for the fields below, you cannot modified these fields:
+After the deployment, for the fields above, you can only add directories to `data_dir`; for the fields below, you cannot modify these fields:
 
 - `host`
 - `tcp_port`
-- `http_port`
 - `flash_service_port`
 - `flash_proxy_port`
 - `flash_proxy_status_port`
@@ -434,9 +436,9 @@ tiflash_servers:
 
 - `port`: The listening port of the TiProxy SQL services. The default value is `6000`.
 
-- `deploy_dir`: Specifies the deployment directory. If it is not specified or specified as a relative directory, the directory is generated based on the `deploy_dir` directory configured in `global`.
+- `status_port`: The listening port of the TiProxy status service. It is used to view the status of the TiProxy services from the external via HTTP requests. The default value is `3080`.
 
-- `data_dir`: Specifies the data directory. If it is not specified or specified as a relative directory, the directory is generated based on the `data_dir` directory configured in `global`.
+- `deploy_dir`: Specifies the deployment directory. If it is not specified or specified as a relative directory, the directory is generated based on the `deploy_dir` directory configured in `global`.
 
 - `numa_node`: Allocates the NUMA policy to the instance. Before specifying this field, you need to make sure that the target machine has [numactl](https://linux.die.net/man/8/numactl) installed. If this field is specified, cpubind and membind policies are allocated using [numactl](https://linux.die.net/man/8/numactl). This field is of string type. The value is the ID of the NUMA node, such as `"0,1"`.
 
@@ -451,7 +453,6 @@ Among the above fields, you cannot modify the following configured fields after 
 - `host`
 - `port`
 - `deploy_dir`
-- `data_dir`
 - `arch`
 - `os`
 
@@ -459,6 +460,64 @@ A `tiproxy_servers` configuration example is as follows:
 
 ```yaml
 tiproxy_servers:
+  - host: 10.0.1.21
+    port: 6000
+    status_port: 3080
+    config:
+      labels: { zone: "zone1" }
+  - host: 10.0.1.22
+    port: 6000
+    status_port: 3080
+    config:
+      labels: { zone: "zone2" }
+```
+
+For more configuration examples, see [TiProxy Deployment Topology](/tiproxy/tiproxy-deployment-topology.md).
+
+### `kvcdc_servers`
+
+`kvcdc_servers` specifies the machines to which the [TiKV-CDC](https://tikv.org/docs/7.1/concepts/explore-tikv-features/cdc/cdc/) services are deployed. It also specifies the service configuration on each machine. `kvcdc_servers` is an array. Each array element contains the following fields:
+
+- `host`: Specifies the machine to which the TiKV-CDC services are deployed. The field value is an IP address and is mandatory.
+
+- `ssh_port`: Specifies the SSH port to connect to the target machine for operations. If it is not specified, the `ssh_port` of the `global` section is used.
+
+- `port`: The listening port of the TiKV-CDC services. The default value is `8600`.
+
+- `deploy_dir`: Specifies the deployment directory. If it is not specified or specified as a relative directory, the directory is generated according to the `deploy_dir` directory configured in `global`.
+
+- `data-dir`: Specifies the directory that TiKV-CDC uses to store temporary files primarily for sorting (optional). The free disk space for this directory is recommended to be greater than or equal to 500 GiB.
+
+- `log_dir`: Specifies the log directory. If it is not specified or specified as a relative directory, the log is generated according to the `log_dir` directory configured in `global`.
+
+- `gc-ttl`: The TTL (Time to Live, in seconds) of the service-level GC safepoint in PD set by TiKV-CDC (optional). It is the duration that replication tasks can be suspended, defaulting to `86400`, which is 24 hours. Note that suspending replication tasks affects the progress of TiKV garbage collection safepoint. The longer the `gc-ttl`, the longer changefeeds can be suspended, but at the same time, more obsolete data will be kept and occupy more space. Vice versa.
+
+- `tz`: The time zone that the TiKV-CDC services use. TiKV-CDC uses this time zone when internally converting time data types such as timestamp and when replicating data to the downstream. The default value is the local time zone where the process runs.
+
+- `numa_node`: Allocates the NUMA policy to the instance. Before specifying this field, you need to make sure that the target machine has [numactl](https://linux.die.net/man/8/numactl) installed. If this field is specified, cpubind and membind policies are allocated using [numactl](https://linux.die.net/man/8/numactl). This field is the string type. The field value is the ID of the NUMA node, such as "0,1".
+
+- `config`: The address of the configuration file that TiKV-CDC uses (optional).
+
+- `os`: The operating system of the machine specified in `host`. If this field is not specified, the default value is the `os` value in `global`.
+
+- `arch`: The architecture of the machine specified in `host`. If this field is not specified, the default value is the `arch` value in `global`.
+
+- `resource_control`: Resource control for the service. If this field is configured, the field content is merged with the `resource_control` content in `global` (if the two fields overlap, the content of this field takes effect). Then, a systemd configuration file is generated and sent to the machine specified in `host`. The configuration rules of `resource_control` are the same as the `resource_control` content in `global`.
+
+For the above fields, you cannot modify these configured fields after the deployment:
+
+- `host`
+- `port`
+- `deploy_dir`
+- `data_dir`
+- `log_dir`
+- `arch`
+- `os`
+
+A `kvcdc_servers` configuration example is as follows:
+
+```yaml
+kvcdc_servers:
   - host: 10.0.1.21
   - host: 10.0.1.22
 ```
