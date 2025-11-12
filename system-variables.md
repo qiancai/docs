@@ -1792,16 +1792,6 @@ mysql> SELECT job_info FROM mysql.analyze_jobs ORDER BY end_time DESC LIMIT 1;
 - For queries on the [`SLOW_QUERY`](/information-schema/information-schema-slow-query.md) table, this variable controls the concurrency for parsing the slow log file.
 
 ### tidb_dml_batch_size
-### `tidb_opt_selectivity_factor` <span class="version-mark">Introduced in v9.0.0</span>
-
-- Scope: SESSION | GLOBAL
-- Is persisted to the cluster: Yes
-- Is controlled by Hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): Yes
-- Type: Floating-point number
-- Value range: `[0, 1]`
-- Default value: `0.8`
-- This variable is used to specify the default selectivity of the TiDB optimizer. In some cases, when the optimizer cannot derive the predicate selectivity based on statistics, the optimizer uses this default selectivity as an alternative value. **It is not recommended** to modify this value.
-
 
 > **Warning:**
 >
