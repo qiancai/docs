@@ -1764,7 +1764,6 @@ mysql> SELECT job_info FROM mysql.analyze_jobs ORDER BY end_time DESC LIMIT 1;
     - If `tidb_ddl_enable_fast_reorg` is set to `OFF`, `ADD INDEX` is executed as a transaction. If there are many update operations such as `UPDATE` and `REPLACE` in the target columns during the `ADD INDEX` execution, a larger batch size indicates a larger probability of transaction conflicts. In this case, it is recommended that you set the batch size to a smaller value. The minimum value is 32.
     - If the transaction conflict does not exist, or if `tidb_ddl_enable_fast_reorg` is set to `ON`, you can set the batch size to a large value. This makes data backfilling faster but also increases the write pressure on TiKV. For a proper batch size, you also need to refer to the value of `tidb_ddl_reorg_worker_cnt`. See [Interaction Test on Online Workloads and `ADD INDEX` Operations](https://docs.pingcap.com/tidb/dev/online-workloads-and-add-index-operations) for reference.
     - Starting from v8.3.0, this parameter is supported at the SESSION level. Modifying the parameter at the GLOBAL level will not impact currently running DDL statements. It will only apply to DDLs submitted in new sessions.
-    - Starting from v8.5.0, you can modify this parameter for a running DDL job by executing `ADMIN ALTER DDL JOBS <job_id> BATCH_SIZE = <new_batch_size>;`. Note that this operation is not supported for `ADD INDEX` DDL when [`tidb_enable_dist_task`](/system-variables.md#tidb_enable_dist_task-new-in-v710) is enabled. For details, see [`ADMIN ALTER DDL JOBS`](/sql-statements/sql-statement-admin-alter-ddl.md).
 
 ### tidb_ddl_reorg_priority
 
@@ -1840,7 +1839,6 @@ Assume that you have a cluster with 4 TiDB nodes and multiple TiKV nodes. In thi
 - Unit: Threads
 - This variable is used to set the concurrency of the DDL operation in the `re-organize` phase.
 - Starting from v8.3.0, this parameter is supported at the SESSION level. Modifying the parameter at the GLOBAL level will not impact currently running DDL statements. It will only apply to DDLs submitted in new sessions.
-- Starting from v8.5.0, you can modify this parameter for a running DDL job by executing `ADMIN ALTER DDL JOBS <job_id> THREAD = <new_thread_count>;`. Note that this operation is not supported for `ADD INDEX` DDL when [`tidb_enable_dist_task`](/system-variables.md#tidb_enable_dist_task-new-in-v710) is enabled. For details, see [`ADMIN ALTER DDL JOBS`](/sql-statements/sql-statement-admin-alter-ddl.md).
 
 ### `tidb_enable_fast_create_table` <span class="version-mark">New in v8.0.0</span>
 
@@ -1853,6 +1851,16 @@ Assume that you have a cluster with 4 TiDB nodes and multiple TiKV nodes. In thi
 - Starting from v8.0.0, TiDB supports accelerating table creation by the [`CREATE TABLE`](/sql-statements/sql-statement-create-table.md) statement using `tidb_enable_fast_create_table`.
 - This variable is renamed from the variable [`tidb_ddl_version`](https://docs-archive.pingcap.com/tidb/v7.6/system-variables#tidb_ddl_version-new-in-v760) that is introduced in v7.6.0. Starting from v8.0.0, `tidb_ddl_version` no longer takes effect.
 - Starting from TiDB v8.5.0, the accelerated table creation feature is enabled by default for newly created clusters, with `tidb_enable_fast_create_table` set to `ON`. For clusters upgraded from v8.4.0 or earlier versions, the default value of `tidb_enable_fast_create_table` remains unchanged.
+
+### `tidb_opt_selectivity_factor` <span class="version-mark">Introduced in v9.0.0</span>
+
+- Scope: SESSION | GLOBAL
+- Is persisted to the cluster: Yes
+- Is controlled by the Hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): Yes
+- Type: Floating-point number
+- Value range: `[0, 1]`
+- Default value: `0.8`
+- This variable is used to specify the default selectivity of the TiDB optimizer. In some cases, when the optimizer cannot derive the predicate selectivity based on statistics, the optimizer uses this default selectivity as an alternative value. **It is not recommended** to modify this value.
 
 ### tidb_default_string_match_selectivity <span class="version-mark">New in v6.2.0</span>
 
