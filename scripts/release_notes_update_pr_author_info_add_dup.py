@@ -15,12 +15,12 @@ import os
 import shutil
 import requests
 
-version = '6.5.3' # Specifies the target TiDB version
-release_note_excel = r'/Users/userid/Downloads/download_tirelease_tmp_patch_6.5.3_release_note_2023-06-06.xlsx' # Specifies the path of release note table with PR links and issue links
-ext_path = r'/Users/userid/Documents/GitHub/mygithubid/docs-cn/releases'  # Specifies the path of the existing release notes
-template_file = r'/Users/userid/Documents/GitHub/mygithubid/docs/resources/doc-templates/patch_release_note_template_zh.md' # Specifies the path of the release note template file
+version = '8.5.5' # Specifies the target TiDB version
+release_note_excel = r'/Users/grcai/Downloads/download_tirelease_tmp_patch_8.5.5_release_note_2025-12-24 copy.xlsx' # Specifies the path of release note table with PR links and issue links
+ext_path = r'/Users/grcai/Documents/GitHub/docs-cn/releases'  # Specifies the path of the existing release notes
+template_file = r'/Users/grcai/Documents/GitHub/docs/resources/doc-templates/patch_release_note_template_zh.md' # Specifies the path of the release note template file
 
-with open("/Users/userid/Documents/PingCAP/Python_scripts/GitHub/gh_token2.txt", "r") as f: # Read the GitHub personal access token from the token.txt file
+with open("/Users/grcai/Documents/PC/Python_scripts/GitHub/gh_token2.txt", "r") as f: # Read the GitHub personal access token from the token.txt file
     access_token = f.read().strip()
 
 # Get the issue info of the existing release notes
@@ -29,6 +29,7 @@ def store_exst_rn(ext_path, version):
     exst_notes = []
     exst_issue_nums_and_authors = []
     exst_note_levels = []
+    issue_to_files = {}
     release_file = os.path.join(ext_path, f'release-{version}.md')
 
     version_parts = version.split('.')
@@ -37,14 +38,29 @@ def store_exst_rn(ext_path, version):
     for maindir, subdir, files in os.walk(ext_path):
         for afile in files:
             file_path = (os.path.join(maindir, afile))
-            if file_path.endswith('.md') and major_minor_version not in afile: # Exclude duplicate notes that are in the same major or minor releases. For example, excluding 6.5.x dup release notes for v6.5.3
+            if file_path.endswith('.md') and version not in afile:
+                version_match = re.search(r'release-([\d.]+)\.md', afile)
+                if version_match:
+                    version_tag = 'v' + version_match.group(1)
+                else:
+                    version_tag = afile
+                
                 with open(file_path,'r', encoding='utf-8') as fp:
                     level1 = level2 = level3 = ""
                     for line in fp:
                         exst_issue_num = re.search(r'https://github.com/(pingcap|tikv)/[\w-]+/(issues|pull)/\d+', line)
                         authors = re.findall(r'@\[([^\]]+)\]', line) # Get the list of authors in this line
                         if exst_issue_num:
-                            exst_issue_num_and_author = [exst_issue_num.group(), authors]
+                            issue_url = exst_issue_num.group()
+                            if issue_url not in issue_to_files:
+                                issue_to_files[issue_url] = []
+                            version_author_pair = (version_tag, authors)
+                            existing_versions = [v[0] for v in issue_to_files[issue_url]]
+                            if version_tag not in existing_versions:
+                                issue_to_files[issue_url].append(version_author_pair)
+                            
+                            # Collect all the dup notes information (allow the same issue to be recorded multiple times in different files)
+                            exst_issue_num_and_author = [exst_issue_num.group(), authors, afile]
                             if exst_issue_num_and_author not in exst_issue_nums_and_authors:
                                 note_level = level1 + level2 + level3
                                 note_pair = [exst_issue_num.group(),line.strip(),afile, note_level, authors]
@@ -62,13 +78,11 @@ def store_exst_rn(ext_path, version):
                             level3 = "> " + line.replace("    +","").replace("    -","").strip()
                         else:
                             continue
-            else:
-                pass
 
     if len(exst_issue_nums_and_authors) != 0:
-        return exst_notes
+        return exst_notes, issue_to_files
     else:
-        return 0
+        return 0, issue_to_files
 
 def get_pr_info_from_github(row_number, cp_pr_link,cp_pr_title, current_pr_author):
 
@@ -110,7 +124,7 @@ def get_pr_info_from_github(row_number, cp_pr_link,cp_pr_title, current_pr_autho
 
     return(pr_author)
 
-def update_pr_author_and_release_notes(excel_path):
+def update_pr_author_and_release_notes(excel_path, issue_to_files_mapping, current_version):
 
     # Open the excel file
     workbook = openpyxl.load_workbook(excel_path)
@@ -128,10 +142,16 @@ def update_pr_author_and_release_notes(excel_path):
     pr_last_col_index = sheet.max_column
     sheet.insert_cols(pr_last_col_index + 1) # Insert a new column for the dup release notes
     sheet.cell(row=1, column=pr_last_col_index + 1, value='published_release_notes') # Set a column name
+    sheet.insert_cols(pr_last_col_index + 2) # Insert a new column for files containing the issue
+    sheet.cell(row=1, column=pr_last_col_index + 2, value='Already mentioned in earlier release notes') # Set a column name
     # Go through each row
     dup_notes = []
     dup_notes_levels = []
     grey_fill = PatternFill(start_color="D3D3D3", end_color="D3D3D3", fill_type="solid")
+    
+    version_parts = current_version.split('.')
+    major_minor_version = '.'.join(version_parts[:2])
+    
     for row_index, row in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
         # If pr_author is ti-chi-bot or ti-srebot
         current_pr_author = row[pr_author_index]
@@ -157,28 +177,70 @@ def update_pr_author_and_release_notes(excel_path):
         else:
             pass
 
-        ## Add the dup release note info
+        ## Add the file list info for the issue
         issue_link = re.search(r'https://github.com/(pingcap|tikv)/[\w-]+/issues/\d+', current_formated_rn)
         if issue_link:
-            for note_pair in note_pairs:
-                if (issue_link.group() == note_pair[0]) and ((current_pr_author in note_pair[4]) or len(note_pair[4]) == 0): # Add the dup release notes only if the issues link is the same as the existing one and the current author is in the existing author list
-                    #print('A duplicated note is found in row ' + str(row_index) + " from " + note_pair[2] + note_pair[1])
-                    dup_formated_rn = '- (dup): {} {} {}'.format(note_pair[2], note_pair[3], note_pair[1])
-                    #print (note_pair)
-                    sheet.cell(row=row_index, column=pr_last_col_index+1, value=dup_formated_rn)
-                    # Apply the grey color to the row with dup note
-                    for column in range(1, pr_last_col_index + 2):
-                        sheet.cell(row=row_index, column=column).fill = grey_fill
-                    if dup_formated_rn not in dup_notes: # Collect the dup release note if it is not collected before
-                        dup_notes.append(dup_formated_rn)
-                        print ("-----")
-                        print (dup_formated_rn)
-                        dup_notes_level = note_pair[3].replace("Bug 修复", "错误修复")
-                        dup_notes_levels.append(dup_notes_level)
+            issue_url = issue_link.group()
+            if issue_url in issue_to_files_mapping:
+                version_info_list = []
+                for version_tag, authors in issue_to_files_mapping[issue_url]:
+                    if current_pr_author in authors or len(authors) == 0:
+                        author_match_info = " (same author)"
                     else:
-                        pass
-                else:
-                    pass
+                        author_match_info = " (different author)"
+                    version_info_list.append(version_tag + author_match_info)
+                
+                files_list = ', '.join(sorted(version_info_list))
+                sheet.cell(row=row_index, column=pr_last_col_index+2, value=files_list)
+                
+                has_current_series = False
+                for version_tag, authors in issue_to_files_mapping[issue_url]:
+                    file_version_match = re.search(r'v?([\d.]+)', version_tag)
+                    if file_version_match:
+                        file_version_parts = file_version_match.group(1).split('.')
+                        file_major_minor = '.'.join(file_version_parts[:2])
+                        if file_major_minor == major_minor_version:
+                            has_current_series = True
+                            break
+            else:
+                has_current_series = False
+            
+            ## Add the dup release note info (only when the current series version is not included)
+            if not has_current_series:
+                if issue_url in issue_to_files_mapping and len(issue_to_files_mapping[issue_url]) > 0:
+                    def version_key(v_tuple):
+                        version_tag = v_tuple[0]
+                        match = re.search(r'v?([\d.]+)', version_tag)
+                        if match:
+                            parts = match.group(1).split('.')
+                            return [int(p) for p in parts]
+                        return [0, 0, 0]
+                    
+                    sorted_versions = sorted(issue_to_files_mapping[issue_url], key=version_key, reverse=True)
+                    
+                    target_filename = None
+                    for version_tag, authors in sorted_versions:
+                        if (current_pr_author in authors) or len(authors) == 0:
+                            version_match = re.search(r'v?([\d.]+)', version_tag)
+                            if version_match:
+                                target_filename = f'release-{version_match.group(1)}.md'
+                                break
+                    
+                    if target_filename:
+                        for note_pair in note_pairs:
+                            if (issue_link.group() == note_pair[0]) and (note_pair[2] == target_filename) and ((current_pr_author in note_pair[4]) or len(note_pair[4]) == 0):
+                                dup_formated_rn = '- (dup): {} {} {}'.format(note_pair[2], note_pair[3], note_pair[1])
+                                sheet.cell(row=row_index, column=pr_last_col_index+1, value=dup_formated_rn)
+                                # Apply the grey color to the row with dup note
+                                for column in range(1, pr_last_col_index + 3):
+                                    sheet.cell(row=row_index, column=column).fill = grey_fill
+                                if dup_formated_rn not in dup_notes: # Collect the dup release note if it is not collected before
+                                    dup_notes.append(dup_formated_rn)
+                                    print ("-----")
+                                    print (dup_formated_rn)
+                                    dup_notes_level = note_pair[3].replace("Bug 修复", "错误修复")
+                                    dup_notes_levels.append(dup_notes_level)
+                                break
         elif (not issue_link) and ("/issue/" in current_formated_rn):
             print(current_formated_rn)
         else:
@@ -246,8 +308,8 @@ def create_release_file(version, dup_notes_levels, dup_notes):
         print(f'\nThe v{version} release note is now created in the following directory: \n {release_file}')
 
 if __name__ == '__main__':
-    note_pairs = store_exst_rn(ext_path, version)
-    dup_notes, dup_notes_levels = update_pr_author_and_release_notes(release_note_excel)
+    note_pairs, issue_to_files_mapping = store_exst_rn(ext_path, version)
+    dup_notes, dup_notes_levels = update_pr_author_and_release_notes(release_note_excel, issue_to_files_mapping, version)
     print ("\nThe bot author info in the excel is now replaced with the actual authors.")
     version_parts = version.split('.')
     if len(version_parts) >= 2:
