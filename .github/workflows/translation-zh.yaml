@@ -2,6 +2,13 @@ name: Translation(zh) by AI
 
 on:
   workflow_dispatch:
+    inputs:
+      file_names:
+        description: 'Specify file names to translate (comma-separated list)'
+        required: false
+        type: string
+        default: ''
+
 
 env:
   CN_CLOUD_BRANCH: i18n-zh-release-8.5
@@ -14,18 +21,18 @@ jobs:
       - uses: actions/checkout@v4
         name: Download translator repo
         with:
-          repository: "shczhen/markdown-translator"
-          ref: "openai"
-          path: "markdown-translator"
+          repository: "pingcap/docs-toolkit"
+          ref: "main"
+          path: "docs-toolkit"
       - uses: actions/checkout@v4
         name: Download docs repo and specified branch
         with:
           ref: "${{ env.CN_CLOUD_BRANCH }}"
           path: "docs"
       - uses: actions/setup-node@v4
-        name: Setup node 18
+        name: Setup node
         with:
-          node-version: 18
+          node-version: 20
 
       - run: |
           sudo apt install tree -y
@@ -35,22 +42,26 @@ jobs:
           export GH_TOKEN=${{github.token}}
           cd docs
           npm i
-          node scripts/filterUpdateFiles.js --cloud
+          if [ -n "${{ inputs.file_names }}" ]; then
+            node scripts/fetchFiles.js --files "${{ inputs.file_names }}"
+          else
+            node scripts/filterUpdateFiles.js --cloud
+          fi
           tree tmp
           cd ..
       - name: Copy new files to translator folder
         run: |
-          cp -r docs/tmp markdown-translator/markdowns
+          cp -r docs/tmp docs-toolkit/markdown-translator/markdowns
       - name: Copy variables.json to translator folder
         run: |
-          cp docs/variables.json markdown-translator/markdowns/variables.json
+          cp docs/variables.json docs-toolkit/markdown-translator/markdowns/variables.json
           if [ -f docs/tmp/variables.json ]; then
-            cp docs/tmp/variables.json markdown-translator/markdowns/variables.json
+            cp docs/tmp/variables.json docs-toolkit/markdown-translator/markdowns/variables.json
             cp docs/tmp/variables.json docs/variables.json
           fi
       - name: Config and translate
         run: |
-          cd markdown-translator
+          cd docs-toolkit/markdown-translator
           export LANGLINK_ACCESS_KEY=${{ secrets.LANGLINK_ACCESS_KEY }}
           export LANGLINK_ACCESS_SECRET=${{ secrets.LANGLINK_ACCESS_SECRET }}
           export LANGLINK_USER=${{ secrets.LANGLINK_USER }}
@@ -59,7 +70,7 @@ jobs:
           cd ..
       - name: Copy translated files to docs repo
         run: |
-          cp -r markdown-translator/output/markdowns/* docs/
+          cp -r docs-toolkit/markdown-translator/output/markdowns/* docs/
 
       - name: Set build ID
         id: build_id

@@ -17,7 +17,7 @@ from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 from google import genai
 
-REPO_OWNER = "qiancai"
+REPO_OWNER = "pingcap"
 REPO_NAME = "docs"
 EN_BRANCH = "release-8.5"
 ZH_BRANCH = "i18n-zh-release-8.5"
@@ -31,7 +31,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # ========== AI Configuration ==========
-MODEL_NAME = "gemini-2.0-flash"
+MODEL_NAME = "gemini-2.5-flash"
 genai_token = os.getenv("GEMINI_API_TOKEN")
 if not genai_token:
     logger.error("GEMINI_API_TOKEN environment variable must be set")
