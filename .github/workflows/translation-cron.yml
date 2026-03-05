@@ -91,6 +91,14 @@ jobs:
           export GLOSSARY_ID=${{ secrets.GCP_GLOSSARY_ID }}
           node docs-toolkit/markdown-translator/src/index_ja.js --input-dir docs/tmp --output-dir docs/
 
+      - name: Post-process GitHub mentions
+        run: |
+          cd docs
+          files=$(git diff --name-only -- "*.md")
+          if [ -n "$files" ]; then
+            perl -i -pe 's/@\s*\[[^\]]*\]\(https?:\/\/github\.com\/([^)\s\/]+)\/?\)/@ \1/g' $files
+          fi
+
       - name: Git commit and push
         run: |
           cd docs
