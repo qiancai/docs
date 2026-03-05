@@ -96,7 +96,7 @@ jobs:
           cd docs
           files=$(git diff --name-only -- "*.md")
           if [ -n "$files" ]; then
-            perl -i -pe 's/@\s*\[[^\]]*\]\(https?:\/\/github\.com\/([^)\s\/]+)\/?\)/@ \1/g' $files
+            perl -i -pe 's/@\s*\[[^\]]*\]\(https?:\/\/github\.com\/([^)\s\/]+)\/?\)/@ [\1](https:\/\/github.com\/\1)/g' $files
           fi
 
       - name: Git commit and push
