@@ -6,22 +6,7 @@ aliases: ['/tidbcloud/supported-tidb-versions','/tidbcloud/release-notes']
 
 # TiDB Cloud Release Notes in 2026
 
-
 This page lists the release notes of [TiDB Cloud](https://www.pingcap.com/tidb-cloud/) in 2026.
-
-## April 14, 2026
-
-**Console changes**
-
-- Unify the TiDB Cloud console experience across all plans — Dedicated and TiDB X (Starter, Essential, Premium, and BYOC). The following capabilities are now available:
-
-    - **MyTiDB homepage**: A new org-level homepage with two views — **Resource view** lists all instances across plans in one place, and **Project view** organizes resources by project.
-    - **Unified resource creation**: A single creation flow supports all instance types, including Starter, Essential, Dedicated, Premium.
-    - **TiDB X project support**: TiDB X instances (Starter, Essential, and Premium) can now be optionally assigned to projects and moved between projects after creation.
-    - **Premium project support**: Premium instances now support full project-level organization and management.
-    - **Instance-level roles**: Role assignments can now be scoped to individual TiDB X instances, enabling fine-grained access control within a project.
-    - **Breaking change tour guide**: A guided walkthrough is shown to existing users to explain structural changes, reducing disruption during the transition.
-
 
 ## March 3, 2026
 
