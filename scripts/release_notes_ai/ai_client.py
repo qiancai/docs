@@ -12,7 +12,11 @@ import textwrap
 from pathlib import Path
 from typing import Any
 
-from .constants import BUG_FIXES_REFERENCE, IMPROVEMENTS_REFERENCE
+from .constants import (
+    BUG_FIXES_REFERENCE,
+    GENERATION_PROMPT_TEMPLATE,
+    IMPROVEMENTS_REFERENCE,
+)
 from .models import GeneratedNote, RowContext
 
 
@@ -134,6 +138,7 @@ def build_generation_prompt(
     expected_links: list[str],
     contributors: list[str],
 ) -> str:
+    prompt_template = load_prompt_template(GENERATION_PROMPT_TEMPLATE)
     improvements_reference = load_reference_file(IMPROVEMENTS_REFERENCE)
     bug_fixes_reference = load_reference_file(BUG_FIXES_REFERENCE)
     context = {
@@ -148,46 +153,16 @@ def build_generation_prompt(
         "issues": [dataclasses.asdict(issue) for issue in row_context.issues],
         "pull_requests": [dataclasses.asdict(pull) for pull in row_context.pulls],
     }
-    return textwrap.dedent(
-        f"""
-        You write exactly one English TiDB release note entry.
-
-        Return only a JSON object with exactly these keys:
-        - type: "improvement" or "bug_fix"
-        - release_note: one Markdown bullet that starts with "- "
-        - needs_review: true or false
-        - reason: a short reason for the type and wording
-
-        Rules:
-        - Write from the user's perspective.
-        - Use the Excel issue_type as a strong signal, but decide the final type from the issue,
-          PR description, and code changes.
-        - For improvements, follow the Improvements reference below.
-        - For bug fixes, follow the Bug fixes reference below.
-        - Do not end the release note with a period.
-        - Include every expected link in Markdown release-note style.
-        - Include every contributor as @[user](https://github.com/user).
-        - If there is no issue URL, use the PR link as the suffix link.
-        - Do not expose internal function names unless they are the user-visible behavior.
-        - If the available context is insufficient, still draft the best note and set needs_review
-          to true.
-
-        Expected links:
-        {json.dumps(expected_links, ensure_ascii=False, indent=2)}
-
-        Contributors:
-        {json.dumps(contributors, ensure_ascii=False, indent=2)}
-
-        Row context:
-        {json.dumps(context, ensure_ascii=False, indent=2)}
-
-        Improvements reference:
-        {improvements_reference}
-
-        Bug fixes reference:
-        {bug_fixes_reference}
-        """
-    ).strip()
+    return render_prompt_template(
+        prompt_template,
+        {
+            "EXPECTED_LINKS": json.dumps(expected_links, ensure_ascii=False, indent=2),
+            "CONTRIBUTORS": json.dumps(contributors, ensure_ascii=False, indent=2),
+            "ROW_CONTEXT": json.dumps(context, ensure_ascii=False, indent=2),
+            "IMPROVEMENTS_REFERENCE": improvements_reference,
+            "BUG_FIXES_REFERENCE": bug_fixes_reference,
+        },
+    )
 
 
 def build_repair_prompt(original_prompt: str, errors: list[str]) -> str:
@@ -204,6 +179,32 @@ def build_repair_prompt(original_prompt: str, errors: list[str]) -> str:
         {original_prompt}
         """
     ).strip()
+
+
+def render_prompt_template(template: str, values: dict[str, str]) -> str:
+    for key, value in values.items():
+        template = template.replace(f"{{{{{key}}}}}", value)
+    return template.strip()
+
+
+@lru_cache(maxsize=None)
+def load_prompt_template(path: Path) -> str:
+    try:
+        return strip_prompt_template_heading(path.read_text(encoding="utf-8"))
+    except FileNotFoundError as exc:
+        raise FileNotFoundError(
+            f"Cannot find release-note prompt template: {path}. "
+            "Make sure scripts/release_notes_ai/prompts/generation.md exists."
+        ) from exc
+
+
+def strip_prompt_template_heading(template: str) -> str:
+    lines = template.splitlines()
+    if lines and lines[0].startswith("# "):
+        lines = lines[1:]
+        if lines and not lines[0].strip():
+            lines = lines[1:]
+    return "\n".join(lines)
 
 
 @lru_cache(maxsize=None)

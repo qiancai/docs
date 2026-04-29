@@ -13,6 +13,7 @@ from .excel_workbook import (
     generate_notes_without_ai,
     generate_notes_for_sheet,
     merge_rows_by_issue_and_component,
+    move_rows_with_issues_already_in_same_series,
     prepare_sheet_columns,
     sort_sheet_rows_by_component,
     store_existing_release_notes,
@@ -164,6 +165,13 @@ def main() -> int:
     clear_output_columns(sheet, header, clear_ai=args.force_regenerate)
 
     existing_notes = store_existing_release_notes(Path(args.releases_dir), args.version)
+    move_rows_with_issues_already_in_same_series(
+        workbook,
+        sheet,
+        header,
+        existing_notes,
+        args.version,
+    )
     update_pr_authors_and_dup_notes(
         sheet,
         header,

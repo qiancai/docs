@@ -43,6 +43,7 @@ from .utils import (
 
 
 GRAY_FILL = PatternFill(start_color="D3D3D3", end_color="D3D3D3", fill_type="solid")
+SAME_SERIES_REASON_HEADER = "reason"
 
 
 def prepare_sheet_columns(sheet: Any) -> dict[str, int]:
@@ -168,7 +169,7 @@ def first_issue_url_for_row(sheet: Any, header: dict[str, int], row_number: int)
 
 def store_existing_release_notes(releases_dir: Path, version: str) -> list[ExistingNote]:
     existing_notes: list[ExistingNote] = []
-    seen: set[tuple[str, tuple[str, ...]]] = set()
+    seen: set[tuple[str, tuple[str, ...], str]] = set()
     target_version = parse_semver_tuple(version)
 
     for file_path in sorted(releases_dir.rglob("*.md")):
@@ -179,25 +180,26 @@ def store_existing_release_notes(releases_dir: Path, version: str) -> list[Exist
             for raw_line in file:
                 line = raw_line.strip()
                 authors = AUTHOR_RE.findall(line)
-                item_url = GITHUB_ITEM_URL_RE.search(line)
-                if item_url:
-                    key = (item_url.group(), tuple(authors))
-                    if key in seen:
-                        continue
-                    seen.add(key)
+                item_urls = [match.group() for match in GITHUB_ITEM_URL_RE.finditer(line)]
+                if item_urls:
                     note_level = level1 + level2 + level3
                     note_type, component = classify_note_level(note_level)
-                    existing_notes.append(
-                        ExistingNote(
-                            url=item_url.group(),
-                            line=line,
-                            file_name=file_path.name,
-                            note_level=note_level,
-                            authors=authors,
-                            note_type=note_type,
-                            component=component,
+                    for item_url in item_urls:
+                        key = (item_url, tuple(authors), file_path.name)
+                        if key in seen:
+                            continue
+                        seen.add(key)
+                        existing_notes.append(
+                            ExistingNote(
+                                url=item_url,
+                                line=line,
+                                file_name=file_path.name,
+                                note_level=note_level,
+                                authors=authors,
+                                note_type=note_type,
+                                component=component,
+                            )
                         )
-                    )
                     continue
 
                 heading = parse_release_note_heading(raw_line)
@@ -283,22 +285,207 @@ def update_pr_authors_and_dup_notes(
         author_cell = sheet.cell(row=row_number, column=header["pr_author"])
         current_author = str_value(author_cell.value)
 
-        issue_url = first_issue_url_for_row(sheet, header, row_number)
-        if not issue_url:
+        issue_urls = issue_urls_for_row(sheet, header, row_number)
+        if not issue_urls:
             continue
 
         current_authors = split_multi_value(current_author)
         dup_notes = []
-        for existing in existing_notes_by_url.get(issue_url, []):
-            if existing.authors and not set(current_authors).intersection(existing.authors):
-                continue
-            dup_notes.append(existing.dup_text)
+        for issue_url in issue_urls:
+            for existing in existing_notes_by_url.get(issue_url, []):
+                if existing.authors and not set(current_authors).intersection(existing.authors):
+                    continue
+                dup_notes.append(existing.dup_text)
 
         if dup_notes:
             dup_col = header["published_release_notes"]
             sheet.cell(row=row_number, column=dup_col, value="\n".join(unique_ordered(dup_notes)))
             fill_row(sheet, row_number)
-            print(f"Row {row_number}: found duplicated release note for {issue_url}", flush=True)
+            print(
+                f"Row {row_number}: found duplicated release note for {', '.join(issue_urls)}",
+                flush=True,
+            )
+
+
+def move_rows_with_issues_already_in_same_series(
+    workbook: Any,
+    sheet: Any,
+    header: dict[str, int],
+    existing_notes: list[ExistingNote],
+    version: str,
+) -> int:
+    files_by_issue_url = same_series_release_files_by_issue_url(existing_notes, version)
+    if not files_by_issue_url:
+        return 0
+
+    target_sheet_name = same_series_issues_sheet_name(version)
+    target, reason_col = ensure_sheet_with_reason(workbook, sheet, target_sheet_name)
+    rows_to_move: list[tuple[int, str]] = []
+
+    for row_number in range(2, sheet.max_row + 1):
+        issue_urls = issue_urls_for_row(sheet, header, row_number)
+        reason = same_series_issue_reason(issue_urls, files_by_issue_url)
+        if reason:
+            rows_to_move.append((row_number, reason))
+
+    for row_number, reason in rows_to_move:
+        append_row_with_reason(sheet, target, row_number, reason, reason_col)
+
+    for row_number, _reason in reversed(rows_to_move):
+        sheet.delete_rows(row_number, 1)
+
+    if rows_to_move:
+        print(
+            f"Moved {len(rows_to_move)} row(s) to {target_sheet_name} because their issues "
+            "already appear in earlier release notes from the same major.minor series",
+            flush=True,
+        )
+    return len(rows_to_move)
+
+
+def same_series_release_files_by_issue_url(
+    existing_notes: list[ExistingNote],
+    version: str,
+) -> dict[str, list[str]]:
+    target_version = parse_semver_tuple(version)
+    files_by_issue_url: dict[str, list[str]] = {}
+
+    for existing in existing_notes:
+        match = GITHUB_ITEM_URL_RE.search(existing.url)
+        if not match or match.group("kind") != "issues":
+            continue
+
+        file_version = release_file_semver_tuple(Path(existing.file_name))
+        if not file_version:
+            continue
+        if file_version[:2] != target_version[:2] or file_version >= target_version:
+            continue
+
+        files = files_by_issue_url.setdefault(existing.url, [])
+        if existing.file_name not in files:
+            files.append(existing.file_name)
+
+    for issue_url, files in list(files_by_issue_url.items()):
+        files_by_issue_url[issue_url] = sorted(files, key=release_file_name_sort_key)
+    return files_by_issue_url
+
+
+def same_series_issues_sheet_name(version: str) -> str:
+    major, minor, _patch = parse_semver_tuple(version)
+    return f"issues_already_in_earlier_v{major}.{minor}_notes"
+
+
+def same_series_issue_reason(
+    issue_urls: list[str],
+    files_by_issue_url: dict[str, list[str]],
+) -> str | None:
+    reasons = []
+    for issue_url in issue_urls:
+        files = files_by_issue_url.get(issue_url)
+        if files:
+            reasons.append(f"{issue_url} appears in {', '.join(files)}")
+    return "; ".join(reasons) if reasons else None
+
+
+def release_file_name_sort_key(file_name: str) -> tuple[int, int, int, str]:
+    version = release_file_semver_tuple(Path(file_name))
+    if not version:
+        return (sys.maxsize, sys.maxsize, sys.maxsize, file_name)
+    return (*version, file_name)
+
+
+def ensure_sheet_with_reason(
+    workbook: Any,
+    source_sheet: Any,
+    target_sheet_name: str,
+) -> tuple[Any, int]:
+    if target_sheet_name in workbook.sheetnames:
+        target = workbook[target_sheet_name]
+        if not str_value(target.cell(row=1, column=1).value):
+            reason_col = copy_header_with_reason(source_sheet, target)
+        else:
+            reason_col = ensure_same_series_reason_header(source_sheet, target)
+        return target, reason_col
+
+    target = workbook.create_sheet(target_sheet_name)
+    reason_col = copy_header_with_reason(source_sheet, target)
+    return target, reason_col
+
+
+def copy_header_with_reason(source_sheet: Any, target_sheet: Any) -> int:
+    for column in range(1, source_sheet.max_column + 1):
+        copy_cell(
+            source_sheet.cell(row=1, column=column),
+            target_sheet.cell(row=1, column=column),
+        )
+    return ensure_same_series_reason_header(source_sheet, target_sheet)
+
+
+def ensure_same_series_reason_header(source_sheet: Any, target_sheet: Any) -> int:
+    reason_col = find_header_column(target_sheet, SAME_SERIES_REASON_HEADER)
+    if not reason_col:
+        reason_col = max(source_sheet.max_column, target_sheet.max_column) + 1
+        copy_missing_header_cells(source_sheet, target_sheet)
+        target_sheet.cell(row=1, column=reason_col, value=SAME_SERIES_REASON_HEADER)
+        return reason_col
+
+    while reason_col <= source_sheet.max_column:
+        target_sheet.insert_cols(reason_col)
+        reason_col += 1
+
+    copy_missing_header_cells(source_sheet, target_sheet)
+    return reason_col
+
+
+def copy_missing_header_cells(source_sheet: Any, target_sheet: Any) -> None:
+    for column in range(1, source_sheet.max_column + 1):
+        if not str_value(target_sheet.cell(row=1, column=column).value):
+            copy_cell(
+                source_sheet.cell(row=1, column=column),
+                target_sheet.cell(row=1, column=column),
+            )
+
+
+def find_header_column(sheet: Any, header_name: str) -> int | None:
+    for column in range(1, sheet.max_column + 1):
+        if str_value(sheet.cell(row=1, column=column).value) == header_name:
+            return column
+    return None
+
+
+def append_row_with_reason(
+    source_sheet: Any,
+    target_sheet: Any,
+    row_number: int,
+    reason: str,
+    reason_col: int,
+) -> None:
+    target_row = target_sheet.max_row + 1
+    source_dimension = source_sheet.row_dimensions[row_number]
+    target_dimension = target_sheet.row_dimensions[target_row]
+    target_dimension.height = source_dimension.height
+    target_dimension.hidden = source_dimension.hidden
+    target_dimension.outlineLevel = source_dimension.outlineLevel
+    target_dimension.collapsed = source_dimension.collapsed
+
+    for column in range(1, source_sheet.max_column + 1):
+        copy_cell(
+            source_sheet.cell(row=row_number, column=column),
+            target_sheet.cell(row=target_row, column=column),
+        )
+    target_sheet.cell(row=target_row, column=reason_col, value=reason)
+
+
+def copy_cell(source_cell: Any, target_cell: Any) -> None:
+    target_cell.value = source_cell.value
+    if source_cell.has_style:
+        target_cell._style = copy.copy(source_cell._style)
+    if source_cell.number_format:
+        target_cell.number_format = source_cell.number_format
+    if source_cell.hyperlink:
+        target_cell._hyperlink = copy.copy(source_cell.hyperlink)
+    if source_cell.comment:
+        target_cell.comment = copy.copy(source_cell.comment)
 
 
 def apply_bot_author_replacements(
@@ -407,7 +594,12 @@ def resolve_bot_author(github: Any, request: tuple[int, str, str, str]) -> str:
 
 def index_existing_notes_by_url(existing_notes: list[ExistingNote]) -> dict[str, list[ExistingNote]]:
     indexed: dict[str, list[ExistingNote]] = {}
+    seen: set[tuple[str, tuple[str, ...]]] = set()
     for existing in existing_notes:
+        key = (existing.url, tuple(existing.authors))
+        if key in seen:
+            continue
+        seen.add(key)
         indexed.setdefault(existing.url, []).append(existing)
     return indexed
 

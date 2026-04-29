@@ -21,6 +21,9 @@ BUG_FIXES_REFERENCE = (
     / "references"
     / "bug-fixes.md"
 )
+GENERATION_PROMPT_TEMPLATE = (
+    REPO_ROOT / "scripts" / "release_notes_ai" / "prompts" / "generation.md"
+)
 
 BOT_AUTHORS = {"ti-chi-bot", "ti-srebot"}
 # Keep the misspelled source column name because tirelease exports it this way.
