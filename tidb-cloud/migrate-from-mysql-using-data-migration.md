@@ -644,7 +644,7 @@ GRANT SELECT, RELOAD, LOCK TABLES, REPLICATION SLAVE, REPLICATION CLIENT ON *.* 
 | `ALTER`       | 表           | スキーマ変更時にテーブル定義を修正します    |
 | `DROP`        | データベース、テーブル | スキーマ同期中にオブジェクトを削除します    |
 | `INDEX`       | 表           | インデックスを作成および変更します       |
-| `CREATE VIEW` | 閲覧数         | マイグレーションで使用されるビューを作成します |
+| `CREATE VIEW` | ビュー         | マイグレーションで使用されるビューを作成します |
 
 たとえば、ターゲットの<CustomContent plan="dedicated">TiDB Cloud Dedicatedクラスター</CustomContent>TiDB Cloud Essential インスタンス<CustomContent plan="essential">TiDB Cloud Essentialインスタンス</CustomContent>インスタンスで次の`GRANT`ステートメントを実行して、対応する<CustomContent plan="premium">TiDB Cloud Premiumインスタンス</CustomContent>を付与できます。
 
@@ -756,7 +756,7 @@ GRANT CREATE, SELECT, INSERT, UPDATE, DELETE, ALTER, DROP, INDEX ON *.* TO 'dm_t
 
 3.  ターゲット接続プロファイルを入力してください。
 
-    -   **ユーザー名**: <CustomContent plan="dedicated">TiDB Cloud Dedicatedクラスター</CustomContent>TiDB クラウド<CustomContent plan="essential">TiDB Cloud Essentialインスタンス</CustomContent>TiDB Cloud<CustomContent plan="premium">TiDB Cloud Premiumインスタンス</CustomContent>のユーザー名を入力します。
+    -   **ユーザー名**: <CustomContent plan="dedicated">TiDB Cloud Dedicatedクラスター</CustomContent>TiDB Cloud<CustomContent plan="essential">TiDB Cloud Essentialインスタンス</CustomContent>TiDB Cloud<CustomContent plan="premium">TiDB Cloud Premiumインスタンス</CustomContent>のユーザー名を入力します。
     -   **パスワード**： TiDB Cloudのユーザー名のパスワードを入力してください。
 
 4.  入力した情報を検証するには、 **「接続を検証」をクリックし、「次へ」を**クリックしてください。
