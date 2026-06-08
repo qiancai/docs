@@ -3,7 +3,12 @@
 
 # Table of Contents
 
-## RELEASE NOTES
+## OVERVIEW
+
+- [TiDB Cloud Release Overview](/tidb-cloud/releases/_index.md)
+- [TiDB Cloud Kernel Versioning](/tidb-cloud/releases/tidb-cloud-kernel-versioning.md)
+
+## REGULAR CLOUD RELEASE NOTES
 
 - [2026](/tidb-cloud/releases/tidb-cloud-release-notes.md)
 - [2025](/tidb-cloud/releases/release-notes-2025.md)
@@ -13,6 +18,10 @@
   - [2022](/tidb-cloud/releases/release-notes-2022.md)
   - [2021](/tidb-cloud/releases/release-notes-2021.md)
   - [2020](/tidb-cloud/releases/release-notes-2020.md)
+
+## TiDB X KERNEL RELEASE NOTES
+
+- [TiDB-X-CLOUD.202510](/tidb-cloud/releases/tidb-x-kernel-release-notes-202510.md)
 
 ## MAINTENANCE NOTIFICATIONS
 
