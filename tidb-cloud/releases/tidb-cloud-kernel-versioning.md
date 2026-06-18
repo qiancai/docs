@@ -1,26 +1,30 @@
 ---
 title: Kernel Versioning for TiDB Cloud
-summary: Learn about the versioning rules, format, and release notes for the TiDB X kernel compared to the standard TiDB kernel across different TiDB Cloud offerings.
+summary: Learn about the versioning rules, format, and release notes for different TiDB Cloud offerings.
 ---
 
 # TiDB Cloud Kernel Versioning
 
 This document describes the versioning rules for the underlying database kernels used across different TiDB Cloud plans: Starter, Essential, Premium, and Dedicated.
 
-Based on your TiDB Cloud plan, your TiDB Cloud resources run on different TiDB kernels:
+## Default kernel versions
 
-| Plan | Kernel | Architecture |
-|------|--------|--------------|
-| TiDB Cloud Starter, Essential, and Premium | TiDB X kernel | [TiDB X](/tidb-cloud/tidb-x-architecture.md) architecture (Cloud-native object storage backbone) |
-| TiDB Cloud Dedicated | Standard TiDB kernel | Classic TiDB architecture (Dedicated compute and storage) |
+Based on your TiDB Cloud plan, your TiDB Cloud resources run on different different TiDB kernel versions:
 
-Because the standard TiDB kernel and the TiDB X kernel follow different development and release cycles, they use different versioning schemes.
+| Plan      | Current default kernel version |
+|-----------|--------------------------------|
+| Starter   | TiDB v8.5.3                    |
+| Essential | TiDB v8.5.3                    |
+| Premium   | TiDB-X-CLOUD.202510.1          |
+| Dedicated | TiDB v8.5.6                    |
 
-## TiDB X kernel versioning
+The default kernel version is the TiDB version that is used by default for new instances or clusters. TiDB Cloud will upgrade the default kernel version for newly created instances or clusters regularly to improve the security, stability, and performance of your TiDB Cloud resources.
 
-TiDB Cloud Starter, Essential, and Premium instances run on the TiDB X kernel, whose release cadence and versioning is independent of TiDB Cloud console and control plane updates.
+## Kernel versioning
 
-The TiDB X kernel uses a time-based versioning convention:
+For TiDB Cloud Starter, Essential, and Dedicated, their kernel versions correspond directly to TiDB Self-Managed versions. To learn about features, improvements, and bug fixes included in a specific kernel version, refer to the corresponding [TiDB Self-Managed release notes](/releases/release-notes.md).
+
+For TiDB Cloud Premium, its kernel version follows a time-based versioning convention:
 
 ```text
 TiDB-X-CLOUD.YYYYMM.x
@@ -34,44 +38,28 @@ TiDB-X-CLOUD.202510.1
 
 Where:
 
-- `YYYYMM` represents the year and month of the baseline release. A more recent `YYYYMM` value indicates a newer kernel version.
-- `x` represents patch number for a specific baseline release.
+- `YYYYMM` represents the baseline code branch used to develop the kernel. For example, `202510` means that the baseline branch was created in October 2025. It does not indicate when the kernel version was released.
+- `x` represents the patch release number for that baseline branch.
 
-For example, `TiDB-X-CLOUD.202510.1` represents the first patch release for the TiDB X kernel baseline established in October 2025.
+For example, `TiDB-X-CLOUD.202510.1` means that the kernel is based on a branch created in October 2025 and is the first patch release built from that branch.
 
-Because the TiDB X kernel follows its own release cycle, TiDB Cloud publishes dedicated TiDB X kernel release notes separately from the TiDB Self-Managed releases notes.
+Because kernel development and release schedules are independent, a kernel version might be released several months after its baseline branch is created.
 
-## TiDB kernel versioning
+Because TiDB Cloud Premium follows its own release cycle, its release notes are published separately from the TiDB Self-Managed release notes.
 
-TiDB Cloud Dedicated clusters run on the standard TiDB kernel, whose version strictly aligns with TiDB Self-Managed releases (for example, v8.5.6 or v7.5.7).
-
-To learn about features, improvements, and bug fixes included in a specific TiDB Cloud Dedicated kernel version, refer to the corresponding [TiDB Self-Managed release notes](/releases/release-notes.md).
-
-## Comparison of TiDB X kernel and TiDB kernel versioning
-
-| Item | TiDB X Kernel | TiDB Kernel |
-|--------|--------|--------|
-| **Used by** | TiDB Cloud Starter, Essential, Premium | TiDB Cloud Dedicated |
-| **Version format** | `TiDB-X-CLOUD.YYYYMM.x` | `vX.Y.Z` (follows TiDB Self-Managed) |
-| **Release cadence** | Independent | Follows TiDB Self-Managed |
-| **Release notes** | Dedicated TiDB X release notes | TiDB Self-Managed release notes |
+Because the kernel of TiDB Cloud Premium follows its own release cadence and cycle, its release notes are published separately from the TiDB Self-Managed release notes.
 
 ## FAQ
 
-### Which kernel version is running on my TiDB Cloud Starter, Essential, or Premium instance?
+### How do I check the kernel version of my TiDB Cloud resource?
 
-You can view the kernel version on the instance overview page in the [TiDB Cloud console](https://tidbcloud.com/) for Starter, Essential, and Premium instances.
+1. In the [TiDB Cloud console](https://tidbcloud.com/), navigate to the **My TiDB** page, and then click the name of your TiDB Cloud resource (such as an instance or cluster) to go to its overview page.
+2. On the overview page, locate the **TiDB version** information in the details pane of your TiDB Cloud resource.
 
-### Which kernel version is running on my TiDB Cloud Dedicated cluster?
+### Can I choose the kernel version for my TiDB Cloud Starter, Essential, Premium instance, or TiDB Cloud Dedicated cluster?
 
-You can view the kernel version on the cluster overview page in the [TiDB Cloud console](https://tidbcloud.com/) for TiDB Cloud Dedicated.
+No. TiDB Cloud manages the entire kernel lifecycle for all plans.
 
-### Can I choose the TiDB X kernel version for my TiDB Cloud Starter, Essential, or Premium instance?
+Although the kernel version is displayed for transparency, you cannot select a specific version when creating an instance or cluster.
 
-No. Although the kernel version is displayed for transparency, TiDB Cloud manages the complete kernel lifecycle.
-
-TiDB Cloud provides validated default kernel versions for new instances and performs managed upgrades when appropriate. This approach helps ensure security, stability, compatibility, and access to the latest features and improvements without requiring manual intervention.
-
-### Can I choose the TiDB kernel version for my TiDB Cloud Dedicated cluster?
-
-Placeholder-for-answer.
+TiDB Cloud automatically provides validated kernel versions for new deployments and performs managed upgrades when appropriate. This helps ensure security, stability, compatibility, and access to the latest features and improvements without requiring manual maintenance.
