@@ -13,8 +13,8 @@ TiDB X kernel version: `TiDB-X-CLOUD.202510.1`
 
 In `TiDB-X-CLOUD.202510.1`:
 
-- `202510` means that the baseline code branch of this kernel version was created in October 2025, which is different from the release date.
-- `1` means that it is the first patch release for the TiDB-X-CLOUD.202510.0 kernel.
+- `202510` represents that the baseline code branch of this kernel version was created in October 2025, which is different from the release date.
+- `1` represents that it is the first patch release for the TiDB-X-CLOUD.202510.0 kernel.
 
 The `TiDB-X-CLOUD.202510.1` kernel is based on the TiDB v8.5.0 kernel, which means it supports most of the features and improvements as the [TiDB v8.5.0](/release-notes/release-8.5.0.md) kernel.
 
@@ -79,9 +79,9 @@ In addition, compared with the [TiDB v8.5.0](/release-notes/release-8.5.0.md) ke
 
 ## Limitation
 
-Because of the architecture change, the `TiDB-X-CLOUD.202510.1` kernel does not support the following features in TiDB v8.5.0 kernel:
+Because of the architecture difference between TiDB X and classic TiDB, the `TiDB-X-CLOUD.202510.1` kernel does not support the following storage features in TiDB v8.5.0 kernel:
 
-- IME cache
-- Follower read
+- [TiKV MVCC In-Memory Engine (IME)](/tikv-in-memory-engine.md)
+- [Follower Read](/follower-read.md)
 
 To learn more about the limitations, see [Limited SQL features on TiDB Cloud](/tidb-cloud/limited-sql-features.md).

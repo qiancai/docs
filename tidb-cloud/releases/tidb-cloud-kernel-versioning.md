@@ -18,7 +18,7 @@ Based on your TiDB Cloud plan, your TiDB Cloud resources run on different differ
 | Premium   | TiDB-X-CLOUD.202510.1          |
 | Dedicated | TiDB v8.5.6                    |
 
-The default kernel version is the TiDB version that is used by default for new instances or clusters. TiDB Cloud will upgrade the default kernel version for newly created instances or clusters regularly to improve the security, stability, and performance of your TiDB Cloud resources.
+The default kernel version is the TiDB version that is used by default for new instances or clusters. TiDB Cloud upgrades the default kernel version for newly created instances or clusters regularly to improve the security, stability, and performance of your TiDB Cloud resources.
 
 ## Kernel versioning
 
@@ -45,9 +45,7 @@ For example, `TiDB-X-CLOUD.202510.1` means that the kernel is based on a branch 
 
 Because kernel development and release schedules are independent, a kernel version might be released several months after its baseline branch is created.
 
-Because TiDB Cloud Premium follows its own release cycle, its release notes are published separately from the TiDB Self-Managed release notes.
-
-Because the kernel of TiDB Cloud Premium follows its own release cadence and cycle, its release notes are published separately from the TiDB Self-Managed release notes.
+As the kernel of TiDB Cloud Premium follows its own release cadence and cycle, its release notes are published separately from the TiDB Self-Managed release notes.
 
 ## FAQ
 

@@ -6,7 +6,6 @@
 ## OVERVIEW
 
 - [TiDB Cloud Release Overview](/tidb-cloud/releases/_index.md)
-- [TiDB Cloud Kernel Versioning](/tidb-cloud/releases/tidb-cloud-kernel-versioning.md)
 
 ## REGULAR CLOUD RELEASE NOTES
 
@@ -21,7 +20,8 @@
 
 ## TiDB X KERNEL RELEASE NOTES
 
-- [TiDB-X-CLOUD.202510](/tidb-cloud/releases/tidb-x-kernel-release-notes-202510.md)
+- [TiDB X Kernel Versioning](/tidb-cloud/releases/tidb-cloud-kernel-versioning.md)
+- [TiDB-X-CLOUD.202510.1 Release Notes](/tidb-cloud/releases/tidb-x-cloud.202510.1.md)
 
 ## MAINTENANCE NOTIFICATIONS
 
