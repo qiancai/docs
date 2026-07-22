@@ -16,12 +16,12 @@
 | algorithm | 算法 |  |
 | anonymous | 匿名 |  |
 | appendix | 附录 |  |
-| Applies to hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): | 是否受 Hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value) 控制： |  |
 | architecture | 架构 |  |
 | arithmetic operation | 数值运算/算术运算 |  |
 | ascending order | 正序 |  |
 | assignment expression | 赋值表达式 |  |
 | assignment operation | 赋值运算 |  |
+| Async Commit | 异步提交事务 |  |
 | authorize | 授予权限 |  |
 | auto embedding | auto embedding | Keep it in English as a feature name. If it is used as a verb, translate it to "自动生成向量" in Chinese. |
 | auto increment | 自增 |  |
@@ -30,7 +30,11 @@
 | availability | 可用性 |  |
 | availability zone | 可用区 |  |
 | backup | 备份 |  |
+| Baseline Capturing | 自动捕获绑定 |  |
+| Baseline Evolution | 自动演进绑定 |  |
 | bastion | 堡垒机 |  |
+| Batch Create Table | 批量建表功能 |  |
+| Batch Point Get | 批量点查 |  |
 | binary literal | 二进制字面值 |  |
 | bit | 位 |  |
 | Bloom filter | 布隆过滤器 |  |
@@ -42,12 +46,17 @@
 | business continuity | 业务可持续性 |  |
 | cache | 缓存 |  |
 | cache miss | 缓存未命中 |  |
+| Cached Table | 缓存表 |  |
 | canary test | 灰度测试 |  |
 | Cartesian product | 笛卡尔积 |  |
 | case-sensitive | 大小写敏感 |  |
 | certificate signing request (CSR) | 证书签名请求 |  |
+| Conflict error | 冲突错误 |  |
+| Continuous Profiling | 持续性能分析 |  |
 | Cost-Based Optimization (CBO) | 基于代价的优化 |  |
 | CRUD | 增删改查 |  |
+| Cross-DB Binding | 跨数据库绑定执行计划 |  |
+| CTE | 公共表表达式 |  |
 | Custom Resource Definition (CRD) | 自定义资源类型 |  |
 | checksum | 校验和 |  |
 | circular dependency | 循环依赖 |  |
@@ -109,6 +118,8 @@
 | database kernel | 数据库内核 | 内核是 kernel，不是 core |
 | datacenter | 数据中心 |  |
 | dataflow | 数据流 |  |
+| DCL | 数据控制语言 |  |
+| DDL | 数据定义语言 |  |
 | decompress | 解压缩 |  |
 | dependency/dependencies | 依赖包 |  |
 | dependency | 依赖关系 |  |
@@ -119,8 +130,10 @@
 | disaster recovery | 容灾 |  |
 | disparate data source | 异构数据源 |  |
 | distributed database | 分布式数据库 |  |
+| DML | 数据操纵语言 |  |
 | driving table | 驱动表 |  |
 | dummy data | 假数据 |  |
+| Dynamic Pruning | 动态裁剪 |  |
 | dynamic | 动态 |  |
 | dynamic programming algorithm | 动态规划算法 |  |
 | effective range | 生效范围 |  |
@@ -131,12 +144,14 @@
 | environment variable | 环境变量 |  |
 | equivalent/equal condition | 等值条件 |  |
 | escape character | 转义字符 |  |
+| Exactly-Once Processing | 精确一次处理 |  |
 | exact match | 精确匹配 |  |
 | exception | 异常 |  |
 | execute | 执行 |  |
 | experimental feature | 实验特性 |  |
 | expire | 过期 |  |
 | explicit transaction | 显式事务 |  |
+| Expression index | 表达式索引 |  |
 | expression | 表达式 |  |
 | extendible hashing | 可扩充散列 |  |
 | external interface | 对外接口 |  |
@@ -164,6 +179,7 @@
 | function signature | 函数签名 |  |
 | functional abstraction | 功能抽象 |  |
 | fuzzy matching | 模糊匹配 |  |
+| Garbage Collection (GC) | 垃圾回收 |  |
 | geo-distributed active-active | 异地双活 |  |
 | geo-distributed multi-active | 异地多活 |  |
 | global | 全局 |  |
@@ -187,9 +203,11 @@
 | horizontal scalability | 水平扩展 |  |
 | host | 主机 |  |
 | hot data | 热点数据 |  |
+| Hotspot | 热点 |  |
 | hotfix | 热修复 |  |
 | hybrid deployment | 混合部署 |  |
 | Hybrid Transactional and Analytical Processing (HTAP) | HTAP (Hybrid Transactional and Analytical Processing) | 一般写英文形式 |
+| Hypothetical indexes | 虚拟索引 |  |
 | idempotent (idempotence) | 幂等 |  |
 | image | 镜像 |  |
 | image tag error | 镜像 tag 错误 |  |
@@ -198,13 +216,19 @@
 | implicit transaction | 隐式事务 |  |
 | in batches | 批量 | 动词短语 (verb phrase) |
 | in full volume | 全量 |  |
+| In-Memory Engine (IME) | TiKV MVCC 内存引擎 |  |
+| In-Memory Pessimistic Lock | 内存悲观锁 |  |
 | in-memory database | 内存数据库 |  |
 | incremental backup | 增量备份 |  |
 | incremental import | 增量导入 |  |
 | incremental synchronization | 增量同步 |  |
 | incrementally | 增量地 |  |
+| Index Advisor | 索引推荐 |  |
 | index engine | 索引引擎 |  |
 | index join | 索引连接 |  |
+| Index Look Up | 索引回表 |  |
+| Index Merge | 索引合并 |  |
+| Index Range Derivation | 索引范围推导 |  |
 | infer | 推导 |  |
 | initialize | 初始化 |  |
 | Input/Output Operations Per Second (IOPS) | IOPS | 每秒输入输出操作，一般写英文形式 |
@@ -218,12 +242,15 @@
 | Internationalization (I18N) | 国际化 |  |
 | Internet Data Center (IDC) | 互联网数据中心 |  |
 | Internet Service Provider (ISP) | 互联网服务提供商 |  |
+| Invisible Indexes | 不可见索引 |  |
 | intrusive | 有侵入性的 |  |
 | isolated storage | 独立存储 |  |
 | isolation | 隔离 |  |
 | isolation level | 隔离级别 |  |
 | Java DataBase Connectivity (JDBC) | Java 数据库连接 |  |
 | kernel version | 内核版本 |  |
+| Key Management Service (KMS) | 密钥管理服务 |  |
+| Key-Value (KV) | 键值 |  |
 | key-value pair(s) / KV pair(s) | 键值对 |  |
 | keyword | 关键字 |  |
 | Kubernetes (K8s) | Kubernetes (K8s) |  |
@@ -237,6 +264,7 @@
 | left outer join | 左外连接 |  |
 | level | 级别 |  |
 | lifecycle | 生命周期 |  |
+| Lightweight Directory Access Protocol (LDAP) | 轻量级目录访问协议 |  |
 | limitation | 限制 |  |
 | linear hashing | 线性散列 |  |
 | listening | （服务）监听 |  |
@@ -248,6 +276,7 @@
 | localization (L10N) | 本地化 |  |
 | lock | 锁 |  |
 | lock contention | 锁争用 |  |
+| Lock View | 锁视图 |  |
 | log file | 日志文件 |  |
 | log level | 日志等级 |  |
 | logic | 逻辑 |  |
@@ -255,6 +284,7 @@
 | logical operation | 逻辑运算 |  |
 | logical plan | 逻辑计划 |  |
 | long transaction | 长事务 |  |
+| Long Term Support (LTS) | 长期支持 |  |
 | machine code | 机器码 |  |
 | massive data | 海量数据 | 不是 big data（大数据） |
 | Massively Parallel Processing (MPP) | 大规模并行处理 |  |
@@ -298,6 +328,7 @@
 | operational status | 运行状态 |  |
 | operator | 运算符/操作符/算子 |  |
 | operator precedence | 运算符优先级 |  |
+| Optimistic transaction | 乐观事务 |  |
 | optimistic locking | 乐观锁 |  |
 | optimistic transaction model | 乐观事务模型 |  |
 | optimizer | 优化器 |  |
@@ -317,6 +348,7 @@
 | persistent data | 持久化数据 |  |
 | pessimistic locking | 悲观锁 |  |
 | physical plan | 物理计划 |  |
+| Point get | 点查 |  |
 | point query | 点查询 |  |
 | populate | 填充 |  |
 | port | 端口 |  |
@@ -334,14 +366,19 @@
 | push | 推送 |  |
 | push down | 下推 | 动词短语 (verb phrase) |
 | pushdown | 下推的 | 形容词 (adj.) |
+| Queries Per Second (QPS) | 每秒查询数 |  |
 | query | 查询 |  |
 | query by returning to the table (not a fixed term) | 回表查询 |  |
 | query tree | 查询树 |  |
+| Quota Limiter | 前台限流 |  |
 | Raft | Raft |  |
 | Raft consensus algorithm | Raft 一致性算法 |  |
+| Raft Engine | Raft Engine | TiKV 内置的持久化日志存储引擎 |
+| RAG | 检索增强生成 |  |
 | random delay | 随机延迟 |  |
 | range query | 范围查询 |  |
 | read | 读 |  |
+| Read Committed | 读已提交隔离级别 |  |
 | reads and writes | 读写 |  |
 | real-time replication delay | 实时同步延迟 |  |
 | recursion | 递归 |  |
@@ -355,10 +392,12 @@
 | Remote Procedure Call (RPC) | 远程过程调用 |  |
 | renderer | 渲染器 |  |
 | repair data | 修复数据 |  |
+| Repeatable Read | 可重复读隔离级别 |  |
 | replica | 副本 |  |
 | replicator | 复制因子 |  |
 | repository | 仓库 |  |
 | request | 请求 |  |
+| Request Unit (RU) | 请求单元 |  |
 | restart | 重启 |  |
 | restore | 恢复 | 可以作为名词 (noun) 或动词 (verb) 使用 |
 | retention period | 保留时间 |  |
@@ -373,6 +412,7 @@
 | rough set | 粗糙集 |  |
 | routine | 例程 |  |
 | row store | 行存 |  |
+| RRF | 倒数排名融合 |  |
 | Rule-Based Optimization (RBO) | 基于规则的优化 |  |
 | runtime | 运行时 |  |
 | scalar function | 标量函数 |  |
@@ -384,13 +424,15 @@
 | schedule | 调度 |  |
 | scope | 作用域 |  |
 | secondary indices | 次级索引 |  |
+| Security Enhanced Mode (SEM) | 安全增强模式 |  |
 | see also | 另请参阅 |  |
 | seed | 数据填充 |  |
+| Sequence | 序列 |  |
 | sequential flooding | 顺序泛洪 |  |
 | service | 服务 |  |
 | session | 会话 |  |
 | shard key | 分片键 |  |
-| shard(s) | 分片（名词） | 比如“删除一个分片”，“SHARD_ROW_ID_BITS = 4 代表 16 个分片”等，此时用 shard(s)。 |
+| shard(s) | 分片（名词） | 比如"删除一个分片"，"SHARD_ROW_ID_BITS = 4 代表 16 个分片"等，此时用 shard(s)。 |
 | sharded table | 分表 |  |
 | sharding | 分片（动词或动名词） |  |
 | sign bit | 符号位 |  |
@@ -407,6 +449,8 @@
 | sorted | 有序的 |  |
 | source end | 源端 |  |
 | split | 切分 |  |
+| SQL binding | 执行计划绑定 |  |
+| SQL Plan Management (SPM) | 执行计划管理 |  |
 | stack | 堆栈 |  |
 | startup parameter | 启动参数 |  |
 | stateful | 有状态的 |  |
@@ -431,8 +475,10 @@
 | table schema | 表结构 |  |
 | target machine | （部署）目标机器 |  |
 | technology stack | 技术栈 |  |
+| Temporary table | 临时表 |  |
 | test | 测试 |  |
 | configuration file | 配置文件 |  |
+| Time to Live (TTL) | 存活时间 |  |
 | Transparent Huge Pages (THP) | 透明大页 | A Linux memory management system |
 | thread | 线程 |  |
 | thread pool | 线程池 |  |
@@ -451,7 +497,6 @@
 | time series database | 时序数据库 |  |
 | Time Series Database (TSDB) | 时序数据库 |  |
 | time synchronization error | 时间同步误差 |  |
-| Time To Live (TTL) | 存活时间 |  |
 | timeliness | 时效性 |  |
 | timestamp | 时间戳 |  |
 | timestamp allocator | 时间戳分配器 |  |
@@ -461,18 +506,22 @@
 | topology | 拓扑结构 |  |
 | traffic flow control | 流控/流量控制 |  |
 | transaction | 事务 |  |
+| Transactions Per Second (TPS) | 每秒事务数 |  |
 | traverse | 遍历 |  |
 | trie | 字典树 / 单词查找树 |  |
 | tutorial | 教程 |  |
 | type | 类型 |  |
+| Type error | 类型错误 |  |
 | type inference | 类型推导 |  |
 | unbind | 解除（对服务、软件的）依赖，绑定，关联 |  |
 | underlying table | 底层表 |  |
 | unidirectional data flow | 单向数据流 |  |
+| Uniform Resource Identifier (URI) | 统一资源标识符 |  |
 | union | 联合体 |  |
 | Universally Unique Identifier (UUID) | 通用唯一识别码 |  |
 | unsigned integer | 无符号整数 |  |
 | update | 修改（如：修改行） |  |
+| Upgrade Checklist | 升级检查 |  |
 | user identification | 用户标识 |  |
 | user privilege | 用户权限 |  |
 | variable | 变量 |  |
@@ -487,3 +536,53 @@
 | write buffer | 写缓冲器 |  |
 | write skew | 写偏斜 |  |
 | write-ahead logging (WAL) | 预写式日志 |  |
+| Global Index | 全局索引 |  |
+| Generated Columns | 生成列 |  |
+| RBAC | 基于角色的访问控制 |  |
+| QoS | 服务质量 |  |
+| TDE | 透明数据加密 |  |
+| Foreign Key | 外键 |  |
+| Master Key | 主密钥 |  |
+| Data Key | 数据密钥 |  |
+| Back Pressure | 背压 |  |
+| Flow Control | 流量控制 |  |
+| Bi-Directional Replication (BDR) | 双向复制 |  |
+| Instance Plan Cache | 实例级执行计划缓存 |  |
+| Physical Import Mode | 物理导入模式 |  |
+| Logical Import Mode | 逻辑导入模式 |  |
+| Pending Offline | 下线中 |  |
+| Full Restore | 全量恢复 |  |
+| READ UNCOMMITTED | 读未提交 |  |
+| SERIALIZABLE | 串行化 |  |
+| Cardinality Estimation | 基数估算 |  |
+| Metadata Locking | 元数据锁 |  |
+| Table Attributes | 表属性 |  |
+| Rack | 机架 |  |
+| Graceful Shutdown | 优雅关闭 |  |
+| Graceful Upgrade | 平滑升级 |  |
+| Placement Policy | 放置策略 |  |
+| Disk Quota | 磁盘配额 |  |
+| Backend Task Write Rate Limiter | 后台任务写入限制 |  |
+| FAQ | 常见问题解答 |  |
+| Workload Identity Federation (WIF) | 工作负载身份联合 |  |
+| Sync-Diff-Inspector | 数据同步对比工具 |  |
+| Global Transaction Identifiers (GTIDs) | 全局事务标识符 |  |
+| Distributed eXecution Framework (DXF) | 分布式执行框架 |  |
+| Index-Organized Table | 索引组织表 |  |
+| PITR | 按时间点恢复 |  |
+| Open Protocol | 开放数据协议 |  |
+| Local Token Bucket (LTB) | 本地令牌桶 |  |
+| Google Cloud Storage (GCS) | Google Cloud Storage |  |
+| In-Memory Engine | 内存引擎 |  |
+| Long-Term Support (LTS) | 长期支持 |  |
+| Development Milestone Release (DMR) | 开发里程碑版本 |  |
+| Change Data Capture (CDC) | 变更数据捕获 |  |
+| Physical Data Compaction | 物理数据整理 |  |
+| Semi Join | 半连接 |  |
+| PD Control (pd-ctl) | PD Control |  |
+| OLD Value | 原始值 |  |
+| Runaway Query | 资源消耗超出预期的查询 |  |
+| Resource Control | 资源管控 |  |
+| Resource Group | 资源组 |  |
+| Unreachable | 无法访问 |  |
+| IMDSv2 | IMDSv2 |  |
