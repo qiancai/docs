@@ -14,36 +14,34 @@
 
 ## GUIDES
 
-- [Connect to TiDB](/ai/guides/connect.md)
-- [Working with Tables](/ai/guides/tables.md)
-- Search Features
-  - [Vector Search](/ai/guides/vector-search.md)
-  - Full-Text Search
+- Connect and Manage Data
+  - [Connect to TiDB](/ai/guides/connect.md)
+  - [Work with Tables](/ai/guides/tables.md)
+  - [Join Multiple Tables](/ai/guides/join-queries.md)
+  - [Execute Raw SQL](/ai/guides/raw-queries.md)
+  - [Use Transactions](/ai/guides/transactions.md)
+- Search and Embedding
+  - [Generate Embeddings Automatically](/ai/guides/auto-embedding.md)
+  - [Perform Vector Search](/ai/guides/vector-search.md)
+  - Perform Full-Text Search
     - [Full-Text Search via Python](/ai/guides/vector-search-full-text-search-python.md)
     - [Full-Text Search via SQL](/ai/guides/vector-search-full-text-search-sql.md)
-  - [Hybrid Search](/ai/guides/vector-search-hybrid-search.md)
-  - [Image Search](/ai/guides/image-search.md)
-- Advanced Features
-  - [Auto Embedding](/ai/guides/auto-embedding.md)
-  - [Filtering](/ai/guides/filtering.md)
-  - [Reranking](/ai/guides/reranking.md)
-  - [Join Queries](/ai/guides/join-queries.md)
-  - [Raw SQL Queries](/ai/guides/raw-queries.md)
-  - [Transactions](/ai/guides/transactions.md)
+  - [Perform Hybrid Search](/ai/guides/vector-search-hybrid-search.md)
+  - [Perform Image Search](/ai/guides/image-search.md)
+  - [Filter Results](/ai/guides/filtering.md)
+  - [Rerank Results](/ai/guides/reranking.md)
 
 ## EXAMPLES
 
-- [Basic CRUD Operations](/ai/examples/basic-with-pytidb.md)
-- [Auto Embedding](/ai/examples/auto-embedding-with-pytidb.md)
-- Search & Retrieval
-  - [Vector Search](/ai/examples/vector-search-with-pytidb.md)
-  - [Full-Text Search](/ai/examples/fulltext-search-with-pytidb.md)
-  - [Hybrid Search](/ai/examples/hybrid-search-with-pytidb.md)
-  - [Image Search](/ai/examples/image-search-with-pytidb.md)
-- AI Applications
-  - [RAG Application](/ai/examples/rag-with-pytidb.md)
-  - [Conversational Memory](/ai/examples/memory-with-pytidb.md)
-  - [Text-to-SQL](/ai/examples/text2sql-with-pytidb.md)
+- [CRUD Operations](/ai/examples/basic-with-pytidb.md)
+- [Auto Embedding Pipeline](/ai/examples/auto-embedding-with-pytidb.md)
+- [Semantic Search with Ollama](/ai/examples/vector-search-with-pytidb.md)
+- [E-Commerce Product Search](/ai/examples/fulltext-search-with-pytidb.md)
+- [Hybrid Document Search](/ai/examples/hybrid-search-with-pytidb.md)
+- [Image Similarity Search](/ai/examples/image-search-with-pytidb.md)
+- [RAG Chatbot with Ollama](/ai/examples/rag-with-pytidb.md)
+- [Chatbot with Persistent Memory](/ai/examples/memory-with-pytidb.md)
+- [Natural Language to SQL](/ai/examples/text2sql-with-pytidb.md)
 
 ## INTEGRATIONS
 
