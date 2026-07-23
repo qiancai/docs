@@ -164,7 +164,7 @@
 | fill-factor | 填充因子 |  |
 | fine-grained | 细粒度 |  |
 | flag | （命令行）标记/参数 |  |
-| float | float | |  |
+| float | float |  |
 | Follower | Follower | A role in the Raft consensus algorithm |
 | force upgrade | 强制升级 |  |
 | foundation class | 基础类库 |  |
