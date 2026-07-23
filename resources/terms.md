@@ -21,7 +21,7 @@
 | ascending order | 正序 |  |
 | assignment expression | 赋值表达式 |  |
 | assignment operation | 赋值运算 |  |
-| Async Commit | 异步提交事务 |  |
+| Async Commit | 异步提交事务 | 特性名，正文中常简写为"异步提交"，也常保留英文 Async Commit |
 | authorize | 授予权限 |  |
 | auto embedding | auto embedding | Keep it in English as a feature name. If it is used as a verb, translate it to "自动生成向量" in Chinese. |
 | auto increment | 自增 |  |
@@ -33,8 +33,8 @@
 | Baseline Capturing | 自动捕获绑定 |  |
 | Baseline Evolution | 自动演进绑定 |  |
 | bastion | 堡垒机 |  |
-| Batch Create Table | 批量建表功能 |  |
-| Batch Point Get | 批量点查 |  |
+| Batch Create Table | 批量建表功能 | 功能名，主要用于 BR 恢复场景 |
+| Batch Point Get | 批量点查 | 作为执行算子名时通常保留英文 Batch Point Get |
 | binary literal | 二进制字面值 |  |
 | bit | 位 |  |
 | Bloom filter | 布隆过滤器 |  |
@@ -51,12 +51,12 @@
 | Cartesian product | 笛卡尔积 |  |
 | case-sensitive | 大小写敏感 |  |
 | certificate signing request (CSR) | 证书签名请求 |  |
-| Conflict error | 冲突错误 |  |
+| Conflict error | 冲突错误 | 主要用于 TiDB Lightning 冲突数据处理和事务冲突场景 |
 | Continuous Profiling | 持续性能分析 |  |
 | Cost-Based Optimization (CBO) | 基于代价的优化 |  |
 | CRUD | 增删改查 |  |
-| Cross-DB Binding | 跨数据库绑定执行计划 |  |
-| CTE | 公共表表达式 |  |
+| Cross-DB Binding | 跨数据库绑定执行计划 | 英文正文多写作 Cross-database binding |
+| CTE | 公共表表达式 | 正文中通常保留英文缩写 CTE |
 | Custom Resource Definition (CRD) | 自定义资源类型 |  |
 | checksum | 校验和 |  |
 | circular dependency | 循环依赖 |  |
@@ -112,14 +112,14 @@
 | data dissemination | 数据分发 |  |
 | data engine | 数据引擎 |  |
 | data hub | 数据中台 |  |
-| Data Manipulation Language (DML) | 数据操纵语言 |  |
+| Data Manipulation Language (DML) | 数据操作语言 |  |
 | data race | 数据竞争 |  |
 | database administrator (DBA) | 数据库管理员 |  |
 | database kernel | 数据库内核 | 内核是 kernel，不是 core |
 | datacenter | 数据中心 |  |
 | dataflow | 数据流 |  |
-| DCL | 数据控制语言 |  |
-| DDL | 数据定义语言 |  |
+| DCL | 数据控制语言 | 正文中通常保留英文缩写 DCL |
+| DDL | 数据定义语言 | 正文中通常保留英文缩写 DDL |
 | decompress | 解压缩 |  |
 | dependency/dependencies | 依赖包 |  |
 | dependency | 依赖关系 |  |
@@ -130,10 +130,10 @@
 | disaster recovery | 容灾 |  |
 | disparate data source | 异构数据源 |  |
 | distributed database | 分布式数据库 |  |
-| DML | 数据操纵语言 |  |
+| DML | 数据操作语言 | 正文中通常保留英文缩写 DML |
 | driving table | 驱动表 |  |
 | dummy data | 假数据 |  |
-| Dynamic Pruning | 动态裁剪 |  |
+| Dynamic Pruning | 动态裁剪 | 特指分区表访问模式（tidb_partition_prune_mode=dynamic），区别于泛称"分区裁剪" |
 | dynamic | 动态 |  |
 | dynamic programming algorithm | 动态规划算法 |  |
 | effective range | 生效范围 |  |
@@ -144,7 +144,7 @@
 | environment variable | 环境变量 |  |
 | equivalent/equal condition | 等值条件 |  |
 | escape character | 转义字符 |  |
-| Exactly-Once Processing | 精确一次处理 |  |
+| Exactly-Once Processing | 精确一次处理 | 仅用于 DM 数据复制场景 |
 | exact match | 精确匹配 |  |
 | exception | 异常 |  |
 | execute | 执行 |  |
@@ -203,11 +203,11 @@
 | horizontal scalability | 水平扩展 |  |
 | host | 主机 |  |
 | hot data | 热点数据 |  |
-| Hotspot | 热点 |  |
+| Hotspot | 热点 | 英文文档中 hotspot / hot spot / hot-spot 三种拼写并存，统一译作"热点" |
 | hotfix | 热修复 |  |
 | hybrid deployment | 混合部署 |  |
 | Hybrid Transactional and Analytical Processing (HTAP) | HTAP (Hybrid Transactional and Analytical Processing) | 一般写英文形式 |
-| Hypothetical indexes | 虚拟索引 |  |
+| Hypothetical indexes | 虚拟索引 | 仅用于 Index Advisor / RECOMMEND INDEX 场景 |
 | idempotent (idempotence) | 幂等 |  |
 | image | 镜像 |  |
 | image tag error | 镜像 tag 错误 |  |
@@ -216,7 +216,7 @@
 | implicit transaction | 隐式事务 |  |
 | in batches | 批量 | 动词短语 (verb phrase) |
 | in full volume | 全量 |  |
-| In-Memory Engine (IME) | TiKV MVCC 内存引擎 |  |
+| In-Memory Engine (IME) | 内存引擎 | 全称 TiKV MVCC In-Memory Engine 译作"TiKV MVCC 内存引擎"；正文简称译作"内存引擎" |
 | In-Memory Pessimistic Lock | 内存悲观锁 |  |
 | in-memory database | 内存数据库 |  |
 | incremental backup | 增量备份 |  |
@@ -226,7 +226,7 @@
 | Index Advisor | 索引推荐 |  |
 | index engine | 索引引擎 |  |
 | index join | 索引连接 |  |
-| Index Look Up | 索引回表 |  |
+| Index Look Up | 索引回表 | 正文中更常用简称"回表" |
 | Index Merge | 索引合并 |  |
 | Index Range Derivation | 索引范围推导 |  |
 | infer | 推导 |  |
@@ -264,7 +264,7 @@
 | left outer join | 左外连接 |  |
 | level | 级别 |  |
 | lifecycle | 生命周期 |  |
-| Lightweight Directory Access Protocol (LDAP) | 轻量级目录访问协议 |  |
+| Lightweight Directory Access Protocol (LDAP) | 轻量级目录访问协议 | 正文中通常保留缩写 LDAP |
 | limitation | 限制 |  |
 | linear hashing | 线性散列 |  |
 | listening | （服务）监听 |  |
@@ -284,7 +284,6 @@
 | logical operation | 逻辑运算 |  |
 | logical plan | 逻辑计划 |  |
 | long transaction | 长事务 |  |
-| Long Term Support (LTS) | 长期支持 |  |
 | machine code | 机器码 |  |
 | massive data | 海量数据 | 不是 big data（大数据） |
 | Massively Parallel Processing (MPP) | 大规模并行处理 |  |
@@ -348,7 +347,7 @@
 | persistent data | 持久化数据 |  |
 | pessimistic locking | 悲观锁 |  |
 | physical plan | 物理计划 |  |
-| Point get | 点查 |  |
+| Point get | 点查 | 作为执行算子名时通常保留英文 Point Get |
 | point query | 点查询 |  |
 | populate | 填充 |  |
 | port | 端口 |  |
@@ -366,11 +365,11 @@
 | push | 推送 |  |
 | push down | 下推 | 动词短语 (verb phrase) |
 | pushdown | 下推的 | 形容词 (adj.) |
-| Queries Per Second (QPS) | 每秒查询数 |  |
+| Queries Per Second (QPS) | 每秒查询数 | 正文中通常保留英文缩写 QPS |
 | query | 查询 |  |
 | query by returning to the table (not a fixed term) | 回表查询 |  |
 | query tree | 查询树 |  |
-| Quota Limiter | 前台限流 |  |
+| Quota Limiter | 前台限流 | TiKV 前台请求限流特性，固定译作"前台限流" |
 | Raft | Raft |  |
 | Raft consensus algorithm | Raft 一致性算法 |  |
 | Raft Engine | Raft Engine | TiKV 内置的持久化日志存储引擎 |
@@ -397,7 +396,7 @@
 | replicator | 复制因子 |  |
 | repository | 仓库 |  |
 | request | 请求 |  |
-| Request Unit (RU) | 请求单元 |  |
+| Request Unit (RU) | 请求单元 | 正文中一般保留英文 Request Unit (RU) 或 RU；"请求单元"仅在个别监控指标名中出现 |
 | restart | 重启 |  |
 | restore | 恢复 | 可以作为名词 (noun) 或动词 (verb) 使用 |
 | retention period | 保留时间 |  |
@@ -427,7 +426,7 @@
 | Security Enhanced Mode (SEM) | 安全增强模式 |  |
 | see also | 另请参阅 |  |
 | seed | 数据填充 |  |
-| Sequence | 序列 |  |
+| Sequence | 序列 | 仅指数据库序列对象（CREATE SEQUENCE），"时间序列"、"序列化"等场景不适用 |
 | sequential flooding | 顺序泛洪 |  |
 | service | 服务 |  |
 | session | 会话 |  |
@@ -478,7 +477,7 @@
 | Temporary table | 临时表 |  |
 | test | 测试 |  |
 | configuration file | 配置文件 |  |
-| Time to Live (TTL) | 存活时间 |  |
+| Time to Live (TTL) | 存活时间 | TiDB 的 TTL 特性在中文文档中通常保留 "TTL (Time to Live)" 或 "TTL"；"存活时间"多用于一般 lifetime 语境 |
 | Transparent Huge Pages (THP) | 透明大页 | A Linux memory management system |
 | thread | 线程 |  |
 | thread pool | 线程池 |  |
@@ -504,9 +503,9 @@
 | token bucket | 令牌桶 | An algorithm used in packet switched computer networks and telecommunications networks |
 | tolerate | 容忍 |  |
 | topology | 拓扑结构 |  |
-| traffic flow control | 流控/流量控制 |  |
+| flow control / traffic flow control | 流控/流量控制 | docs-cn 中"流控"更常用 |
 | transaction | 事务 |  |
-| Transactions Per Second (TPS) | 每秒事务数 |  |
+| Transactions Per Second (TPS) | 每秒事务数 | 正文中通常保留英文缩写 TPS |
 | traverse | 遍历 |  |
 | trie | 字典树 / 单词查找树 |  |
 | tutorial | 教程 |  |
@@ -516,7 +515,7 @@
 | unbind | 解除（对服务、软件的）依赖，绑定，关联 |  |
 | underlying table | 底层表 |  |
 | unidirectional data flow | 单向数据流 |  |
-| Uniform Resource Identifier (URI) | 统一资源标识符 |  |
+| Uniform Resource Identifier (URI) | 统一资源标识符 | 正文中一般保留缩写 URI，不译 |
 | union | 联合体 |  |
 | Universally Unique Identifier (UUID) | 通用唯一识别码 |  |
 | unsigned integer | 无符号整数 |  |
@@ -539,50 +538,46 @@
 | Global Index | 全局索引 |  |
 | Generated Columns | 生成列 |  |
 | RBAC | 基于角色的访问控制 |  |
-| QoS | 服务质量 |  |
-| TDE | 透明数据加密 |  |
+| Quality of Service (QoS) | 服务质量 |  |
+| TDE | 透明数据加密 | 常与"静态加密 (encryption at rest)"互换使用；正文多直接用 TDE |
 | Foreign Key | 外键 |  |
-| Master Key | 主密钥 |  |
-| Data Key | 数据密钥 |  |
-| Back Pressure | 背压 |  |
-| Flow Control | 流量控制 |  |
-| Bi-Directional Replication (BDR) | 双向复制 |  |
-| Instance Plan Cache | 实例级执行计划缓存 |  |
+| Master Key | 主密钥 | TDE/静态加密场景术语 |
+| Data Key | 数据密钥 | TDE/静态加密场景术语 |
+| Back Pressure | 背压 | 主要用于 TiCDC 相关发布说明语境 |
+| Bidirectional Replication (BDR) | 双向复制 |  |
+| Instance Plan Cache | 实例级执行计划缓存 | 英文也写作 Instance-level Plan Cache；区别于会话级的 Plan Cache |
 | Physical Import Mode | 物理导入模式 |  |
 | Logical Import Mode | 逻辑导入模式 |  |
-| Pending Offline | 下线中 |  |
+| Pending Offline | 下线中 | TiUP 组件状态，状态字符串本身保留英文，与 PD API 的 Offline、TiDB Dashboard 的 Leaving 等价 |
 | Full Restore | 全量恢复 |  |
-| READ UNCOMMITTED | 读未提交 |  |
-| SERIALIZABLE | 串行化 |  |
-| Cardinality Estimation | 基数估算 |  |
-| Metadata Locking | 元数据锁 |  |
-| Table Attributes | 表属性 |  |
-| Rack | 机架 |  |
+| Read Uncommitted | 读未提交隔离级别 | SQL-92 隔离级别；TiDB 实际不支持，仅为兼容性解析 |
+| Serializable | 串行化隔离级别 | SQL-92 隔离级别；TiDB 按快照隔离 (Snapshot Isolation) 处理 |
+| Metadata Lock | 元数据锁 |  |
+| Table Attributes | 表属性 | 既指 Table Attributes 特性，也用于 SHARD_ROW_ID_BITS 等具体表属性 |
+| Rack | 机架 | 用于 PD location-labels 拓扑层级（zone/rack/host） |
 | Graceful Shutdown | 优雅关闭 |  |
-| Graceful Upgrade | 平滑升级 |  |
+| Graceful Upgrade | 平滑升级 | 目前仅用于 TiCDC 升级场景 |
 | Placement Policy | 放置策略 |  |
-| Disk Quota | 磁盘配额 |  |
-| Backend Task Write Rate Limiter | 后台任务写入限制 |  |
-| FAQ | 常见问题解答 |  |
-| Workload Identity Federation (WIF) | 工作负载身份联合 |  |
-| Sync-Diff-Inspector | 数据同步对比工具 |  |
-| Global Transaction Identifiers (GTIDs) | 全局事务标识符 |  |
+| Disk Quota | 磁盘配额 | TiDB Lightning 物理导入模式的磁盘配额（tikv-importer.disk-quota） |
+| TiKV Write Rate Limiter | 后台任务写入限制 |  |
+| FAQ | 常见问题解答 | 小节标题中常译作"常见问题"，TOC/页面标题中也常保留 FAQ |
+| Workload Identity Federation (WIF) | Workload Identity Federation (WIF) | Google Cloud 产品功能名，docs-cn 中保留英文不译 |
+| sync-diff-inspector | 数据同步对比工具 | 工具名保留英文 sync-diff-inspector；"数据同步对比工具"仅作解释性描述 |
 | Distributed eXecution Framework (DXF) | 分布式执行框架 |  |
-| Index-Organized Table | 索引组织表 |  |
-| PITR | 按时间点恢复 |  |
-| Open Protocol | 开放数据协议 |  |
-| Local Token Bucket (LTB) | 本地令牌桶 |  |
-| Google Cloud Storage (GCS) | Google Cloud Storage |  |
-| In-Memory Engine | 内存引擎 |  |
+| Index-Organized Table | 索引组织表 | 仅在解释聚簇索引 (clustered index) 时出现，指其他数据库对聚簇索引表的称呼 |
+| PITR | 按时间点恢复 | 缩写 PITR 通常保留英文；全称译作"按时间点恢复"（亦见"时间点恢复"） |
+| Open Protocol | 开放数据协议 | 指 TiCDC Open Protocol；协议名常保留英文，首次出现可写"开放数据协议 (TiCDC Open Protocol)" |
+| Local Token Bucket (LTB) | 本地令牌桶 | Resource Control 实现组件 |
+| Google Cloud Storage (GCS) | Google Cloud Storage | 保持英文不译，可附缩写 GCS |
 | Long-Term Support (LTS) | 长期支持 |  |
 | Development Milestone Release (DMR) | 开发里程碑版本 |  |
-| Change Data Capture (CDC) | 变更数据捕获 |  |
-| Physical Data Compaction | 物理数据整理 |  |
-| Semi Join | 半连接 |  |
-| PD Control (pd-ctl) | PD Control |  |
-| OLD Value | 原始值 |  |
+| Change Data Capture (CDC) | Change Data Capture (CDC) | 中文文档保留英文，不译 |
+| Physical Data Compaction | 物理数据整理 | TiFlash 副本手动 Compaction（ALTER TABLE ... COMPACT），仅见于 v6.1-v6.4 发布说明 |
+| Semi Join | 半连接 | 中文文档常中英并列（半连接 (Semi Join)）或直接保留英文 |
+| PD Control (pd-ctl) | PD Control | 工具名，保持英文不译 |
+| OLD Value | 原始值 | TiCDC 术语，指增量变更日志中变更前的行值；正文也常译作"旧值"或保留英文 Old Value |
 | Runaway Query | 资源消耗超出预期的查询 |  |
-| Resource Control | 资源管控 |  |
-| Resource Group | 资源组 |  |
-| Unreachable | 无法访问 |  |
-| IMDSv2 | IMDSv2 |  |
+| Resource Control | 资源管控 | 固定译作"资源管控"；docs-cn 少量历史页面用"资源控制"，勿跟随 |
+| Resource Group | 资源组 | SQL 语法中的 RESOURCE GROUP 关键字保留英文 |
+| Unreachable | 无法访问 | 作为 TiUP 组件状态译为"无法访问"；Raft/网络通用语境也可译"无法连接" |
+| IMDSv2 | IMDSv2 | AWS Instance Metadata Service Version 2 的缩写，保持英文不译 |
