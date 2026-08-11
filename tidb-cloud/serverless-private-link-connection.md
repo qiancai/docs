@@ -39,7 +39,7 @@ Ensure that the AWS endpoint service:
 - Add the TiDB Cloud account ID to the **Allow principals** list.
 - Has availability zones that overlap with your {{{ .essential }}} instance.
 
-You can get the account ID and availability zones information at the bottom of the **Create Private Endpoint for External Services** dialog, or by running the following command:
+You can get the account ID and availability zone information at the bottom of the **Create Private Endpoint for External Services** dialog, or by running the following command:
 
 ```shell
 ticloud serverless private-link-connection zones --cluster-id <cluster-id>
@@ -129,7 +129,7 @@ Ensure that the Alibaba Cloud endpoint service:
 - Add the TiDB Cloud account ID to the **Service Whitelist**.
 - Has availability zones that overlap with your {{{ .essential }}} instance.
 
-You can get the account ID and availability zones information at the bottom of the **Create Private Endpoint for External Services** dialog, or by running the following command:
+You can get the account ID and availability zone information at the bottom of the **Create Private Endpoint for External Services** dialog, or by running the following command:
 
 ```shell
 ticloud serverless private-link-connection zones --cluster-id <cluster-id>
@@ -209,7 +209,7 @@ To attach domains to a private link connection using the TiDB Cloud console, do 
 
 2. Click the name of your target {{{ .essential }}} instance to go to its overview page, and then click **Settings** > **Networking** in the left navigation pane.
 
-3. In the **Private Endpoints for External Services** area for your cloud provider, choose the target private link connection, and then click **...**.
+3. In the **<cloud-provider> Private Endpoints for External Services** area (where `<cloud-provider>` is the cloud provider hosting your {{{ .essential }}} instance), choose the target private link connection, and then click **...**.
 
 4. Click **Attach Domains**.
 
@@ -262,7 +262,7 @@ To detach domains from a private link connection using the TiDB Cloud console, d
 
 2. Click the name of your target {{{ .essential }}} instance to go to its overview page, and then click **Settings** > **Networking** in the left navigation pane.
 
-3. In the **Private Endpoints for External Services** area for your cloud provider, choose the target private link connection, and then click **...**.
+3. In the **<cloud-provider> Private Endpoints for External Services** area (where `<cloud-provider>` is the cloud provider hosting your {{{ .essential }}} instance), choose the target private link connection, and then click **...**.
 
 4. Click **Detach Domains**, and then confirm the detachment.
 
@@ -304,7 +304,7 @@ To delete a private link connection using the TiDB Cloud console, do the followi
 
 2. Click the name of your target {{{ .essential }}} instance to go to its overview page, and then click **Settings** > **Networking** in the left navigation pane.
 
-3. In the **Private Endpoints for External Services** area for your cloud provider, choose the target private link connection, and then click **...**.
+3. In the **<cloud-provider> Private Endpoints for External Services** area (where `<cloud-provider>` is the cloud provider hosting your {{{ .essential }}} instance), choose the target private link connection, and then click **...**.
 
 4. Click **Delete**, and then confirm the deletion.
 
