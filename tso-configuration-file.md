@@ -60,14 +60,14 @@ The TSO node is used for providing the `tso` microservice for PD. This document 
 
 Configuration items related to security
 
-### `cacert-path`
-
-- The path of the CA file
-- Default value: ""
-
 ### `cert-path`
 
 - The path of the Privacy Enhanced Mail (PEM) file that contains the X.509 certificate
+- Default value: ""
+
+### `cacert-path`
+
+- The path of the CA file
 - Default value: ""
 
 ### `key-path`
@@ -127,7 +127,7 @@ Configuration items related to the log file
 
 ## metric
 
-Configuration items related to monitoring
+Configuration items related to `metric`.
 
 ### `interval`
 
