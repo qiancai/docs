@@ -8,7 +8,7 @@ summary: Define the trigger rules for slow query logs.
 
 <CustomContent platform="tidb-cloud">
 
-This document describes how to use [`tidb_slow_log_rules`](/system-variables.md#tidb_slow_log_rules-new-in-v856) to define the trigger rules for slow queries displayed in **Slow Query** page in the TiDB Cloud console.
+This document describes how to use [`tidb_slow_log_rules`](/system-variables.md#tidb_slow_log_rules-new-in-v856) to define the trigger rules for slow queries displayed in [**Slow Query**](/tidb-cloud/tune-performance.md#slow-query) page in the TiDB Cloud console.
 
 [`tidb_slow_log_rules`](/system-variables.md#tidb_slow_log_rules-new-in-v856) supports multi-dimensional metric combinations. It is suitable for "targeted sampling" and "problem reproduction" of slow queries, enabling you to filter target statements based on specific metric combinations.
 
