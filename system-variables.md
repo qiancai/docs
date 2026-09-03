@@ -5981,9 +5981,15 @@ Query OK, 0 rows affected, 1 warning (0.00 sec)
     - A value greater than `0` means TiDB writes at most the specified number of slow query log entries per second. Any excess log entries are discarded and not written to the slow query log file.
 - This variable is often used with [`tidb_slow_log_rules`](#tidb_slow_log_rules-new-in-v856) to prevent excessive slow query logs from being generated under high-workload conditions.
 
-### tidb_slow_log_rules <span class="version-mark">New in v8.5.6</span>
+### tidb_slow_log_rules <span class="version-mark">New in v8.5.6 and TiDB-X-CLOUD.202603</span>
 
-- Scope: SESSION | GLOBAL
+>**Note:**
+>
+> This variable is not supported on TiDB Cloud Starter.
+
+- Scope
+    - TiDB Self-Managed and TiDB Cloud Dedicated: SESSION | GLOBAL
+    - TiDB Cloud Essential and Premium: SESSION
 - Persists to cluster: Yes
 - Applies to hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): No
 - Default value: ""
@@ -5991,10 +5997,21 @@ Query OK, 0 rows affected, 1 warning (0.00 sec)
 - This variable defines the triggering rules for slow query logs. It supports combining multi-dimensional metrics to provide more flexible and fine-grained logging.
 - For more information about how to use this system variable, see [Use `tidb_slow_log_rules`](/identify-slow-queries.md#use-tidb_slow_log_rules).
 
+<CustomContent platform="tidb">
+
 > **Tip:**
 >
 > - When enabling `tidb_slow_log_rules` in a production environment, it is recommended to also configure [`tidb_slow_log_max_per_sec`](#tidb_slow_log_max_per_sec-new-in-v856) to avoid excessively frequent slow query log printing.
 > - It is recommended to start with stricter conditions and gradually relax them based on troubleshooting needs. For more information on performance impact, see [Recommendations](/identify-slow-queries.md#recommendations).
+
+</CustomContent>
+<CustomContent platform="tidb-cloud">
+
+> **Tip:**
+>
+> It is recommended to start with stricter conditions and gradually relax them based on troubleshooting needs. For more information on performance impact, see [Recommendations](/identify-slow-queries.md#recommendations).
+
+</CustomContent>
 
 ### tidb_slow_log_threshold
 
