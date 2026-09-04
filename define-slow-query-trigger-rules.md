@@ -5,7 +5,6 @@ summary: Define the trigger rules for slow query logs.
 
 # Configure Trigger Rules for Slow Queries
 
-
 <CustomContent platform="tidb-cloud">
 
 This document describes how to use [`tidb_slow_log_rules`](/system-variables.md#tidb_slow_log_rules-new-in-v856) to define the trigger rules for slow queries displayed in [**Slow Query**](/tidb-cloud/tune-performance.md#slow-query) page in the TiDB Cloud console.
@@ -26,8 +25,6 @@ For TiDB Self-Managed, the triggering behavior of slow query logs depends on the
 - If `tidb_slow_log_rules` is set, the configured rules take precedence, and [`tidb_slow_log_threshold`](/system-variables.md#tidb_slow_log_threshold) will be ignored.
 
 </CustomContent>
-
-For more information about meanings, diagnostic value, and background information of each field, see the [Fields description](#fields-description).
 
 ## Unified rule syntax and type constraints
 
@@ -51,51 +48,49 @@ Type constraints are as follows:
 
 ## Supported fields
 
-For detailed field descriptions, diagnostic meanings, and background information, see the [field descriptions in `identify-slow-queries`](/identify-slow-queries.md#fields-description).
+The fields in the following table follow the general matching and type rules described in [Unified rule syntax and type constraints](#unified-rule-syntax-and-type-constraints), unless otherwise noted.
 
-Unless otherwise noted, the fields in the following table follow the general matching and type rules described in [Unified rule syntax and type constraints](#unified-rule-syntax-and-type-constraints). This table lists only the currently supported field names, types, units, and a few rule-specific notes. It does not repeat each field's semantic meaning.
-
-| Field name                            | Type     | Unit   | Notes                          |
-| -------------------------------------- | -------- | ------ | ------------------------------ |
-| `Conn_ID`                             | `uint`   | count  | Supported only in `GLOBAL` rules |
-| `Session_alias`                       | `string` | none   | -                              |
-| `DB`                                  | `string` | none   | Case-insensitive when matched  |
-| `Exec_retry_count`                    | `uint`   | count  | -                              |
-| `Query_time`                          | `float`  | second | -                              |
-| `Parse_time`                          | `float`  | second | -                              |
-| `Compile_time`                        | `float`  | second | -                              |
-| `Rewrite_time`                        | `float`  | second | -                              |
-| `Optimize_time`                       | `float`  | second | -                              |
-| `Wait_TS`                             | `float`  | second | -                              |
-| `Is_internal`                         | `bool`   | none   | -                              |
-| `Digest`                              | `string` | none   | -                              |
-| `Plan_digest`                         | `string` | none   | -                              |
-| `Num_cop_tasks`                       | `int`    | count  | -                              |
-| `Mem_max`                             | `int`    | bytes  | -                              |
-| `Disk_max`                            | `int`    | bytes  | -                              |
-| `Write_sql_response_total`            | `float`  | second | -                              |
-| `Succ`                                | `bool`   | none   | -                              |
-| `Resource_group`                      | `string` | none   | Case-insensitive when matched  |
-| `KV_total`                            | `float`  | second | -                              |
-| `PD_total`                            | `float`  | second | -                              |
-| `Unpacked_bytes_sent_tikv_total`      | `int`    | bytes  | -                              |
-| `Unpacked_bytes_received_tikv_total`  | `int`    | bytes  | -                              |
-| `Unpacked_bytes_sent_tikv_cross_zone` | `int`    | bytes  | -                              |
-| `Unpacked_bytes_received_tikv_cross_zone`    | `int` | bytes  | -                          |
-| `Unpacked_bytes_sent_tiflash_total`          | `int` | bytes  | -                          |
-| `Unpacked_bytes_received_tiflash_total`      | `int` | bytes  | -                          |
-| `Unpacked_bytes_sent_tiflash_cross_zone`     | `int` | bytes  | -                          |
-| `Unpacked_bytes_received_tiflash_cross_zone` | `int` | bytes  | -                          |
-| `Process_time`                        | `float`  | second | -                              |
-| `Backoff_time`                        | `float`  | second | -                              |
-| `Total_keys`                          | `uint`   | count  | -                              |
-| `Process_keys`                        | `uint`   | count  | -                              |
-| `cop_mvcc_read_amplification`         | `float`  | ratio  | Ratio value (`Total_keys / Process_keys`) |
-| `Prewrite_time`                       | `float`  | second | -                              |
-| `Commit_time`                         | `float`  | second | -                              |
-| `Write_keys`                          | `uint`   | count  | -                              |
-| `Write_size`                          | `uint`   | bytes  | -                              |
-| `Prewrite_region`                     | `uint`   | count  | -                              |
+| Field name | Type | Unit | Description |
+| --- | --- | --- | --- |
+| `Conn_ID` | `uint` | count | The connection ID (session ID). For example, you can use `Conn_ID:3` to match logs whose session ID is `3`. This field is supported only in `GLOBAL` rules. |
+| `Session_alias` | `string` | none | The alias of the current session. |
+| `DB` | `string` | none | The current database. Matching is case-insensitive. |
+| `Exec_retry_count` | `uint` | count | The retry times of this statement. This field is usually for pessimistic transactions in which the statement is retried when the lock fails. |
+| `Query_time` | `float` | second | The execution time of a statement. |
+| `Parse_time` | `float` | second | The parsing time for the statement. |
+| `Compile_time` | `float` | second | The duration of the query optimization. |
+| `Rewrite_time` | `float` | second | The time consumed for rewriting the query of this statement. |
+| `Optimize_time` | `float` | second | The time consumed for optimizing the execution plan. |
+| `Wait_TS` | `float` | second | The waiting time of the statement to get transaction timestamps. |
+| `Is_internal` | `bool` | none | Whether a SQL statement is internal to TiDB. `true` indicates that the statement is executed internally in TiDB, and `false` indicates that the statement is executed by the user. |
+| `Digest` | `string` | none | The fingerprint of the SQL statement. |
+| `Plan_digest` | `string` | none | The digest of the execution plan. |
+| `Num_cop_tasks` | `int` | count | The number of Coprocessor tasks sent by this statement. |
+| `Mem_max` | `int` | bytes | The maximum memory space used during the execution period of a SQL statement. |
+| `Disk_max` | `int` | bytes | The maximum disk space used during the execution period of a SQL statement. |
+| `Write_sql_response_total` | `float` | second | The time consumed for sending the results back to the client by this statement. |
+| `Succ` | `bool` | none | Whether a statement is executed successfully. |
+| `Resource_group` | `string` | none | The resource group that the statement is bound to. Matching is case-insensitive. |
+| `KV_total` | `float` | second | The time spent on all the RPC requests to TiKV or TiFlash by this statement. |
+| `PD_total` | `float` | second | The time spent on all the RPC requests to PD by this statement. |
+| `Unpacked_bytes_sent_tikv_total` | `int` | bytes | The total amount of uncompressed data sent to TiKV by this statement. |
+| `Unpacked_bytes_received_tikv_total` | `int` | bytes | The total amount of uncompressed data received from TiKV by this statement. |
+| `Unpacked_bytes_sent_tikv_cross_zone` | `int` | bytes | The amount of uncompressed data sent to TiKV across availability zones by this statement. |
+| `Unpacked_bytes_received_tikv_cross_zone` | `int` | bytes | The amount of uncompressed data received from TiKV across availability zones by this statement. |
+| `Unpacked_bytes_sent_tiflash_total` | `int` | bytes | The total amount of uncompressed data sent to TiFlash by this statement. |
+| `Unpacked_bytes_received_tiflash_total` | `int` | bytes | The total amount of uncompressed data received from TiFlash by this statement. |
+| `Unpacked_bytes_sent_tiflash_cross_zone` | `int` | bytes | The amount of uncompressed data sent to TiFlash across availability zones by this statement. |
+| `Unpacked_bytes_received_tiflash_cross_zone` | `int` | bytes | The amount of uncompressed data received from TiFlash across availability zones by this statement. |
+| `Process_time` | `float` | second | The total processing time of a SQL statement in TiKV. Because data is sent to TiKV concurrently, this value might exceed `Query_time`. |
+| `Backoff_time` | `float` | second | The waiting time before retrying when a statement encounters errors that require a retry. Common errors include lock conflicts, Region splits, and busy TiKV servers. |
+| `Total_keys` | `uint` | count | The number of keys that Coprocessor has scanned. |
+| `Process_keys` | `uint` | count | The number of keys that Coprocessor has processed. Compared with `Total_keys`, `Process_keys` does not include old versions of MVCC. A large difference between `Process_keys` and `Total_keys` indicates that many old versions exist. |
+| `cop_mvcc_read_amplification` | `float` | ratio | The MVCC read amplification ratio, calculated as `Total_keys / Process_keys`. |
+| `Prewrite_time` | `float` | second | The duration of the first phase (prewrite) of the two-phase transaction commit. |
+| `Commit_time` | `float` | second | The duration of the second phase (commit) of the two-phase transaction commit. |
+| `Write_keys` | `uint` | count | The count of keys that the transaction writes to the Write CF in TiKV. |
+| `Write_size` | `uint` | bytes | The total size of the keys or values to be written when the transaction commits. |
+| `Prewrite_region` | `uint` | count | The number of TiKV Regions involved in the first phase (prewrite) of the two-phase transaction commit. Each Region triggers a remote procedure call. |
 
 ## Effective behavior and matching order
 
