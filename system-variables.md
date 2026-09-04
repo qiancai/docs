@@ -5995,7 +5995,7 @@ Query OK, 0 rows affected, 1 warning (0.00 sec)
 - Default value: ""
 - Type: String
 - This variable defines the triggering rules for slow query logs. It supports combining multi-dimensional metrics to provide more flexible and fine-grained logging.
-- For more information about how to use this system variable, see [Use `tidb_slow_log_rules`](/identify-slow-queries.md#use-tidb_slow_log_rules).
+- For more information about how to use this system variable, see [Configure Trigger Rules for Slow Queries](/config-slow-query-trigger-rules.md).
 
 <CustomContent platform="tidb">
 

@@ -5,14 +5,6 @@ summary: Define the trigger rules for slow query logs.
 
 # Configure Trigger Rules for Slow Queries
 
-<CustomContent platform="tidb-cloud">
-
-This document describes how to use [`tidb_slow_log_rules`](/system-variables.md#tidb_slow_log_rules-new-in-v856) to define the trigger rules for slow queries displayed in [**Slow Query**](/tidb-cloud/tune-performance.md#slow-query) page in the TiDB Cloud console.
-
-[`tidb_slow_log_rules`](/system-variables.md#tidb_slow_log_rules-new-in-v856) supports multi-dimensional metric combinations. It is suitable for "targeted sampling" and "problem reproduction" of slow queries, enabling you to filter target statements based on specific metric combinations.
-
-</CustomContent>
-
 <CustomContent platform="tidb">
 
 This document describes how to use [`tidb_slow_log_rules`](/system-variables.md#tidb_slow_log_rules-new-in-v856) to define the trigger rules for slow query logs.
@@ -23,6 +15,15 @@ For TiDB Self-Managed, the triggering behavior of slow query logs depends on the
 
 - If `tidb_slow_log_rules` is not set, slow query log triggering still relies on [`tidb_slow_log_threshold`](/system-variables.md#tidb_slow_log_threshold) (in milliseconds).
 - If `tidb_slow_log_rules` is set, the configured rules take precedence, and [`tidb_slow_log_threshold`](/system-variables.md#tidb_slow_log_threshold) will be ignored.
+
+</CustomContent>
+<CustomContent platform="tidb-cloud">
+
+In the [TiDB Cloud console](/tidb-cloud/index.md), you can view slow queries on the [**Slow Query**](/tidb-cloud/tune-performance.md#slow-query) tab.
+
+By default, SQL queries that take more than 300 milliseconds are considered as slow queries. To configure the trigger rules for slow queries, you can modify the [`tidb_slow_log_rules`](/system-variables.md#tidb_slow_log_rules-new-in-v856) system variable.
+
+[`tidb_slow_log_rules`](/system-variables.md#tidb_slow_log_rules-new-in-v856) supports multi-dimensional metric combinations. It is suitable for "targeted sampling" and "problem reproduction" of slow queries, enabling you to filter target statements based on specific metric combinations.
 
 </CustomContent>
 
@@ -118,6 +119,8 @@ The fields in the following table follow the general matching and type rules des
     SET SESSION tidb_slow_log_rules = 'Conn_ID: 12, Query_time: 0.5, Is_internal: false';
     ```
 
+<CustomContent platform="tidb">
+
 - Global rule (applies to all connections):
 
     ```sql
@@ -130,8 +133,20 @@ The fields in the following table follow the general matching and type rules des
     SET GLOBAL tidb_slow_log_rules = 'Conn_ID: 11, Query_time: 0.5, Is_internal: false; Conn_ID: 12, Query_time: 0.6, Process_time: 0.3, DB: db1';
     ```
 
+</CustomContent>
+
 ## Recommendations
+
+<CustomContent platform="tidb">
+
 
 - `tidb_slow_log_rules` is designed to replace the single-threshold approach. It supports combinations of multi-dimensional metric conditions, enabling more flexible and fine-grained control over slow query logging.
 
 - In a well-provisioned test environment with 1 TiDB node (16 CPU cores, 48 GiB memory) and 3 TiKV nodes (each with 16 CPU cores and 48 GiB memory), repeated sysbench tests show that performance impact remains small when multi-dimensional slow query log rules generate millions of slow log entries within 30 minutes. However, when the log volume reaches tens of millions, TPS drops significantly and latency increases noticeably. Therefore, if business workload is high or CPU and memory resources are close to their limits, configure `tidb_slow_log_rules` carefully to avoid log flooding caused by overly broad rules. If you need to limit the log output rate, use [`tidb_slow_log_max_per_sec`](/system-variables.md#tidb_slow_log_max_per_sec-new-in-v856) to throttle it and reduce the impact on business performance.
+
+</CustomContent>
+<CustomContent platform="tidb-cloud">
+
+In a well-provisioned test environment with 1 TiDB node (16 CPU cores, 48 GiB memory) and 3 TiKV nodes (each with 16 CPU cores and 48 GiB memory), repeated sysbench tests show that performance impact remains small when multi-dimensional slow query log rules generate millions of slow log entries within 30 minutes. However, when the log volume reaches tens of millions, TPS drops significantly and latency increases noticeably. Therefore, if business workload is high or CPU and memory resources are close to their limits, configure `tidb_slow_log_rules` carefully to avoid log flooding caused by overly broad rules.
+
+</CustomContent>
