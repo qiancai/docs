@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
-"""Normalize Playwright a11y snapshots and diff two of them.
+"""Normalize two accessibility snapshots and diff them.
 
-Normalization rules (intentionally minimal — 3 rules):
+Accepts both snapshot formats:
+  - Playwright MCP YAML ("- button \\"Create\\" [ref=...]:")
+  - observe_page.py output ("- button \\"Create\\"", same shape without refs)
+
+Normalization rules (kept deliberately narrow — denoising must never hide
+documentation-relevant changes such as port numbers, defaults, or the
+appearance/disappearance of a control):
   R1: strip refs/cursor attributes and URL values
-  R2: mask numbers, dates, times, hex ids
-  R3: drop known-volatile lines (status words, metrics, notifications)
+  R2: mask only high-entropy values: long ids (>=6 digits), hex strings,
+      prices, times, dates, usage sizes
+  R3: drop only proven-volatile lines: notification badges and live metric
+      chart values
 
-Diff: set-based added/removed lines after normalization.
-Usage: snapdiff.py <old.yml> <new.yml>
+Diff: set-based added/removed lines after normalization; if content sets are
+equal but sequences differ, report ORDER CHANGED (relocation).
+Usage: snapdiff.py <old> <new>
 """
 import re
 import sys
@@ -17,27 +26,30 @@ def normalize(path):
     lines = []
     for raw in open(path, encoding="utf-8"):
         line = raw.rstrip("\n")
-        if not line.strip().startswith("-"):
+        stripped = line.strip()
+        if not stripped.startswith("-"):
             continue
-        indent = len(line) - len(line.lstrip())
-        s = line.strip()
-        # R1: strip refs and attributes
+        s = stripped
         s = re.sub(r"\s*\[ref=[^\]]+\]", "", s)
         s = re.sub(r"\s*\[cursor=pointer\]", "", s)
-        s = re.sub(r"\s*\[(checked|disabled|active|selected)\]", r" [STATE]", s)
+        s = re.sub(r"\s*\[(checked|disabled|active|selected)(\|[^\]]*)?\]", r" [STATE]", s)
         s = re.sub(r"^-\s*/url:.*$", "", s)
+        s = re.sub(r":\s*$", "", s)  # MCP YAML trailing colon for parent nodes
         if not s or s == "-":
             continue
-        # R2: mask volatile values
-        s = re.sub(r"\b\d{4,}\b", "<NUM>", s)                       # long numbers / ids
-        s = re.sub(r"\d+(\.\d+)?\s*(MiB|GiB|MB|GB|RCUs?)\b", "<NUM>", s)
-        s = re.sub(r"\$\d[\d,]*(\.\d+)?", "<PRICE>", s)
-        s = re.sub(r"\b\d{1,2}:\d{2}(:\d{2})?\b", "<TIME>", s)
-        s = re.sub(r"\b\d+\b", "<N>", s)                            # remaining small ints
-        # R3: drop known-volatile content lines
-        if re.search(r"(Creating|Active|Deleting|Notifications?\b|Request Units|Total Connection|capacity|spend)", s, re.I):
+        # R2: mask only high-entropy values
+        s = re.sub(r"\b\d{6,}\b", "<ID>", s)                        # instance ids, long numbers
+        s = re.sub(r"\b[0-9a-f]{16,}\b", "<HEX>", s, flags=re.I)    # hex tokens
+        s = re.sub(r"\$\d[\d,]*(\.\d+)?", "<PRICE>", s)             # prices
+        s = re.sub(r"\b\d{1,2}:\d{2}(:\d{2})?(\s*[AP]M)?\b", "<TIME>", s, flags=re.I)
+        s = re.sub(r"\b\d{4}-\d{2}-\d{2}\b", "<DATE>", s)
+        s = re.sub(r"\b\d+(\.\d+)?\s*(MiB|GiB|MB|GB|KB)\b", "<SIZE>", s)  # usage meters
+        # R3: drop proven-volatile lines only
+        if re.match(r'^- (button|generic|StaticText)( ".*?")?\s*"?(Notifications?\s*\d*|Mark all as read)', s, re.I):
             continue
-        lines.append(s)  # content only — indentation intentionally dropped
+        if re.match(r'^- (StaticText|generic):?\s*"<SIZE>"\s*$', s):
+            continue
+        lines.append(s)
     return lines
 
 
@@ -46,7 +58,6 @@ def main():
     old_set, new_set = set(old), set(new)
     added = [l for l in new if l not in old_set]
     removed = [l for l in old if l not in new_set]
-    # dedupe while keeping order
     seen = set()
     added = [l for l in added if not (l in seen or seen.add(l))]
     seen = set()
@@ -55,16 +66,15 @@ def main():
     print(f"+++ {sys.argv[2]} ({len(new)} normalized lines)")
     if not added and not removed:
         if old != new:
-            # same content, different order -> relocation
             import difflib
-            od = [l for l in difflib.unified_diff(old, new, lineterm="", n=0) if l.startswith(("+", "-")) and not l.startswith(("+++", "---"))]
+            od = [l for l in difflib.unified_diff(old, new, lineterm="", n=0)
+                  if l.startswith(("+", "-")) and not l.startswith(("+++", "---"))]
             print(f"ORDER CHANGED ({len(od)} positional line changes):")
             for l in od[:20]:
                 print(l)
         else:
             print("NO DIFF")
         return
-    # dialog appearing/covering makes the diff huge: surface it first
     dialog_hits = [l for l in added + removed if "dialog" in l]
     if dialog_hits:
         print("DIALOG CHANGE:")

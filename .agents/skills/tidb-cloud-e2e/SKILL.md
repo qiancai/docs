@@ -60,18 +60,45 @@ Mimic how a human tests documentation. For each step of the doc:
 | Failure diagnosis | Chrome DevTools MCP (`list_console_messages`, `list_network_requests`) | distinguishes selector failure from API 403 |
 | Resource state assertion / cleanup | `scripts/api_orchestrator.py` (TiDB Cloud API) | UI can lie; API cannot |
 
-## Environment setup
+## Environment setup (machine-specific — verify before use)
 
-- **Playwright MCP**: configured in `~/.kimi-code/mcp.json` with persistent profile `~/.kimi-code/playwright-profile` (login state survives across sessions).
-- **Chrome DevTools MCP**: same file, whitelisted to console/network tools.
-- **Browser Use CLI**: venv at `.tmp/venv-browseruse`. Needs a shared Chrome because Playwright MCP cannot hold the same profile simultaneously:
+**Method and machine config are separate concerns. Before any test, detect what is actually available on this machine instead of assuming paths below exist** — they are examples from a known-working setup:
+
+- **Playwright MCP**: expected in the agent CLI's MCP config with a persistent browser profile. Verify by listing available `mcp__playwright__*` tools.
+- **Chrome DevTools MCP**: expected whitelisted to console/network tools (`list_console_messages`, `get_network_request`, ...). Verify by listing `mcp__chrome-devtools__*` tools.
+- **Browser Use CLI**: check for a venv (e.g. `.tmp/venv-browseruse`); if missing, create one: `python3 -m venv .tmp/venv-browseruse && .tmp/venv-browseruse/bin/pip install browser-use`. It needs a shared Chrome because Playwright MCP cannot hold the same profile simultaneously:
   ```bash
-  "$HOME/Library/Caches/ms-playwright/chromium-*/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing" \
-    --remote-debugging-port=9222 \
+  # NOTE: do NOT quote the glob — let the shell expand it
+  CHROME=$(ls -d "$HOME"/Library/Caches/ms-playwright/chromium-*/chrome-mac-arm64/*.app 2>/dev/null | sort | tail -1)
+  "$CHROME/Contents/MacOS/"* --remote-debugging-port=9222 \
     --user-data-dir="$HOME/.kimi-code/playwright-profile" --no-first-run &
   export BU_CDP_URL=http://127.0.0.1:9222
   ```
-- **API keys** (assertion/cleanup): `TidbCloudPublicKey` / `TidbCloudPrivateKey` env vars + project ID. Never commit them.
+- **API keys** (assertion/cleanup): `TidbCloudPublicKey` / `TidbCloudPrivateKey` env vars. Never commit them.
+- **REST API specs**: the idl repo (`release/v1beta1` / `release/v1beta2` branches, `swagger/*.swagger.json`). Resolve the local clone path with the user instead of assuming one.
+
+## Verdict taxonomy
+
+Every finding must land in exactly one bucket — never collapse them:
+
+| Verdict | Meaning |
+|---|---|
+| `PASS` | Observed behavior matches the doc |
+| `DOC-DISCREPANCY` | Product behaves normally but differs from the doc → candidate doc fix |
+| `PRODUCT-ANOMALY` | Product itself misbehaves (5xx, broken flow) regardless of the doc → not a doc bug; report separately |
+| `ENV-BLOCKED` | Test could not run (login expired, quota, network) → retry after fixing the environment; never count as pass or fail |
+| `NOT-COVERED` | Step not testable with the available tracks (e.g. ticloud CLI) → flag the gap |
+
+Adjudication rules:
+
+- An API/console error is NOT automatically doc drift — it may be a product anomaly or an environment problem. Classify first, blame the doc last.
+- A selector retry does NOT automatically mean the UI text changed — it may be a test-side locator issue. Only the observed end state counts as evidence.
+
+## Baselines and cleanup
+
+- A baseline snapshot is bound to: **doc file + commit hash, org/role, console language, page checkpoint**. Store baselines under `.tmp/baselines/<doc-path-hash>/<checkpoint>.snap` and record these bindings in a sidecar file.
+- **A first-pass run that produced findings can never become the known-good baseline.** Baselines are created only from runs with zero unresolved discrepancies, or updated after a human verdict accepts the new state.
+- Cleanup must use **resource IDs recorded at creation time** (e.g. `clusterId`), not name lookup. Log every created resource ID in the test report.
 
 ## Pre-flight checklist (before any test)
 
@@ -96,7 +123,7 @@ Mimic how a human tests documentation. For each step of the doc:
 
 ## Report format
 
-Write every test report in **English** to `.tmp/test-reports/<date>-<doc-name>.md` with: header (doc, environment, instance, date), verdict, per-step table (doc step / actual result / PASS-FAIL-diff), issues found ranked by severity with human-verdict flags, infrastructure learnings, and cleanup confirmation.
+Write every test report in **English** to `.tmp/test-reports/<date>-<doc-name>.md` with: header (doc, environment, instance, date), verdict, per-step table (doc step / actual result / verdict from the taxonomy above), issues found ranked by severity with human-verdict flags, resource IDs created and cleaned up, infrastructure learnings, and cleanup confirmation.
 
 ## Scripts
 

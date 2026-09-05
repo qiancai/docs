@@ -1,46 +1,37 @@
 #!/usr/bin/env python3
-"""TiDB Cloud API helper for the W2 web-agent pilot.
+"""TiDB Cloud API helper for doc e2e tests (Starter/Essential, v1beta1 serverless API).
+
+Spec source: idl repo, release/v1beta1 branch,
+swagger/tidbcloud-oas-v1beta1-serverless.swagger.json
+  host:     serverless.tidbapi.com
+  basePath: /v1beta1
+  GET    /clusters                 -> {"clusters": [{"clusterId","displayName","state",...}]}
+  DELETE /clusters/{clusterId}
+  state enum: CREATING | ACTIVE | RESTORING | DELETED
+
+Auth: HTTP Basic with API key pair
+  TidbCloudPublicKey  as username
+  TidbCloudPrivateKey as password
 
 Usage:
-  export TidbCloudPublicKey=...
-  export TidbCloudPrivateKey=...
-  python3 api_orchestrator.py --project-id <id> --instance docs-w2-pilot-001 --region us-west-2 --provider AWS
+  python3 api_orchestrator.py --instance docs-e2e-001 --wait-for
+  python3 api_orchestrator.py --instance-id <clusterId> --delete
+  python3 api_orchestrator.py --sql HOST USER --sql-password-from-env
+  --dry-run prints actions without any side effect (covers API AND SQL).
 
-Modes:
-  --wait-for     poll until the named Starter cluster is AVAILABLE
-  --delete       delete the named Starter cluster
-  --sql HOST PASSWORD   run the quickstart SQL block and assert 3 rows
-  --dry-run      print actions without calling the API
+Cleanup rule: prefer --instance-id recorded at creation time over name lookup.
 """
 import argparse
 import base64
+import json
 import os
+import subprocess
 import sys
 import time
 import urllib.request
 import urllib.error
-import json
 
-SQL_BLOCK = """use test;
-
--- create a new table t with id and name
-CREATE TABLE
-  `t` (`id` INT, `name` VARCHAR(255));
-
--- add 3 rows
-INSERT INTO
-  `t` (`id`, `name`)
-VALUES
-  (1, 'row1'),
-  (2, 'row2'),
-  (3, 'row3');
-
--- query all
-SELECT
-  `id`,
-  `name`
-FROM
-  `t`;"""
+BASE_URL = "https://serverless.tidbapi.com/v1beta1"
 
 
 def auth_header(public_key, private_key):
@@ -51,54 +42,54 @@ def auth_header(public_key, private_key):
 def api_call(method, url, headers, body=None, dry_run=False):
     if dry_run:
         print(f"[DRY-RUN] {method} {url}")
-        if body:
-            print(f"[DRY-RUN] body: {body}")
         return {}
-    req = urllib.request.Request(url, method=method, headers=headers, data=body.encode() if body else None)
+    req = urllib.request.Request(url, method=method, headers=headers,
+                                 data=body.encode() if body else None)
     try:
         with urllib.request.urlopen(req, timeout=60) as resp:
-            return json.loads(resp.read().decode())
+            raw = resp.read().decode()
+            return json.loads(raw) if raw else {}
     except urllib.error.HTTPError as e:
-        err = e.read().decode()
-        raise SystemExit(f"API error {e.code}: {err}")
+        raise SystemExit(f"API error {e.code} on {method} {url}: {e.read().decode()}")
 
 
-def list_clusters(base_url, project_id, headers, dry_run):
-    url = f"{base_url}/v1beta/projects/{project_id}/clusters"
-    data = api_call("GET", url, headers, dry_run=dry_run)
+def list_clusters(headers, dry_run):
+    data = api_call("GET", f"{BASE_URL}/clusters", headers, dry_run=dry_run)
     return data.get("clusters", [])
 
 
-def wait_for_cluster(base_url, project_id, name, headers, dry_run=False, timeout=300):
-    print(f"Waiting for cluster '{name}' to become AVAILABLE (timeout {timeout}s)...")
+def wait_for_cluster(name, headers, dry_run=False, timeout=300):
+    print(f"Waiting for cluster '{name}' to become ACTIVE (timeout {timeout}s)...")
     if dry_run:
-        print("[DRY-RUN] would poll every 10s until AVAILABLE")
-        return {"clusterId": "dryrun-id", "displayName": name, "status": {"clusterStatus": "AVAILABLE"}}
+        print("[DRY-RUN] would poll GET /clusters every 10s until state == ACTIVE")
+        return {"clusterId": "dryrun-id", "displayName": name, "state": "ACTIVE"}
     start = time.time()
     while time.time() - start < timeout:
-        clusters = list_clusters(base_url, project_id, headers, dry_run)
-        for c in clusters:
+        for c in list_clusters(headers, dry_run):
             if c.get("displayName") == name or c.get("clusterId") == name:
-                state = c.get("status", {}).get("clusterStatus", "UNKNOWN")
+                state = c.get("state", "UNKNOWN")
                 print(f"  state = {state}")
-                if state == "AVAILABLE":
+                if state == "ACTIVE":
                     return c
         time.sleep(10)
-    raise TimeoutError(f"Cluster {name} did not become AVAILABLE within {timeout}s")
+    raise TimeoutError(f"Cluster {name} did not become ACTIVE within {timeout}s")
 
 
-def delete_cluster(base_url, project_id, cluster_id, headers, dry_run=False):
-    url = f"{base_url}/v1beta/projects/{project_id}/clusters/{cluster_id}"
-    api_call("DELETE", url, headers, dry_run=dry_run)
-    print(f"Deleted cluster {cluster_id}")
+def delete_cluster(cluster_id, headers, dry_run=False):
+    api_call("DELETE", f"{BASE_URL}/clusters/{cluster_id}", headers, dry_run=dry_run)
+    print(f"{'[DRY-RUN] would delete' if dry_run else 'Deleted'} cluster {cluster_id}")
 
 
-def run_sql(host, password, sql):
-    import subprocess
-    cmd = ["/opt/homebrew/opt/mysql-client@8.0/bin/mysql",
-           "-h", host, "-P", "4000", "-uroot", "-p" + password,
-           "--batch", "--raw", "-e", sql]
-    p = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+def run_sql(host, user, password, sql, dry_run=False):
+    if dry_run:
+        print(f"[DRY-RUN] would execute on {host} as {user}:\n{sql}")
+        return ""
+    env = dict(os.environ)
+    if password:
+        env["MYSQL_PWD"] = password
+    cmd = ["mysql", "-h", host, "-P", "4000", "-u", user,
+           "--ssl-mode=REQUIRED", "--batch", "--raw", "-e", sql]
+    p = subprocess.run(cmd, capture_output=True, text=True, timeout=120, env=env)
     if p.returncode != 0:
         raise SystemExit(f"SQL failed: {p.stderr}")
     return p.stdout
@@ -106,48 +97,51 @@ def run_sql(host, password, sql):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--project-id", required=True)
-    ap.add_argument("--instance", default="docs-w2-pilot-test")
-    ap.add_argument("--region", default="us-west-2")
-    ap.add_argument("--provider", default="AWS")
-    ap.add_argument("--base-url", default="https://api.tidbcloud.com")
+    ap.add_argument("--instance", help="displayName for --wait-for / name-based delete fallback")
+    ap.add_argument("--instance-id", help="clusterId recorded at creation time (preferred for --delete)")
     ap.add_argument("--wait-for", action="store_true")
     ap.add_argument("--delete", action="store_true")
-    ap.add_argument("--sql", nargs=2, metavar=("HOST", "PASSWORD"), help="run the quickstart SQL block")
-    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--sql", nargs=2, metavar=("HOST", "USER"), help="run SQL_FILE via stdin path arg")
+    ap.add_argument("--sql-file", help="path to a .sql file to execute with --sql")
+    ap.add_argument("--dry-run", action="store_true", help="no side effects at all (API and SQL)")
     args = ap.parse_args()
 
-    if args.dry_run:
-        headers = {"Authorization": "Basic DRYRUN", "Content-Type": "application/json"}
-    else:
+    headers = None
+    if not args.dry_run or args.wait_for or args.delete:
         pub = os.environ.get("TidbCloudPublicKey")
         priv = os.environ.get("TidbCloudPrivateKey")
-        if not pub or not priv:
-            print("Error: set TidbCloudPublicKey and TidbCloudPrivateKey environment variables", file=sys.stderr)
+        if not args.dry_run and (not pub or not priv):
+            print("Error: set TidbCloudPublicKey and TidbCloudPrivateKey", file=sys.stderr)
             sys.exit(1)
-        headers = auth_header(pub, priv)
+        headers = auth_header(pub or "dry", priv or "dry")
 
+    created_or_found = None
     if args.wait_for:
-        c = wait_for_cluster(args.base_url, args.project_id, args.instance, headers, args.dry_run)
-        print("Cluster ready:", c.get("clusterId"), c.get("displayName"), c.get("status"))
+        if not args.instance:
+            ap.error("--wait-for requires --instance")
+        created_or_found = wait_for_cluster(args.instance, headers, args.dry_run)
+        print("Cluster ready:", created_or_found.get("clusterId"),
+              created_or_found.get("displayName"), created_or_found.get("state"))
 
     if args.delete:
-        clusters = list_clusters(args.base_url, args.project_id, headers, args.dry_run)
-        target = next((c for c in clusters if c.get("displayName") == args.instance), None)
-        if not target:
-            print(f"No cluster named {args.instance} to delete")
-            return
-        delete_cluster(args.base_url, args.project_id, target["clusterId"], headers, args.dry_run)
+        cid = args.instance_id
+        if not cid and args.instance:
+            clusters = list_clusters(headers, args.dry_run)
+            target = next((c for c in clusters if c.get("displayName") == args.instance), None)
+            if not target and not args.dry_run:
+                print(f"No cluster named {args.instance} to delete")
+                return
+            cid = target["clusterId"] if target else "dryrun-id"
+        if not cid:
+            ap.error("--delete requires --instance-id (preferred) or --instance")
+        delete_cluster(cid, headers, args.dry_run)
 
     if args.sql:
-        out = run_sql(args.sql[0], args.sql[1], SQL_BLOCK)
-        print(out)
-        # weak assertion: output contains 3 data rows with row1,row2,row3
-        if "row1" in out and "row2" in out and "row3" in out:
-            print("SQL assertion PASSED")
-        else:
-            print("SQL assertion FAILED")
-            sys.exit(1)
+        host, user = args.sql
+        sql = open(args.sql_file, encoding="utf-8").read() if args.sql_file else sys.stdin.read()
+        out = run_sql(host, user, os.environ.get("MYSQL_PWD"), sql, args.dry_run)
+        if not args.dry_run:
+            print(out)
 
 
 if __name__ == "__main__":

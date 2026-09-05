@@ -1,9 +1,9 @@
 # Filtered accessibility-tree observation for Browser Use CLI.
 # Usage:
-#   BU_CDP_URL=http://127.0.0.1:9222 browser-use < observe_page.py [URL]
-# Prints one "role \"name\"" line per meaningful element (~5 KB/page instead of
-# the ~12 KB full snapshot). Runs entirely inside the browser-use daemon;
-# only this compact listing reaches the agent.
+#   BU_CDP_URL=http://127.0.0.1:9222 browser-use < observe_page.py [URL] > page.snap
+# Output is compatible with snapdiff.py: one "- role \"name\"" line per element,
+# with value="..." for form fields and [checked]/[disabled] state markers.
+# Runs inside the browser-use daemon; only this compact listing reaches the agent.
 
 import sys
 
@@ -13,6 +13,18 @@ INTERESTING = {
     "option", "radiogroup", "region", "main", "navigation", "alert",
     "StaticText", "paragraph",
 }
+
+VALUE_ROLES = {"textbox", "combobox", "searchbox", "slider", "spinbutton", "option"}
+
+
+def _state_suffix(node):
+    out = []
+    for prop in node.get("properties", []):
+        pname = (prop.get("name") or "").lower()
+        pval = prop.get("value", {}).get("value")
+        if pname in ("checked", "selected", "disabled") and pval in (True, "true"):
+            out.append(pname)
+    return f" [{'|'.join(out)}]" if out else ""
 
 
 def observe():
@@ -25,7 +37,13 @@ def observe():
         if role not in INTERESTING:
             continue
         name = (n.get("name", {}).get("value") or "").strip()
-        lines.append(f'{role} "{name}"' if name else role)
+        value = (n.get("value", {}).get("value") or "")
+        value = str(value).strip()
+        line = f'- {role} "{name}"' if name else f"- {role}"
+        if role in VALUE_ROLES and value and value != name:
+            line += f' value="{value}"'
+        line += _state_suffix(n)
+        lines.append(line)
     return lines
 
 
@@ -37,4 +55,4 @@ if len(sys.argv) > 1 and sys.argv[1].startswith("http"):
 
 lines = observe()
 print("\n".join(lines))
-print(f"---\n{len(lines)} lines")
+print(f"# {len(lines)} lines")
