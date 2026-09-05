@@ -7,6 +7,19 @@ description: End-to-end test TiDB Cloud documentation against the live console u
 
 Use this skill when the task is to test a TiDB Cloud documentation page against the live TiDB Cloud console, detect documentation drift, or set up regression runs for console UI docs.
 
+## Document type routing
+
+TiDB Cloud docs come in four executable types. Identify the type first, then follow the matching track. The PREDICT → COMPARE → VERIFY → RECORD rhythm and all verdict rules apply to every track; only OBSERVE/ACT tools differ.
+
+| Doc type | How to recognize | Track |
+|---|---|---|
+| **Console UI** | numbered steps with bold UI labels, console URLs | Browser track (the main protocol below) |
+| **SQL** | `sql`-language fenced blocks with expected output tables | `scripts/run-sql-test.py <file> --host <starter-host> --user '<prefix>.root'` (set `MYSQL_PWD`) against a Starter instance. Examples run in document order against the same instance |
+| **REST API** | OpenAPI/swagger specs in the `idl` repo (`/Users/grcai/Documents/GitHub/idl`), branches `release/v1beta1` and `release/v1beta2` (`swagger/*.swagger.json`) | Spec-vs-live validation: resolve an endpoint from the spec, call the live API with `TidbCloudPublicKey`/`TidbCloudPrivateKey` (HTTP Basic), compare the response against the spec's schema (status code, required fields, field types). Discrepancies are doc drift. Use `scripts/api_orchestrator.py` as the auth/request base |
+| **ticloud CLI** | shell blocks with `ticloud` commands | **Not covered yet** — do not improvise; flag the gap to the user |
+
+A single doc may mix types (e.g. UI steps + a SQL block). Test each part on its own track and merge findings into one report.
+
 ## Architecture principle (non-negotiable)
 
 **The documentation agent is the single reasoning and verdict layer.** The browser layer only exposes page state and executes actions — it must never independently decide how to adapt to UI changes.
@@ -90,3 +103,4 @@ Write every test report in **English** to `.tmp/test-reports/<date>-<doc-name>.m
 - `scripts/observe_page.py` — filtered AX-tree observation for Browser Use CLI (`browser-use < observe_page.py`). Prints role+name lines only.
 - `scripts/snapdiff.py` — normalize two a11y snapshots and diff (3 rules: strip refs/attrs, mask numbers/times, drop volatile lines; content-only compare + order fallback).
 - `scripts/api_orchestrator.py` — TiDB Cloud API helper: wait for cluster AVAILABLE, delete by name, run SQL assertions. `--dry-run` supported.
+- `scripts/run-sql-test.py` — SQL-doc harness: extract ```sql blocks from a Markdown file, execute in document order against any TiDB/Starter endpoint, compare with documented expected output (exact / weak / smoke tiers). Works for both local playground and TiDB Cloud instances.
