@@ -7,6 +7,21 @@ description: End-to-end test TiDB Cloud documentation against the live console u
 
 Use this skill when the task is to test a TiDB Cloud documentation page against the live TiDB Cloud console, detect documentation drift, or set up regression runs for console UI docs.
 
+## Cluster scenario
+
+Choose the scenario from the document and the requested scope before choosing a tool track. Reuse the target organization and test instance from the user's request or established session context; ask for missing target information only when it cannot be resolved unambiguously.
+
+| Scenario | When to use | Resource handling |
+|---|---|---|
+| **Existing instance (default)** | The procedure starts with an instance already available, such as connection, SQL, import, or configuration tasks | Use the designated test instance and verify its tier, state, and prerequisites. Do not create a replacement merely to simplify setup. |
+| **Instance creation** | Creating an instance is itself a step being tested | Execute the creation flow within the authorized scope, record the new instance ID, and clean up that instance after testing. Reusing an existing instance does not validate creation. |
+
+- Existing-instance testing can include SQL writes and configuration changes required by the requested test; it is not implicitly read-only. Apply the user's operation limits in either scenario, and reuse authorization already established in the session.
+- For existing instances, record settings before changing them and isolate test data where the documented procedure permits. Restore settings changed by the test and remove only resources created by this run. Never delete the existing instance as routine cleanup; testing instance deletion requires explicit authorization for that target.
+- If an existing-instance procedure has no suitable designated target, report the missing prerequisite as `ENV-BLOCKED`; do not silently switch to creating an instance.
+- For mixed procedures, record which steps test creation and which use an existing instance. If creation is excluded from scope, mark it `NOT-COVERED` and continue later steps on a suitable designated instance when their prerequisites are met.
+- If the user requests read-only testing or otherwise excludes an operation, inspect what can be observed and mark the unexecuted operation and any dependent checks `NOT-COVERED`, with the reason. Never infer successful execution from inspection alone.
+
 ## Document type routing
 
 TiDB Cloud docs come in four executable types. Identify the type first, then follow the matching track. The PREDICT → COMPARE → VERIFY → RECORD rhythm and all verdict rules apply to every track; only OBSERVE/ACT tools differ.
@@ -14,7 +29,7 @@ TiDB Cloud docs come in four executable types. Identify the type first, then fol
 | Doc type | How to recognize | Track |
 |---|---|---|
 | **Console UI** | numbered steps with bold UI labels, console URLs | Browser track (the main protocol below) |
-| **SQL** | `sql`-language fenced blocks with expected output tables | `scripts/run-sql-test.py <file> --host <starter-host> --user '<prefix>.root'` (set `MYSQL_PWD`) against a Starter instance. Examples run in document order against the same instance |
+| **SQL** | `sql`-language fenced blocks with expected output tables | Use the selected test instance with `scripts/run-sql-test.py <file> --host <host> --user <user>` (set `MYSQL_PWD`; for Starter, use `'<prefix>.root'`). Examples run in document order against the same instance |
 | **REST API** | OpenAPI/swagger specs in the `idl` repo (`/Users/grcai/Documents/GitHub/idl`), branches `release/v1beta1` and `release/v1beta2` (`swagger/*.swagger.json`) | Spec-vs-live validation: resolve an endpoint from the spec, call the live API with `TidbCloudPublicKey`/`TidbCloudPrivateKey` (HTTP Basic), compare the response against the spec's schema (status code, required fields, field types). Discrepancies are doc drift. Use `scripts/api_orchestrator.py` as the auth/request base |
 | **ticloud CLI** | shell blocks with `ticloud` commands | **Not covered yet** — do not improvise; flag the gap to the user |
 
@@ -67,6 +82,7 @@ Mimic how a human tests documentation. For each step of the doc:
 - **Playwright MCP**: expected in the agent CLI's MCP config with a persistent browser profile. Verify by listing available `mcp__playwright__*` tools.
 - **Chrome DevTools MCP**: expected whitelisted to console/network tools (`list_console_messages`, `get_network_request`, ...). Verify by listing `mcp__chrome-devtools__*` tools.
 - **Browser Use CLI**: check for a venv (e.g. `.tmp/venv-browseruse`); if missing, create one: `python3 -m venv .tmp/venv-browseruse && .tmp/venv-browseruse/bin/pip install browser-use`. It needs a shared Chrome because Playwright MCP cannot hold the same profile simultaneously:
+
   ```bash
   # NOTE: do NOT quote the glob — let the shell expand it
   CHROME=$(ls -d "$HOME"/Library/Caches/ms-playwright/chromium-*/chrome-mac-arm64/*.app 2>/dev/null | sort | tail -1)
@@ -74,6 +90,7 @@ Mimic how a human tests documentation. For each step of the doc:
     --user-data-dir="$HOME/.kimi-code/playwright-profile" --no-first-run &
   export BU_CDP_URL=http://127.0.0.1:9222
   ```
+
 - **API keys** (assertion/cleanup): `TidbCloudPublicKey` / `TidbCloudPrivateKey` env vars. Never commit them.
 - **REST API specs**: the idl repo (`release/v1beta1` / `release/v1beta2` branches, `swagger/*.swagger.json`). Resolve the local clone path with the user instead of assuming one.
 
@@ -87,7 +104,7 @@ Every finding must land in exactly one bucket — never collapse them:
 | `DOC-DISCREPANCY` | Product behaves normally but differs from the doc → candidate doc fix |
 | `PRODUCT-ANOMALY` | Product itself misbehaves (5xx, broken flow) regardless of the doc → not a doc bug; report separately |
 | `ENV-BLOCKED` | Test could not run (login expired, quota, network) → retry after fixing the environment; never count as pass or fail |
-| `NOT-COVERED` | Step not testable with the available tracks (e.g. ticloud CLI) → flag the gap |
+| `NOT-COVERED` | Step excluded by the requested scope or not testable with the available tracks (e.g. ticloud CLI) → record the reason and affected dependent checks |
 
 Adjudication rules:
 
@@ -103,8 +120,8 @@ Adjudication rules:
 ## Pre-flight checklist (before any test)
 
 1. **Session health**: navigate to `https://tidbcloud.com/tidbs`. If redirected to `auth.tidbcloud.com`, stop and ask the user to log in (auth0 session expires in hours).
-2. **Correct org**: verify the org name on the My TiDB page matches the intended test org.
-3. **Cost safety**: Starter instances only, spending limit $0. Every created instance MUST be deleted in a `try/finally`-style cleanup, named `docs-w2-pilot-*` or `docs-e2e-*` for identifiability.
+2. **Target and scope**: verify the intended org, cluster scenario, target instance ID (for existing instances), and operation limits. Check the document's prerequisites against that instance before executing steps.
+3. **Resource handling**: for creation tests, create only Starter instances with spending limit $0, named `docs-w2-pilot-*` or `docs-e2e-*`, and arrange `try/finally`-style cleanup by recorded ID. If the document requires another tier, report the limitation rather than substituting Starter. For existing-instance tests, preserve the instance's tier and spending limit unless changing them is explicitly authorized; plan test-data cleanup and setting restoration without deleting the instance.
 4. **Baseline availability** (regression mode): does a baseline snapshot exist for this page? If not, this run is a first pass — produce baselines as a byproduct.
 
 ## Known pitfalls (learned from live testing — do not rediscover)
@@ -123,7 +140,7 @@ Adjudication rules:
 
 ## Report format
 
-Write every test report in **English** to `.tmp/test-reports/<date>-<doc-name>.md` with: header (doc, environment, instance, date), verdict, per-step table (doc step / actual result / verdict from the taxonomy above), issues found ranked by severity with human-verdict flags, resource IDs created and cleaned up, infrastructure learnings, and cleanup confirmation.
+Write every test report in **English** to `.tmp/test-reports/<date>-<doc-name>.md` with: header (doc, environment, cluster scenario, target instance ID, operation limits, date), verdict, per-step table (doc step / actual result / verdict from the taxonomy above), issues found ranked by severity with human-verdict flags, resource IDs created and cleaned up, infrastructure learnings, and cleanup confirmation. For existing-instance tests, include setting restoration and test-data cleanup results; for unexecuted steps, include the reason and dependent checks left uncovered.
 
 ## Scripts
 
