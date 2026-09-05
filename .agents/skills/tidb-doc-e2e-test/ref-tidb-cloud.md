@@ -1,28 +1,22 @@
 # TiDB Cloud track
 
-Load this file when the document under test targets TiDB Cloud: console UI guides, quickstarts, SQL against Starter/Essential, or REST API specs from the idl repo.
+Load this file for TiDB Cloud Starter runtime checks: console guides, quickstarts, SQL, or API specs. Essential, Premium, and Dedicated are outside the current runtime scope.
 
-## Environment setup (machine-specific — verify before use)
+## Preflight: capability detection
 
-**Detect what is actually available on this machine instead of assuming the paths below exist** — they are examples from a known-working setup:
+Check capabilities only for the selected execution method. A working SQL/API connection does not require a browser, and browser tests do not require every tool listed here.
 
-- **Playwright MCP**: expected in the agent CLI's MCP config with a persistent browser profile. Verify by listing available `mcp__playwright__*` tools.
-- **Chrome DevTools MCP**: expected whitelisted to console/network tools (`list_console_messages`, `get_network_request`, ...). Verify by listing `mcp__chrome-devtools__*` tools.
-- **Browser Use CLI**: check for a venv (e.g. `.tmp/venv-browseruse`); if missing: `python3 -m venv .tmp/venv-browseruse && .tmp/venv-browseruse/bin/pip install browser-use`. It needs a shared Chrome because Playwright MCP cannot hold the same profile simultaneously:
-  ```bash
-  # NOTE: do NOT quote the glob — let the shell expand it
-  CHROME=$(ls -d "$HOME"/Library/Caches/ms-playwright/chromium-*/chrome-mac-arm64/*.app 2>/dev/null | sort | tail -1)
-  "$CHROME/Contents/MacOS/"* --remote-debugging-port=9222 \
-    --user-data-dir="$HOME/.kimi-code/playwright-profile" --no-first-run &
-  export BU_CDP_URL=http://127.0.0.1:9222
-  ```
+- **Browser adapter**: inspect available tools and their documentation; reuse a working browser session through the agent's native browser tools, Playwright MCP, or a configured CDP adapter. Do not assume tool names, injected helpers, or a Browser Use CLI interface exist. Use `observe_page.py` only with a runtime that supplies its helpers. If no compatible adapter exists, report `ENV-BLOCKED` for browser checks.
+- **Browser executable/profile**: when launching is necessary, detect OS and architecture (`uname -s`, `uname -m`) and use the selected adapter's executable discovery or an explicitly configured path. On macOS, use the configured application or adapter-managed browser; on Linux, inspect `command -v chromium`, `command -v chromium-browser`, or `command -v google-chrome`, or use the adapter-managed binary. These are discovery options, not mandatory installs or fixed cache paths.
+- **Display and session**: on Linux/EC2, use headless mode when supported, or a configured display for headed mode. Provide a human login/recovery path for interactive authentication. A persistent profile does not guarantee a valid login. Isolate concurrent profiles and never attach two controllers to the same profile simultaneously; keep any CDP listener local or behind an authenticated tunnel.
+- **Diagnostics**: use console/network inspection from the available adapter; Chrome DevTools MCP is optional. Save snapshots and screenshots at failures so remote runs remain reviewable.
 - **API keys** (assertion/cleanup): `TidbCloudPublicKey` / `TidbCloudPrivateKey` env vars. Never commit them.
-- **REST API specs**: idl repo branches `release/v1beta1` / `release/v1beta2`, `swagger/*.swagger.json`. Resolve the local clone path with the user instead of assuming one. Spec-vs-live method: resolve an endpoint from the spec, call the live API (HTTP Basic with the key pair), compare the response against the spec schema (status code, required fields, field types). A mismatch is a candidate drift finding.
+- **REST API specs**: resolve the idl clone from existing context and verify the target API revision. Select the spec's host, path, and authentication scheme; do not assume all API versions use the same scheme. Compare live status, required fields, and types against the spec. A mismatch is a candidate finding, not automatically a documentation error.
 
 ## Pre-flight checklist (per execution method — check only what the method needs)
 
 - **Browser flows**: navigate to `https://tidbcloud.com/tidbs`. If redirected to `auth.tidbcloud.com`, stop and ask the user to log in (auth0 session expires in hours; never automate credentials). Verify the org name on the My TiDB page matches the intended test org.
-- **SQL flows** (run-sql-test.py against a Starter instance): verify DB connectivity first — `mysql --ssl-mode=REQUIRED -h <host> -u '<prefix>.root' -e 'SELECT 1'` with `MYSQL_PWD` set. No console login required.
+- **SQL flows** (run-sql-test.py against a Starter instance): verify DB connectivity first — `mysql --ssl-mode=REQUIRED -h <host> -P 4000 -u '<prefix>.root' -e 'SELECT 1'` with `MYSQL_PWD` set. No console login required.
 - **REST API flows**: verify the API key pair works — one cheap authenticated call (e.g. `GET /v1beta1/clusters` with pageSize=1) before starting. No console login required.
 - **Cost safety (all methods)**: Starter instances only, spending limit $0.
 - **Baseline availability** (regression mode): no baseline → this run is a first pass; produce baselines as a byproduct (subject to the first-pass rule in SKILL.md).
@@ -39,8 +33,8 @@ Load this file when the document under test targets TiDB Cloud: console UI guide
 - **React wipes injected DOM**: inject synthetic fixtures at `document.body` level, never inside a React-managed tree.
 - **Indentation is not a diff key**: diff snapshots on content only (role + name), handled by `scripts/snapdiff.py`.
 - **Set-based diffs miss relocation**: `snapdiff.py` has an order-aware fallback; keep it.
-- **Run executes only the statement at the cursor**: in SQL Editor with multiple statements, select all (⌘A) before Run, or use ⇧⌘Enter.
+- **Run executes only the statement at the cursor**: in SQL Editor with multiple statements, select all in the editor (Command+A on macOS, Control+A on Linux/Windows) before Run; verify any alternative shortcut in the current UI.
 - **Prefer JS `element.click()` over CDP coordinate clicks in batch mode**: AX box-model coordinates can mismatch the headed viewport, and synthetic mouse events may not trigger React handlers.
 - **`innerText` omits input values**: combobox defaults (e.g. `Public`, `main`, `macOS`) are invisible to `innerText` probes — dump `input.value` separately.
 - **My TiDB instance names are table cells, not links**: locate the `<p>`/`<td>` by text and click it.
-- **New-account behaviors vary by account vintage**: e.g. the auto-created default instance name has differed between orgs. Verify against a fresh sign-up before filing a doc fix for onboarding claims.
+- **New-account behaviors vary by account vintage**: an existing account cannot validate fresh-signup claims. Signup testing is outside current scope; record those claims as `NOT-COVERED` rather than creating an account.

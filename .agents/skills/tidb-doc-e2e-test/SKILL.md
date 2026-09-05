@@ -7,22 +7,16 @@ description: Validate existing TiDB and TiDB Cloud documentation through documen
 
 Use this skill to validate existing TiDB or TiDB Cloud documentation, detect documentation drift, or run doc regression. The question being answered is always: **can a user following this document complete the task?** Use document checks, source verification, and runtime tests as appropriate; report which parts were actually executed.
 
+## Scope and starting points
+
+- **Core runtime scope**: partitioned SQL examples on local TiDB or TiDB Cloud Starter, and Starter API spec-vs-live checks. Document and source checks can proceed independently of runtime coverage.
+- **Conditional runtime scope**: Starter console flows with an available browser and an existing authenticated account; instance creation only within the established authorization and spending limit $0.
+- **Not yet supported by default**: account signup, paid Cloud operations (Essential/Premium/Dedicated), TiUP deployment/upgrade procedures, multi-node behavior, backup/restore, disaster recovery, and ticloud CLI. Mark unsupported runtime steps `NOT-COVERED`; continue independent document/source checks within the requested scope.
+- **First local SQL run**: load [the short walkthrough](ref-tidb.md#first-local-sql-run) only for initial setup. **Scheduled or batch regression**: load [the run contract and JSON report format](ref-scheduled-regression.md) only when needed.
+
 ## Architecture principle (non-negotiable)
 
-**The documentation agent is the single reasoning and verdict layer.** Every tool layer only exposes state and executes actions — no tool decides on its own how to adapt to environment or UI changes.
-
-```
-Documentation Agent (SINGLE REASONER)
-    │ decide / compare / judge
-    ├── Evidence: document context and version-matched source code
-    ├── Browser control: Playwright MCP / Browser Use CLI (CDP)
-    ├── SQL: scripts/run-sql-test.py (any TiDB endpoint)
-    ├── REST API: scripts/api_orchestrator.py (TiDB Cloud API)
-    ├── Diagnostics: Chrome DevTools MCP (console/network only)
-    └── Environment: tiup playground / TiDB Cloud org
-```
-
-Rules that protect finding accuracy:
+**The documentation agent is the single reasoning and verdict layer.** Tools expose evidence and execute actions; they do not independently adapt the test or decide its verdict.
 
 - **Self-healing is permitted; silent self-healing is not.** You may retry with a different selector or endpoint to keep the task track alive, but every adaptation MUST be logged as a candidate drift finding.
 - **API/CLI state is the fact layer; UI is the narrative layer.** Assert resource state via API or SQL. Use UI observation only for what the doc promises a user will see.
@@ -68,13 +62,6 @@ Load the matching reference file only when needed:
 | TiDB (self-hosted) | `ref-tidb.md` | playground lifecycle, version alignment, environment tiers, phase scope |
 | TiDB Cloud | `ref-tidb-cloud.md` | console login/org checks, browser pitfalls, REST API specs |
 
-## Scope
-
-Covering both products does NOT mean supporting every operation on day one.
-
-- **Phase 1 (supported)**: document and source checks for the requested claims; runtime tests of SQL examples on both products, TiDB Cloud console UI flows, and TiDB Cloud REST API specs. Cloud runtime tests currently cover Starter only; Essential, Premium, and Dedicated are out of scope.
-- **Later phases (need dedicated flows first)**: TiUP deployment/upgrade, backup & restore, disaster recovery drills, ticloud CLI. If a doc needs one of these, mark the step `NOT-COVERED` and flag the gap — do not improvise.
-
 **Reference docs are not blindly runnable.** System variable references, SQL statement pages, and similar often contain mutually exclusive examples, expected-error examples, and independent scenarios. Partition such pages into test cases with preconditions first; never execute the whole file top to bottom without that partitioning. (`scripts/scan-sql-blocks.py` produces the block inventory to plan this.)
 
 ## Verdict taxonomy
@@ -84,7 +71,7 @@ Assign each check one result below and record its verification method separately
 | Verdict | Meaning |
 |---|---|
 | `PASS` | Evidence from the recorded method supports the specific claim; this does not imply that other methods were completed |
-| `DOC-DISCREPANCY` | Document, matching source, or runtime evidence establishes a documentation inconsistency → candidate doc fix |
+| `DOC-DISCREPANCY` | Document, matching source, or runtime evidence establishes a documentation inconsistency → candidate doc fix. Source-only discrepancies must record the inspected commit and remain marked as runtime-unverified |
 | `PRODUCT-ANOMALY` | Product itself misbehaves regardless of the doc → not a doc bug; report separately |
 | `VERSION-MISMATCH` | Environment version/edition differs from what the doc targets → record, do not judge the doc |
 | `ENV-BLOCKED` | Test could not run (login expired, quota, network) → retry after fixing; never counts as pass or fail |
@@ -107,9 +94,11 @@ Adjudication rules:
 
 The skill identifies the doc's product, checks version alignment, and selects the flows. Ask the user only when information that would change execution is missing (credentials, version, whether an existing instance may be mutated).
 
+Resolve and record the document path/revision, target product/version, environment, mutation and creation scope, required verification methods, and output directory from the request and existing context. Do not turn these into a mandatory questionnaire. Unattended runs use the explicit contract in [Scheduled regression](ref-scheduled-regression.md).
+
 ## Report format
 
-Write every test report in **English** to `.tmp/test-reports/<date>-<doc-name>.md` with:
+Write every test report in **English** under `.tmp/test-reports/<run-id>/` (or the requested output directory), using a unique run ID and a document-path-derived filename to avoid collisions. Scheduled runs also require the JSON sidecar defined in [Scheduled regression](ref-scheduled-regression.md); for interactive runs it is optional. The agent assembles reports from evidence; the bundled harness does not emit this sidecar automatically. Include:
 
 - Header: document path and commit, target product/version, inspected source repository and commit when used, runtime environment/instance when used, scope, and date.
 - Per-claim/step table: document location, expected claim/result, verification method (`DOC-CHECK`, `SOURCE-CHECK`, or `RUNTIME-CHECK`), evidence with source locations or runtime artifact links, result from the taxonomy, and remaining verification gaps.
@@ -123,3 +112,5 @@ Write every test report in **English** to `.tmp/test-reports/<date>-<doc-name>.m
 - `scripts/observe_page.py` — filtered AX-tree observation for Browser Use CLI; output format is snapdiff-compatible, includes form values and control states.
 - `scripts/api_orchestrator.py` — TiDB Cloud serverless v1beta1 API helper: wait for ACTIVE, delete by clusterId, run SQL; `--dry-run` covers all side effects.
 - `scripts/scan-sql-blocks.py` — repo inventory: count SQL blocks per doc, classify statement types, flag environment dependencies, score automatability.
+
+The SQL harness validates prepared, sequential SQL cases; it cannot establish multi-node behavior, performance claims, or external workflow correctness. Its nondeterminism detection is limited: use explicit weak assertions for variable output, and report their strength. A smoke pass means execution succeeded, not that documented results matched; neither smoke nor `SELECT` syntax guarantees a read-only operation. The harness has no dry-run or expected-error assertion mode: inspect cases before execution and verify documented errors separately.

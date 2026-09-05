@@ -22,6 +22,7 @@ Use `resources/terms.md` when terminology is uncertain or not covered by the qui
 
 - `.agents/skills/add-related-resources/`: produce and merge related resources cards for TiDB docs pages using the RelatedResources and ResourceCard MDX components for blog, video, and TiDB Lab links in English, Simplified Chinese, and Japanese docs
 - `.agents/skills/review-doc-pr/`: review documentation PRs and Markdown diffs for factual accuracy, user usefulness, completeness, version fit, related-doc impact, links, and style
+- `.agents/skills/tidb-doc-e2e-test/`: validate important merged TiDB and TiDB Cloud docs through document checks, version-matched source verification, and runtime tests; load local setup, Cloud, source routing, and scheduled regression references only when needed
 - `.agents/skills/create-or-update-zh-translation-pr/`: create a new docs translation PR or update an existing one by combining repo-local scripts with minimal-edit translation rules and incremental source-diff handling
 - `.agents/skills/writing-doc-summaries/`: write or update the `summary` front matter field in a document following the repo's 115-145 character SEO-friendly sentence rules
 - `.agents/skills/write-update-tidb-docs/`: write new TiDB documentation or update existing documentation based on code PRs, issues, design docs, product specs, or feature descriptions; includes separate reference files for creating new docs (`ref-create-new-doc.md`) and updating existing docs (`ref-update-existing-doc.md`)
