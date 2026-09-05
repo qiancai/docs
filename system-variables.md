@@ -1195,16 +1195,19 @@ MPP is a distributed computing framework provided by the TiFlash engine, which a
 
 ### tidb_analyze_version <span class="version-mark">New in v5.1.0</span>
 
+> **Warning:**
+>
+> Starting from v9.0.0, TiDB no longer supports using Statistics Version 1 (`tidb_analyze_version = 1`) for new statistics collection. If you try to set this variable to `1`, TiDB returns an error. For more information, see [Versions of statistics](/statistics.md#versions-of-statistics). TiDB still supports reading existing Version 1 statistics for upgrade compatibility, but all new `ANALYZE` operations use Statistics Version 2 (`tidb_analyze_version = 2`). It is recommended that you use `tidb_analyze_version = 2`.
+
 - Scope: SESSION | GLOBAL
 - Persists to cluster: Yes
 - Applies to hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): No
 - Type: Integer
 - Default value: `2`
-- Range: `[1, 2]`
 - Controls how TiDB collects statistics.
     - For TiDB Self-Managed, the default value of this variable changes from `1` to `2` starting from v5.3.0.
     - For TiDB Cloud, the default value of this variable changes from `1` to `2` starting from v6.5.0.
-    - If your cluster is upgraded from an earlier version, the default value of `tidb_analyze_version` does not change after the upgrade.
+    - When you upgrade a cluster that still persists `tidb_analyze_version = 1`, TiDB rewrites the persisted global value to `2` during upgrade. Note that after the upgrade, the existing Version 1 statistics are not converted to Version 2 statistics automatically. It is recommended that you [migrate existing objects that use Statistics Version 1 to Version 2](/statistics.md#switch-between-statistics-versions).
 - For detailed introduction about this variable, see [Introduction to Statistics](/statistics.md).
 
 ### tidb_analyze_skip_column_types <span class="version-mark">New in v7.2.0</span>
@@ -2026,6 +2029,10 @@ Assume that you have a cluster with 4 TiDB nodes and multiple TiKV nodes. In thi
 - This setting was previously a `tidb.toml` option (`performance.run-auto-analyze`), but changed to a system variable starting from TiDB v6.1.0.
 
 ### tidb_enable_auto_analyze_priority_queue <span class="version-mark">New in v8.0.0</span>
+
+> **Warning:**
+>
+> Starting from v9.0.0, this variable is deprecated. TiDB always enables the priority queue for automatically collecting statistics.
 
 - Scope: GLOBAL
 - Persists to cluster: Yes
@@ -3997,7 +4004,7 @@ For a system upgraded to v5.0 from an earlier version, if you have not modified 
 - This variable defines the maximum number of TiDB nodes that the Distributed eXecution Framework (DXF) tasks can use. The default value is `-1`, which indicates that automatic mode is enabled. In automatic mode, TiDB dynamically calculates the value as `min(3, tikv_nodes / 3)`, where `tikv_nodes` represents the number of TiKV nodes in the cluster.
 
 > **Note:**
-> 
+>
 > If you explicitly set the [`tidb_service_scope`](#tidb_service_scope-new-in-v740) system variable for some TiDB nodes, the Distributed eXecution Framework schedules tasks only to these nodes. In this case, even if you set `tidb_max_dist_task_nodes` to a larger value, the framework uses no more than the number of nodes explicitly configured with `tidb_service_scope`.
 >
 > For example, if the cluster has 10 TiDB nodes, and 4 of them are configured with `tidb_service_scope = group1`, then even if you set `tidb_max_dist_task_nodes = 5`, only 4 nodes participate in task execution.
@@ -5499,6 +5506,24 @@ SHOW WARNINGS;
 - Range: `[0, 2147483647]`
 - This variable controls the iteration of the optimizer's estimation logic. After changing the value of this variable, the estimation logic of the optimizer will change greatly. Currently, `0` is the only valid value. It is not recommended to set it to other values.
 
+### `tidb_paging_size_bytes` <span class="version-mark">New in v9.0.0 and TiDB-X-CLOUD.202603</span>
+
+>**Note:**
+>
+> This variable is not supported on TiDB Cloud Starter.
+
+- Scope
+    - TiDB Self-Managed: SESSION | GLOBAL
+    - TiDB Cloud Essential and Premium: SESSION
+- Persists to cluster: Yes
+- Applies to hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): Yes
+- Type: Integer
+- Default value: `0`
+- Range: `[0, 9223372036854775807]`
+- Unit: bytes
+- Controls the maximum size, in bytes, of a single paged response in the coprocessor protocol, providing an additional response-size-based pagination mechanism alongside the row-based pagination controlled by [`tidb_max_paging_size`](#tidb_max_paging_size-new-in-v630). The default value of this variable is `0`, which disables byte-based pagination. This feature takes effect only when [resource control](/tidb-resource-control-ru-groups.md) is enabled, and the resource group of the current statement has a fixed RU quota. It allows the PD resource control module to estimate RU consumption based on the amount of data to be scanned and deduct the estimated RUs in advance before the statement is executed. To enable this feature, consider setting the variable to `4194304` (4 MiB).
+- This variable is an internal TiDB variable. It is **not recommended** to modify its value.
+
 ### tidb_partition_prune_mode <span class="version-mark">New in v5.1</span>
 
 > **Warning:**
@@ -5928,7 +5953,7 @@ SHOW WARNINGS;
 - Default value: `80%`
 - Range:
     - You can set the value in the percentage format, which means the percentage of the memory usage relative to the total memory. The value range is `[1%, 99%]`.
-    - You can also set the value in memory size. The value range is `0` and `[536870912, 9223372036854775807]` in bytes. The memory format with the units "KiB|MiB|GiB|TiB" is supported. `0` means no memory limit.
+    - You can also set the value in memory size. The value range is `0` and `[536870912, 9223372036854775807]` in bytes. Memory formats with the units "KiB|MiB|GiB|TiB" or "KB|MB|GB|TB" are also supported, for example, `90GiB` (no space between the number and the unit). `0` means no memory limit.
     - If this variable is set to a memory size that is less than 512 MiB but not `0`, TiDB uses 512 MiB as the actual size.
 - This variable specifies the memory limit for a TiDB instance. When the memory usage of TiDB reaches the limit, TiDB cancels the currently running SQL statement with the highest memory usage. After the SQL statement is successfully canceled, TiDB tries to call Golang GC to immediately reclaim memory to relieve memory stress as soon as possible.
 - Only the SQL statements with more memory usage than the [`tidb_server_memory_limit_sess_min_size`](/system-variables.md#tidb_server_memory_limit_sess_min_size-new-in-v640) limit are selected as the SQL statements to be canceled first.
@@ -5957,7 +5982,7 @@ SHOW WARNINGS;
 - Persists to cluster: Yes
 - Applies to hint [SET_VAR](/optimizer-hints.md#set_varvar_namevar_value): No
 - Default value: `134217728` (which is 128 MiB)
-- Range: `[128, 9223372036854775807]`, in bytes. The memory format with the units "KiB|MiB|GiB|TiB" is also supported.
+- Range: `[128, 9223372036854775807]`, in bytes. Memory formats with the units "KiB|MiB|GiB|TiB" or "KB|MB|GB|TB" are also supported, for example, `130MiB` (no space between the number and the unit).
 - After you enable the memory limit, TiDB will terminate the SQL statement with the highest memory usage on the current instance. This variable specifies the minimum memory usage of the SQL statement to be terminated. If the memory usage of a TiDB instance that exceeds the limit is caused by too many sessions with low memory usage, you can properly lower the value of this variable to allow more sessions to be canceled.
 
 ### tidb_service_scope <span class="version-mark">New in v7.4.0</span>
