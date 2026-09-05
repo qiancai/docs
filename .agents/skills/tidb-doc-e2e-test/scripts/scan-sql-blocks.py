@@ -13,6 +13,9 @@ import re
 import sys
 from collections import Counter, defaultdict
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
+from markdown_sql import (code_blocks as _code_blocks, TRANSCRIPT_RX, ENV_KW, STMT_RE)  # noqa: E402
+
 SCAN_DIRS = ["sql-statements", "functions-and-operators", "develop", "information-schema", "ai"]
 ROOT_FILES_SKIP = re.compile(
     r"^(TOC|_index|_docHome|README|CONTRIBUTING|AGENTS|support|credits|"
@@ -20,38 +23,13 @@ ROOT_FILES_SKIP = re.compile(
     r".*configuration-file\.md|command-line-flags.*|enable-tls.*|"
     r".*monitoring.*|alert-rules|tune-.*|release-.*)")
 
-FENCE_LINE_RE = re.compile(r"^\s*```(\S*)\s*$")
 OUT_HINT = re.compile(r"(Query OK|\+\-|\|.*\||ERROR \d+|Empty set|rows? in set)", re.M | re.I)
-MYSQL_PROMPT = re.compile(r"^\s*mysql>", re.M)
-ENV_KW = re.compile(
-    r"(\bBACKUP\b|\bRESTORE\b|IMPORT INTO|LOAD DATA|TIFLASH|FLASHBACK|"
-    r"s3://|local://|/tmp/|tiup |dumpling|changefeed)", re.I)
-STMT_RE = {
-    "select": re.compile(r"^\s*(SELECT|WITH|VALUES)\b", re.I | re.M),
-    "show": re.compile(r"^\s*(SHOW|DESC|DESCRIBE)\b", re.I | re.M),
-    "explain": re.compile(r"^\s*(EXPLAIN|TRACE)\b", re.I | re.M),
-    "ddl": re.compile(r"^\s*(CREATE|ALTER|DROP|TRUNCATE|RENAME)\b", re.I | re.M),
-    "dml": re.compile(r"^\s*(INSERT|UPDATE|DELETE|REPLACE)\b", re.I | re.M),
-    "set": re.compile(r"^\s*SET\b", re.I | re.M),
-    "admin": re.compile(r"^\s*ADMIN\b", re.I | re.M),
-    "txn": re.compile(r"^\s*(BEGIN|COMMIT|ROLLBACK|START TRANSACTION)\b", re.I | re.M),
-}
+MYSQL_PROMPT = TRANSCRIPT_RX
 
 
 def code_blocks(text):
-    """Line-based toggle parser: handles ```lang+x tags and indented fences."""
-    blocks, in_block, lang, buf = [], False, "", []
-    for line in text.splitlines():
-        m = FENCE_LINE_RE.match(line)
-        if m:
-            if in_block:
-                blocks.append((lang, "\n".join(buf)))
-                in_block, buf = False, []
-            else:
-                in_block, lang = True, m.group(1).lower()
-        elif in_block:
-            buf.append(line)
-    return blocks
+    """Shared parser (lib/markdown_sql.py); drop line numbers for legacy callers."""
+    return [(lang, content) for lang, content, _, _ in _code_blocks(text)]
 
 
 def stmt_types(sql):
@@ -95,21 +73,8 @@ def single_file_mode(path):
     statement types, env deps, and first content line — the input for
     reference-doc test-case partitioning."""
     text = open(path, encoding="utf-8").read()
-    lines = text.splitlines()
-    blocks = []
-    in_block, lang, buf, start = False, "", [], 0
-    for ln, line in enumerate(lines, 1):
-        m = FENCE_LINE_RE.match(line)
-        if m:
-            if in_block:
-                blocks.append((lang, "\n".join(buf), start, ln))
-                in_block, buf = False, []
-            else:
-                in_block, lang, start = True, m.group(1).lower(), ln
-        elif in_block:
-            buf.append(line)
     n = 0
-    for lang, content, start, end in blocks:
+    for lang, content, start, end in _code_blocks(text):
         if lang not in ("sql", "mysql"):
             continue
         n += 1
@@ -121,9 +86,6 @@ def single_file_mode(path):
         print(f"[{n}] lines {start}-{end}  {kind:<13} types={types:<28} env={env}")
         print(f"    {first[:100]}")
     print(f"\n{n} SQL blocks in {path}")
-
-
-TRANSCRIPT_RX = re.compile(r"^\s*mysql>", re.M)
 
 
 def main():

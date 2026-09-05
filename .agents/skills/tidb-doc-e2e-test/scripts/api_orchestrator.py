@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""TiDB Cloud API helper for doc e2e tests (Starter/Essential, v1beta1 serverless API).
+"""TiDB Cloud API helper for doc e2e tests (Starter, v1beta1 serverless API).
+
+Note: current runtime scope is TiDB Cloud Starter only (Essential/Premium/
+Dedicated are out of scope per SKILL.md).
 
 Spec source: idl repo, release/v1beta1 branch,
 swagger/tidbcloud-oas-v1beta1-serverless.swagger.json
   host:     serverless.tidbapi.com
   basePath: /v1beta1
-  GET    /clusters                 -> {"clusters": [{"clusterId","displayName","state",...}]}
+  GET    /clusters                 -> {"clusters": [...], "nextPageToken": "..."}
   DELETE /clusters/{clusterId}
   state enum: CREATING | ACTIVE | RESTORING | DELETED
 
@@ -16,10 +19,12 @@ Auth: HTTP Basic with API key pair
 Usage:
   python3 api_orchestrator.py --instance docs-e2e-001 --wait-for
   python3 api_orchestrator.py --instance-id <clusterId> --delete
-  python3 api_orchestrator.py --sql HOST USER --sql-password-from-env
+  python3 api_orchestrator.py --sql HOST USER --sql-file case.sql
   --dry-run prints actions without any side effect (covers API AND SQL).
 
 Cleanup rule: prefer --instance-id recorded at creation time over name lookup.
+Deletion is verified by polling until the cluster reaches DELETED or returns
+404; otherwise cleanup status is reported as unknown, never assumed ok.
 """
 import argparse
 import base64
@@ -54,8 +59,17 @@ def api_call(method, url, headers, body=None, dry_run=False):
 
 
 def list_clusters(headers, dry_run):
-    data = api_call("GET", f"{BASE_URL}/clusters", headers, dry_run=dry_run)
-    return data.get("clusters", [])
+    """GET /clusters with pagination (nextPageToken) — name lookups must see
+    every page, not just the first."""
+    clusters, token = [], None
+    while True:
+        url = f"{BASE_URL}/clusters" + (f"?pageToken={token}" if token else "")
+        data = api_call("GET", url, headers, dry_run=dry_run)
+        clusters.extend(data.get("clusters", []))
+        token = data.get("nextPageToken")
+        if not token or dry_run:
+            break
+    return clusters
 
 
 def wait_for_cluster(name, headers, dry_run=False, timeout=300):
@@ -75,9 +89,30 @@ def wait_for_cluster(name, headers, dry_run=False, timeout=300):
     raise TimeoutError(f"Cluster {name} did not become ACTIVE within {timeout}s")
 
 
-def delete_cluster(cluster_id, headers, dry_run=False):
+def delete_cluster(cluster_id, headers, dry_run=False, timeout=180):
     api_call("DELETE", f"{BASE_URL}/clusters/{cluster_id}", headers, dry_run=dry_run)
-    print(f"{'[DRY-RUN] would delete' if dry_run else 'Deleted'} cluster {cluster_id}")
+    print(f"{'[DRY-RUN] would delete' if dry_run else 'DELETE issued for'} cluster {cluster_id}")
+    if dry_run:
+        print("[DRY-RUN] would poll GET until state == DELETED or 404")
+        return "unknown"
+    # verify deletion completes; never assume ok without observing a terminal state
+    start = time.time()
+    while time.time() - start < timeout:
+        try:
+            c = api_call("GET", f"{BASE_URL}/clusters/{cluster_id}", headers)
+            state = c.get("state", "UNKNOWN")
+            print(f"  cleanup poll: state = {state}")
+            if state == "DELETED":
+                print(f"Deleted cluster {cluster_id} (verified)")
+                return "ok"
+        except SystemExit as e:
+            if "404" in str(e):
+                print(f"Deleted cluster {cluster_id} (verified: 404)")
+                return "ok"
+            raise
+        time.sleep(10)
+    print(f"WARNING: deletion of {cluster_id} not confirmed within {timeout}s — cleanup status unknown")
+    return "unknown"
 
 
 def run_sql(host, user, password, sql, dry_run=False):

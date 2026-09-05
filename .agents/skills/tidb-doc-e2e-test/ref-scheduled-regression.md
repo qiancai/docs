@@ -59,4 +59,9 @@ Use `schema_version: 1`. Example of a blocked runtime check (replace illustrativ
 
 `methods_run` contains methods actually executed, not merely planned. `checks` includes blocked/excluded checks and uses the main verdict taxonomy; `assertion` is `exact`, `weak`, `smoke`, or null when inapplicable. `verdict_counts` counts check rows, with absent verdicts meaning zero. Record source references as repository/commit pairs. `cleanup.status` is `ok`, `failed`, `unknown`, or `not-needed`; interruption without verification is `unknown`. `coverage_complete` must be false for required gaps, unresolved conflicts, or failed/unknown cleanup. It means coverage, not correctness: completed checks may still find discrepancies.
 
+**Stable finding identity.** Every check and finding carries a fingerprint so scheduled runs can report new / changed / resolved / unchanged instead of re-interpreting everything:
+
+- `claim_id`: `sha256(doc_path + heading_path + normalized_claim_text + method)` — stable across line-number shifts when a doc gains a new example above. `doc_line` stays as a locator only, never as identity.
+- `finding_fingerprint`: `sha256(claim_id + verdict + normalized_reason)` — a verdict change on the same claim produces a *changed* finding, not a new one.
+
 Before delivery, parse the JSON with a standard JSON parser and reconcile counts, methods, coverage, and cleanup with the Markdown report and raw evidence. Never convert an empty result set into a successful run. Retain raw harness assertion strengths instead of promoting smoke/weak results to exact matches.

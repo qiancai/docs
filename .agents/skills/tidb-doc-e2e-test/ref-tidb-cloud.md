@@ -29,12 +29,12 @@ Check capabilities only for the selected execution method. A working SQL/API con
 ## Known pitfalls (Cloud console — learned from live testing, do not rediscover)
 
 - **CodeMirror editors** (SQL Editor): never `type` SQL character-by-character — auto-completion corrupts backticks/parens. Focus `.cm-content` and use `keyboard.insertText`.
+- **Interaction hierarchy (user truthfulness)**: a doc test asks "can a user do this?", so clicks must be user-equivalent. Order: (1) accessible/native locator click, (2) DOM locator click, (3) scroll into view + retry, (4) JS `element.click()` as diagnostic fallback only. JS clicks bypass overlays, hit-targets, and visibility — if only the JS click works, record "user interaction failed; JS invocation confirms the handler works" as a potential `PRODUCT-ANOMALY`, never a `PASS`.
 - **Mantine UI** (the whole console): `text=` selectors collide constantly (10 matches for "Starter"). Snapshot first, act on refs; refs go stale after every re-render.
 - **React wipes injected DOM**: inject synthetic fixtures at `document.body` level, never inside a React-managed tree.
 - **Indentation is not a diff key**: diff snapshots on content only (role + name), handled by `scripts/snapdiff.py`.
 - **Set-based diffs miss relocation**: `snapdiff.py` has an order-aware fallback; keep it.
 - **Run executes only the statement at the cursor**: in SQL Editor with multiple statements, select all in the editor (Command+A on macOS, Control+A on Linux/Windows) before Run; verify any alternative shortcut in the current UI.
-- **Prefer JS `element.click()` over CDP coordinate clicks in batch mode**: AX box-model coordinates can mismatch the headed viewport, and synthetic mouse events may not trigger React handlers.
 - **`innerText` omits input values**: combobox defaults (e.g. `Public`, `main`, `macOS`) are invisible to `innerText` probes — dump `input.value` separately.
 - **My TiDB instance names are table cells, not links**: locate the `<p>`/`<td>` by text and click it.
 - **New-account behaviors vary by account vintage**: an existing account cannot validate fresh-signup claims. Signup testing is outside current scope; record those claims as `NOT-COVERED` rather than creating an account.
