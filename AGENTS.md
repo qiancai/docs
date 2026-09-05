@@ -45,7 +45,7 @@ Use the workflow-specific skills in `.agents/skills/` when they match the task:
 - `write-update-tidb-docs`: write new TiDB documentation or update existing documentation based on code PRs from `pingcap/tidb` or other TiDB ecosystem repositories, issues, design docs, or feature descriptions
 - `docs-pr-metadata-guard`: guard PR template structure when creating or editing pull requests — version checkboxes, required sections, HTML comments, related-link fields, and cherry-pick conventions
 - `docs-issue-metadata-guard`: guard issue template structure when creating or editing issues — template selection, required fields, scope boundaries, and label hygiene
-- `tidb-cloud-e2e`: end-to-end test TiDB Cloud console UI docs against the live console — human-like predict/observe/compare/act/verify/record protocol, semantic snapshot diff for drift detection, using the bundled scripts in `.agents/skills/tidb-cloud-e2e/scripts/`
+- `tidb-doc-e2e-test`: end-to-end test TiDB and TiDB Cloud documentation against live environments — verify a user following the doc can complete the task; unified predict/observe/compare/act/verify/record protocol, two-layer routing (environment × execution method), using the bundled scripts in `.agents/skills/tidb-doc-e2e-test/scripts/`
 
 If no existing skill matches the task, follow this file plus the shared guidance and keep the change narrowly scoped.
 
