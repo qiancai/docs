@@ -19,12 +19,13 @@ Load this file when the document under test targets TiDB Cloud: console UI guide
 - **API keys** (assertion/cleanup): `TidbCloudPublicKey` / `TidbCloudPrivateKey` env vars. Never commit them.
 - **REST API specs**: idl repo branches `release/v1beta1` / `release/v1beta2`, `swagger/*.swagger.json`. Resolve the local clone path with the user instead of assuming one. Spec-vs-live method: resolve an endpoint from the spec, call the live API (HTTP Basic with the key pair), compare the response against the spec schema (status code, required fields, field types). A mismatch is a candidate drift finding.
 
-## Pre-flight checklist (before any Cloud test)
+## Pre-flight checklist (per execution method — check only what the method needs)
 
-1. **Session health**: navigate to `https://tidbcloud.com/tidbs`. If redirected to `auth.tidbcloud.com`, stop and ask the user to log in (auth0 session expires in hours). Never automate credentials.
-2. **Correct org**: verify the org name on the My TiDB page matches the intended test org.
-3. **Cost safety**: Starter instances only, spending limit $0.
-4. **Baseline availability** (regression mode): no baseline → this run is a first pass; produce baselines as a byproduct (subject to the first-pass rule in SKILL.md).
+- **Browser flows**: navigate to `https://tidbcloud.com/tidbs`. If redirected to `auth.tidbcloud.com`, stop and ask the user to log in (auth0 session expires in hours; never automate credentials). Verify the org name on the My TiDB page matches the intended test org.
+- **SQL flows** (run-sql-test.py against a Starter instance): verify DB connectivity first — `mysql --ssl-mode=REQUIRED -h <host> -u '<prefix>.root' -e 'SELECT 1'` with `MYSQL_PWD` set. No console login required.
+- **REST API flows**: verify the API key pair works — one cheap authenticated call (e.g. `GET /v1beta1/clusters` with pageSize=1) before starting. No console login required.
+- **Cost safety (all methods)**: Starter instances only, spending limit $0.
+- **Baseline availability** (regression mode): no baseline → this run is a first pass; produce baselines as a byproduct (subject to the first-pass rule in SKILL.md).
 
 ## Existing vs created Cloud resources
 

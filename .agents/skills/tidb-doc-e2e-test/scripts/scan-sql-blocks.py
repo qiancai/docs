@@ -90,7 +90,46 @@ def analyze_file(path):
     return stats, types, sorted(env_hits), score
 
 
+def single_file_mode(path):
+    """Per-block inventory for one Markdown file: index, line range, language,
+    statement types, env deps, and first content line — the input for
+    reference-doc test-case partitioning."""
+    text = open(path, encoding="utf-8").read()
+    lines = text.splitlines()
+    blocks = []
+    in_block, lang, buf, start = False, "", [], 0
+    for ln, line in enumerate(lines, 1):
+        m = FENCE_LINE_RE.match(line)
+        if m:
+            if in_block:
+                blocks.append((lang, "\n".join(buf), start, ln))
+                in_block, buf = False, []
+            else:
+                in_block, lang, start = True, m.group(1).lower(), ln
+        elif in_block:
+            buf.append(line)
+    n = 0
+    for lang, content, start, end in blocks:
+        if lang not in ("sql", "mysql"):
+            continue
+        n += 1
+        first = next((l.strip() for l in content.splitlines() if l.strip()), "")
+        kind = "output-table" if re.match(r"^\s*(\+[-+]+\+|\|.*\|)", content) else \
+               "transcript" if TRANSCRIPT_RX.search(content) else "statements"
+        types = "|".join(sorted(stmt_types(content))) if kind == "statements" else "-"
+        env = "|".join(sorted(set(ENV_KW.findall(content)))) or "-"
+        print(f"[{n}] lines {start}-{end}  {kind:<13} types={types:<28} env={env}")
+        print(f"    {first[:100]}")
+    print(f"\n{n} SQL blocks in {path}")
+
+
+TRANSCRIPT_RX = re.compile(r"^\s*mysql>", re.M)
+
+
 def main():
+    if len(sys.argv) > 1 and os.path.isfile(sys.argv[1]):
+        single_file_mode(sys.argv[1])
+        return
     root = sys.argv[1] if len(sys.argv) > 1 else os.getcwd()
     targets = []
     for d in SCAN_DIRS:

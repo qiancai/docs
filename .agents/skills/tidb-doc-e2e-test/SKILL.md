@@ -1,11 +1,11 @@
 ---
 name: tidb-doc-e2e-test
-description: End-to-end test TiDB and TiDB Cloud documentation by verifying that a user following the doc can complete the task — unified protocol (predict, observe, compare, act, verify, record), two-layer routing by environment and execution method, semantic snapshot diff for UI drift, SQL harness for both playgrounds and Cloud instances. Use when testing docs examples/flows in pingcap/docs (SQL statements, functions, features, quickstarts) or TiDB Cloud docs (console UI, SQL, REST API specs from the idl repo).
+description: Validate existing TiDB and TiDB Cloud documentation through document consistency checks, source-code verification for the target version, and live environment tests. Use when auditing important merged docs or testing SQL examples, system variables, features, quickstarts, console flows, and API documentation. Select evidence per claim or step and report runtime coverage explicitly.
 ---
 
 # TiDB Doc E2E Test
 
-Use this skill when the task is to test a TiDB or TiDB Cloud documentation page against a live environment, detect documentation drift, or run doc regression. The question being answered is always: **can a user following this document complete the task?**
+Use this skill to validate existing TiDB or TiDB Cloud documentation, detect documentation drift, or run doc regression. The question being answered is always: **can a user following this document complete the task?** Use document checks, source verification, and runtime tests as appropriate; report which parts were actually executed.
 
 ## Architecture principle (non-negotiable)
 
@@ -14,6 +14,7 @@ Use this skill when the task is to test a TiDB or TiDB Cloud documentation page 
 ```
 Documentation Agent (SINGLE REASONER)
     │ decide / compare / judge
+    ├── Evidence: document context and version-matched source code
     ├── Browser control: Playwright MCP / Browser Use CLI (CDP)
     ├── SQL: scripts/run-sql-test.py (any TiDB endpoint)
     ├── REST API: scripts/api_orchestrator.py (TiDB Cloud API)
@@ -27,20 +28,36 @@ Rules that protect finding accuracy:
 - **API/CLI state is the fact layer; UI is the narrative layer.** Assert resource state via API or SQL. Use UI observation only for what the doc promises a user will see.
 - **Full observations go to disk; only deltas enter context.** Never let raw dumps flood the conversation.
 
-## The test protocol (run per document step)
+## The test protocol (run per claim or document step)
 
-1. **PREDICT** — extract from the doc step what the user should see/get: page name, button labels, default values, expected output or outcome text. Write it down before observing.
-2. **OBSERVE** — observe each state exactly once, with the cheapest tool that carries full state.
+1. **PREDICT** — extract the documented claim or expected result: page name, button labels, default values, expected output or outcome text. Write it down and select the required verification methods before collecting evidence.
+2. **OBSERVE** — collect the relevant document context, source definitions and validation paths, or environment state for the selected methods. Preserve the documented expectation when the evidence differs.
 3. **COMPARE** — check the prediction against the observation explicitly, line by line. Never eyeball.
-4. **ACT** — perform the action like a user would. On failure, see the self-healing rule above.
-5. **VERIFY** — poll for the resulting state; avoid fixed sleeps except as a last resort.
-6. **RECORD** — full snapshot to file; only the delta (vs prediction or baseline) enters context; screenshots as evidence at checkpoints and anomalies only.
+4. **ACT** — for runtime checks, perform the action like a user would within the authorized scope. On failure, see the self-healing rule above. Document and source checks do not require an environment mutation.
+5. **VERIFY** — evaluate the collected evidence against the claim. For runtime checks, verify the actual output or resulting state; poll when needed and avoid fixed sleeps except as a last resort.
+6. **RECORD** — save evidence to file and report the result, verification methods completed, and remaining gaps separately. Only the delta (vs prediction or baseline) enters context; screenshots serve as evidence at checkpoints and anomalies.
+
+## Select verification methods per claim
+
+Split the document into verifiable claims and steps. Choose one or more methods for each item automatically; the user does not need to specify the methods or repeat the standard workflow. Do not assign a single method to an entire page when its claims need different evidence.
+
+| Method | Use for | Evidence and limits |
+|---|---|---|
+| `DOC-CHECK` | Internal contradictions, missing prerequisites, step order, and inconsistencies between prose, tables, and examples | Cite the document locations that support the finding. Model knowledge can suggest checks, but cannot establish product behavior as verified. |
+| `SOURCE-CHECK` | Declared defaults, minimum/maximum values, scope, feature flags, and validation conditions | Inspect the target version's definitions and relevant validation/call paths, not just matching constants. Record the repository, commit, and source locations. This verifies implementation, not deployment or runtime behavior. |
+| `RUNTIME-CHECK` | SQL/API input and output, boundary and error behavior, permissions, configuration taking effect, and console workflows | Record inputs, outputs, relevant state, and environment version/configuration. Conclusions apply to the tested environment. |
+
+- Use document evidence to resolve internal consistency questions directly. Prefer source checks for implementation declarations; require runtime evidence for claims about execution, environmental effects, and user-visible behavior. Combine methods where they answer different parts of a claim, without requiring all three for every item.
+- Match source code to the document's target version and, for runtime comparisons, record the actual instance version. Do not silently substitute the latest development code for release documentation. When explicitly checking upcoming changes against newer code, label them as pending changes rather than errors in the published version. For TiDB Cloud, distinguish the inspected source revision from the deployed service when their correspondence is unknown.
+- Turn source findings into focused runtime assertions when an appropriate environment is available. For a system variable, check the documented default, range, scope, and validation logic in source, then test relevant boundary/invalid inputs and effects of changes in the instance. Preserve source-versus-runtime distinctions in the report.
+- If source and runtime evidence conflict, investigate version, deployment, configuration, feature flags, and the relevant execution path. Keep an unresolved conflict explicit rather than selecting one source as automatically authoritative or issuing `PASS`.
+- If a required method is unavailable or excluded by scope, complete independent checks and record the missing check as `ENV-BLOCKED` or `NOT-COVERED`, as appropriate. Source-only verification must say that runtime behavior was not tested; it cannot establish an overall E2E pass.
 
 ## Routing: two layers, never bind product to tool
 
 **Layer 1 — target environment.** Determine: TiDB or TiDB Cloud; use an existing environment or validate a create/deploy flow; **version** and scope. Version is a test input: TiDB docs are tested against an instance of the matching version; Cloud docs consider both the release branch and current service behavior. A version mismatch is recorded explicitly — it is never silently filed as a doc error.
 
-**Layer 2 — execution method.** Browser / SQL / REST API / Shell-CLI. One doc may combine several methods; test each part on its own method and merge findings into one report.
+**Layer 2 — runtime execution method.** For items requiring `RUNTIME-CHECK`, choose Browser / SQL / REST API / Shell-CLI. One doc may combine several methods; test each part on its own method and merge findings into one report. Load environment prerequisites only for the checks that need them; document/source checks do not require a live connection or console login.
 
 Load the matching reference file only when needed:
 
@@ -53,23 +70,23 @@ Load the matching reference file only when needed:
 
 Covering both products does NOT mean supporting every operation on day one.
 
-- **Phase 1 (supported)**: SQL examples on both products; TiDB Cloud console UI flows; TiDB Cloud REST API spec-vs-live checks.
+- **Phase 1 (supported)**: document and source checks for the requested claims; runtime tests of SQL examples on both products, TiDB Cloud console UI flows, and TiDB Cloud REST API specs. Cloud runtime tests currently cover Starter only; Essential, Premium, and Dedicated are out of scope.
 - **Later phases (need dedicated flows first)**: TiUP deployment/upgrade, backup & restore, disaster recovery drills, ticloud CLI. If a doc needs one of these, mark the step `NOT-COVERED` and flag the gap — do not improvise.
 
 **Reference docs are not blindly runnable.** System variable references, SQL statement pages, and similar often contain mutually exclusive examples, expected-error examples, and independent scenarios. Partition such pages into test cases with preconditions first; never execute the whole file top to bottom without that partitioning. (`scripts/scan-sql-blocks.py` produces the block inventory to plan this.)
 
 ## Verdict taxonomy
 
-Every finding lands in exactly one bucket — never collapse them:
+Assign each check one result below and record its verification method separately. If methods have different outcomes, retain separate check rows; an unresolved conflict is not a pass.
 
 | Verdict | Meaning |
 |---|---|
-| `PASS` | Observed behavior matches the doc |
-| `DOC-DISCREPANCY` | Product behaves normally but differs from the doc → candidate doc fix |
+| `PASS` | Evidence from the recorded method supports the specific claim; this does not imply that other methods were completed |
+| `DOC-DISCREPANCY` | Document, matching source, or runtime evidence establishes a documentation inconsistency → candidate doc fix |
 | `PRODUCT-ANOMALY` | Product itself misbehaves regardless of the doc → not a doc bug; report separately |
 | `VERSION-MISMATCH` | Environment version/edition differs from what the doc targets → record, do not judge the doc |
 | `ENV-BLOCKED` | Test could not run (login expired, quota, network) → retry after fixing; never counts as pass or fail |
-| `NOT-COVERED` | Step not testable with currently supported flows → flag the gap |
+| `NOT-COVERED` | Required check excluded by the requested scope or not testable with currently supported flows → record the reason and dependent checks left uncovered |
 
 Adjudication rules:
 
@@ -90,7 +107,12 @@ The skill identifies the doc's product, checks version alignment, and selects th
 
 ## Report format
 
-Write every test report in **English** to `.tmp/test-reports/<date>-<doc-name>.md` with: header (doc, environment incl. version, instance, date), verdict, per-step table (doc step / actual result / verdict from the taxonomy), issues ranked by severity with human-verdict flags, resource IDs created and cleaned up, infrastructure learnings, cleanup confirmation.
+Write every test report in **English** to `.tmp/test-reports/<date>-<doc-name>.md` with:
+
+- Header: document path and commit, target product/version, inspected source repository and commit when used, runtime environment/instance when used, scope, and date.
+- Per-claim/step table: document location, expected claim/result, verification method (`DOC-CHECK`, `SOURCE-CHECK`, or `RUNTIME-CHECK`), evidence with source locations or runtime artifact links, result from the taxonomy, and remaining verification gaps.
+- Overall result and coverage: distinguish document/source verification from runtime execution. For example, "Range verified in source; out-of-range input behavior not tested." Do not report an overall E2E pass when required runtime checks are blocked, excluded, or unexecuted.
+- Issues ranked by severity with human-verdict flags, unresolved evidence conflicts, resource IDs created and cleaned up, setting restoration results, infrastructure learnings, and cleanup confirmation where applicable.
 
 ## Scripts
 

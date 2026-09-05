@@ -26,7 +26,37 @@ FENCE = re.compile(r"^\s*```(\S*)\s*$")
 NONDETERMINISTIC = re.compile(
     r"\b(RANDOM_BYTES|UUID|RAND|NOW|CURDATE|CURTIME|CURRENT_TIMESTAMP|"
     r"CONNECTION_ID|SLEEP)\s*\(", re.I)
-LOOKS_LIKE_OUTPUT = re.compile(r"^(\s*(\+[-+]+\+|\|.*\|)|\s*mysql>)", re.M)
+# a ```sql block that actually holds a result table (mislabeled output)
+LOOKS_LIKE_TABLE = re.compile(r"^\s*(\+[-+]+\+|\|.*\|)\s*$", re.M)
+TRANSCRIPT_PROMPT = re.compile(r"^\s*mysql>\s?(.*)$", re.M)
+TRANSCRIPT_CONT = re.compile(r"^\s*->\s?(.*)$")
+
+
+def parse_transcript(content):
+    """Parse a mysql> transcript block into [(sql, expected_table)] pairs.
+
+    Statements follow 'mysql>' prompts (continuation lines start with '->');
+    everything between statements is the previous statement's output, from
+    which a result table is extracted when present ('Query OK' etc. simply
+    means no table expectation).
+    """
+    pairs, cur_sql, cur_out = [], [], []
+    for line in content.splitlines():
+        m = TRANSCRIPT_PROMPT.match(line)
+        if m:
+            if cur_sql:
+                pairs.append(("\n".join(cur_sql), "\n".join(cur_out)))
+            cur_sql, cur_out = [m.group(1)], []
+            continue
+        c = TRANSCRIPT_CONT.match(line)
+        if c and cur_sql and not cur_out:
+            cur_sql.append(c.group(1))
+            continue
+        if cur_sql:
+            cur_out.append(line)
+    if cur_sql:
+        pairs.append(("\n".join(cur_sql), "\n".join(cur_out)))
+    return pairs
 
 
 def code_blocks(text):
@@ -90,6 +120,12 @@ class MySQLSession:
         combined.append(f"SELECT '{marker}' AS __m;")
         p = subprocess.run(self.cmd, input="\n".join(combined), capture_output=True,
                            text=True, timeout=300, env=self.env)
+        # connection-level failure: no markers at all -> nothing executed
+        n_markers = p.stdout.count(marker)
+        if n_markers < len(sql_blocks) + 1:
+            detail = (p.stderr.strip().splitlines() or ["mysql exited abnormally"])[0]
+            raise RuntimeError(
+                f"mysql run failed (exit {p.returncode}, {n_markers}/{len(sql_blocks)+1} markers): {detail}")
         # split stdout on marker result sets (header line "__m" + value line)
         segments, cur = [], []
         for line in p.stdout.splitlines():
@@ -140,12 +176,23 @@ def main():
     password = args.password or os.environ.get("MYSQL_PWD")
     blocks = code_blocks(open(args.file, encoding="utf-8").read())
 
-    # build the execution plan: statement blocks vs mislabeled output blocks
+    # build the execution plan: statement blocks, transcript blocks, and
+    # mislabeled output blocks (result tables tagged as sql)
     plan = []
     for i, (lang, content) in enumerate(blocks):
         if lang not in ("sql", "mysql"):
             continue
-        if LOOKS_LIKE_OUTPUT.search(content):
+        if TRANSCRIPT_PROMPT.search(content):
+            pairs = parse_transcript(content)
+            if not pairs:
+                # keep plan alignment with a no-op; reported as NOT-COVERED
+                plan.append({"sql": "DO 0;", "expected": None,
+                             "note": "NOT-COVERED: unparsable transcript block"})
+            for sql, out in pairs:
+                plan.append({"sql": sql.strip(), "expected": parse_expected(out),
+                             "note": "transcript"})
+            continue
+        if LOOKS_LIKE_TABLE.search(content) and not re.search(r"^\s*(SELECT|INSERT|CREATE|ALTER|DROP|SET|SHOW|UPDATE|DELETE|WITH|USE|BEGIN|COMMIT|ADMIN|EXPLAIN|VALUES)\b", content, re.I | re.M):
             # mislabeled expected-output block: attach to previous statement
             if plan and plan[-1]["expected"] is None:
                 plan[-1]["expected"] = parse_expected(content)
@@ -159,6 +206,8 @@ def main():
     results = []
     try:
         outcomes = session.execute_all([item["sql"] for item in plan])
+        if len(outcomes) != len(plan):
+            raise RuntimeError(f"result/plan mismatch: {len(outcomes)} vs {len(plan)}")
     except Exception as e:
         for idx, item in enumerate(plan):
             results.append({"n": idx + 1, "sql": item["sql"].replace("\n", " ")[:90],
@@ -168,9 +217,11 @@ def main():
         for idx, (item, (out, err_lines)) in enumerate(zip(plan, outcomes)):
             sql, expected = item["sql"], item["expected"]
             entry = {"n": idx + 1, "sql": sql.replace("\n", " ")[:90]}
-            err = "\n".join(err_lines)
-            if re.search(r"ERROR \d+", err):
-                entry.update(status="FAIL", detail=err.strip().splitlines()[-1])
+            note = item.get("note", "")
+            if note.startswith("NOT-COVERED"):
+                entry.update(status="NOT-COVERED", detail=note)
+            elif re.search(r"ERROR \d+", "\n".join(err_lines)):
+                entry.update(status="FAIL", detail=err_lines[-1])
             elif expected is None:
                 entry.update(status="SMOKE-PASS", detail="no expected output; executed OK")
             else:

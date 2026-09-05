@@ -32,20 +32,22 @@ def normalize(path):
         s = stripped
         s = re.sub(r"\s*\[ref=[^\]]+\]", "", s)
         s = re.sub(r"\s*\[cursor=pointer\]", "", s)
-        s = re.sub(r"\s*\[(checked|disabled|active|selected)(\|[^\]]*)?\]", r" [STATE]", s)
+        # states stay verbatim: [checked] vs [checked|disabled] is a real change
         s = re.sub(r"^-\s*/url:.*$", "", s)
         s = re.sub(r":\s*$", "", s)  # MCP YAML trailing colon for parent nodes
         if not s or s == "-":
             continue
-        # R2: mask only high-entropy values
+        # R2: mask only high-entropy values (ids, hex, timestamps).
+        # Prices and small numbers (ports, limits, defaults) are doc-relevant — keep them.
         s = re.sub(r"\b\d{6,}\b", "<ID>", s)                        # instance ids, long numbers
         s = re.sub(r"\b[0-9a-f]{16,}\b", "<HEX>", s, flags=re.I)    # hex tokens
-        s = re.sub(r"\$\d[\d,]*(\.\d+)?", "<PRICE>", s)             # prices
         s = re.sub(r"\b\d{1,2}:\d{2}(:\d{2})?(\s*[AP]M)?\b", "<TIME>", s, flags=re.I)
         s = re.sub(r"\b\d{4}-\d{2}-\d{2}\b", "<DATE>", s)
         s = re.sub(r"\b\d+(\.\d+)?\s*(MiB|GiB|MB|GB|KB)\b", "<SIZE>", s)  # usage meters
-        # R3: drop proven-volatile lines only
+        # R3: drop proven-volatile lines only (badges, live spend/metric values)
         if re.match(r'^- (button|generic|StaticText)( ".*?")?\s*"?(Notifications?\s*\d*|Mark all as read)', s, re.I):
+            continue
+        if re.match(r'^- (StaticText|generic):?\s*"?(Current Spend|Request Units)', s, re.I):
             continue
         if re.match(r'^- (StaticText|generic):?\s*"<SIZE>"\s*$', s):
             continue
