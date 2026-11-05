@@ -17,7 +17,7 @@ from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 from google import genai
 
-REPO_OWNER = "pingcap"
+REPO_OWNER = "qiancai"
 REPO_NAME = "docs"
 EN_BRANCH = "release-8.5"
 ZH_BRANCH = "i18n-zh-release-8.5"
